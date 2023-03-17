@@ -11,6 +11,7 @@ import CategoryBar from "./components/category/categoryBar";
 import { OrderComplete } from "./components/cart/orderComplete";
 import { CategoryMove } from "./components/category/categoryMove";
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
+import InsertSpec from "./components/eventBanner/insertSpec";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -73,6 +74,12 @@ function App() {
               path="/showMySpec"
               element={
                   <ShowMySpec />
+              }
+          />
+          <Route
+              path="/insertSpec"
+              element={
+                  <InsertSpec />
               }
           />
       </Routes>

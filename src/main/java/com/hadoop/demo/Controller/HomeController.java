@@ -3,10 +3,17 @@ package com.hadoop.demo.Controller;
 import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.util.HashMap;
@@ -20,6 +27,29 @@ public class HomeController {
     @Autowired //Bean으로 등록된 클래스들을 스프링을 시작할 때 (서버를 켤 때)자동으로 주입
     private UserService userService;
 
+    @GetMapping("/insertSpec")
+    public ResponseEntity<Resource> downloadFile() throws IOException {
+        // 다운로드할 파일 경로
+        String currentDirectory = System.getProperty("user.dir");
+        String filePath = currentDirectory + "/src/main/resources/Scoop.exe";
+
+        // 파일을 읽어서 InputStream으로 변환
+        InputStream inputStream = new FileInputStream(filePath);
+
+        // InputStreamResource 생성
+        InputStreamResource resource = new InputStreamResource(inputStream);
+
+        // Content-Disposition 헤더를 설정하여 파일 이름 지정
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=Scoop.exe");
+
+        // ResponseEntity에 InputStreamResource와 headers 설정
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(inputStream.available())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
     @GetMapping("/api/data")
     public Map<String, String> getCPUInfo() {
         OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
