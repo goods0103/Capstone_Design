@@ -1,0 +1,101 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "인텔 i7 12세대",
+      "provider": "INTEL",
+      "price": 520100,
+      "image": "/images/product/cpu1.png",
+      "category": "c1"
+    },
+    {
+      "id": 2,
+      "name": "인텔 i9 12세대",
+      "provider": "INTEL",
+      "price": 661130,
+      "image": "/images/product/cpu2.jpg",
+      "category": "c1"
+    },
+    {
+      "id": 3,
+      "name": "라이젠 5-3세대 3600",
+      "provider": "RYZEN",
+      "price": 169900,
+      "image": "/images/product/cpu3.png",
+      "category": "c1"
+    },
+    {
+      "id": 4,
+      "name": "MSI 지포스 RTX 3080",
+      "provider": "MSI",
+      "price": 1116760,
+      "image": "/images/product/gpu1.png",
+      "category": "c2"
+    },
+    {
+      "id": 5,
+      "name": "MSI 지포스 RTX 3060 ti",
+      "provider": "MSI",
+      "price": 583980,
+      "image": "/images/product/gpu2.jpg",
+      "category": "c2"
+    },
+    {
+      "id": 6,
+      "name": "MSI 지포스 RTX 2080 ti",
+      "provider": "MSI",
+      "price": 672000,
+      "image": "/images/product/gpu3.jpg",
+      "category": "c2"
+    },
+    {
+      "id": 7,
+      "name": "삼성전자 DDR4-3200 (16GB)",
+      "provider": "SAMSUNG",
+      "price": 43170,
+      "image": "/images/product/ram1.png",
+      "category": "c3"
+    },
+    {
+      "id": 8,
+      "name": "G.SKILL DDR4-3600 CL18 TRIDENT Z RGB 패키지 (32GB(16Gx2))",
+      "provider": "G.SKILL",
+      "price": 150000,
+      "image": "/images/product/ram2.png",
+      "category": "c3"
+    },
+    {
+      "id": 9,
+      "name": "G.SKILL DDR4-3600 CL16 TRIDENT Z NEO C 패키지 (32GB(16Gx2))",
+      "provider": "DAILYCOMMA",
+      "price": 199990,
+      "image": "/images/product/ram3.png",
+      "category": "c3"
+    },
+    {
+      "id": 10,
+      "name": "Cyberpunk 2077",
+      "provider": "CD PROJECT RED",
+      "price": 66000,
+      "image": "/images/product/game1.jpg",
+      "category": "c4"
+    },
+    {
+      "id": 11,
+      "name": "ELDEN RING",
+      "provider": "FromSoftware Inc",
+      "price": 64800,
+      "image": "/images/product/game2.jpg",
+      "category": "c4"
+    },
+    {
+      "id": 12,
+      "name": "hogwart legacy",
+      "provider": "Avalanche Software",
+      "price": 68800,
+      "image": "/images/product/game3.jpg",
+      "category": "c4"
+    }
+
+  ]
+}
