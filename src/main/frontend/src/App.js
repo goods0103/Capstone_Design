@@ -76,7 +76,7 @@ function App() {
                   <ShowMySpec />
               }
           />
-          <Route
+           <Route
               path="/insertSpec"
               element={
                   <InsertSpec />
