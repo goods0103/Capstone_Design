@@ -61,9 +61,6 @@ function ShowMySpec() {
             email: email,
             password: password,
         };
-        console.log("first clear");
-        console.log(userData.email);
-        console.log(userData.password);
         axios.post('http://localhost:12000/api/signup', userData)
             .then(response => {
                 console.log(response);
@@ -71,7 +68,6 @@ function ShowMySpec() {
             .catch(error => {
                 console.log(error);
             });
-        console.log("second clear");
     }
 
     return (
@@ -85,7 +81,7 @@ function ShowMySpec() {
                 </ul>
             )}
             <p>CPU 모델명: {cpuModel}</p>
-            {cpuInfo !== null && <p>CPU aaaaa 정보: {cpuInfo}</p>}
+            {cpuInfo !== null && <p>CPU 정보: {cpuInfo}</p>}
             {gpuInfo !== null && <p>GPU 정보: {gpuInfo}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
