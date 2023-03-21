@@ -2,9 +2,13 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Service.UserService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -12,16 +16,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
@@ -29,6 +29,22 @@ public class HomeController {
 
     @Autowired //Bean으로 등록된 클래스들을 스프링을 시작할 때 (서버를 켤 때)자동으로 주입
     private UserService userService;
+
+
+    @GetMapping("/apex-legends/system-requirements")
+    public String getSystemRequirements() throws IOException {
+        String url = "https://www.systemrequirementslab.com/requirements/call-of-duty-warzone/19566";
+        Document document = Jsoup.connect(url).get();
+        Element systemReq = document.selectFirst("col col-8");
+        Elements systemReqList = systemReq.select("li");
+
+        StringBuilder result = new StringBuilder();
+        for (Element systemReqItem : systemReqList) {
+            result.append(systemReqItem.text()).append("\n");
+        }
+
+        return result.toString();
+    }
 
     @GetMapping("/insertSpec")
     public ResponseEntity<Resource> downloadFile() throws IOException {
