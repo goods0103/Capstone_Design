@@ -57,6 +57,7 @@ public class CrawlingPassmark {
                     break;
                 }
                 System.out.print(select.text());
+
 //            String [] str = select.text().split(" ");
 //            String firstWord = str[0].substring(0,str[0].length()-1);
 //            //System.out.println(firstWord);

@@ -11,23 +11,23 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-@Table(name = "cpuList")
+@Table(name = "cpu_list")
 public class CpuList {
 
     @Id
-    private String cpuName;
+    private String cpuname;
 
-    @Column
-    private int cpuMark;
+    @Column(name = "cpu_name")
+    private int cpumark;
 
-    @Column
-    private int rank;
+    @Column(name = "cpu_rank")
+    private int cpurank;
 
-    @Column
-    private int cpuValue;
+    @Column(name = "cpu_value")
+    private int cpuvalue;
 
-    @Column
-    private int Price;
+    @Column(name = "price")
+    private int price;
 
 
 }
