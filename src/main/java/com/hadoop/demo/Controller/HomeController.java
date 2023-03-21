@@ -10,6 +10,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -67,6 +68,18 @@ public class HomeController {
                 .body(inputStreamResource);
     }
 
+
+        @GetMapping("/api/spring")
+                public ResponseEntity<Void> cpu(){
+            System.out.println("cpu 정보를 불러오는중");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        @PostMapping("/api/spring")
+        public ResponseEntity<String> sendString(@RequestBody String data) {
+            System.out.println("cpu 정보 : " + data);
+            return ResponseEntity.ok(data);
+        }
     @GetMapping("/api/data")
     public Map<String, String> getCPUInfo() {
         OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
