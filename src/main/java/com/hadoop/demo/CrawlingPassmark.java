@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,6 +86,7 @@ public class CrawlingPassmark {
                 //https://jsoup.org/apidocs/org/jsoup/nodes/Element.html 참고
             }
             if(flag == 1) System.out.println();
+
         }
         return list;
     }

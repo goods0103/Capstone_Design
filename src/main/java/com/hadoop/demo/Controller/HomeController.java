@@ -80,6 +80,7 @@ public class HomeController {
             System.out.println("cpu 정보 : " + data);
             return ResponseEntity.ok(data);
         }
+
     @GetMapping("/api/data")
     public Map<String, String> getCPUInfo() {
         OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
