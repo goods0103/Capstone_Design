@@ -9,26 +9,26 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table (name = "userInfo")
+@Table (name = "userinfo")
 public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "cpuInfo")
+    @Column(name = "cpu_info")
     private String cpuInfo;
 
-    @Column(name = "gpuInfo")
+    @Column(name = "gpu_info")
     private String gpuInfo;
 
-    @Column(name = "ramType")
+    @Column(name = "ram_type")
     private String ramType;
-    @Column(name = "ramSize")
+    @Column(name = "ram_size")
     private int ramSize;
-    @Column(name = "ramSpeed")
+    @Column(name = "ram_speed")
     private int ramSpeed;
-    @Column(name = "ramCount")
+    @Column(name = "ram_count")
     private int ramCount;
 
     public UserInfo(String cpu, String gpu, String ram, int ramSize, int ramSpeed, int ramCount) {

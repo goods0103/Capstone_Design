@@ -61,22 +61,37 @@ public class UserInfoController {
 
         data = data.split("\"")[3].trim();
         System.out.println(n + "번째 cpu 정보 : " + data);
+        System.out.println(data.split(": ")[0]);
+
         switch (data.split(": ")[0]) {
             case "CPU Name":
                 cpu = data.split(": ")[1].trim();
+                System.out.println(cpu);
+                break;
             case "GPU Name":
                 gpu = data.split(": ")[1].trim();
+                System.out.println(gpu);
+                break;
             case "RAM Type":
                 ram = data.split(": ")[1].trim();
+                System.out.println(ram);
+                break;
             case "RAM Size":
                 rSize = Integer.parseInt(data.split(": ")[1].trim());
+                System.out.println(rSize);
+                break;
             case "RAM Speed":
                 rSpeed = Integer.parseInt(data.split(": ")[1].trim());
+                System.out.println(rSpeed);
+                break;
             case "RAM Count":
                 rCount = Integer.parseInt(data.split(": ")[1].trim());
+                System.out.println(rCount);
+                break;
         }
         n++;
-        if (n == 7) {
+        if (gpu != null) {
+            System.out.println(cpu + gpu + ram + rSize + " " + rSpeed + " " + rCount);
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
