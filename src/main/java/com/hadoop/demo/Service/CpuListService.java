@@ -5,8 +5,10 @@ import com.hadoop.demo.Repository.CpuListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class InsertCpuList {
+public class CpuListService {
 
     @Autowired
     private CpuListRepository cpuListRepository;
@@ -15,4 +17,7 @@ public class InsertCpuList {
         return cpuListRepository.save(cpuList);
     }
 
+    public List<CpuList> findAll() {
+        return cpuListRepository.findAll();
+    }
 }

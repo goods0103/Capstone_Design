@@ -1,6 +1,8 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.User;
+import com.hadoop.demo.Service.CpuListService;
 import com.hadoop.demo.Service.UserService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +18,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.util.*;
