@@ -50,6 +50,7 @@ public class HomeController {
     public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/api/signup/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
         Optional<User> optionalUser = userService.findById(id);
@@ -59,6 +60,7 @@ public class HomeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @PostMapping("/api/signup")
     public ResponseEntity<User> save(@RequestBody User user) {
         System.out.println("successfully response!");
