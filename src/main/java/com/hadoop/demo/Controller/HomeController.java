@@ -31,7 +31,6 @@ public class HomeController {
     @Autowired //Bean으로 등록된 클래스들을 스프링을 시작할 때 (서버를 켤 때)자동으로 주입
     private UserService userService;
 
-
     @GetMapping("/api/data")
     public Map<String, String> getCPUInfo() {
         OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
