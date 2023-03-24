@@ -1,6 +1,5 @@
 package com.hadoop.demo.Service;
 
-import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

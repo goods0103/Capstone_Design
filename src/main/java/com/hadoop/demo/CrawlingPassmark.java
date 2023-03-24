@@ -1,10 +1,13 @@
 package com.hadoop.demo;
 
+import com.hadoop.demo.Model.CPUList;
+import com.hadoop.demo.Service.CPUListService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,49 +46,61 @@ public class CrawlingPassmark {
      * data가져오기
      */
     private List<String> getDataList(Document document) {
+
+        CPUListService cpuListService = new CPUListService();
+        CPUList data = new CPUList();
+
         List<String> list = new ArrayList<>();
-        for(int j=1; j<100; j++) {
-            Elements selects = document.select("#cpu" + j + " > td");
+        for(int j=1; j<10; j++) {
+            Elements selects = document.select("#cpu" + j + "> td");
             //select 메서드 안에 css selector를 작성하여 Elements를 가져올 수 있다.
-            int flag = 1;
+            int flag = 0;
 
             for (Element select : selects) {
-                if(select.text().equals("")) {
-                    flag = 0;
-                    System.out.print("None");
-                    break;
+                System.out.println(select.text());
+                switch (flag) {
+                    case 0:
+                        data.setCpu_name(select.text());
+                        break;
+                    case 1:
+                        int mark = Integer.parseInt(select.text().replace(",", ""));
+                        data.setCpu_mark(mark);
+                        break;
+                    case 2:
+                        data.setCpu_rank(Integer.parseInt(select.text()));
+                        break;
+                    case 3:
+                        if(select.text().equals("NA")){
+                            data.setCpu_value(0);
+                            break;
+                        }
+                        data.setCpu_value(Double.parseDouble(select.text()));
+                        break;
+                    case 4:
+                        if(select.text().equals("NA")){
+                            data.setCpu_price(0);
+                            break;
+                        }
+                        int price = (int) Double.parseDouble(select.text().replaceAll("[$*]", ""));
+                        data.setCpu_price(price * 1200);
+                        break;
                 }
-                System.out.print(select.text());
-//            String [] str = select.text().split(" ");
-//            String firstWord = str[0].substring(0,str[0].length()-1);
-//            //System.out.println(firstWord);
-//            String text = "";
-//            for(int i=0; i<str.length; i++){
-//                //text = text.concat(str[i] + " ");
-//                System.out.println(str[i]);
-//            }
-//            switch (firstWord) {
-//                case "Processor":
-//                    System.out.println(text);
-//                    String intel = text.split(" / ")[0];
-//                    String amd = text.split(" / ")[1];
-//                    System.out.println(intel + amd);
-//                    break;
-//                case "Memory":
-//                    System.out.println(str[1]);
-//                    break;
-//                case "Graphics":
-//                    //System.out.println(text);
-//                    String nvi = text.split(" / ")[0];
-//                    String amd2 = text.split(" / ")[1];
-//                    System.out.println(nvi + amd2);
-//                    break;
-//            }
-                //html(), text(), children(), append().... 등 다양한 메서드 사용 가능
-                //https://jsoup.org/apidocs/org/jsoup/nodes/Element.html 참고
+//                if(select.text().equals("NA")) {
+//                    continue;
+//                }
+//                if (flag == 1){
+//                    int mark = Integer.parseInt(select.text().replace(",", ""));
+//                    System.out.println(mark);
+//                }
+//                if(flag == 4){
+//                    int price = (int) Double.parseDouble(select.text().replaceAll("[$*]", ""));
+//                    System.out.println(price * 1200);
+//                }
+//                System.out.println(select.text());
+                flag++;
             }
-            if(flag == 1) System.out.println();
         }
+        //cpuListService.save(data);
         return list;
     }
 
