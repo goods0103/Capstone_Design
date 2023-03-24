@@ -1,6 +1,8 @@
 package com.hadoop.demo.Model;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -11,8 +13,9 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
-@Table (name = "cpu_list")
-public class CPUList {
+@NoArgsConstructor
+@Table (name = "cpulist")
+public class CpuList {
 
     @Id
     private String cpu_name;
@@ -28,4 +31,13 @@ public class CPUList {
 
     @Column(name = "cpu_price")
     private int cpu_price;
+
+    @Builder
+    public CpuList(String cpu_name, int cpu_mark, int cpu_rank, double cpu_value, int cpu_price) {
+        this.cpu_name = cpu_name;
+        this.cpu_mark = cpu_mark;
+        this.cpu_rank = cpu_rank;
+        this.cpu_value = cpu_value;
+        this.cpu_price = cpu_price;
+    }
 }
