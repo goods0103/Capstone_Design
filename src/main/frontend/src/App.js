@@ -81,7 +81,7 @@ function App() {
           }
         /> */}
         <Route
-          path="/category/c1"
+          path="/category/cpu1"
           element={
             <CategoryCpu
               convertPrice={convertPrice}
@@ -91,7 +91,7 @@ function App() {
           }
         />
           <Route
-              path="/category/c2"
+              path="/category/gpu1"
               element={
                   <CategoryGpu
                       convertPrice={convertPrice}
@@ -101,7 +101,7 @@ function App() {
               }
           />
           <Route
-              path="/category/c3"
+              path="/category/ram1"
               element={
                   <CategoryRam
                       convertPrice={convertPrice}
@@ -116,6 +116,7 @@ function App() {
             <ShowMySpec />
           }
         />
+
         <Route
           path="/insertSpec"
           element={
