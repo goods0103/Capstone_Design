@@ -2,6 +2,7 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Model.UserInfo;
+import com.hadoop.demo.Service.CompareService;
 import com.hadoop.demo.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -22,6 +23,10 @@ public class UserInfoController {
 
     @Autowired
     UserInfoService userInfoService;
+
+    @Autowired
+    private CompareService compareService;
+
 
     private int n = 1;
     private String cpu, gpu, ram;
@@ -60,38 +65,30 @@ public class UserInfoController {
     public ResponseEntity<String> sendString(@RequestBody String data) {
 
         data = data.split("\"")[3].trim();
-        System.out.println(n + "번째 cpu 정보 : " + data);
-        System.out.println(data.split(": ")[0]);
 
         switch (data.split(": ")[0]) {
             case "CPU Name":
                 cpu = data.split(": ")[1].trim();
-                System.out.println(cpu);
                 break;
             case "GPU Name":
                 gpu = data.split(": ")[1].trim();
-                System.out.println(gpu);
                 break;
             case "RAM Type":
                 ram = data.split(": ")[1].trim();
-                System.out.println(ram);
                 break;
             case "RAM Size":
                 rSize = Integer.parseInt(data.split(": ")[1].trim());
-                System.out.println(rSize);
                 break;
             case "RAM Speed":
                 rSpeed = Integer.parseInt(data.split(": ")[1].trim());
-                System.out.println(rSpeed);
                 break;
             case "RAM Count":
                 rCount = Integer.parseInt(data.split(": ")[1].trim());
-                System.out.println(rCount);
                 break;
         }
         n++;
         if (gpu != null) {
-            System.out.println(cpu + gpu + ram + rSize + " " + rSpeed + " " + rCount);
+            System.out.println(cpu + " " +  gpu + " " + ram + rSize + " " + rSpeed + " " + rCount);
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
@@ -106,6 +103,11 @@ public class UserInfoController {
     @GetMapping("/api/userInfoList")
     public ResponseEntity<List<UserInfo>> findAll() {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/MySpec")
+    public String getMatchingColumns() {
+        return compareService.getMatchingCpu();
     }
 
 }

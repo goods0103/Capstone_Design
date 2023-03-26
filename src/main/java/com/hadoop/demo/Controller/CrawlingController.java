@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -25,7 +24,7 @@ public class CrawlingController {
         String url = "https://www.cpubenchmark.net/cpu_list.php";
         Document document = Jsoup.connect(url).get();
         // 데이터 추출
-        for (int i = 1; i <= 5275; i++) {
+        for (int i = 1; i <= 5300; i++) {
             Element row = document.select("tr#cpu" + i).first();
             int cpu_id = i;
             if (row != null) {
@@ -63,22 +62,7 @@ public class CrawlingController {
 
             }
         }
-        List<CpuList> cpuList = insertCpuList.findAll();
-        StringBuilder result = new StringBuilder();
-        for (CpuList cpu : cpuList) {
-            result.append("cpu: ").append(cpu.getCpu_name()).append("\n");
-            result.append("cpu_mark: ").append(cpu.getCpu_mark()).append("\n");
-            result.append("cpu_rank: ").append(cpu.getCpu_rank()).append("\n");
-            if (cpu.getCpu_value() != 0) {
-                result.append("cpu_value: ").append(cpu.getCpu_value());
-            }
-            result.append("\n");
-            if (cpu.getCpu_price() != 0) {
-                result.append("price: ").append(cpu.getCpu_price());
-            }
-            result.append("\n\n");
-        }
-        return result.toString();
+        return "success!!";
 
 
     }

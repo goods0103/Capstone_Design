@@ -13,11 +13,9 @@ public class CpuListService {
     @Autowired
     private CpuListRepository cpuListRepository;
 
-    public CpuList save(CpuList cpuList){
+    public CpuList save(CpuList cpuList) {
         return cpuListRepository.save(cpuList);
     }
 
-    public List<CpuList> findAll() {
-        return cpuListRepository.findAll();
-    }
+    public List<CpuList> findAll() { return cpuListRepository.findAll();}
 }
