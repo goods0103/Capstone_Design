@@ -1,6 +1,7 @@
 package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.CpuList;
+import com.hadoop.demo.Service.CompareService;
 import com.hadoop.demo.Service.CpuListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,9 @@ import java.util.List;
 public class DataController {
 
     @Autowired
+    private CompareService compareService;
+
+    @Autowired
     private CpuListService cpuListService;
 
     @GetMapping("/category/cpu1")
@@ -21,4 +25,10 @@ public class DataController {
         return cpuListService.findAll();
     }
 
+
+    @GetMapping("/cpu_compare")
+    public String getMatchingColumns() {
+        System.out.println(compareService.getMatchingCpu());
+        return compareService.getMatchingCpu();
+    }
 }

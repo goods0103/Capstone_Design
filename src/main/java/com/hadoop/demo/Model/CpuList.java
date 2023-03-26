@@ -17,8 +17,12 @@ import javax.persistence.Table;
 @Table(name = "cpulist")
 public class CpuList {
 
+
     @Id
     private String cpu_name;
+
+    @Column(name = "cpu_id")
+    private int cpu_id;
 
     @Column(name = "cpu_mark")
     private int cpu_mark;
@@ -33,7 +37,8 @@ public class CpuList {
     private int cpu_price;
 
     @Builder // 7.
-    public CpuList(String cpu_name, int cpu_mark, int cpu_rank, double cpu_value, int cpu_price) {
+    public CpuList(int cpu_id, String cpu_name, int cpu_mark, int cpu_rank, double cpu_value, int cpu_price) {
+        this.cpu_id = cpu_id;
         this.cpu_name = cpu_name;
         this.cpu_mark = cpu_mark;
         this.cpu_rank = cpu_rank;
