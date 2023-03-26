@@ -6,6 +6,7 @@ import CategoryBar from "./CategoryBar";
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
 
+  // hello
   useEffect(() => {
     const fetchData = async () => {
       try {
