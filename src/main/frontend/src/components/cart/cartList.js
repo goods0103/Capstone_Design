@@ -1,8 +1,8 @@
 import styles from "./cart.module.css";
-import { TotalCart } from "./totalCart";
+import { TotalCart } from "./TotalCart";
 import {useRef} from "react"
-import { addDiscount } from "./totalCart";
-import { minusDiscount } from "./totalCart";
+import { addDiscount } from "./TotalCart";
+import { minusDiscount } from "./TotalCart";
 
 export const CartList = ({
   cart,

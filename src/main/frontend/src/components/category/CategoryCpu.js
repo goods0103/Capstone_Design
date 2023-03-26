@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from "../main/main.module.css";
 import axios from 'axios';
-import CategoryBar from "./categoryBar";
+import CategoryBar from "./CategoryBar";
 
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
@@ -9,7 +9,7 @@ function CategoryCpu() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/category/c10');
+        const response = await axios.get('/category/cpu1');
         setCpuList(response.data);
       } catch (error) {
         console.log(error);

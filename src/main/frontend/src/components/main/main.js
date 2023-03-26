@@ -1,9 +1,9 @@
 import styles from "./main.module.css";
 import { useEffect } from "react";
-import { EventBanner } from "../eventBanner/eventBanner";
+import { EventBanner } from "../eventBanner/EventBanner";
 import { Product } from "../products/product";
 import { getProducts } from "../../service/fetcher";
-import CategoryBar from "../category/categoryBar";
+import CategoryBar from "../category/CategoryBar";
 
 export const Main = ({ convertPrice, products, setProducts }) => {
   const sortProduct = (type) => {

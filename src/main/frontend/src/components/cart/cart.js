@@ -2,7 +2,7 @@ import styles from "./cart.module.css";
 import { useState } from "react";
 import { CartHeader } from "./cartHeader";
 import { CartList } from "./cartList";
-import { TotalCart } from "./totalCart";
+import { TotalCart } from "./TotalCart";
 import { CartProgress } from "./cartProgress";
 
 export const Cart = ({ cart, setCart, convertPrice }) => {
