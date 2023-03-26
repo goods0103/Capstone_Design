@@ -48,7 +48,7 @@ public class CompareService {
             int similarity = StringUtils.getLevenshteinDistance(findcpu, findcpuArray);
             System.out.println(findcpuArray);
             System.out.println(similarity);
-            if (similarity > maxSimilarity) {
+            if (similarity < maxSimilarity) {
                 maxSimilarity = similarity;
                 mostSimilar = findcpuArray;
             }
