@@ -10,6 +10,7 @@ import TopButton from "./components/topButton/topButton";
 import CategoryBar from "./components/category/categoryBar";
 import { OrderComplete } from "./components/cart/orderComplete";
 import { CategoryMove } from "./components/category/categoryMove";
+import CategoryCpu from './components/category/CategoryCpu';
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
 import InsertSpec from "./components/eventBanner/insertSpec";
 
@@ -59,17 +60,27 @@ function App() {
             <OrderComplete />
           }
         />
-        <Route
-          path="/category/:n"
-          element={
-            <CategoryMove
-              convertPrice={convertPrice}
-              products={products}
-              setProducts={setProducts}
-            />
+        {/*<Route*/}
+        {/*  path="/category/:n"*/}
+        {/*  element={*/}
+        {/*    <CategoryMove*/}
+        {/*      convertPrice={convertPrice}*/}
+        {/*      products={products}*/}
+        {/*      setProducts={setProducts}*/}
+        {/*    />*/}
 
-          }
-        />
+        {/*  }*/}
+        {/*/>*/}
+          <Route
+              path="/category/c1"
+              element={
+                  <CategoryCpu
+                      convertPrice={convertPrice}
+                      products={products}
+                      setProducts={setProducts}
+                  />
+              }
+          />
           <Route
               path="/showMySpec"
               element={

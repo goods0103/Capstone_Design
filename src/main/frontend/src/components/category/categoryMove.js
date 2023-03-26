@@ -23,7 +23,7 @@ export const CategoryMove = ({ convertPrice, products, setProducts }) => {
           setProducts(newProduct);
         }
       };
-    
+
       useEffect(() => {
         getProducts().then((data) => {
           setProducts(data.data.products);
