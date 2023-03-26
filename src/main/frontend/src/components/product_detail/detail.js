@@ -2,7 +2,7 @@ import styles from "./detail.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../service/fetcher";
-import CategoryBar from "../category/categoryBar";
+import CategoryBar from "../category/CategoryBar";
 
 export const Detail = ({ convertPrice, cart, setCart }) => {
   const { id } = useParams();

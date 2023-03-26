@@ -16,7 +16,7 @@ public class DataController {
     @Autowired
     private CpuListService cpuListService;
 
-    @GetMapping("/category/c10")
+    @GetMapping("/category/cpu1")
     public List<CpuList> getAllCpuList() {
         return cpuListService.findAll();
     }

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Product } from "../products/product";
 import { getProducts } from "../../service/fetcher";
 import { useParams } from "react-router-dom";
-import CategoryBar from "./categoryBar";
+import CategoryBar from "./CategoryBar";
 
 export const CategoryMove = ({ convertPrice, products, setProducts }) => {
     let params = useParams();
@@ -23,7 +23,7 @@ export const CategoryMove = ({ convertPrice, products, setProducts }) => {
           setProducts(newProduct);
         }
       };
-    
+
       useEffect(() => {
         getProducts().then((data) => {
           setProducts(data.data.products);
