@@ -27,7 +27,7 @@ public class UserInfoController {
     private String cpu, gpu, ram;
     private int rSize, rSpeed, rCount;
 
-    @GetMapping("/insertSpec")
+    @GetMapping("/ShowMySpec")
     public ResponseEntity<Resource> downloadFile() throws IOException {
         // 다운로드할 파일 경로
         // 다운로드할 파일 경로

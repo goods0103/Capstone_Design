@@ -27,13 +27,13 @@ function CategoryBar() {
       <>
         <Nav justify variant="tabs">
           <Nav.Item>
-            <StyledLink to="/category/c1" isActive={pathname === "/category/c1"}>CPU</StyledLink>
+            <StyledLink to="/category/c1" isActive={pathname === "/category/cpu1"}>CPU</StyledLink>
           </Nav.Item>
           <Nav.Item>
-            <StyledLink to="/category/c2" isActive={pathname === "/category/c2"}>GPU</StyledLink>
+            <StyledLink to="/category/c2" isActive={pathname === "/category/gpu1"}>GPU</StyledLink>
           </Nav.Item>
           <Nav.Item>
-            <StyledLink to="/category/c3" isActive={pathname === "/category/c3"}>RAM</StyledLink>
+            <StyledLink to="/category/c3" isActive={pathname === "/category/ram1"}>RAM</StyledLink>
           </Nav.Item>
           <Nav.Item>
             <StyledLink to="/category/c4" isActive={pathname === "/category/c4"}>Game</StyledLink>
