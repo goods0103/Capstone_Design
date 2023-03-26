@@ -3,6 +3,7 @@ import styles from "../main/main.module.css";
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 
+// [Mod] for check
 function CategoryGpu() {
     const [gpuList, setGpuList] = useState([]);
 
