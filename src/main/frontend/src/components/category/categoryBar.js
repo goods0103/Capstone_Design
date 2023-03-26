@@ -47,4 +47,4 @@ function CategoryBar() {
       );
 }
 
-export default CategoryBar;
+export default CategoryBar;기
