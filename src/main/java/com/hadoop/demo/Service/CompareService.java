@@ -23,39 +23,29 @@ public class CompareService {
         List<String> matchingCpu = new ArrayList<>();
 
         List<CpuList> cpulist = cpuListRepository.findAll();
-        List<UserInfo> usercpu = userInfoRepository.findAll();
+        List<UserInfo> userCpu = userInfoRepository.findAll();
 
-        String findcpu ="";
-        for(CpuList cpu1 : cpulist){
-            for(UserInfo cpu2 : usercpu){
-                if(cpu1.getCpu_name().contains(cpu2.getCpuInfo()) || cpu2.getCpuInfo().contains(cpu1.getCpu_name())){
-                    matchingCpu.add(cpu1.getCpu_name());
-                    findcpu = cpu2.getCpuInfo();
-                    break;
-                }
-            }
+        String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
+
+        for(CpuList cpu : cpulist){
+            if(cpu.getCpu_name().contains(lastData) || lastData.contains(cpu.getCpu_name()))
+                matchingCpu.add(cpu.getCpu_name());
         }
 
-//        System.out.println("findcpu : " + findcpu);
-//        System.out.println(matchingCpu);
         String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
 
-
         String mostSimilar = "";
-        int maxSimilarity = -1;
+        int maxSimilarity = 100;
 
-        for (String findcpuArray : cpuArray) {
-            int similarity = StringUtils.getLevenshteinDistance(findcpu, findcpuArray);
-            System.out.println(findcpuArray);
-            System.out.println(similarity);
-            if (similarity > maxSimilarity) {
+        for (String findCpuArray : cpuArray) {
+            int similarity = StringUtils.getLevenshteinDistance(lastData, findCpuArray);
+            if (similarity < maxSimilarity) {
                 maxSimilarity = similarity;
-                mostSimilar = findcpuArray;
+                mostSimilar = findCpuArray;
             }
         }
+
         System.out.println("Most similar string: " + mostSimilar);
-
-
 
         return mostSimilar;
     }
