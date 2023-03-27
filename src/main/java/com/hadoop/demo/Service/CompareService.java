@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 
 @Service
@@ -19,7 +21,7 @@ public class CompareService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public String getMatchingCpu(){
+    public CpuList getMatchingCpu(){
         List<String> matchingCpu = new ArrayList<>();
 
         List<CpuList> cpulist = cpuListRepository.findAll();
@@ -47,7 +49,19 @@ public class CompareService {
 
         System.out.println("Most similar string: " + mostSimilar);
 
-        return mostSimilar;
+        Optional<CpuList> optionalFindCpu =  cpuListRepository.findById(mostSimilar);
+        CpuList findCpu = optionalFindCpu.orElse(null);
+        if (findCpu != null) {
+            String cpuString = findCpu.getCpu_name();
+            System.out.println(cpuString);
+            System.out.println(findCpu.getCpu_id());
+            System.out.println(findCpu.getCpu_mark());
+            System.out.println(findCpu.getCpu_rank());
+        } else {
+            System.out.println("CPU not found!");
+        }
+
+        return findCpu;
     }
 
 
