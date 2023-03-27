@@ -1,8 +1,10 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Service.CompareService;
+import com.hadoop.demo.Service.CpuListService;
 import com.hadoop.demo.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -62,7 +64,7 @@ public class UserInfoController {
 
 
     @PostMapping("/api/spring")
-    public ResponseEntity<String> sendString(@RequestBody String data) {
+    public ResponseEntity<CpuList> sendString(@RequestBody String data) {
 
         data = data.split("\"")[3].trim();
 
@@ -92,8 +94,10 @@ public class UserInfoController {
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
+            return new ResponseEntity<>(compareService.getMatchingCpu(), HttpStatus.OK);
         }
-        return ResponseEntity.ok(data);
+        return null;
+        //return ResponseEntity.ok(data);
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
@@ -105,9 +109,10 @@ public class UserInfoController {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/MySpec")
-    public String getMatchingColumns() {
-        return compareService.getMatchingCpu();
-    }
+//    @GetMapping("/MySpec")
+//    public CpuList getMatchingColumns() {
+//        //System.out.println(compareService.getMatchingCpu());
+//        return compareService.getMatchingCpu();
+//    }
 
 }

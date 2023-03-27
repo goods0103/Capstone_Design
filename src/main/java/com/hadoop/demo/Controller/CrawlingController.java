@@ -42,7 +42,7 @@ public class CrawlingController {
                         // CpuList 모델 객체 생성
                         CpuList cpuList = CpuList.builder()
                                 .cpu_id(cpu_id)
-                                .cpu_name(cpu_name)
+                                .cpuName(cpu_name)
                                 .cpu_mark(cpu_mark)
                                 .cpu_rank(cpu_rank)
                                 .cpu_value(cpu_value)
@@ -52,7 +52,7 @@ public class CrawlingController {
                     } else {
                         CpuList cpuList = CpuList.builder()
                                 .cpu_id(cpu_id)
-                                .cpu_name(cpu_name)
+                                .cpuName(cpu_name)
                                 .cpu_mark(cpu_mark)
                                 .cpu_rank(cpu_rank)
                                 .build();
