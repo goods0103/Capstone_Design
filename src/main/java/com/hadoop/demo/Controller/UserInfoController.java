@@ -1,8 +1,10 @@
 package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.CpuList;
+import com.hadoop.demo.Model.User;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Service.CompareService;
+import com.hadoop.demo.Service.CpuListService;
 import com.hadoop.demo.Service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -96,6 +97,7 @@ public class UserInfoController {
             return new ResponseEntity<>(compareService.getMatchingCpu(), HttpStatus.OK);
         }
         return null;
+        //return ResponseEntity.ok(data);
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
@@ -109,6 +111,7 @@ public class UserInfoController {
 
 //    @GetMapping("/MySpec")
 //    public CpuList getMatchingColumns() {
+//        //System.out.println(compareService.getMatchingCpu());
 //        return compareService.getMatchingCpu();
 //    }
 

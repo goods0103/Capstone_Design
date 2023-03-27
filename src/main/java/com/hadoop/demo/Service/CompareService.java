@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.apache.commons.lang3.StringUtils;
 
 @Service
@@ -30,8 +28,8 @@ public class CompareService {
         String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
 
         for(CpuList cpu : cpulist){
-            if(cpu.getCpu_name().contains(lastData) || lastData.contains(cpu.getCpu_name()))
-                matchingCpu.add(cpu.getCpu_name());
+            if(cpu.getCpuName().contains(lastData) || lastData.contains(cpu.getCpuName()))
+                matchingCpu.add(cpu.getCpuName());
         }
 
         String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
@@ -49,19 +47,8 @@ public class CompareService {
 
         System.out.println("Most similar string: " + mostSimilar);
 
-        Optional<CpuList> optionalFindCpu =  cpuListRepository.findById(mostSimilar);
-        CpuList findCpu = optionalFindCpu.orElse(null);
-        if (findCpu != null) {
-            String cpuString = findCpu.getCpu_name();
-            System.out.println(cpuString);
-            System.out.println(findCpu.getCpu_id());
-            System.out.println(findCpu.getCpu_mark());
-            System.out.println(findCpu.getCpu_rank());
-        } else {
-            System.out.println("CPU not found!");
-        }
 
-        return findCpu;
+        return cpuListRepository.findByCpuName(mostSimilar);
     }
 
 
