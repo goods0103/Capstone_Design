@@ -19,7 +19,7 @@ public class CompareService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public String getMatchingCpu(){
+    public CpuList getMatchingCpu(){
         List<String> matchingCpu = new ArrayList<>();
 
         List<CpuList> cpulist = cpuListRepository.findAll();
@@ -28,8 +28,8 @@ public class CompareService {
         String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
 
         for(CpuList cpu : cpulist){
-            if(cpu.getCpu_name().contains(lastData) || lastData.contains(cpu.getCpu_name()))
-                matchingCpu.add(cpu.getCpu_name());
+            if(cpu.getCpuName().contains(lastData) || lastData.contains(cpu.getCpuName()))
+                matchingCpu.add(cpu.getCpuName());
         }
 
         String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
@@ -47,7 +47,8 @@ public class CompareService {
 
         System.out.println("Most similar string: " + mostSimilar);
 
-        return mostSimilar;
+
+        return cpuListRepository.findByCpuName(mostSimilar);
     }
 
 
