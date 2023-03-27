@@ -37,7 +37,3 @@ out/
 ### VS Code ###
 .vscode/
 er.name
-
-/src/main/resources/static/static/js
-/static/js/
-asset-manifest.json
