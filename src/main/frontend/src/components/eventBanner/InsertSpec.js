@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Select from "react-select";
 
 function InsertSpec() {
     const [formState, setFormState] = useState({ cpu: '', gpu: '' });
+    const [selectedOption, setSelectedOption] = useState("");
+    const options = [
+        { value: "option1", label: "Option 1" },
+        { value: "option2", label: "Option 2" },
+        { value: "option3", label: "Option 3" },
+    ];
+
+    function handleOptionChange(selectedOption) {
+        setSelectedOption(selectedOption);
+    }
     // const [formState, setFormState] = useState({ cpu: '', gpu: '', ram: '' });
     const handleChange = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -21,21 +32,16 @@ function InsertSpec() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="cpu">Cpu:</label>
-                <input type="text" id="cpu" name="cpu" value={formState.cpu} onChange={handleChange} />
-            </div>
-            <div>
-                <label htmlFor="gpu">Gpu:</label>
-                <input type="text" id="gpu" name="gpu" value={formState.gpu} onChange={handleChange} />
-            </div>
-            {/*<div>*/}
-            {/*    <label htmlFor="ram">Ram:</label>*/}
-            {/*    <input type="text" id="ram" name="ram" value={formState.ram} onChange={handleChange} />*/}
-            {/*</div>*/}
-            <button type="submit">Submit</button>
-        </form>
+
+                <Select
+                    value={selectedOption}
+                    onChange={handleOptionChange}
+                    options={options}
+                    placeholder="Choose an option"
+                    isSearchable={true}
+                />
+
+
     );
 }
 
