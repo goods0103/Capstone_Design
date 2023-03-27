@@ -18,4 +18,5 @@ public class CpuListService {
     }
 
     public List<CpuList> findAll() { return cpuListRepository.findAll();}
+
 }
