@@ -4,30 +4,28 @@ import Select from "react-select";
 import styles from "./eventBanner.module.css"
 
 function InsertSpec() {
-    const [formState, setFormState] = useState({ cpu: '', gpu: '' });
-    // const [formState, setFormState] = useState({ cpu: '', gpu: '', ram: '' });
-    const handleChange = (e) => {
-        setFormState({ ...formState, [e.target.name]: e.target.value });
-    };
+
+    const [option, setOption] = useState([]);
+
+    useEffect(() => {
+        axios.get('/category/cpu1')
+            .then(response => {
+                const cpus = response.data.map(cpus => ({
+                    value: cpus.cpu_name,
+                    label: cpus.cpu_name
+                }));
+                setOption(cpus);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        axios.post('/api/submit', formState)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     };
 
     const [selectedOption, setSelectedOption] = useState("");
-    const options = [
-        { value: "option1", label: "Option 1" },
-        { value: "option2", label: "Option 2" },
-        { value: "option3", label: "Option 3" },
-    ];
 
     function handleOptionChange(selectedOption) {
         setSelectedOption(selectedOption);
@@ -35,30 +33,38 @@ function InsertSpec() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" value={selectedOption ? selectedOption.label : ''} />
+            <label htmlFor="cpuSelect">Selected Cpu:</label>
+            <input name = "cpuSelect" className={styles.selectTagShow} value={selectedOption ? selectedOption.label : ''} />
             <Select
                 value={selectedOption}
                 onChange={handleOptionChange}
-                options={options}
+                options={option}
                 placeholder="Choose an option"
                 className={styles.selectTag}
             />
 
-            <div>
-                <label htmlFor="cpu">Cpu:</label>
-                <input type="text" id="cpu" name="cpu" value={formState.cpu} onChange={handleChange} />
-            </div>
-            <div>
-                <label htmlFor="gpu">Gpu:</label>
-                <input type="text" id="gpu" name="gpu" value={formState.gpu} onChange={handleChange} />
-                <ul>
+            <label htmlFor="cpuSelect">Selected Gpu:</label>
+            <input name = "cpuSelect" className={styles.selectTagShow}  />
+            <Select
+                value={selectedOption}
+                onChange={handleOptionChange}
+                options={option}
+                placeholder="Choose an option"
+                isSearchable={true}
+                className={styles.selectTag}
+            />
 
-                </ul>
-            </div>
-            {/*<div>/}
-            {/*    <label htmlFor="ram">Ram:</label>/}
-            {/    <input type="text" id="ram" name="ram" value={formState.ram} onChange={handleChange} />/}
-            {/</div>*/}
+            <label htmlFor="cpuSelect">Selected Ram:</label>
+            <input name = "cpuSelect" className={styles.selectTagShow}  />
+            <Select
+                value={selectedOption}
+                onChange={handleOptionChange}
+                options={option}
+                placeholder="Choose an option"
+                isSearchable={true}
+                className={styles.selectTag}
+            />
+
             <button type="submit">Submit</button>
         </form>
     );

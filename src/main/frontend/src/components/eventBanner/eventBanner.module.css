@@ -52,3 +52,9 @@
   width: 30%;
   height: 20%;
 }
+
+.selectTagShow {
+  width: 25%;
+  height: 50px;
+  font-size: 20px;
+}
