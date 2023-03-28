@@ -41,7 +41,6 @@ function InsertSpec() {
                 onChange={handleOptionChange}
                 options={options}
                 placeholder="Choose an option"
-                isSearchable={true}
                 className={styles.selectTag}
             />
 
