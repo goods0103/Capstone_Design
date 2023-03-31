@@ -29,7 +29,7 @@ public class UserInfoController {
     @Autowired
     private CompareService compareService;
 
-
+    private CpuList matchingCpuList;
     private int n = 1;
     private String cpu, gpu, ram;
     private int rSize, rSpeed, rCount;
@@ -94,7 +94,8 @@ public class UserInfoController {
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
-            return new ResponseEntity<>(compareService.getMatchingCpu(), HttpStatus.OK);
+            matchingCpuList = compareService.getMatchingCpu();
+            return new ResponseEntity<>(matchingCpuList, HttpStatus.OK);
         }
         return null;
         //return ResponseEntity.ok(data);
@@ -109,10 +110,9 @@ public class UserInfoController {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
     }
 
-//    @GetMapping("/MySpec")
-//    public CpuList getMatchingColumns() {
-//        //System.out.println(compareService.getMatchingCpu());
-//        return compareService.getMatchingCpu();
-//    }
+    @GetMapping("/MySpec")
+    public CpuList getMatchingColumns() {
+        return matchingCpuList;
+    }
 
 }
