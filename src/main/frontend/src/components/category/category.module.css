@@ -1,0 +1,24 @@
+.cssTh {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTd {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTable {
+    border-collapse: collapse;
+}
+
+.tableImg {
+    width:50px;
+    height:30px;
+}
+
+
