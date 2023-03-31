@@ -21,4 +21,23 @@
     height:30px;
 }
 
+/*-------*/
+
+.filter {
+    display: flex;
+    width: 85%;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+
+.filter > p:not(:last-child)::after {
+    content: "|";
+    padding: 10px;
+}
+
+.filter p {
+    cursor: pointer;
+}
+
+
 
