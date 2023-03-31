@@ -32,7 +32,7 @@ public class UserInfoController {
     @Autowired
     private CompareService compareService;
 
-
+    private CpuList matchingCpuList;
     private int n = 1;
     private String cpu, gpu, ram;
     private int rSize, rSpeed, rCount;
@@ -103,7 +103,7 @@ public class UserInfoController {
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
-            
+
             // SSE에 데이터를 담아서 객체 만들고 sink에 저장
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
@@ -123,9 +123,10 @@ public class UserInfoController {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
     }
 
-//    public void getMatchingColumns() {
+//    @GetMapping("/MySpec")
+//    public CpuList getMatchingColumns() {
 //        //System.out.println(compareService.getMatchingCpu());
-//        compareService.getMatchingCpu();
+//        return compareService.getMatchingCpu();
 //    }
 
     @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
