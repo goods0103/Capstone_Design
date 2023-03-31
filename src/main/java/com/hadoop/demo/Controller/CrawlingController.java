@@ -2,8 +2,10 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.RamList;
+import com.hadoop.demo.Model.GpuList;
 import com.hadoop.demo.Service.CpuListService;
 import com.hadoop.demo.Service.RamListService;
+import com.hadoop.demo.Service.GpuListService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,91 +23,63 @@ import java.util.regex.Pattern;
 @RestController
 public class CrawlingController {
 
-//    @Autowired
-//    private CpuListService insertCpuList;
+    @Autowired
+    private CpuListService insertCpuList;
 
     @Autowired
     private RamListService insertRamList;
 
+    @Autowired
+    private GpuListService insertGpuList;
 
-//    @GetMapping("/cpu_list")
-//    public String getcpu_list() throws IOException {
-//        String url = "https://www.cpubenchmark.net/cpu_list.php";
-//        Document document = Jsoup.connect(url).get();
-//        // 데이터 추출
-//        for (int i = 1; i <= 5300; i++) {
-//            Element row = document.select("tr#cpu" + i).first();
-//            int cpuId = i;
-//            if (row != null) {
-//                String cpuName = row.select("td a").text();
-//                int cpuMark = Integer.parseInt(row.select("td:eq(1)").text().replace(",", ""));
-//
-//                int cpuRank = Integer.parseInt(row.select("td:eq(2)").text());
-//                String cpuValueStr = row.select("td:eq(3)").text();
-//                if(cpuRank<=1500){
-//                    if (!"NA".equals(cpuValueStr)) {
-//                        double cpuValue = Double.parseDouble(cpuValueStr.replace(",", ""));
-//                        String priceStr = row.select("td:eq(4)").text();
-//                        int cpuPrice = (int) Double.parseDouble(priceStr.replaceAll("[^\\d]", "")) * 12;
-//
-//                        // CpuList 모델 객체 생성
-//                        CpuList cpuList = CpuList.builder()
-//                                .cpuId(cpuId)
-//                                .cpuName(cpuName)
-//                                .cpuMark(cpuMark)
-//                                .cpuRank(cpuRank)
-//                                .cpuValue(cpuValue)
-//                                .cpuPrice(cpuPrice)
-//                                .build();
-//                        insertCpuList.save(cpuList);
-//                    } else {
-//                        CpuList cpuList = CpuList.builder()
-//                                .cpuId(cpuId)
-//                                .cpuName(cpuName)
-//                                .cpuMark(cpuMark)
-//                                .cpuRank(cpuRank)
-//                                .build();
-//                        insertCpuList.save(cpuList);
-//                    }
-//                }
-//
-//            }
-//        }
-//        return "success!!";
 
-//    @GetMapping("/ram_list")
-//    public String getRamList() throws IOException {
-//        String url = "https://www.memorybenchmark.net/ram_list-ddr4.php";
-//        Document document = Jsoup.connect(url).get();
-//        // 링크 추출
-//        Elements links = document.select("a[href*=ram.php?ram]");
-//        for (Element link : links) {
-//            String href = link.attr("href");
-//            String[] parts = href.split("&id=");
-//            int ramId = Integer.parseInt(parts[1]);
-//            String ramName = link.text();
-//            // RAM 정보 페이지로 이동하여 데이터 추출
-//            Document ramPage = Jsoup.connect("https://www.memorybenchmark.net/" + href).get();
-//            int ramLatency = Integer.parseInt(ramPage.select("td:contains(Latency (ns)) + td").text());
-//            double ramRead = Double.parseDouble(ramPage.select("td:contains(Read (MB/s)) + td").text()) / 1024.0;
-//            double ramWrite = Double.parseDouble(ramPage.select("td:contains(Write (MB/s)) + td").text()) / 1024.0;
-//            String ramType = "ddr4";
-//            int ramSize = Integer.parseInt(ramName.replaceAll("[^\\d]", ""));
-//            ramName = ramName.replaceAll("\\d+GB", "").trim();
-//            System.out.println(ramName +" || "+ ramSize + " || " + ramLatency);
-//            if(ramLatency<=70){
-//                RamList ramList = RamList.builder()
-//                        .ramId(ramId)
-//                        .ramName(ramName)
-//                        .ramType(ramType)
-//                        .ramSize(ramSize)
-//                        .ramLatency(ramLatency)
-//                        .ramRead(ramRead)
-//                        .ramWrite(ramWrite)
-//                        .build();
-//                insertRamList.save(ramList);
-//            }
-//        }
+    @GetMapping("/cpu_list")
+    public String getcpu_list() throws IOException {
+        String url = "https://www.cpubenchmark.net/cpu_list.php";
+        Document document = Jsoup.connect(url).get();
+        // 데이터 추출
+        for (int i = 1; i <= 5300; i++) {
+            Element row = document.select("tr#cpu" + i).first();
+            int cpuId = i;
+            if (row != null) {
+                String cpuName = row.select("td a").text();
+                int cpuMark = Integer.parseInt(row.select("td:eq(1)").text().replace(",", ""));
+
+                int cpuRank = Integer.parseInt(row.select("td:eq(2)").text());
+                String cpuValueStr = row.select("td:eq(3)").text();
+                if (cpuRank <= 1500) {
+                    if (!"NA".equals(cpuValueStr)) {
+                        double cpuValue = Double.parseDouble(cpuValueStr.replace(",", ""));
+                        String priceStr = row.select("td:eq(4)").text();
+                        int cpuPrice = (int) Double.parseDouble(priceStr.replaceAll("[^\\d]", "")) * 12;
+
+                        // CpuList 모델 객체 생성
+                        CpuList cpuList = CpuList.builder()
+                                .cpuId(cpuId)
+                                .cpuName(cpuName)
+                                .cpuMark(cpuMark)
+                                .cpuRank(cpuRank)
+                                .cpuValue(cpuValue)
+                                .cpuPrice(cpuPrice)
+                                .build();
+                        insertCpuList.save(cpuList);
+                    } else {
+                        CpuList cpuList = CpuList.builder()
+                                .cpuId(cpuId)
+                                .cpuName(cpuName)
+                                .cpuMark(cpuMark)
+                                .cpuRank(cpuRank)
+                                .build();
+                        insertCpuList.save(cpuList);
+                    }
+                }
+
+            }
+        }
+        return "success!!";
+
+    }
+
     @GetMapping("/ram_list")
     public String getRamList() throws IOException {
         String url = "https://www.memorybenchmark.net/ram_list-ddr4.php";
@@ -152,6 +125,52 @@ public class CrawlingController {
                             .build();
                     insertRamList.save(ramList);
                 }
+            }
+        }
+        return "success!!";
+    }
+
+    @GetMapping("/gpu_list")
+    public String getCpuImage() throws IOException {
+        String url = "https://www.videocardbenchmark.net/gpu_list.php";
+        Document document = Jsoup.connect(url).get();
+        // 데이터 추출
+        for (int i = 1; i <= 4785; i++) {
+            Element row = document.select("tr#gpu" + i).first();
+            int gpuId = i;
+            if (row != null) {
+                String gpuName = row.select("td:eq(0)").text();
+                int gpuMark = Integer.parseInt(row.select("td:eq(1)").text().replace(",", ""));
+
+                int gpuRank = Integer.parseInt(row.select("td:eq(2)").text());
+                String gpuValueStr = row.select("td:eq(3)").text();
+                if(gpuRank<=1500){
+                    if (!gpuValueStr.equals("NA")) {
+                        double gpuValue = Double.parseDouble(gpuValueStr.replace(",", ""));
+                        String priceStr = row.select("td:eq(4)").text();
+                        int gpuPrice = (int) Double.parseDouble(priceStr.replaceAll("[^\\d]", "")) * 12;
+
+                        // GpuList 모델 객체 생성
+                        GpuList gpuList = GpuList.builder()
+                                .gpuId(gpuId)
+                                .gpuName(gpuName)
+                                .gpuMark(gpuMark)
+                                .gpuRank(gpuRank)
+                                .gpuValue(gpuValue)
+                                .gpuPrice(gpuPrice)
+                                .build();
+                        insertGpuList.save(gpuList);
+                    } else {
+                        GpuList gpuList = GpuList.builder()
+                                .gpuId(gpuId)
+                                .gpuName(gpuName)
+                                .gpuMark(gpuMark)
+                                .gpuRank(gpuRank)
+                                .build();
+                        insertGpuList.save(gpuList);
+                    }
+                }
+
             }
         }
         return "success!!";
