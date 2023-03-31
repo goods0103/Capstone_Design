@@ -1,5 +1,6 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.GpuList;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Service.CompareService;
@@ -12,9 +13,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 
 @CrossOrigin
@@ -31,6 +36,12 @@ public class UserInfoController {
     private int n = 1;
     private String cpu, gpu, ram;
     private int rSize, rSpeed, rCount;
+
+    private final Sinks.Many<ServerSentEvent<String>> sink;
+
+    public UserInfoController() {
+        this.sink = Sinks.many().multicast().onBackpressureBuffer();
+    }
 
     @GetMapping("/ShowMySpec")
     public ResponseEntity<Resource> downloadFile() throws IOException {
@@ -92,7 +103,11 @@ public class UserInfoController {
             n = 1;
             UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
             save(userInfo);
-            getMatchingColumns();
+            
+            // SSE에 데이터를 담아서 객체 만들고 sink에 저장
+            ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
+            sink.tryEmitNext(event);
+            gpu = null;
             return new ResponseEntity<>(compareService.getMatchingGpu(), HttpStatus.OK);
         }
         return null;
@@ -108,9 +123,13 @@ public class UserInfoController {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
     }
 
-    public void getMatchingColumns() {
-        //System.out.println(compareService.getMatchingCpu());
-        compareService.getMatchingCpu();
-    }
+//    public void getMatchingColumns() {
+//        //System.out.println(compareService.getMatchingCpu());
+//        compareService.getMatchingCpu();
+//    }
 
+    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> streamData() {
+        return sink.asFlux();
+    }
 }
