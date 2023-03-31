@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CpuListRepository extends JpaRepository<CpuList, Long> {
 
-    CpuList findByCpuName(String cpu_name);
+    CpuList findByCpuName(String cpuName);
 }
