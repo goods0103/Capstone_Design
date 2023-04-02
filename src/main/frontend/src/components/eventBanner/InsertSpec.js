@@ -7,8 +7,8 @@ function InsertSpec() {
 
     const [cpuOption, setCpuOption] = useState([]); // cpu 에 대한 배열
     // 나중에 스프링에서 데이터를 받아오면 let -> const 로 변환
-    let [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
-    let [ramOption, setRamOption] = useState([]); // ram 에 대한 배열
+    const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
+    const [ramOption, setRamOption] = useState([]); // ram 에 대한 배열
 
     // // 임시 데이터
     // gpuOption = [

@@ -25,6 +25,7 @@ function CategoryCpu() {
   };
 
   const sortProduct = (type) => {
+      // 이름순 수정
       // if (type === "name") {
       //     const newProduct = [...cpuList];
       //     newProduct.sort((a, b) => a.cpu_name - b.cpu_name);

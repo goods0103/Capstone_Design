@@ -26,6 +26,9 @@ public class DataController {
     @Autowired
     private GpuListService gpuListService;
 
+    @Autowired
+    private GpuListService gpuListService;
+
     @GetMapping("/category/cpu1")
     public List<CpuList> getAllCpuList() {
         return cpuListService.findAll();
