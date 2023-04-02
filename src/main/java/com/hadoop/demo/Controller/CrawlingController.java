@@ -34,7 +34,7 @@ public class CrawlingController {
 
 
     @GetMapping("/cpu_list")
-    public String getcpu_list() throws IOException {
+    public String getCpuList() throws IOException {
         String url = "https://www.cpubenchmark.net/cpu_list.php";
         Document document = Jsoup.connect(url).get();
         // 데이터 추출
@@ -131,7 +131,7 @@ public class CrawlingController {
     }
 
     @GetMapping("/gpu_list")
-    public String getCpuImage() throws IOException {
+    public String getGpuList() throws IOException {
         String url = "https://www.videocardbenchmark.net/gpu_list.php";
         Document document = Jsoup.connect(url).get();
         // 데이터 추출
