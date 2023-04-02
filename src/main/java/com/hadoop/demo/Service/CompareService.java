@@ -2,9 +2,11 @@ package com.hadoop.demo.Service;
 
 import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.GpuList;
+import com.hadoop.demo.Model.RamList;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Repository.CpuListRepository;
 import com.hadoop.demo.Repository.GpuListRepository;
+import com.hadoop.demo.Repository.RamListRepository;
 import com.hadoop.demo.Repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,10 @@ public class CompareService {
 
     @Autowired
     private CpuListRepository cpuListRepository;
-
     @Autowired
     private GpuListRepository gpuListRepository;
-
+    @Autowired
+    private RamListRepository ramListRepository;
     @Autowired
     private UserInfoRepository userInfoRepository;
 
@@ -87,5 +89,37 @@ public class CompareService {
 
         return gpuListRepository.findByGpuName(mostSimilar);
     }
+
+//    public RamList getMatchingRam(){
+//        List<String> matchingRam = new ArrayList<>();
+//
+//        List<RamList> ramList = ramListRepository.findAll();
+//        List<UserInfo> userRam = userInfoRepository.findAll();
+//
+//        String lastData = userRam.get(userRam.size() - 1).getRamInfo();
+//
+//        for(RamList ram : ramList){
+//            if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))
+//                matchingRam.add(ram.getRamName());
+//        }
+//
+//        String[] ramArray = matchingRam.toArray(new String[matchingRam.size()]);
+//
+//        String mostSimilar = "";
+//        int maxSimilarity = 100;
+//
+//        for (String findRamArray : ramArray) {
+//            int similarity = StringUtils.getLevenshteinDistance(lastData, findRamArray);
+//            if (similarity < maxSimilarity) {
+//                maxSimilarity = similarity;
+//                mostSimilar = findRamArray;
+//            }
+//        }
+//
+//        System.out.println("Most similar GPU: " + mostSimilar);
+//
+//
+//        return ramListRepository.findByRamName(mostSimilar);
+//    }
 
 }
