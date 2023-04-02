@@ -43,7 +43,7 @@ function CategoryCpu() {
               } else {
                   return a.cpu_price - b.cpu_price; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
               }
-          });정
+          });
           setCpuList(newProduct);
       } else if (type === "high") {
           const newProduct = [...cpuList];
