@@ -79,13 +79,10 @@ function CategoryRam() {
             <div>
                 <div className={styles.filter}>
                     {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-                    <p onClick={() => sortProduct("sizeHigh")}>크기 순</p>
-                    <p onClick={() => sortProduct("latencyHigh")}>지연도 순 ⬆️</p>
-                    <p onClick={() => sortProduct("latencyLow")}>지연도 순 ⬇️</p>
-                    <p onClick={() => sortProduct("readHigh")}>접근 속도 순(읽기) ⬆️</p>
-                    <p onClick={() => sortProduct("readLow")}>접근 속도 순(읽기) ⬇️</p>
-                    <p onClick={() => sortProduct("writeHigh")}>접근 속도 순(쓰기) ⬆️</p>
-                    <p onClick={() => sortProduct("writeLow")}>접근 속도 순(쓰기) ⬇️</p>
+                    <p onClick={() => sortProduct("sizeHigh")}>크기순</p>
+                    <p onClick={() => sortProduct("latencyLow")}>지연도순</p>
+                    <p onClick={() => sortProduct("readLow")}>읽기 속도순</p>
+                    <p onClick={() => sortProduct("writeLow")}>쓰기 속도순</p>
                 </div>
                 <table className={styles.cssTable}>
                     <tr>
