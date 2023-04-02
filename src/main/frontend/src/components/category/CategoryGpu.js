@@ -57,9 +57,9 @@ function CategoryGpu() {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => a.gpu_rank - b.gpu_rank);
             setGpuList(newProduct);
-        } else if (type === "gpuMark") {
+        } else if (type === "gpuValue") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) =>b.gpu_mark - a.gpu_mark);
+            newProduct.sort((a, b) => b.gpu_value - a.gpu_value);
             setGpuList(newProduct);
         }
     };
@@ -74,7 +74,7 @@ function CategoryGpu() {
                     <p onClick={() => sortProduct("high")}>높은 가격</p>
                     <p onClick={() => sortProduct("rankHigh")}>gpu 순위 ⬆️</p>
                     <p onClick={() => sortProduct("rankLow")}>gpu 순위 ⬇️</p>
-                    <p onClick={() => sortProduct("gpuMark")}>성능순</p>
+                    <p onClick={() => sortProduct("gpuValue")}>가성비순</p>
 
                 </div>
                 <table className={styles.cssTable}>
