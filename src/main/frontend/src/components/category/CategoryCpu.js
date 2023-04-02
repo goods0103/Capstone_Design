@@ -31,7 +31,7 @@ function CategoryCpu() {
       //     newProduct.sort((a, b) => a.cpu_name - b.cpu_name);
       //     setCpuList(newProduct);
       // }
-      if (type === "row") {
+      if (type === "low") {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => {
               if (a.cpu_price === 0 && b.cpu_price === 0) {
@@ -66,7 +66,7 @@ function CategoryCpu() {
       <div>
           <div className={styles.filter}>
               {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-              <p onClick={() => sortProduct("row")}>낮은 가격</p>
+              <p onClick={() => sortProduct("low")}>낮은 가격</p>
               <p onClick={() => sortProduct("high")}>높은 가격</p>
               <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
               <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>

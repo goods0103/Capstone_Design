@@ -31,7 +31,7 @@ function CategoryGpu() {
         //     newProduct.sort((a, b) => a.cpu_name - b.cpu_name);
         //     setCpuList(newProduct);
         // }
-        if (type === "row") {
+        if (type === "low") {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => {
                 if (a.gpu_price === 0 && b.gpu_price === 0) {
@@ -70,7 +70,7 @@ function CategoryGpu() {
             <div>
                 <div className={styles.filter}>
                     {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-                    <p onClick={() => sortProduct("row")}>낮은 가격</p>
+                    <p onClick={() => sortProduct("low")}>낮은 가격</p>
                     <p onClick={() => sortProduct("high")}>높은 가격</p>
                     <p onClick={() => sortProduct("rankHigh")}>gpu 순위 ⬆️</p>
                     <p onClick={() => sortProduct("rankLow")}>gpu 순위 ⬇️</p>
