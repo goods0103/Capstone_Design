@@ -240,6 +240,7 @@ public class CrawlingController {
         List<GpuList> gpuList = insertGpuList.findAll(); // DB에서 저장한 GPU 목록 가져오기
 
         // 웹 드라이버 실행
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
         WebDriver driver = new ChromeDriver();
 
         try {
