@@ -54,7 +54,6 @@ public class CompareService {
 
         System.out.println("Most similar CPU: " + mostSimilar);
 
-
         return cpuListRepository.findByCpuName(mostSimilar);
     }
 
@@ -86,40 +85,38 @@ public class CompareService {
 
         System.out.println("Most similar GPU: " + mostSimilar);
 
-
         return gpuListRepository.findByGpuName(mostSimilar);
     }
 
-//    public RamList getMatchingRam(){
-//        List<String> matchingRam = new ArrayList<>();
-//
-//        List<RamList> ramList = ramListRepository.findAll();
-//        List<UserInfo> userRam = userInfoRepository.findAll();
-//
-//        String lastData = userRam.get(userRam.size() - 1).getRamInfo();
-//
-//        for(RamList ram : ramList){
-//            if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))
-//                matchingRam.add(ram.getRamName());
-//        }
-//
-//        String[] ramArray = matchingRam.toArray(new String[matchingRam.size()]);
-//
-//        String mostSimilar = "";
-//        int maxSimilarity = 100;
-//
-//        for (String findRamArray : ramArray) {
-//            int similarity = StringUtils.getLevenshteinDistance(lastData, findRamArray);
-//            if (similarity < maxSimilarity) {
-//                maxSimilarity = similarity;
-//                mostSimilar = findRamArray;
-//            }
-//        }
-//
-//        System.out.println("Most similar GPU: " + mostSimilar);
-//
-//
-//        return ramListRepository.findByRamName(mostSimilar);
-//    }
+    public RamList getMatchingRam(){
+        List<String> matchingRam = new ArrayList<>();
+
+        List<RamList> ramList = ramListRepository.findAll();
+        List<UserInfo> userRam = userInfoRepository.findAll();
+
+        String lastData = userRam.get(userRam.size() - 1).getRamPartNum();
+
+        for(RamList ram : ramList){
+            if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))
+                matchingRam.add(ram.getRamName());
+        }
+
+        String[] ramArray = matchingRam.toArray(new String[matchingRam.size()]);
+
+        String mostSimilar = "";
+        int maxSimilarity = 100;
+
+        for (String findRamArray : ramArray) {
+            int similarity = StringUtils.getLevenshteinDistance(lastData, findRamArray);
+            if (similarity < maxSimilarity) {
+                maxSimilarity = similarity;
+                mostSimilar = findRamArray;
+            }
+        }
+
+        System.out.println("Most similar RAM: " + mostSimilar);
+
+        return ramListRepository.findByRamName(mostSimilar);
+    }
 
 }

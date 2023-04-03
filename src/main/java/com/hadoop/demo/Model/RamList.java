@@ -18,7 +18,6 @@ import javax.persistence.Table;
 @Table(name = "ramlist")
 public class RamList {
 
-
     @Id
     @JsonProperty("ram_name")
     private String ramName;

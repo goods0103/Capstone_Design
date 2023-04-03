@@ -54,9 +54,9 @@ public class DataController {
         return compareService.getMatchingGpu();
     }
 
-//    @GetMapping("/mySpecRam")
-//    public RamList getMyRam() {
-//        return compareService.getMachingRam();
-//    }
+    @GetMapping("/mySpecRam")
+    public RamList getMyRam() {
+        return compareService.getMatchingRam();
+    }
 
 }
