@@ -14,7 +14,7 @@ import CategoryGpu from './components/category/CategoryGpu';
 import CategoryRam from './components/category/CategoryRam';
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
 import InsertSpec from "./components/eventBanner/InsertSpec";
-import MySpec from "./components/eventBanner/MySpec";
+import MySpec from "./components/myInfo/MySpec";
 
 function App() {
   const [products, setProducts] = useState([]);

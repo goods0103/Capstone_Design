@@ -35,6 +35,9 @@ function ShowMySpec() {
 
     return (
         <div>
+            <Link to="/MySpec">
+                <button>develop button</button>
+            </Link>
             <p>
                 {waring}
 
