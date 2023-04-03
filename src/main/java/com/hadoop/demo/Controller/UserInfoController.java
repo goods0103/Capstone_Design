@@ -1,7 +1,6 @@
 package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.CpuList;
-import com.hadoop.demo.Model.GpuList;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Service.CompareService;
 import com.hadoop.demo.Service.UserInfoService;
@@ -19,7 +18,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
 
 @CrossOrigin
@@ -34,7 +32,7 @@ public class UserInfoController {
 
     private CpuList matchingCpuList;
     private int n = 1;
-    private String cpu, gpu, ram;
+    private String cpu, gpu, rType, rManu, rPartNum;
     private int rSize, rSpeed, rCount;
 
     private final Sinks.Many<ServerSentEvent<String>> sink;
@@ -73,7 +71,7 @@ public class UserInfoController {
 
 
     @PostMapping("/api/spring")
-    public ResponseEntity<GpuList> sendString(@RequestBody String data) {
+    public ResponseEntity<String> sendString(@RequestBody String data) {
 
         data = data.split("\"")[3].trim();
 
@@ -84,8 +82,14 @@ public class UserInfoController {
             case "GPU Name":
                 gpu = data.split(": ")[1].trim();
                 break;
+            case "RAM Manufacturer":
+                rManu = data.split(": ")[1].trim();
+                break;
+            case "RAM PartNum":
+                rPartNum = data.split(": ")[1].trim();
+                break;
             case "RAM Type":
-                ram = data.split(": ")[1].trim();
+                rType = data.split(": ")[1].trim();
                 break;
             case "RAM Size":
                 rSize = Integer.parseInt(data.split(": ")[1].trim());
@@ -99,12 +103,14 @@ public class UserInfoController {
         }
         n++;
         if (gpu != null) {
-            System.out.println(cpu + " " +  gpu + " " + ram + rSize + " " + rSpeed + " " + rCount);
+            System.out.println(cpu + " " +  gpu + " " + rManu + " " + rPartNum + " " + rType + " " + rSize + " " + rSpeed + " " + rCount);
             n = 1;
             UserInfo userInfo = UserInfo.builder()
                     .cpu(cpu)
                     .gpu(gpu)
-                    .ram(ram)
+                    .ramManu(rManu)
+                    .ramPartNum(rPartNum)
+                    .ramType(rType)
                     .ramSize(rSize)
                     .ramSpeed(rSpeed)
                     .ramCount(rCount)
@@ -115,7 +121,7 @@ public class UserInfoController {
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
             gpu = null;
-            return new ResponseEntity<>(compareService.getMatchingGpu(), HttpStatus.OK);
+            return ResponseEntity.ok(data);
         }
         return null;
         //return ResponseEntity.ok(data);
