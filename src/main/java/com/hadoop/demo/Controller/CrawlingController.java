@@ -233,26 +233,20 @@ public class CrawlingController {
     public void updateGpuImageUrls() throws IOException {
         List<GpuList> gpuList = insertGpuList.findAll(); // DB에서 저장한 GPU 목록 가져오기
 
-        for (GpuList gpu : gpuList) {
-            String query = gpu.getGpuName() + " gpu"; // 검색할 쿼리
-            String imageUrl = getImageUrlFromGoogle(query); // 구글에서 이미지 URL 가져오기
-            gpu.setGpuUrl(imageUrl); // GPU 객체에 이미지 URL 저장
-            insertGpuList.save(gpu); // DB에 저장
+        String url = "https://gpu.userbenchmark.com/";
+        Document doc = Jsoup.connect(url).get();
+
+        Elements images = doc.select("img[src]");
+
+        for (Element image : images) {
+            String imageUrl = image.attr("src");
+            String imageName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+            System.out.println(imageName);
         }
+
     }
 
-    private String getImageUrlFromGoogle(String query) throws IOException {
-        String url = "https://www.google.com/search?q=" + query + "&tbm=isch";
-        Document document = Jsoup.connect(url).get();
-        Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
-        if (images.size() > 0) {
-            Element image = images.get(0);
-            String imageUrl = image.absUrl("src");
-            return imageUrl;
-        } else {
-            return null;
-        }
-    }
+
 }
 
 
