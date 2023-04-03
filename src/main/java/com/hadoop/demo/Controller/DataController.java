@@ -43,7 +43,7 @@ public class DataController {
     public List<GpuList> getAllGpuList() {
         return gpuListService.findAll();
     }
-
+//
 //    @GetMapping("/mySpec")
 //    public CpuList getMyCpu() {
 //        return compareService.getMatchingCpu();
