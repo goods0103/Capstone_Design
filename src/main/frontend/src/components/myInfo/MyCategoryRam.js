@@ -31,12 +31,12 @@ function MyCategoryCpu() {
             <CategoryBar2></CategoryBar2>
             <div>
                 <p>
-                    {ramInfo.ram_name}<br/>
-                    {ramInfo.ram_type}<br/>
-                    {ramInfo.ram_size}<br/>
-                    {ramInfo.ram_latency}<br/>
-                    {ramInfo.ram_read}<br/>
-                    {ramInfo.ram_write}<br/>
+                    ram_name : {ramInfo.ram_name}<br/>
+                    ram_type : {ramInfo.ram_type}<br/>
+                    ram_size : {ramInfo.ram_size}<br/>
+                    ram_latency : {ramInfo.ram_latency}<br/>
+                    ram_read : {ramInfo.ram_read}<br/>
+                    ram_write : {ramInfo.ram_write}<br/>
                 </p>
                 <br/>
             </div>

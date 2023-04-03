@@ -31,11 +31,11 @@ function MyCategoryGpu() {
             <CategoryBar2></CategoryBar2>
             <div>
                 <p>
-                    {gpuInfo.gpu_name}<br/>
-                    {gpuInfo.gpu_mark}<br/>
-                    {gpuInfo.gpu_rank}<br/>
-                    {gpuInfo.gpu_value}<br/>
-                    {gpuInfo.gpu_price}<br/>
+                    gpu_name : {gpuInfo.gpu_name}<br/>
+                    gpu_mark : {gpuInfo.gpu_mark}<br/>
+                    gpu_rank : {gpuInfo.gpu_rank}<br/>
+                    gpu_value : {gpuInfo.gpu_value}<br/>
+                    gpu_price : {gpuInfo.gpu_price}<br/>
                 </p>
                 <br/>
             </div>
