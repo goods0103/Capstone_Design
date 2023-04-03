@@ -34,7 +34,7 @@ public class UserInfoController {
 
     private CpuList matchingCpuList;
     private int n = 1;
-    private String cpu, gpu, ram;
+    private String cpu, gpu, ram, rManu, rPartNum;
     private int rSize, rSpeed, rCount;
 
     private final Sinks.Many<ServerSentEvent<String>> sink;
@@ -84,6 +84,12 @@ public class UserInfoController {
             case "GPU Name":
                 gpu = data.split(": ")[1].trim();
                 break;
+            case "RAM Manufacturer":
+                rManu = data.split(": ")[1].trim();
+                break;
+            case "RAM PartNum":
+                rPartNum = data.split(": ")[1].trim();
+                break;
             case "RAM Type":
                 ram = data.split(": ")[1].trim();
                 break;
@@ -99,7 +105,7 @@ public class UserInfoController {
         }
         n++;
         if (gpu != null) {
-            System.out.println(cpu + " " +  gpu + " " + ram + rSize + " " + rSpeed + " " + rCount);
+            System.out.println(cpu + " " +  gpu + " " + rManu + " " + rPartNum + " " + ram + rSize + " " + rSpeed + " " + rCount);
             n = 1;
             UserInfo userInfo = UserInfo.builder()
                     .cpu(cpu)
