@@ -49,10 +49,10 @@ public class DataController {
         return compareService.getMatchingCpu();
     }
 
-    @GetMapping("/mySpec")
-    public GpuList getMyGpu() {
-        return compareService.getMatchingGpu();
-    }
+//    @GetMapping("/mySpec")
+//    public GpuList getMyGpu() {
+//        return compareService.getMatchingGpu();
+//    }
 
 //    @GetMapping("/mySpec")
 //    public RamList getMyRam() {
