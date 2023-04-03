@@ -10,6 +10,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -230,22 +236,88 @@ public class CrawlingController {
     }
 
     @GetMapping("/gpu_list2")
-    public void updateGpuImageUrls() throws IOException {
+    public void updateGpuImageUrls() throws IOException, InterruptedException {
         List<GpuList> gpuList = insertGpuList.findAll(); // DB에서 저장한 GPU 목록 가져오기
 
-        String url = "https://gpu.userbenchmark.com/";
-        Document doc = Jsoup.connect(url).get();
+        // 웹 드라이버 실행
+        WebDriver driver = new ChromeDriver();
 
-        Elements images = doc.select("img[src]");
+        try {
+            // GPU UserBenchmark 사이트 접속
+            driver.get("https://gpu.userbenchmark.com/");
 
-        for (Element image : images) {
-            String imageUrl = image.attr("src");
-            String imageName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
-            System.out.println(imageName);
+            // 검색 결과가 로딩될 때까지 대기
+//            WebDriverWait wait = new WebDriverWait(driver, 10);
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".search-results")));
+
+            // 검색 결과에서 이미지 태그 추출
+            List<WebElement> images = driver.findElements(By.cssSelector(".search-results img"));
+
+            // 추출한 이미지 태그를 순회하며 이미지 URL 저장
+            for (WebElement image : images) {
+                String imageUrl = image.getAttribute("src");
+                String imageName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+                System.out.println(imageName);
+                for(GpuList gpu : gpuList) {
+                    if(gpu.getGpuName().contains(imageName)){
+                        gpu.setGpuUrl(imageUrl);
+                        insertGpuList.save(gpu);
+                    }
+                }
+            }
+        } finally {
+            // 웹 드라이버 종료
+            driver.quit();
         }
-
     }
 
+//    @GetMapping("/gpu_list2")
+//    public void updateGpuImageUrls() throws IOException {
+//        List<GpuList> gpuList = insertGpuList.findAll(); // DB에서 저장한 GPU 목록 가져오기
+//
+//        String url = "https://gpu.userbenchmark.com/";
+//        Document doc = Jsoup.connect(url).get();
+//
+//        Elements images = doc.select("img[src]");
+//
+//        for (Element image : images) {
+//            String imageUrl = image.attr("src");
+//            String imageName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+//            System.out.println(imageName);
+//            for(GpuList gpu : gpuList) {
+//                if(gpu.getGpuName().contains(imageName)){
+//                    gpu.setGpuUrl(imageUrl);
+//                    insertGpuList.save(gpu);
+//                }
+//            }
+//        }
+//
+//    }
+
+//    @GetMapping("/gpu_list2")
+//    public void updateGpuImageUrls() throws IOException {
+//        List<GpuList> gpuList = insertGpuList.findAll(); // DB에서 저장한 GPU 목록 가져오기
+//
+//        for (GpuList gpu : gpuList) {
+//            String query = gpu.getGpuName(); // 검색할 쿼리
+//            String imageUrl = getImageUrlFromGoogle(query); // 구글에서 이미지 URL 가져오기
+//            gpu.setGpuUrl(imageUrl); // GPU 객체에 이미지 URL 저장
+//            insertGpuList.save(gpu); // DB에 저장
+//        }
+//    }
+//
+//    private String getImageUrlFromGoogle(String query) throws IOException {
+//        String url = "https://www.google.com/search?q=" + query + "&tbm=isch";
+//        Document document = Jsoup.connect(url).get();
+//        Elements images = document.select("img[src~=(?i)\\.(png|jpe?g|gif)]");
+//        if (images.size() > 0) {
+//            Element image = images.get(0);
+//            String imageUrl = image.absUrl("src");
+//            return imageUrl;
+//        } else {
+//            return null;
+//        }
+//    }
 
 }
 
