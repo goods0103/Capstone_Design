@@ -2,6 +2,7 @@ package com.hadoop.demo.Model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table (name = "userinfo")
 public class UserInfo {
 
@@ -18,10 +20,13 @@ public class UserInfo {
 
     @Column(name = "cpu_info")
     private String cpuInfo;
-
     @Column(name = "gpu_info")
     private String gpuInfo;
 
+    @Column(name = "ram_manu")
+    private String ramManu;
+    @Column(name = "ram_partnum")
+    private String ramPartNum;
     @Column(name = "ram_type")
     private String ramType;
     @Column(name = "ram_size")
@@ -31,12 +36,12 @@ public class UserInfo {
     @Column(name = "ram_count")
     private int ramCount;
 
-    public UserInfo(String cpu, String gpu, String ram, int ramSize, int ramSpeed, int ramCount) {
-        cpuInfo = cpu; gpuInfo = gpu; ramType = ram; this.ramSize = ramSize; this.ramSpeed = ramSpeed;
-        this.ramCount = ramCount;
+    @Builder
+    public UserInfo(String cpu, String gpu, String ramManu, String ramPartNum, String ramType, int ramSize, int ramSpeed, int ramCount) {
+        cpuInfo = cpu; gpuInfo = gpu;
+        this.ramManu = ramManu; this.ramPartNum = ramPartNum;
+        this.ramType = ramType; this.ramSize = ramSize;
+        this.ramSpeed = ramSpeed; this.ramCount = ramCount;
     }
 
-    public UserInfo() {
-
-    }
 }

@@ -30,7 +30,7 @@ const TopButton = () => {
         {
             showButton &&
             <div className='scroll_container'>
-                <button onClick={scrollToTop}>Top</button>
+                <button onClick={scrollToTop}>⬆</button>
             </div>
         }
         </>
