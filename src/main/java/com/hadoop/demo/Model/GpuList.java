@@ -43,14 +43,19 @@ public class GpuList {
     @JsonProperty("gpu_price")
     private int gpuPrice;
 
+    @Column(name = "image_url")
+    @JsonProperty("image_url")
+    private String gpuUrl;
+
     @Builder // 7.
-    public GpuList(int gpuId, String gpuName, int gpuMark, int gpuRank, double gpuValue, int gpuPrice) {
+    public GpuList(int gpuId, String gpuName, int gpuMark, int gpuRank, double gpuValue, int gpuPrice, String gpuUrl) {
         this.gpuId = gpuId;
         this.gpuName = gpuName;
         this.gpuMark = gpuMark;
         this.gpuRank = gpuRank;
         this.gpuValue = gpuValue;
         this.gpuPrice = gpuPrice;
+        this.gpuUrl = gpuUrl;
     }
 
 }

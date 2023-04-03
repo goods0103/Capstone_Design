@@ -101,7 +101,14 @@ public class UserInfoController {
         if (gpu != null) {
             System.out.println(cpu + " " +  gpu + " " + ram + rSize + " " + rSpeed + " " + rCount);
             n = 1;
-            UserInfo userInfo = new UserInfo(cpu, gpu, ram, rSize, rSpeed, rCount);
+            UserInfo userInfo = UserInfo.builder()
+                    .cpu(cpu)
+                    .gpu(gpu)
+                    .ram(ram)
+                    .ramSize(rSize)
+                    .ramSpeed(rSpeed)
+                    .ramCount(rCount)
+                    .build();
             save(userInfo);
 
             // SSE에 데이터를 담아서 객체 만들고 sink에 저장

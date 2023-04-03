@@ -20,12 +20,13 @@ public class DataController {
 
     @Autowired
     private CpuListService cpuListService;
-
-    @Autowired
-    private RamListService ramListService;
     @Autowired
     private GpuListService gpuListService;
+    @Autowired
+    private RamListService ramListService;
 
+    @Autowired
+    private CompareService compareService;
 
 
     @GetMapping("/category/cpu1")
@@ -42,5 +43,20 @@ public class DataController {
     public List<GpuList> getAllGpuList() {
         return gpuListService.findAll();
     }
+
+    @GetMapping("/mySpec")
+    public CpuList getMyCpu() {
+        return compareService.getMatchingCpu();
+    }
+
+    @GetMapping("/mySpec")
+    public GpuList getMyGpu() {
+        return compareService.getMatchingGpu();
+    }
+
+//    @GetMapping("/mySpec")
+//    public RamList getMyRam() {
+//        return compareService.getMachingRam();
+//    }
 
 }
