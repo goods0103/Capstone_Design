@@ -32,11 +32,11 @@ function MyCategoryCpu() {
             <CategoryBar2></CategoryBar2>
             <div>
                 <p>
-                    {cpuInfo.cpu_name}<br/>
-                    {cpuInfo.cpu_mark}<br/>
-                    {cpuInfo.cpu_rank}<br/>
-                    {cpuInfo.cpu_value}<br/>
-                    {cpuInfo.cpu_price}<br/>
+                    cpu_name : {cpuInfo.cpu_name}<br/>
+                    cpu_mark : {cpuInfo.cpu_mark}<br/>
+                    cpu_rank : {cpuInfo.cpu_rank}<br/>
+                    cpu_value : {cpuInfo.cpu_value}<br/>
+                    cpu_price : {cpuInfo.cpu_price}<br/>
                 </p>
                 <br/>
             </div>

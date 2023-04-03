@@ -60,28 +60,28 @@ function MySpec() {
             <CategoryBar2></CategoryBar2>
             <div>
                 <p>
-                    {cpuInfo.cpu_name}<br/>
-                    {cpuInfo.cpu_mark}<br/>
-                    {cpuInfo.cpu_rank}<br/>
-                    {cpuInfo.cpu_value}<br/>
-                    {cpuInfo.cpu_price}<br/>
+                    cpu_name : {cpuInfo.cpu_name}<br/>
+                    cpu_mark : {cpuInfo.cpu_mark}<br/>
+                    cpu_rank : {cpuInfo.cpu_rank}<br/>
+                    cpu_value : {cpuInfo.cpu_value}<br/>
+                    cpu_price : {cpuInfo.cpu_price}<br/>
                 </p>
                 <br/>
                 <p>
-                    {gpuInfo.gpu_name}<br/>
-                    {gpuInfo.gpu_mark}<br/>
-                    {gpuInfo.gpu_rank}<br/>
-                    {gpuInfo.gpu_value}<br/>
-                    {gpuInfo.gpu_price}<br/>
+                    gpu_name : {gpuInfo.gpu_name}<br/>
+                    gpu_mark : {gpuInfo.gpu_mark}<br/>
+                    gpu_rank : {gpuInfo.gpu_rank}<br/>
+                    gpu_value : {gpuInfo.gpu_value}<br/>
+                    gpu_price : {gpuInfo.gpu_price}<br/>
                 </p>
                 <br/>
                 <p>
-                    {ramInfo.ram_name}<br/>
-                    {ramInfo.ram_type}<br/>
-                    {ramInfo.ram_size}<br/>
-                    {ramInfo.ram_latency}<br/>
-                    {ramInfo.ram_read}<br/>
-                    {ramInfo.ram_write}<br/>
+                    ram_name : {ramInfo.ram_name}<br/>
+                    ram_type : {ramInfo.ram_type}<br/>
+                    ram_size : {ramInfo.ram_size}<br/>
+                    ram_latency : {ramInfo.ram_latency}<br/>
+                    ram_read : {ramInfo.ram_read}<br/>
+                    ram_write : {ramInfo.ram_write}<br/>
                 </p>
                 <br/>
             </div>
