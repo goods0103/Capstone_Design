@@ -30,13 +30,13 @@ function CategoryBar2() {
                     <StyledLink to="/MySpec" isActive={pathname === "/MySpec"}>My Spec</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/category2/myCpu" isActive={pathname === "/category2/myCpu"}>My Cpu</StyledLink>
+                    <StyledLink to="/MyCategoryCpu" isActive={pathname === "/MyCategoryCpu"}>My Cpu</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/category2/myGpu" isActive={pathname === "/category2/myGpu"}>My Gpu</StyledLink>
+                    <StyledLink to="/MyCategoryGpu" isActive={pathname === "/MyCategoryGpu"}>My Gpu</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/category2/myRam" isActive={pathname === "/category2/myRam"}>My Ram</StyledLink>
+                    <StyledLink to="/MyCategoryRam" isActive={pathname === "/MyCategoryRam"}>My Ram</StyledLink>
                 </Nav.Item>
             </Nav>
         </>

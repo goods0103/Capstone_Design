@@ -6,13 +6,17 @@ import CategoryBar2 from "./CategoryBar2";
 import CategoryBar from "../category/CategoryBar";
 
 function MySpec() {
-    const [gpuList, setGpuList] = useState([]);
 
+    const [cpuInfo, setCpuInfo] = useState([]);
+    const [gpuInfo, setGpuInfo] = useState([]);
+    const [ramInfo, setRamInfo] = useState([]);
+
+    // hello
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/category/gpu1');
-                setGpuList(response.data);
+                const response = await axios.get('/mySpecCpu');
+                setCpuInfo(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -20,13 +24,66 @@ function MySpec() {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/mySpecGpu');
+                setGpuInfo(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/mySpecRam');
+                setRamInfo(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const convertPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     return(
         <>
             <CategoryBar2></CategoryBar2>
             <div>
                 <p>
-                    너 스펙
+                    {cpuInfo.cpu_name}<br/>
+                    {cpuInfo.cpu_mark}<br/>
+                    {cpuInfo.cpu_rank}<br/>
+                    {cpuInfo.cpu_value}<br/>
+                    {cpuInfo.cpu_price}<br/>
                 </p>
+                <br/>
+                <p>
+                    {gpuInfo.gpu_name}<br/>
+                    {gpuInfo.gpu_mark}<br/>
+                    {gpuInfo.gpu_rank}<br/>
+                    {gpuInfo.gpu_value}<br/>
+                    {gpuInfo.gpu_price}<br/>
+                </p>
+                <br/>
+                <p>
+                    {ramInfo.ram_name}<br/>
+                    {ramInfo.ram_type}<br/>
+                    {ramInfo.ram_size}<br/>
+                    {ramInfo.ram_latency}<br/>
+                    {ramInfo.ram_read}<br/>
+                    {ramInfo.ram_write}<br/>
+                </p>
+                <br/>
             </div>
         </>
     );
