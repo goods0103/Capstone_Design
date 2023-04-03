@@ -43,20 +43,20 @@ public class DataController {
     public List<GpuList> getAllGpuList() {
         return gpuListService.findAll();
     }
-//
-//    @GetMapping("/mySpec")
-//    public CpuList getMyCpu() {
-//        return compareService.getMatchingCpu();
-//    }
-//
-//    @GetMapping("/mySpec")
-//    public GpuList getMyGpu() {
-//        return compareService.getMatchingGpu();
-//    }
 
-//    @GetMapping("/mySpec")
-//    public RamList getMyRam() {
-//        return compareService.getMachingRam();
-//    }
+    @GetMapping("/mySpecCpu")
+    public CpuList getMyCpu() {
+        return compareService.getMatchingCpu();
+    }
+
+    @GetMapping("/mySpecGpu")
+    public GpuList getMyGpu() {
+        return compareService.getMatchingGpu();
+    }
+
+    @GetMapping("/mySpecRam")
+    public RamList getMyRam() {
+        return compareService.getMatchingRam();
+    }
 
 }
