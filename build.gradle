@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.seleniumhq.selenium:selenium-java:4.0.0'
-	implementation files('src/main/resources/chromedriver') // ChromeDriver 파일 경로
+	implementation 'org.seleniumhq.selenium:selenium-java:4.1.1'
+	implementation files('src/main/resources/chromedriver.exe') // ChromeDriver 파일 경로
 	implementation 'org.jsoup:jsoup:1.15.3'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
