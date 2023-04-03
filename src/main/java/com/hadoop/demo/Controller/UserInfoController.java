@@ -121,6 +121,9 @@ public class UserInfoController {
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
             gpu = null;
+            compareService.getMatchingCpu();
+            compareService.getMatchingGpu();
+            compareService.getMatchingRam();
             return ResponseEntity.ok(data);
         }
         return null;
