@@ -36,7 +36,7 @@ function CategoryBar() {
             <StyledLink to="/category/ram1" isActive={pathname === "/category/ram1"}>RAM</StyledLink>
           </Nav.Item>
           <Nav.Item>
-            <StyledLink to="/category/c4" isActive={pathname === "/category/c4"}>Game</StyledLink>
+            <StyledLink to="/category/game1" isActive={pathname === "/category/game1"}>Game</StyledLink>
           </Nav.Item>
           <Nav.Item>
             <StyledLink to="/category/c5" isActive={pathname === "/category/c5"}>Spec</StyledLink>
