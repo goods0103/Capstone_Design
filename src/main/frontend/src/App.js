@@ -12,6 +12,7 @@ import { OrderComplete } from "./components/cart/orderComplete";
 import CategoryCpu from './components/category/CategoryCpu';
 import CategoryGpu from './components/category/CategoryGpu';
 import CategoryRam from './components/category/CategoryRam';
+import CategoryGame from './components/category/CategoryGame';
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
 import InsertSpec from "./components/eventBanner/InsertSpec";
 import MySpec from "./components/myInfo/MySpec";
@@ -114,6 +115,18 @@ function App() {
                   />
               }
           />
+
+          <Route
+              path="/category/game1"
+              element={
+                  <CategoryGame
+                      convertPrice={convertPrice}
+                      products={products}
+                      setProducts={setProducts}
+                  />
+              }
+          />
+
           <Route
           path="/showMySpec"
           element={
