@@ -15,9 +15,9 @@ import CategoryRam from './components/category/CategoryRam';
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
 import InsertSpec from "./components/eventBanner/InsertSpec";
 import MySpec from "./components/myInfo/MySpec";
-import CategoryMyCpu from "./components/myInfo/CategoryMyCpu";
-import CategoryMyGpu from "./components/myInfo/CategoryMyGpu";
-import CategoryMyRam from "./components/myInfo/CategoryMyRam";
+import MyCategoryCpu from "./components/myInfo/MyCategoryCpu";
+import MyCategoryGpu from "./components/myInfo/MyCategoryGpu";
+import MyCategoryRam from "./components/myInfo/MyCategoryRam";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -134,25 +134,21 @@ function App() {
             }
         />
           <Route
-              path="/category2/myCpu"
+              path="/MyCategoryCpu"
               element={
-                  <CategoryMyCpu/>
+                  <MyCategoryCpu />
               }
           />
           <Route
-              path="/category2/myGpu"
+              path="/MyCategoryGpu"
               element={
-                  <CategoryMyGpu />
+                  <MyCategoryGpu />
               }
           />
           <Route
-              path="/category2/myRam"
+              path="/MyCategoryRam"
               element={
-                  <CategoryMyRam
-                      convertPrice={convertPrice}
-                      products={products}
-                      setProducts={setProducts}
-                  />
+                  <MyCategoryRam />
               }
           />
     </Routes>
