@@ -1,0 +1,53 @@
+.selectTag {
+    width: 30%;
+    height: 20%;
+}
+
+.selectTagShow {
+    width: 25%;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 2rem;
+    border: none;
+}
+
+.formTag {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+.buttonSubmit {
+    background-color:antiquewhite;
+    border-radius: 30%;
+    color:black;
+    position: absolute;
+    left: 27%;
+    height: 40px;
+    width: 100px;
+}
+
+/*-------*/
+
+.cssTh {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTd {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTable {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.tableImg {
+    width:50px;
+    height:30px;
+}
