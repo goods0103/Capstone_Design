@@ -5,7 +5,7 @@ import styles from "./category.module.css"
 import CategoryBar2 from "./CategoryBar2";
 
 
-function MyCategoryCpu() {
+function MyCategoryRam() {
     const [ramList, setRamList] = useState([]);
     const [data2, setData2] = useState([]);
 
@@ -22,10 +22,13 @@ function MyCategoryCpu() {
 
         fetchData();
     }, []);
-
+    const scrollToMySpec = () => {
+        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+    };
     return (
         <>
             <CategoryBar2></CategoryBar2>
+            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>
                     <tr>
@@ -72,4 +75,4 @@ function MyCategoryCpu() {
     );
 }
 
-export default MyCategoryCpu;
+export default MyCategoryRam;

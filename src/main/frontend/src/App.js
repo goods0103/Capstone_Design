@@ -19,7 +19,13 @@ import MySpec from "./components/myInfo/MySpec";
 import MyCategoryCpu from "./components/myInfo/MyCategoryCpu";
 import MyCategoryGpu from "./components/myInfo/MyCategoryGpu";
 import MyCategoryRam from "./components/myInfo/MyCategoryRam";
+import InsertCategoryCpu from "./components/insertInfo/InsertCategoryCpu";
+import InsertCategoryGpu from "./components/insertInfo/InsertCategoryGpu";
+import InsertCategoryRam from "./components/insertInfo/InsertCategoryRam";
+import SelectSpec from "./components/insertInfo/SelectSpec";
 import CpuDetail from "./components/detail/CpuDetail";
+import GpuDetail from "./components/detail/GpuDetail";
+import CpuCompare from "./components/detail/CpuCompare";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -148,6 +154,30 @@ function App() {
             }
         />
           <Route
+              path="/SelectSpec"
+              element={
+                  <SelectSpec />
+              }
+          />
+          <Route
+              path="/InsertCategoryCpu"
+              element={
+                  <InsertCategoryCpu />
+              }
+          />
+          <Route
+              path="/InsertCategoryGpu"
+              element={
+                  <InsertCategoryGpu />
+              }
+          />
+          <Route
+              path="/InsertCategoryRam"
+              element={
+                  <InsertCategoryRam />
+              }
+          />
+          <Route
               path="/MyCategoryCpu"
               element={
                   <MyCategoryCpu />
@@ -169,6 +199,18 @@ function App() {
               path="/CpuSpec/:cpuId"
               element={
                 <CpuDetail />
+              }
+          />
+          <Route
+              path="/GpuSpec/:gpuId"
+              element={
+                  <GpuDetail />
+              }
+          />
+          <Route
+              path="/cpuCompare"
+              element={
+                  <CpuCompare />
               }
           />
 
