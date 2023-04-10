@@ -69,14 +69,23 @@ public class CompareService {
             if(gpu.getGpuName().contains(lastData) || lastData.contains(gpu.getGpuName()))
                 matchingGpu.add(gpu.getGpuName());
         }
-
+        if(matchingGpu.size()==0){
+            String gpuCpu = userGpu.get(userGpu.size() - 1).getCpuInfo();
+            for(GpuList gpu : gpulist){
+                if(gpu.getGpuName().contains(gpuCpu) || gpuCpu.contains(gpu.getGpuName()))
+                    matchingGpu.add(gpu.getGpuName());
+            }
+        }
         String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
 
+        System.out.println("gpuArray" + gpuArray[0]);
         String mostSimilar = "";
         int maxSimilarity = 100;
 
         for (String findGpuArray : gpuArray) {
             int similarity = StringUtils.getLevenshteinDistance(lastData, findGpuArray);
+            System.out.println("simiilarity"+ similarity);
+            System.out.println("findGpuArray"+ findGpuArray);
             if (similarity < maxSimilarity) {
                 maxSimilarity = similarity;
                 mostSimilar = findGpuArray;
