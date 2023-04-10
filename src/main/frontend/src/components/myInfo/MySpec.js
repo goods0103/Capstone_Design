@@ -43,6 +43,7 @@ function MySpec() {
             try {
                 const response = await axios.get('/mySpecRam');
                 setRamInfo(response.data);
+
             } catch (error) {
                 console.log(error);
             }
@@ -58,6 +59,9 @@ function MySpec() {
     return(
         <>
             <CategoryBar2></CategoryBar2>
+            {localStorage.setItem('cpuData', cpuInfo.cpu_name)}
+            {localStorage.setItem('gpuData', gpuInfo.gpu_name)}
+            {localStorage.setItem('ramData', ramInfo.ram_name)}
             <div>
                 <p>
                     cpu_name : {cpuInfo.cpu_name}<br/>

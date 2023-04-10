@@ -5,13 +5,14 @@ import CategoryBar from "./CategoryBar";
 
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
-
+  const [data2, setData2] = useState([]);
   // hello
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/category/cpu1');
         setCpuList(response.data);
+        setData2(localStorage.getItem('cpuData'));
       } catch (error) {
         console.log(error);
       }
@@ -57,6 +58,7 @@ function CategoryCpu() {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => a.cpu_rank - b.cpu_rank);
           setCpuList(newProduct);
+
       }
     };
 
@@ -71,6 +73,7 @@ function CategoryCpu() {
               <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
               <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
           </div>
+          <p>{data2}</p>
           <table className={styles.cssTable}>
               <tr>
                   <th className={styles.cssTh}>cpu_image</th>

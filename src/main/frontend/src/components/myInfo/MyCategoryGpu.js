@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import styles from "../eventBanner/eventBanner.module.css"
+import styles from "./category.module.css"
 import CategoryBar2 from "./CategoryBar2";
 import CategoryBar from "../category/CategoryBar";
 
 function MyCategoryGpu() {
 
-    const [gpuInfo, setGpuInfo] = useState([]);
+    const [gpuList, setGpuList] = useState([]);
+    const [data2, setData2] = useState([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/mySpecGpu');
-                setGpuInfo(response.data);
+                const response = await axios.get('/category/gpu1');
+                setGpuList(response.data);
+                setData2(localStorage.getItem('gpuData'));
             } catch (error) {
                 console.log(error);
             }
@@ -26,18 +29,51 @@ function MyCategoryGpu() {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-    return(
+
+    return (
         <>
             <CategoryBar2></CategoryBar2>
             <div>
-                <p>
-                    gpu_name : {gpuInfo.gpu_name}<br/>
-                    gpu_mark : {gpuInfo.gpu_mark}<br/>
-                    gpu_rank : {gpuInfo.gpu_rank}<br/>
-                    gpu_value : {gpuInfo.gpu_value}<br/>
-                    gpu_price : {gpuInfo.gpu_price}<br/>
-                </p>
-                <br/>
+                <table className={styles.cssTable}>
+                    <tr>
+                        <th className={styles.cssTh}>gpu_image</th>
+                        <th className={styles.cssTh}>gpu_name</th>
+                        <th className={styles.cssTh}>gpu_mark</th>
+                        <th className={styles.cssTh}>gpu_rank</th>
+                        <th className={styles.cssTh}>gpu_value</th>
+                        <th className={styles.cssTh}>gpu_price</th>
+                    </tr>
+                    {gpuList.map((gpu) => (
+                        <tr>
+                            <td className={styles.cssTd}  style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderLeft: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                                <img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                            <td className={styles.cssTd}  style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                                    {gpu.gpu_name}</td>
+                            <td className={styles.cssTd} style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                                {gpu.gpu_mark}</td>
+                            <td className={styles.cssTd}  style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                 borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                            {gpu.gpu_rank}</td>
+                            <td className={styles.cssTd} style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                                {gpu.gpu_value}</td>
+                            <td className={styles.cssTd} style={{
+                                borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
+                                borderRight: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
+                            {convertPrice(gpu.gpu_price)}원</td>
+                        </tr>
+                    ))}
+                </table>
             </div>
         </>
     );

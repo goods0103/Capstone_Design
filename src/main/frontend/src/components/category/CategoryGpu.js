@@ -6,12 +6,15 @@ import CategoryBar from "./CategoryBar";
 // [Mod] for check
 function CategoryGpu() {
     const [gpuList, setGpuList] = useState([]);
+    const [data2, setData2] = useState([]);
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/category/gpu1');
                 setGpuList(response.data);
+                setData2(localStorage.getItem('gpuData'));
             } catch (error) {
                 console.log(error);
             }
@@ -77,6 +80,7 @@ function CategoryGpu() {
                     <p onClick={() => sortProduct("gpuValue")}>가성비순</p>
 
                 </div>
+                <p>{data2}</p>
                 <table className={styles.cssTable}>
                     <tr>
                         <th className={styles.cssTh}>gpu_image</th>

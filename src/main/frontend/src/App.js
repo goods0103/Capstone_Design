@@ -19,6 +19,7 @@ import MySpec from "./components/myInfo/MySpec";
 import MyCategoryCpu from "./components/myInfo/MyCategoryCpu";
 import MyCategoryGpu from "./components/myInfo/MyCategoryGpu";
 import MyCategoryRam from "./components/myInfo/MyCategoryRam";
+import CpuDetail from "./components/detail/CpuDetail";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -164,6 +165,13 @@ function App() {
                   <MyCategoryRam />
               }
           />
+          <Route
+              path="/CpuSpec/:cpuId"
+              element={
+                <CpuDetail />
+              }
+          />
+
     </Routes>
     </HashRouter>
   );
