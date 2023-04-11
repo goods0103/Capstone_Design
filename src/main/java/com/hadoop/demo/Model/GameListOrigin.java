@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -19,7 +16,10 @@ import javax.persistence.Table;
 public class GameListOrigin {
 
     @Id
-    @JsonProperty("game_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gameOriginId;
+
+    @Column(name = "game_name")
     private String gameName;
 
     @Column(name = "game_id")
@@ -45,9 +45,10 @@ public class GameListOrigin {
 
 
     @Builder
-    public GameListOrigin(String gameName, int gameId, String minimumGameCpu, String minimumGameGpu,
+    public GameListOrigin(int gameOriginId, String gameName, int gameId, String minimumGameCpu, String minimumGameGpu,
                           String recommendedGameCpu, String recommendedGameGpu,
                           String minimumGameRam, String recommendedGameRam) {
+        this.gameOriginId = gameOriginId;
         this.gameName = gameName;
         this.gameId = gameId;
         this.minimumGameCpu = minimumGameCpu;

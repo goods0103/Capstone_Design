@@ -59,25 +59,56 @@ public class GameOriginFindExceptionService {
         Element cpuElement = reqElement.select("li strong:contains(Processor)").first();
 
         //cpu 예외처리
-        String cpu = cpuElement.parent().text();
+        String cpu = "";
+        if (cpuElement != null) {
+            cpu = cpuElement.parent().text();
+        }
+
+        Element cpuElement2 = reqElement.select("li strong:contains(Processor)").last();
+        //cpu 예외처리
+        String cpu2 = "";
+        if (cpuElement2 != null) {
+            cpu2 = cpuElement2.parent().text();
+        }
 
         Element gpuElement = reqElement.select("li strong:contains(Graphics), li strong:contains(Video), li strong:contains(Video Card)").first();
-
         //gpu 예외처리
-        String gpu = gpuElement.parent().text();
+        String gpu = "";
+        if (gpuElement != null) {
+            gpu = gpuElement.parent().text();
+        }
 
+        Element gpuElement2 = reqElement.select("li strong:contains(Graphics), li strong:contains(Video), li strong:contains(Video Card)").last();
+        //gpu 예외처리
+        String gpu2 = "";
+        if (gpuElement2 != null) {
+            gpu2 = gpuElement2.parent().text();
+        }
 
         Element ramElement = reqElement.select("li strong:contains(Memory)").first();
-
         //Ram 예외처리
-        String ram = ramElement.parent().text();
+        String ram = "";
+        if (ramElement != null) {
+            ram = ramElement.parent().text();
+        }
+
+        Element ramElement2 = reqElement.select("li strong:contains(Memory)").last();
+        //Ram 예외처리
+        String ram2 = "";
+        if (ramElement2 != null) {
+            ram2 = ramElement2.parent().text();
+        }
 
         GameListOrigin gameList2 = GameListOrigin.builder()
+                .gameOriginId(gameListOrigin.getGameOriginId())
                 .gameId(gameListOrigin.getGameId())
                 .gameName(gameListOrigin.getGameName())
                 .minimumGameCpu(cpu)
                 .minimumGameGpu(gpu)
                 .minimumGameRam(ram)
+                .recommendedGameCpu(cpu2)
+                .recommendedGameGpu(gpu2)
+                .recommendedGameRam(ram2)
                 .build();
         gameListOriginService.save(gameList2);
     }
