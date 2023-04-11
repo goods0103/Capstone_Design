@@ -15,6 +15,7 @@ function MyCategoryCpu() {
                 const response = await axios.get('/category/cpu1');
                 setCpuList(response.data);
                 setData2(localStorage.getItem('cpuData'));
+
             } catch (error) {
                 console.log(error);
             }
@@ -57,10 +58,13 @@ function MyCategoryCpu() {
     //
     //     }
     // };
-
+    const scrollToMySpec = () => {
+        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+    };
     return (
         <>
             <CategoryBar2></CategoryBar2>
+            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
             <div>
                 {/*<div className={styles.filter}>*/}
                 {/*    /!*<p onClick={() => sortProduct("name")}>이름순</p>*!/*/}

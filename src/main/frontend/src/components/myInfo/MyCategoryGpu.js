@@ -4,6 +4,7 @@ import Select from "react-select";
 import styles from "./category.module.css"
 import CategoryBar2 from "./CategoryBar2";
 import CategoryBar from "../category/CategoryBar";
+import {Link} from "react-router-dom";
 
 function MyCategoryGpu() {
 
@@ -28,11 +29,14 @@ function MyCategoryGpu() {
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
-
+    const scrollToMySpec = () => {
+        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+    };
 
     return (
         <>
             <CategoryBar2></CategoryBar2>
+            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>
                     <tr>
@@ -53,7 +57,7 @@ function MyCategoryGpu() {
                             <td className={styles.cssTd}  style={{
                                 borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>
-                                    {gpu.gpu_name}</td>
+                                <Link to={`/GpuSpec/${gpu.gpu_id}`}>{gpu.gpu_name}</Link></td>
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white"}}>

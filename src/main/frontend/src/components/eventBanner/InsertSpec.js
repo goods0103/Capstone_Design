@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import styles from "./eventBanner.module.css"
+import {Link} from "react-router-dom";
 
 function InsertSpec() {
 
@@ -87,6 +88,20 @@ function InsertSpec() {
     function handleRamChange(selectedRam) {
         setSelectedRam(selectedRam);
     }
+    function saveInsertSpec() {
+        localStorage.setItem('selectCpuData', selectedCpu.value);
+        localStorage.setItem('selectGpuData', selectedGpu.value);
+        localStorage.setItem('selectRamData', selectedRam.value);
+        console.log(selectedCpu.value);
+        console.log(selectedGpu.value);
+        axios.post('/selectedId', { selectedCpu,selectedGpu,selectedRam })
+            .then(response => {
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+    }
 
     return (
         <>
@@ -130,7 +145,7 @@ function InsertSpec() {
                 <input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />
                 <br/>
 
-                <button type="submit" className={styles.buttonSubmit}>Submit</button>
+                <Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.buttonSubmit}>Submit</button></Link>
             </form>
         </>
     );
