@@ -19,11 +19,29 @@ import reactor.core.publisher.Sinks;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class UserInfoController {
+    public static class SelectedIds {
 
+        private String selectedCpu;
+        private String selectedGpu;
+        private String selectedRam;
+
+        public String getSelectedCpu() {
+            return selectedCpu;
+        }
+
+        public String getSelectedGpu() {
+            return selectedGpu;
+        }
+
+        public String getSelectedRam() {
+            return selectedRam;
+        }
+    }
     @Autowired
     UserInfoService userInfoService;
 
@@ -148,5 +166,16 @@ public class UserInfoController {
     @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> streamData() {
         return sink.asFlux();
+    }
+
+    @PostMapping("/selectedId")
+    public void handleSelectedId(@RequestBody SelectedIds selectedIds) {
+        String selectedCpu = selectedIds.getSelectedCpu();
+        String selectedGpu = selectedIds.getSelectedGpu();
+        String selectedRam = selectedIds.getSelectedRam();
+        System.out.println(selectedCpu);
+        System.out.println(selectedGpu);
+        System.out.println(selectedRam);
+
     }
 }

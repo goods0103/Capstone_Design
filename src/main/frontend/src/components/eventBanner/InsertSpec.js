@@ -94,7 +94,11 @@ function InsertSpec() {
         localStorage.setItem('selectRamData', selectedRam.value);
         console.log(selectedCpu.value);
         console.log(selectedGpu.value);
-        axios.post('/selectedId', { selectedCpu,selectedGpu,selectedRam })
+        axios.post('/selectedId',  {
+            selectedCpu: selectedCpu.value,
+            selectedGpu: selectedGpu.value,
+            selectedRam: selectedRam.value
+        })
             .then(response => {
             })
             .catch(error => {
