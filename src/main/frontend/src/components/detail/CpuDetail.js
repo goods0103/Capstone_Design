@@ -4,21 +4,48 @@ import styles from "./detail.module.css";
 import {Link} from "react-router-dom";
 
 function CpuDetail() {
-    const [cpuInfo, setCpuInfo] = useState([]);
+    const [cpuValue, setCpuValue] = useState([]);
+    const [cpuRank, setCpuRank] = useState([]);
+    const [cpuPopular, setCpuPopular] = useState([]);
+
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
     console.log(lastPart);
 
     useEffect(() => {
-        axios.post('/cpuid', { lastPart })
+        axios.post('/cpuValue', { lastPart })
             .then(response => {
-                setCpuInfo(response.data);
+                setCpuValue(response.data);
             })
+            .finally()
             .catch(error => {
                 console.log(error);
             });
     }, []);
+
+    useEffect(() => {
+        axios.post('/cpuRank', { lastPart })
+            .then(response => {
+                setCpuRank(response.data);
+            })
+            .finally()
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.post('/cpuPopular', { lastPart })
+            .then(response => {
+                setCpuPopular(response.data);
+            })
+            .finally()
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     return(
         <>
             <Link to={`/cpuCompare/?id=${lastPart}`}><button>비교하기</button></Link>

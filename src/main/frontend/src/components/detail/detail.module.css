@@ -51,3 +51,26 @@
     width:50px;
     height:30px;
 }
+
+/*--------*/
+
+.formCss {
+    float: right;
+}
+
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: 40%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: 10px;
+}
