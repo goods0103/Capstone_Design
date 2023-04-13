@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RamListRepository extends JpaRepository<RamList, Long> {
 
-    RamList findByRamName(String ram_name);
+    RamList findByRamName(String ramName);
 }
