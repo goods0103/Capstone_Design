@@ -1,9 +1,12 @@
 package com.hadoop.demo.Controller;
 
-import com.hadoop.demo.Model.CpuList;
-import com.hadoop.demo.Model.UserInfo;
+import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.CompareService;
 import com.hadoop.demo.Service.UserInfoService;
+import com.hadoop.demo.Service.UserInsertInfoService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
@@ -18,30 +21,27 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class UserInfoController {
-    public static class SelectedIds {
 
-        private String selectedCpu;
-        private String selectedGpu;
-        private String selectedRam;
-
-        public String getSelectedCpu() {
-            return selectedCpu;
-        }
-
-        public String getSelectedGpu() {
-            return selectedGpu;
-        }
-
-        public String getSelectedRam() {
-            return selectedRam;
-        }
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    class ListsWrapper {
+        private List<String> list1;
+        private List<String> list2;
+        private List<String> list3;
+        private List<String> list4;
     }
+
+    @Autowired
+    UserInsertInfoService userInsertInfoService;
+
     @Autowired
     UserInfoService userInfoService;
 
@@ -169,13 +169,41 @@ public class UserInfoController {
     }
 
     @PostMapping("/selectedId")
-    public void handleSelectedId(@RequestBody SelectedIds selectedIds) {
-        String selectedCpu = selectedIds.getSelectedCpu();
-        String selectedGpu = selectedIds.getSelectedGpu();
-        String selectedRam = selectedIds.getSelectedRam();
-        System.out.println(selectedCpu);
-        System.out.println(selectedGpu);
-        System.out.println(selectedRam);
+    public void handleSelectedId(@RequestBody UserInsertInfo userInsertInfo){
+        String selectedCpu = userInsertInfo.getSelectedCpu();
+        String selectedGpu = userInsertInfo.getSelectedGpu();
+        String selectedRam = userInsertInfo.getSelectedRam();
+
+        userInsertInfo = UserInsertInfo.builder()
+                .selectedCpu(selectedCpu)
+                .selectedGpu(selectedGpu)
+                .selectedRam(selectedRam)
+                .build();
+        userInsertInfoService.save(userInsertInfo);
 
     }
+
+    @GetMapping("/list_rank")  //rank 기준 선택한 것과 유사한 cpu, gpu 및 소유하고있는 것과 유사한 cpu, gpu
+    public ResponseEntity<ListsWrapper> getSimilarInfoByRank() {
+        List<String> list1 = userInsertInfoService.searchSelectCpuByRank();
+        List<String> list2 = userInsertInfoService.searchSelectGpuByRank();
+        List<String> list3 = userInsertInfoService.searchPossessCpuByRank();
+        List<String> list4 = userInsertInfoService.searchPossessGpuByRank();
+
+        ListsWrapper listsWrapper = new ListsWrapper(list1, list2, list3, list4);
+        return ResponseEntity.ok(listsWrapper);
+    }
+
+    @GetMapping("/list_value")  //value 기준 선택한 것과 유사한 cpu, gpu 및 소유하고있는 것과 유사한 cpu, gpu
+    public ResponseEntity<ListsWrapper> getSimilarInfoByValue() {
+        List<String> list1 = userInsertInfoService.searchSelectCpuByValue();
+        List<String> list2 = userInsertInfoService.searchSelectGpuByValue();
+        List<String> list3 = userInsertInfoService.searchPossessCpuByValue();
+        List<String> list4 = userInsertInfoService.searchPossessGpuByValue();
+
+        ListsWrapper listsWrapper = new ListsWrapper(list1, list2, list3, list4);
+        return ResponseEntity.ok(listsWrapper);
+    }
+
+
 }
