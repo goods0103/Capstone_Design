@@ -52,29 +52,36 @@ function CpuCompare() {
             .catch(error => {
                 console.log(error);
             });
+
     }, []);
+
 
 
 
     return(
         <>
-            <div>선택된 스펙이름</div>
-                <form onSubmit={handleSubmit} className={styles.formTag}>
-                 <label>원하는 Cpu를 입력하세요 : </label>
-                  <Select
-                    value={selectedCpu}
-                    onChange={handleCpuChange}
-                    options={cpuOption}
-                    placeholder="Choose an option"
-                    isSearchable={true}
-                    className={styles.selectTag}
-                />
-                <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
-                <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
-                <br/>
-            </form>
-            <div>선택된 스펙 정보 출력</div>
-            <div>선택할 스펙 정보 출력</div>
+            <div className="container">
+                <div className="item1">선택된 스펙이름 : {id}</div>
+                <div className="item2">
+                    <form onSubmit={handleSubmit} className={styles.formTag}>
+                        <label>원하는 Cpu를 입력하세요 : </label>
+                        <Select
+                            value={selectedCpu}
+                            onChange={handleCpuChange}
+                            options={cpuOption}
+                            placeholder="Choose an option"
+                            isSearchable={true}
+                            className={styles.selectTag}
+                        />
+                        <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
+                        <input name="cpuSelect" className={styles.selectTagShow}
+                               value={selectedCpu ? selectedCpu.label : ''}/>
+                        <br/>
+                    </form>
+                </div>
+                <div className="item3">선택된 스펙 정보 출력</div>
+                <div className="item4">선택할 스펙 정보 출력</div>
+            </div>
         </>
     );
 }

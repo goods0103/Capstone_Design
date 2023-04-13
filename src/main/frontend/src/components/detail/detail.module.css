@@ -51,3 +51,27 @@
     width:50px;
     height:30px;
 }
+/*-------*/
+
+.item1{
+  width:50%;
+   height:30px;
+    background-color:red;
+}
+.item2{
+    width:50%;
+    height:30px;
+    background-color:blue;
+}
+.item3{
+    width:50%;
+    height:100px;
+    background-color:red;
+}
+.item4{
+    width:50%;
+    height:100px;
+    background-color:blue;
+}
+
+
