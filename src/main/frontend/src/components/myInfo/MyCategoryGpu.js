@@ -13,30 +13,39 @@ function MyCategoryGpu() {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/category/gpu1');
-                setGpuList(response.data);
-                setData2(localStorage.getItem('gpuData'));
-            } catch (error) {
-                console.log(error);
-            }
-        };
+        if (data2) {
+            const fetchData = async () => {
+                console.log(data2);
+                try {
+                    const response = await axios.post('/myGpuRanking', `${data2}`);
+                    setGpuList(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetchData();
+        }
+    }, [data2]);
 
-        fetchData();
+    useEffect(() => {
+        setData2(localStorage.getItem('gpuData'));
     }, []);
-
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
-    const scrollToMySpec = () => {
-        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+    const scrollToMySpec = (gpuName) => {
+        const targetRow = document.querySelector(`tr[data-gpu-name="${gpuName}"]`);
+        if (targetRow) {
+            const yOffset = -50; // optional offset to adjust scroll position
+            const y = targetRow.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
+        }
     };
 
     return (
         <>
             <CategoryBar2></CategoryBar2>
-            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
+            <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>
                     <tr>
@@ -48,7 +57,9 @@ function MyCategoryGpu() {
                         <th className={styles.cssTh}>gpu_price</th>
                     </tr>
                     {gpuList.map((gpu) => (
-                        <tr>
+                        <tr  data-gpu-name={gpu.gpu_name}
+                             onClick={() => scrollToMySpec(gpu.gpu_name)}
+                        >
                             <td className={styles.cssTd}  style={{
                                 borderBottom: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpu_name ? "2px solid red" : "1px solid white",

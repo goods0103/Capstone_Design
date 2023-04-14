@@ -1,7 +1,12 @@
 import styles from "./topNavigationBar.module.css";
 import { Link } from "react-router-dom";
+import {useEffect, useState} from "react";
 
 export const TopNavigationBar = ({ cart }) => {
+  const [localData, setLocalData] = useState("");
+  useEffect(() => {
+    setLocalData(localStorage.getItem('cpuData'));
+  }, []);
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
@@ -17,7 +22,8 @@ export const TopNavigationBar = ({ cart }) => {
       </div>
 
       <div className={styles.menu}>
-        <Link to="/cart">
+        <Link to={localData ? "/mySpec" : "/showMySpec"}>
+
           <div className={styles.shopping_cart}>
             <img src="/images/icon-shopping-cart.svg" alt="cart" />
             <span>MySpec</span>
@@ -30,13 +36,13 @@ export const TopNavigationBar = ({ cart }) => {
             )}
           </div>
         </Link>
-        <Link to="">
+        <Link to={"/insertSpec"}>
           <div className={styles.mypage}>
             <img src="/images/icon-user.svg" alt="user" />
             <span>InsertSpec</span>
           </div>
         </Link>
-        <Link to="">
+        <Link to={"/HowToViewSpec"}>
           <div className={styles.mypage}>
             <img src="/images/icon-user.svg" alt="user" />
             <span>HowToViewSpec</span>

@@ -54,9 +54,12 @@ public class DataController {
         return compareService.getMatchingRam();
     }
 
-    @GetMapping("/myCpuRanking")
+    @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
+        cpu=cpu.replace("+"," ");
+        cpu=cpu.replace("=","");
+        System.out.println(cpu);
         int rank = cpuListService.findByName(cpu).getCpuRank();
         System.out.println(rank);
         if(rank <= 25)
@@ -72,9 +75,12 @@ public class DataController {
         return cpuList;
     }
 
-    @GetMapping("/myGpuRanking")
+    @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
+        gpu=gpu.replace("+"," ");
+        gpu=gpu.replace("=","");
+        System.out.println(gpu);
         int rank = gpuListService.findByName(gpu).getGpuRank();
         System.out.println(rank);
         if(rank <= 25)

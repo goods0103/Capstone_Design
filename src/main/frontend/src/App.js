@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { TopNavigationBar } from "./components/header/TopNavigationBar";
+import HowToViewSpec from "./components/header/HowToViewSpec";
 import Home from "./pages/home";
 import Product from "./pages/product";
 import Basket from "./pages/basket";
@@ -13,6 +14,7 @@ import CategoryCpu from './components/category/CategoryCpu';
 import CategoryGpu from './components/category/CategoryGpu';
 import CategoryRam from './components/category/CategoryRam';
 import CategoryGame from './components/category/CategoryGame';
+import CategoryBottleNeck from "./components/category/CategoryBottleNeck"
 import ShowMySpec from "./components/eventBanner/ShowMySpec";
 import InsertSpec from "./components/eventBanner/InsertSpec";
 import MySpec from "./components/myInfo/MySpec";
@@ -26,6 +28,7 @@ import SelectSpec from "./components/insertInfo/SelectSpec";
 import CpuDetail from "./components/detail/CpuDetail";
 import GpuDetail from "./components/detail/GpuDetail";
 import CpuCompare from "./components/detail/CpuCompare";
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -133,6 +136,13 @@ function App() {
                   />
               }
           />
+          <Route
+              path="/category/bottleneck1"
+              element={
+                  <CategoryBottleNeck
+                  />
+              }
+          />
 
           <Route
           path="/showMySpec"
@@ -147,6 +157,12 @@ function App() {
             <InsertSpec />
           }
         />
+          <Route
+              path="/HowToViewSpec"
+              element={
+                  <HowToViewSpec />
+              }
+          />
         <Route
             path="/MySpec"
             element={
