@@ -19,7 +19,6 @@ import javax.persistence.Table;
 public class GpuDetails {
 
     @Id
-    @JsonProperty("gpu_name")
     private String gpuName;
 
     @Column(name = "memory_size")

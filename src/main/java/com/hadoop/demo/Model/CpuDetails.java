@@ -19,7 +19,6 @@ import javax.persistence.Table;
 public class CpuDetails {
 
     @Id
-    @JsonProperty("cpu_name")
     private String cpuName;
 
     @Column(name = "class_type")

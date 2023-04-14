@@ -20,27 +20,21 @@ public class CpuList {
 
 
     @Id
-    @JsonProperty("cpu_name")
     private String cpuName;
 
     @Column(name = "cpu_id")
-    @JsonProperty("cpu_id")
     private int cpuId;
 
     @Column(name = "cpu_mark")
-    @JsonProperty("cpu_mark")
     private int cpuMark;
 
     @Column(name = "cpu_rank")
-    @JsonProperty("cpu_rank")
     private int cpuRank;
 
     @Column(name = "cpu_value")
-    @JsonProperty("cpu_value")
     private double cpuValue;
 
     @Column(name = "cpu_price")
-    @JsonProperty("cpu_price")
     private int cpuPrice;
 
     @Builder // 7.

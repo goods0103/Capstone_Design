@@ -32,44 +32,44 @@ function CategoryRam() {
         if (type === "sizeLow") {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => {
-                if (a.ram_size === 1 && b.ram_size === 1) {
+                if (a.ramSize === 1 && b.ramSize === 1) {
                     return 0; // 두 객체 모두 cpu_price가 0인 경우에는 순서를 유지
-                } else if (a.ram_size === 1) {
+                } else if (a.ramSize === 1) {
                     return 1; // a.cpu_price가 0이고 b.cpu_price가 0이 아닌 경우 b를 먼저 위치시킴
-                } else if (b.ram_size === 1) {
+                } else if (b.ramSize === 1) {
                     return -1; // a.cpu_price가 0이 아니고 b.cpu_price가 0인 경우 a를 먼저 위치시킴
                 } else {
-                    return a.ram_size - b.ram_size; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
+                    return a.ramSize - b.ramSize; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
                 }
             });
             setRamList(newProduct);
         } else if (type === "sizeHigh") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => b.ram_size - a.ram_size);
+            newProduct.sort((a, b) => b.ramSize - a.ramSize);
             setRamList(newProduct);
         } else if (type === "latencyLow") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => a.ram_latency - b.ram_latency);
+            newProduct.sort((a, b) => a.ramLatency - b.ramLatency);
             setRamList(newProduct);
         } else if (type === "latencyHigh") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => b.ram_latency - a.ram_latency);
+            newProduct.sort((a, b) => b.ramLatency - a.ramLatency);
             setRamList(newProduct);
         } else if (type === "readLow") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => a.ram_read - b.ram_read);
+            newProduct.sort((a, b) => a.ramRead - b.ramRead);
             setRamList(newProduct);
         } else if (type === "readHigh") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => b.ram_read - a.ram_read);
+            newProduct.sort((a, b) => b.ramRead - a.ramRead);
             setRamList(newProduct);
         } else if (type === "writeLow") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => a.ram_write - b.ram_write);
+            newProduct.sort((a, b) => a.ramWrite - b.ramWrite);
             setRamList(newProduct);
         } else if (type === "writeHigh") {
             const newProduct = [...ramList];
-            newProduct.sort((a, b) => b.ram_write - a.ram_write);
+            newProduct.sort((a, b) => b.ramWrite - a.ramWrite);
             setRamList(newProduct);
         }
     };
@@ -86,21 +86,21 @@ function CategoryRam() {
                 </div>
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>ram_image</th>
-                        <th className={styles.cssTh}>ram_name</th>
-                        <th className={styles.cssTh}>ram_size</th>
-                        <th className={styles.cssTh}>ram_latency</th>
-                        <th className={styles.cssTh}>ram_read</th>
-                        <th className={styles.cssTh}>ram_write</th>
+                        <th className={styles.cssTh}>image</th>
+                        <th className={styles.cssTh}>name</th>
+                        <th className={styles.cssTh}>size</th>
+                        <th className={styles.cssTh}>latency</th>
+                        <th className={styles.cssTh}>read</th>
+                        <th className={styles.cssTh}>write</th>
                     </tr>
                     {ramList.map((ram) => (
                         <tr>
                             <td className={styles.cssTd}><img src="" alt="ram_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}>{ram.ram_name}</td>
-                            <td className={styles.cssTd}>{ram.ram_size}</td>
-                            <td className={styles.cssTd}>{ram.ram_latency}</td>
-                            <td className={styles.cssTd}>{ram.ram_read}</td>
-                            <td className={styles.cssTd}>{ram.ram_write}</td>
+                            <td className={styles.cssTd}>{ram.ramName}</td>
+                            <td className={styles.cssTd}>{ram.ramSize}</td>
+                            <td className={styles.cssTd}>{ram.ramLatency}</td>
+                            <td className={styles.cssTd}>{ram.ramRead}</td>
+                            <td className={styles.cssTd}>{ram.ramWrite}</td>
                         </tr>
                     ))}
                 </table>

@@ -7,18 +7,18 @@ function CategoryGame() {
 
     const [gameList, setGameList] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('/category/game1');
-    //             setGameList(response.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/category/game1');
+                setGameList(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -70,20 +70,26 @@ function CategoryGame() {
                         <th className={styles.cssTh}>game_image</th>
                         <th className={styles.cssTh}>game_name</th>
                         <th className={styles.cssTh}>game_cpuMin</th>
+                        <th className={styles.cssTh}>game_cpuRec</th>
                         <th className={styles.cssTh}>game_gpuMin</th>
+                        <th className={styles.cssTh}>game_gpuRec</th>
                         <th className={styles.cssTh}>game_ramMin</th>
+                        <th className={styles.cssTh}>game_ramRec</th>
 
                     </tr>
-                    {/*{gameList.map((game) => (*/}
-                    {/*    <tr>*/}
-                    {/*        <td className={styles.cssTd}><img src={`${game.game_img}`} alt="game_image" className={styles.tableImg}/></td>*/}
-                    {/*        <td className={styles.cssTd}>{game.game_name}</td>*/}
-                    {/*        <td className={styles.cssTd}>{game.game_cpu1}</td>*/}
-                    {/*        <td className={styles.cssTd}>{game.game_gpu1}</td>*/}
-                    {/*        <td className={styles.cssTd}>{game.game_ram1}</td>*/}
-                    {/*        /!*<td className={styles.cssTd}>{convertPrice(cpu.cpu_price)}원</td>*!/*/}
-                    {/*    </tr>*/}
-                    {/*))}*/}
+                    {gameList.map((game) => (
+                        <tr>
+                            <td className={styles.cssTd}><img src="" alt="game_image" className={styles.tableImg}/></td>
+                            <td className={styles.cssTd}>{game.gameName}</td>
+                            <td className={styles.cssTd}>{game.minimumGameCpu}</td>
+                            <td className={styles.cssTd}>{game.recommendedGameCpu}</td>
+                            <td className={styles.cssTd}>{game.minimumGameGpu}</td>
+                            <td className={styles.cssTd}>{game.recommendedGameGpu}</td>
+                            <td className={styles.cssTd}>{game.minimumGameRam}</td>
+                            <td className={styles.cssTd}>{game.recommendedGameRam}</td>
+                            {/*<td className={styles.cssTd}>{convertPrice(cpu.cpu_price)}원</td>*/}
+                        </tr>
+                    ))}
                 </table>
             </div>
         </>

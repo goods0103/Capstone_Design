@@ -57,32 +57,32 @@ function InsertCategoryCpu() {
                         <th className={styles.cssTh}>cpu_price</th>
                     </tr>
                     {cpuList.map((cpu) => (
-                        <tr  data-cpu-name={cpu.cpu_name}
-                            onClick={() => scrollToMySpec(cpu.cpu_name)}
+                        <tr  data-cpu-name={cpu.cpuName}
+                            onClick={() => scrollToMySpec(cpu.cpuName)}
                         >
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderLeft: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white"
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderLeft: data2 === cpu.cpuName ? "2px solid red" : "1px solid white"
                             }}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}><Link to={`/CpuSpec/${cpu.cpu_id}`}>{cpu.cpu_name}</Link></td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}><Link to={`/CpuSpec/${cpu.cpu_id}`}>{cpu.cpuName}</Link></td>
 
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}>{cpu.cpu_rank}</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}>{cpu.cpuRank}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}>{cpu.cpu_value}</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}>{cpu.cpuValue}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderRight: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white"
-                            }}>{convertPrice(cpu.cpu_price)}원</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderRight: data2 === cpu.cpuName ? "2px solid red" : "1px solid white"
+                            }}>{convertPrice(cpu.cpuPrice)}원</td>
                         </tr>
                     ))}
                 </table>

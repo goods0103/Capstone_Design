@@ -59,15 +59,12 @@ public class DataController {
         List<CpuList> cpuList = new ArrayList<>();
         cpu=cpu.replace("+"," ");
         cpu=cpu.replace("=","");
-        System.out.println(cpu);
         int rank = cpuListService.findByName(cpu).getCpuRank();
-        System.out.println(rank);
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-        System.out.println(rank);
 
         for(int i = 0; i < 50; i++)
             cpuList.add(cpuListService.findByRank(rank + i));
@@ -80,15 +77,13 @@ public class DataController {
         List<GpuList> gpuList = new ArrayList<>();
         gpu=gpu.replace("+"," ");
         gpu=gpu.replace("=","");
-        System.out.println(gpu);
         int rank = gpuListService.findByName(gpu).getGpuRank();
-        System.out.println(rank);
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-        System.out.println(rank);
+
 
         for(int i = 0; i < 50; i++)
             gpuList.add(gpuListService.findByRank(rank + i));
