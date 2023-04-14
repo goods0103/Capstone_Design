@@ -22,30 +22,18 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class UserInfoController {
 
     @AllArgsConstructor
-    @Getter
-    @Setter
-    class ListsWrapper {
-        private List<String> list1;
-        private List<String> list2;
-        private List<String> list3;
-        private List<String> list4;
-    }
-
-    @AllArgsConstructor
     @NoArgsConstructor
     @Getter
     @Setter
     static class handleRequest{
-        private String lastPart;
+        private Integer lastPart;
     }
 
     @Autowired
@@ -192,33 +180,36 @@ public class UserInfoController {
 
     }
 
+    @PostMapping("/cpuRank")
+    public List<CpuList> handleLastDataByRank(@RequestBody handleRequest cpuId){
+        //System.out.println("cpuId" + cpuId.getLastPart());
+        List<CpuList> similarCpu1 = userInsertInfoService.searchSelectCpuByRank(cpuId.getLastPart());
+
+        return similarCpu1;
+    }
+
     @PostMapping("/cpuValue")
-    public void handleLastData(@RequestBody handleRequest cpuId){
-        System.out.println("cpuId" + cpuId.getLastPart());
+    public List<CpuList> handleLastDataByValue(@RequestBody handleRequest cpuId){
+        //System.out.println("cpuId" + cpuId.getLastPart());
+        List<CpuList> similarCpu2 = userInsertInfoService.searchSelectCpuByValue(cpuId.getLastPart());
 
+        return similarCpu2;
     }
 
-    @GetMapping("/list_rank")  //rank 기준 선택한 것과 유사한 cpu, gpu 및 소유하고있는 것과 유사한 cpu, gpu
-    public ResponseEntity<ListsWrapper> getSimilarInfoByRank() {
-        List<String> list1 = userInsertInfoService.searchSelectCpuByRank();
-        List<String> list2 = userInsertInfoService.searchSelectGpuByRank();
-        List<String> list3 = userInsertInfoService.searchPossessCpuByRank();
-        List<String> list4 = userInsertInfoService.searchPossessGpuByRank();
+    @PostMapping("/gpuRank")
+    public List<GpuList> handleLastDataByRank2(@RequestBody handleRequest gpuId){
+        //System.out.println("gpuId" + gpuId.getLastPart());
+        List<GpuList> similarGpu1 = userInsertInfoService.searchSelectGpuByRank(gpuId.getLastPart());
 
-        ListsWrapper listsWrapper = new ListsWrapper(list1, list2, list3, list4);
-        return ResponseEntity.ok(listsWrapper);
+        return similarGpu1;
     }
 
-    @GetMapping("/list_value")  //value 기준 선택한 것과 유사한 cpu, gpu 및 소유하고있는 것과 유사한 cpu, gpu
-    public ResponseEntity<ListsWrapper> getSimilarInfoByValue() {
-        List<String> list1 = userInsertInfoService.searchSelectCpuByValue();
-        List<String> list2 = userInsertInfoService.searchSelectGpuByValue();
-        List<String> list3 = userInsertInfoService.searchPossessCpuByValue();
-        List<String> list4 = userInsertInfoService.searchPossessGpuByValue();
+    @PostMapping("/gpuValue")
+    public List<GpuList> handleLastDataByValue2(@RequestBody handleRequest gpuId){
+        //System.out.println("gpuId" + gpuId.getLastPart());
+        List<GpuList> similarGpu2 = userInsertInfoService.searchSelectGpuByValue(gpuId.getLastPart());
 
-        ListsWrapper listsWrapper = new ListsWrapper(list1, list2, list3, list4);
-        return ResponseEntity.ok(listsWrapper);
+        return similarGpu2;
     }
-
 
 }

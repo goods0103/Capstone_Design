@@ -36,57 +36,51 @@ public class UserInsertInfoService {
 
     public List<UserInsertInfo> findAll() { return userInsertInfoRepository.findAll();}
 
-    public List<String> searchSelectCpuByRank() {
-        List<String> similarCpu = new ArrayList<>();
+    public List<CpuList> searchSelectCpuByRank(int cpuId) {
+        List<CpuList> similarCpu = new ArrayList<>();
 
-        List<UserInsertInfo> userinsertinfo = userInsertInfoRepository.findAll();
         List<CpuList> sortedCpuList = cpuListRepository.findByOrderByCpuRankAsc();
 
-        String lastIndex = userinsertinfo.get(userinsertinfo.size()-1).getSelectedCpu();
+        int findRank = cpuListRepository.findByCpuId(cpuId).getCpuRank();
 
-        int findRank = cpuListRepository.findByCpuName(lastIndex).getCpuRank();
+        int startRank = Math.max(findRank - 4, 1); // 랭크가 1보다 작아지는 경우를 처리해줍니다.
+        int endRank = Math.min(findRank + 5, sortedCpuList.size()); // 랭크가 size보다 커지는 경우를 처리해줍니다.
 
-                int startRank = Math.max(findRank - 4, 1); // 랭크가 1보다 작아지는 경우를 처리해줍니다.
-                int endRank = Math.min(findRank + 5, sortedCpuList.size()); // 랭크가 size보다 커지는 경우를 처리해줍니다.
-
-                for(int i = startRank; i <= endRank; i++){
-                    similarCpu.add(sortedCpuList.get(i-1).getCpuName());
-                }
-                // 선택한 랭크가 5보다 작은 경우 부족한 만큼 이전 랭크를 채웁니다.
-                while(similarCpu.size() < 10 && startRank > 1) {
-                    similarCpu.add(sortedCpuList.get(--startRank-1).getCpuName());
-                }
-                // 선택한 랭크가 size-5보다 큰 경우 부족한 만큼 다음 랭크를 채웁니다.
-                while(similarCpu.size() < 10 && endRank < sortedCpuList.size()) {
-                    similarCpu.add(sortedCpuList.get(++endRank-1).getCpuName());
-                }
+        for(int i = startRank; i <= endRank; i++){
+            similarCpu.add(sortedCpuList.get(i-1));
+        }
+        // 선택한 랭크가 5보다 작은 경우 부족한 만큼 이전 랭크를 채웁니다.
+        while(similarCpu.size() < 10 && startRank > 1) {
+            similarCpu.add(sortedCpuList.get(--startRank-1));
+        }
+        // 선택한 랭크가 size-5보다 큰 경우 부족한 만큼 다음 랭크를 채웁니다.
+        while(similarCpu.size() < 10 && endRank < sortedCpuList.size()) {
+            similarCpu.add(sortedCpuList.get(++endRank-1));
+        }
 
         return similarCpu;
     }
 
-    public List<String> searchSelectGpuByRank() {
-        List<String> similarGpu = new ArrayList<>();
+    public List<GpuList> searchSelectGpuByRank(int gpuId) {
+        List<GpuList> similarGpu = new ArrayList<>();
 
-        List<UserInsertInfo> userinsertinfo = userInsertInfoRepository.findAll();
         List<GpuList> sortedGpuList = gpuListRepository.findByOrderByGpuRankAsc();
 
-        String lastIndex = userinsertinfo.get(userinsertinfo.size()-1).getSelectedGpu();
-
-        int findRank = gpuListRepository.findByGpuName(lastIndex).getGpuRank();
+        int findRank = gpuListRepository.findByGpuId(gpuId).getGpuRank();
 
         int startRank = Math.max(findRank - 4, 1); // 랭크가 1보다 작아지는 경우를 처리해줍니다.
         int endRank = Math.min(findRank + 5, sortedGpuList.size()); // 랭크가 size보다 커지는 경우를 처리해줍니다.
 
         for(int i = startRank; i <= endRank; i++){
-            similarGpu.add(sortedGpuList.get(i-1).getGpuName());
+            similarGpu.add(sortedGpuList.get(i-1));
         }
         // 선택한 랭크가 5보다 작은 경우 부족한 만큼 이전 랭크를 채웁니다.
         while(similarGpu.size() < 10 && startRank > 1) {
-            similarGpu.add(sortedGpuList.get(--startRank-1).getGpuName());
+            similarGpu.add(sortedGpuList.get(--startRank-1));
         }
         // 선택한 랭크가 size-5보다 큰 경우 부족한 만큼 다음 랭크를 채웁니다.
         while(similarGpu.size() < 10 && endRank < sortedGpuList.size()) {
-            similarGpu.add(sortedGpuList.get(++endRank-1).getGpuName());
+            similarGpu.add(sortedGpuList.get(++endRank-1));
         }
 
         return similarGpu;
@@ -161,18 +155,15 @@ public class UserInsertInfoService {
         return similarGpu;
     }
 
-    public List<String> searchSelectCpuByValue() {
-        List<String> similarCpu = new ArrayList<>();
+    public List<CpuList> searchSelectCpuByValue(int cpuId) {
+        List<CpuList> similarCpu = new ArrayList<>();
 
-        List<UserInsertInfo> userinsertinfo = userInsertInfoRepository.findAll();
         List<CpuList> sortedList = cpuListRepository.findByCpuValueNotOrderByCpuValueAsc(0);
 
-        String lastIndex = userinsertinfo.get(userinsertinfo.size()-1).getSelectedCpu();
-
-        double findValue = cpuListRepository.findByCpuName(lastIndex).getCpuValue();
+        double findValue = cpuListRepository.findByCpuId(cpuId).getCpuValue();
         if(findValue == 0){
             System.out.println("선택한 value 가 0입니다");
-            similarCpu.add(lastIndex);
+            similarCpu.add(cpuListRepository.findByCpuId(cpuId));
         }
         else{
             //알고리즘
@@ -181,7 +172,7 @@ public class UserInsertInfoService {
             int i = 0;
             while (similarCpu.size() < 10 && i < sortedList.size()) {
                 CpuList cpu = sortedList.get(i++);
-                similarCpu.add(cpu.getCpuName());
+                similarCpu.add(cpu);
                 System.out.println("name : " + cpu.getCpuName() + "value : " + cpu.getCpuValue());
             }
         }
@@ -189,18 +180,16 @@ public class UserInsertInfoService {
         return similarCpu;
     }
 
-    public List<String> searchSelectGpuByValue() {
-        List<String> similarGpu = new ArrayList<>();
+    public List<GpuList> searchSelectGpuByValue(int gpuId) {
+        List<GpuList> similarGpu = new ArrayList<>();
 
-        List<UserInsertInfo> userinsertinfo = userInsertInfoRepository.findAll();
         List<GpuList> sortedList = gpuListRepository.findByGpuValueNotOrderByGpuValueAsc(0);
 
-        String lastIndex = userinsertinfo.get(userinsertinfo.size()-1).getSelectedGpu();
+        double findValue = gpuListRepository.findByGpuId(gpuId).getGpuValue();
 
-        double findValue = gpuListRepository.findByGpuName(lastIndex).getGpuValue();
         if(findValue == 0){
             System.out.println("선택한 value 가 0입니다");
-            similarGpu.add(lastIndex);
+            similarGpu.add(gpuListRepository.findByGpuId(gpuId));
         }
         else{
             //알고리즘
@@ -209,7 +198,7 @@ public class UserInsertInfoService {
             int i = 0;
             while (similarGpu.size() < 10 && i < sortedList.size()) {
                 GpuList gpu = sortedList.get(i++);
-                similarGpu.add(gpu.getGpuName());
+                similarGpu.add(gpu);
                 System.out.println("name : " + gpu.getGpuName() + "value : " + gpu.getGpuValue());
             }
         }
