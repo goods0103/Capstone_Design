@@ -1,5 +1,6 @@
 package com.hadoop.demo.Service;
 
+import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.GameList;
 import com.hadoop.demo.Model.GameListOrigin;
 import com.hadoop.demo.Repository.GameListOriginRepository;
@@ -19,5 +20,9 @@ public class GameListOriginService {
     }
 
     public List<GameListOrigin> findAll() { return gameListOriginRepository.findAll();}
+
+    public GameListOrigin findByName(String name) {
+        return gameListOriginRepository.findByGameName(name);
+    }
 
 }
