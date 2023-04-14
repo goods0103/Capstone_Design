@@ -10,18 +10,22 @@ function MyCategoryCpu() {
     const [data2, setData2] = useState([]);
     // hello
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/category/cpu1');
-                setCpuList(response.data);
-                setData2(localStorage.getItem('cpuData'));
+        if (data2) {
+            const fetchData = async () => {
+                console.log(data2);
+                try {
+                    const response = await axios.post('/myCpuRanking', `${data2}`);
+                    setCpuList(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetchData();
+        }
+    }, [data2]);
 
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
+    useEffect(() => {
+        setData2(localStorage.getItem('cpuData'));
     }, []);
 
     const convertPrice = (price) => {

@@ -13,19 +13,23 @@ function InsertCategoryGpu() {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/category/gpu1');
-                setGpuList(response.data);
-                setData2(localStorage.getItem('selectGpuData'));
-            } catch (error) {
-                console.log(error);
-            }
-        };
+        if (data2) {
+            const fetchData = async () => {
+                console.log(data2);
+                try {
+                    const response = await axios.post('/myGpuRanking', `${data2}`);
+                    setGpuList(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetchData();
+        }
+    }, [data2]);
 
-        fetchData();
+    useEffect(() => {
+        setData2(localStorage.getItem('selectGpuData'));
     }, []);
-
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
