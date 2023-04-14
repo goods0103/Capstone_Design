@@ -8,18 +8,17 @@ function CpuDetail() {
     const [cpuValue, setCpuValue] = useState([]);
     const [cpuRank, setCpuRank] = useState([]);
     const [cpuPopular, setCpuPopular] = useState([]);
-
+    const [cpuName, setCpuName] = useState([]);
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
-    console.log(lastPart);
 
+    console.log(lastPart);
     useEffect(() => {
         axios.post('/cpuValue', { lastPart })
             .then(response => {
                 setCpuValue(response.data);
             })
-            .finally()
             .catch(error => {
                 console.log(error);
             });
@@ -30,7 +29,6 @@ function CpuDetail() {
             .then(response => {
                 setCpuRank(response.data);
             })
-            .finally()
             .catch(error => {
                 console.log(error);
             });
@@ -80,14 +78,24 @@ function CpuDetail() {
                         <th className={styles.cssTh}>cpu_mark</th>
                         <th className={styles.cssTh}>cpu_rank</th>
                     </tr>
-                    {cpuRank.map((cpu, index) => (
+                    {cpuRank.map((cpu) => (
+                        cpu.cpu_id == lastPart  && (
                         <tr>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_name}</td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_mark}</td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_rank}</td>
+                            <td className={styles.redBorder}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                            <td className={styles.redBorder}>{cpu.cpu_name}</td>
+                            <td className={styles.redBorder}>{cpu.cpu_mark}</td>
+                            <td className={styles.redBorder}>{cpu.cpu_rank}</td>
                         </tr>
-                    ))}
+                    )))}
+                    {cpuRank.map((cpu) => (
+                        cpu.cpu_id != lastPart  && (
+                            <tr>
+                                <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}>{cpu.cpu_name}</td>
+                                <td className={styles.cssTd}>{cpu.cpu_mark}</td>
+                                <td className={styles.cssTd}>{cpu.cpu_rank}</td>
+                            </tr>
+                        )))}
                 </table>
             </div>
             <div>
@@ -99,15 +107,24 @@ function CpuDetail() {
                         <th className={styles.cssTh}>cpu_mark</th>
                         <th className={styles.cssTh}>cpu_value</th>
                     </tr>
-                    {cpuValue.map((cpu, index) => (
-                        <tr>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_name}</td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_mark}</td>
-                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_value}</td>
-                            {/*<td className={styles.cssTd}>{cpu.cpu_value}</td>*/}
-                        </tr>
-                    ))}
+                    {cpuValue.map((cpu) => (
+                        cpu.cpu_id == lastPart  && (
+                            <tr>
+                                <td className={styles.redBorder}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.redBorder}>{cpu.cpu_name}</td>
+                                <td className={styles.redBorder}>{cpu.cpu_mark}</td>
+                                <td className={styles.redBorder}>{cpu.cpu_value}</td>
+                            </tr>
+                        )))}
+                    {cpuValue.map((cpu) => (
+                        cpu.cpu_id != lastPart  && (
+                            <tr>
+                                <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}>{cpu.cpu_name}</td>
+                                <td className={styles.cssTd}>{cpu.cpu_mark}</td>
+                                <td className={styles.cssTd}>{cpu.cpu_value}</td>
+                            </tr>
+                        )))}
                 </table>
             </div>
             <div>

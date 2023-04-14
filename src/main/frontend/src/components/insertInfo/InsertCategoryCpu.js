@@ -7,22 +7,28 @@ import {Link} from "react-router-dom";
 
 function InsertCategoryCpu() {
     const [cpuList, setCpuList] = useState([]);
-    const [data2, setData2] = useState([]);
-    // hello
+    const [data2, setData2] = useState("");
+
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setData2(localStorage.getItem('selectCpuData'));
-                const response = await axios.post('/myCpuRanking', `${data2[0]}`);
-                setCpuList(response.data);
+        if (data2) {
+            const fetchData = async () => {
+                console.log(data2);
+                try {
+                    const response = await axios.post('/myCpuRanking', `${data2}`);
+                    setCpuList(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            fetchData();
+        }
+    }, [data2]);
 
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
+    useEffect(() => {
+        setData2(localStorage.getItem('selectCpuData'));
     }, []);
+
 
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
