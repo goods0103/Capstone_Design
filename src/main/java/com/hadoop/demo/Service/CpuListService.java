@@ -2,6 +2,7 @@ package com.hadoop.demo.Service;
 
 import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.UserInfo;
+import com.hadoop.demo.Repository.CpuDetailsRepository;
 import com.hadoop.demo.Repository.CpuListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,7 @@ public class CpuListService {
     public CpuList findByRank(int rank) {
         return cpuListRepository.findByCpuRank(rank);
     }
+
+    public CpuList findById(int id) { return cpuListRepository.findByCpuId(id); }
 
 }

@@ -28,4 +28,6 @@ public class GpuListService {
     public GpuList findByRank(int rank) {
         return gpuListRepository.findByGpuRank(rank);
     }
+
+    public GpuList findById(int id) { return gpuListRepository.findByGpuId(id); }
 }

@@ -1,17 +1,9 @@
 package com.hadoop.demo.Controller;
 
-import com.hadoop.demo.Model.CpuList;
-import com.hadoop.demo.Model.GpuList;
-import com.hadoop.demo.Model.RamList;
-import com.hadoop.demo.Service.CompareService;
-import com.hadoop.demo.Service.CpuListService;
-import com.hadoop.demo.Service.GpuListService;
-import com.hadoop.demo.Service.RamListService;
+import com.hadoop.demo.Model.*;
+import com.hadoop.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +18,10 @@ public class DataController {
     private GpuListService gpuListService;
     @Autowired
     private RamListService ramListService;
-
     @Autowired
     private CompareService compareService;
+    @Autowired
+    private GameListOriginService gameListOriginService;
 
 
     @GetMapping("/category/cpu1")
@@ -97,5 +90,16 @@ public class DataController {
         return gpuList;
     }
 
+    @GetMapping("/category/game1")
+    public List<GameListOrigin> getAllGameListOrigin() {
+        return gameListOriginService.findAll();
+    }
+
+    @PostMapping("/category/game1/detail")
+    public GameListOrigin getSelectGameDetail(@RequestBody String game) {
+        game = game.replace("+", " ");
+        game = game.replace("=", "");
+        return gameListOriginService.findByName(game);
+    }
 
 }
