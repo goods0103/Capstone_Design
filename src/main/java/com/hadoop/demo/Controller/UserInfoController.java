@@ -6,6 +6,7 @@ import com.hadoop.demo.Service.UserInfoService;
 import com.hadoop.demo.Service.UserInsertInfoService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -37,6 +38,14 @@ public class UserInfoController {
         private List<String> list2;
         private List<String> list3;
         private List<String> list4;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    static class handleRequest{
+        private String lastPart;
     }
 
     @Autowired
@@ -180,6 +189,12 @@ public class UserInfoController {
                 .selectedRam(selectedRam)
                 .build();
         userInsertInfoService.save(userInsertInfo);
+
+    }
+
+    @PostMapping("/cpuValue")
+    public void handleLastData(@RequestBody handleRequest cpuId){
+        System.out.println("cpuId" + cpuId.getLastPart());
 
     }
 
