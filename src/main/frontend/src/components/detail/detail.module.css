@@ -45,6 +45,14 @@
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 50%;
+}
+
+.redBorder {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+    background: #19ce60;
 }
 
 .tableImg {

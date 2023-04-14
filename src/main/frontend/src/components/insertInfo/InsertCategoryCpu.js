@@ -12,9 +12,9 @@ function InsertCategoryCpu() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/category/cpu1');
-                setCpuList(response.data);
                 setData2(localStorage.getItem('selectCpuData'));
+                const response = await axios.post('/myCpuRanking', `${data2[0]}`);
+                setCpuList(response.data);
 
             } catch (error) {
                 console.log(error);

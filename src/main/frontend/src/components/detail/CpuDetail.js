@@ -36,16 +36,16 @@ function CpuDetail() {
             });
     }, []);
 
-    useEffect(() => {
-        axios.post('/cpuPopular', { lastPart })
-            .then(response => {
-                setCpuPopular(response.data);
-            })
-            .finally()
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.post('/cpuPopular', { lastPart })
+    //         .then(response => {
+    //             setCpuPopular(response.data);
+    //         })
+    //         .finally()
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // }, []);
 
     return(
         <>
@@ -77,8 +77,17 @@ function CpuDetail() {
                     <tr>
                         <th className={styles.cssTh}>cpu_image</th>
                         <th className={styles.cssTh}>cpu_name</th>
+                        <th className={styles.cssTh}>cpu_mark</th>
                         <th className={styles.cssTh}>cpu_rank</th>
                     </tr>
+                    {cpuRank.map((cpu, index) => (
+                        <tr>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_name}</td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_mark}</td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_rank}</td>
+                        </tr>
+                    ))}
                 </table>
             </div>
             <div>
@@ -87,8 +96,18 @@ function CpuDetail() {
                     <tr>
                         <th className={styles.cssTh}>cpu_image</th>
                         <th className={styles.cssTh}>cpu_name</th>
+                        <th className={styles.cssTh}>cpu_mark</th>
                         <th className={styles.cssTh}>cpu_value</th>
                     </tr>
+                    {cpuValue.map((cpu, index) => (
+                        <tr>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_name}</td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_mark}</td>
+                            <td className={index === 0 ? `${styles.redBorder}` : `${styles.cssTd}`}>{cpu.cpu_value}</td>
+                            {/*<td className={styles.cssTd}>{cpu.cpu_value}</td>*/}
+                        </tr>
+                    ))}
                 </table>
             </div>
             <div>
