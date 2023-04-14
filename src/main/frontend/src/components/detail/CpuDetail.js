@@ -12,7 +12,7 @@ function CpuDetail() {
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
-
+    const [nonZeroCpus, setNonZeroCpus] = useState("");
     console.log(lastPart);
     useEffect(() => {
         axios.post('/cpuValue', { lastPart })
@@ -98,6 +98,7 @@ function CpuDetail() {
                         )))}
                 </table>
             </div>
+            {cpuValue.length > 1 && (
             <div>
                 <h3>similar value</h3>
                 <table className={styles.cssTable}>
@@ -108,7 +109,7 @@ function CpuDetail() {
                         <th className={styles.cssTh}>cpu_value</th>
                     </tr>
                     {cpuValue.map((cpu) => (
-                        cpu.cpu_id == lastPart  && (
+                        cpu.cpu_id == lastPart  &&(
                             <tr>
                                 <td className={styles.redBorder}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{cpu.cpu_name}</td>
@@ -117,7 +118,7 @@ function CpuDetail() {
                             </tr>
                         )))}
                     {cpuValue.map((cpu) => (
-                        cpu.cpu_id != lastPart  && (
+                        cpu.cpu_id != lastPart  &&(
                             <tr>
                                 <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{cpu.cpu_name}</td>
@@ -127,6 +128,7 @@ function CpuDetail() {
                         )))}
                 </table>
             </div>
+                )}
             <div>
                 <h3>유명</h3>
                 <table className={styles.cssTable}>
