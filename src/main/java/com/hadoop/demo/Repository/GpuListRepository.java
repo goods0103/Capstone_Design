@@ -13,5 +13,8 @@ public interface GpuListRepository extends JpaRepository<GpuList, Long> {
 
     GpuList findByGpuRank(int gpuRank);
 
+    GpuList findByGpuId(int gpuId);
+
     List<GpuList> findByGpuValueNotOrderByGpuValueAsc(double gpuValue);
+
 }

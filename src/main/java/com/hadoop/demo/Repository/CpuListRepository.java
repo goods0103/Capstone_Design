@@ -11,6 +11,8 @@ public interface CpuListRepository extends JpaRepository<CpuList, Long> {
 
     CpuList findByCpuRank(int cpuRank);
 
+    CpuList findByCpuId(int Id);
+
     List<CpuList> findByOrderByCpuRankAsc();
 
     List<CpuList> findByCpuValueNotOrderByCpuValueAsc(double cpuValue);
