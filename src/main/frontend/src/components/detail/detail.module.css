@@ -68,9 +68,23 @@
     flex-wrap: wrap;
 }
 
-.item {
+.itemLabel {
     width: 40%;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
+}
+
+.itemForm {
+    width: 60%;
+    box-sizing: border-box;
+    border: 1px solid white;
+    padding: 10px;
+}
+
+/*----*/
+
+.progressBarCss {
+    width: 80%;
+    height: 30px;
 }
