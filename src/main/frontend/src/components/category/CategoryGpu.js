@@ -37,32 +37,32 @@ function CategoryGpu() {
         if (type === "low") {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => {
-                if (a.gpu_price === 0 && b.gpu_price === 0) {
+                if (a.gpuPrice === 0 && b.gpuPrice === 0) {
                     return 0; // 두 객체 모두 cpu_price가 0인 경우에는 순서를 유지
-                } else if (a.gpu_price === 0) {
+                } else if (a.gpuPrice === 0) {
                     return 1; // a.cpu_price가 0이고 b.cpu_price가 0이 아닌 경우 b를 먼저 위치시킴
-                } else if (b.gpu_price === 0) {
+                } else if (b.gpuPrice === 0) {
                     return -1; // a.cpu_price가 0이 아니고 b.cpu_price가 0인 경우 a를 먼저 위치시킴
                 } else {
-                    return a.gpu_price - b.gpu_price; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
+                    return a.gpuPrice - b.gpuPrice; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
                 }
             });
             setGpuList(newProduct);
         } else if (type === "high") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_price - a.gpu_price);
+            newProduct.sort((a, b) => b.gpuPrice - a.gpuPrice);
             setGpuList(newProduct);
         } else if (type === "rankLow") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_rank - a.gpu_rank);
+            newProduct.sort((a, b) => b.gpuRank - a.gpuRank);
             setGpuList(newProduct);
         } else if (type === "rankHigh") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => a.gpu_rank - b.gpu_rank);
+            newProduct.sort((a, b) => a.gpuRank - b.gpuRank);
             setGpuList(newProduct);
         } else if (type === "gpuValue") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_value - a.gpu_value);
+            newProduct.sort((a, b) => b.gpuValue - a.gpuValue);
             setGpuList(newProduct);
         }
     };
@@ -83,21 +83,21 @@ function CategoryGpu() {
                 <p>{data2}</p>
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>gpu_image</th>
-                        <th className={styles.cssTh}>gpu_name</th>
-                        <th className={styles.cssTh}>gpu_mark</th>
-                        <th className={styles.cssTh}>gpu_rank</th>
-                        <th className={styles.cssTh}>gpu_value</th>
-                        <th className={styles.cssTh}>gpu_price</th>
+                        <th className={styles.cssTh}>image</th>
+                        <th className={styles.cssTh}>name</th>
+                        <th className={styles.cssTh}>mark</th>
+                        <th className={styles.cssTh}>rank</th>
+                        <th className={styles.cssTh}>value</th>
+                        <th className={styles.cssTh}>price</th>
                     </tr>
                     {gpuList.map((cpu) => (
                         <tr>
                             <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}>{cpu.gpu_name}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_mark}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_rank}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_value}</td>
-                            <td className={styles.cssTd}>{convertPrice(cpu.gpu_price)}원</td>
+                            <td className={styles.cssTd}>{cpu.gpuName}</td>
+                            <td className={styles.cssTd}>{cpu.gpuMark}</td>
+                            <td className={styles.cssTd}>{cpu.gpuRank}</td>
+                            <td className={styles.cssTd}>{cpu.gpuValue}</td>
+                            <td className={styles.cssTd}>{convertPrice(cpu.gpuPrice)}원</td>
                         </tr>
                     ))}
                 </table>

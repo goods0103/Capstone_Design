@@ -16,7 +16,6 @@ import javax.persistence.Table;
 public class GameList {
 
     @Id
-    @JsonProperty("game_name")
     private String gameName;
 
     @Column(name = "game_id")

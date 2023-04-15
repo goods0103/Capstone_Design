@@ -29,8 +29,8 @@ function InsertSpec() {
         axios.get('/category/cpu1')
             .then(response => {
                 const cpus = response.data.map(cpus => ({
-                    value: cpus.cpu_name,
-                    label: cpus.cpu_name
+                    value: cpus.cpuName,
+                    label: cpus.cpuName
                 }));
                 setCpuOption(cpus);
             })
@@ -44,8 +44,8 @@ function InsertSpec() {
         axios.get('/category/gpu1')
             .then(response => {
                 const gpus = response.data.map(gpus => ({
-                    value: gpus.gpu_name,
-                    label: gpus.gpu_name
+                    value: gpus.gpuName,
+                    label: gpus.gpuName
                 }));
                 setGpuOption(gpus);
             })
@@ -59,8 +59,8 @@ function InsertSpec() {
         axios.get('/category/ram1')
             .then(response => {
                 const rams = response.data.map(rams => ({
-                    value: rams.ram_name,
-                    label: rams.ram_name
+                    value: rams.ramName,
+                    label: rams.ramName
                 }));
                 setRamOption(rams);
             })

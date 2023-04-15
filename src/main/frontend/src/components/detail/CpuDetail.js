@@ -8,18 +8,17 @@ function CpuDetail() {
     const [cpuValue, setCpuValue] = useState([]);
     const [cpuRank, setCpuRank] = useState([]);
     const [cpuPopular, setCpuPopular] = useState([]);
-
+    const [cpuName, setCpuName] = useState([]);
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
+    const [nonZeroCpus, setNonZeroCpus] = useState("");
     console.log(lastPart);
-
     useEffect(() => {
         axios.post('/cpuValue', { lastPart })
             .then(response => {
                 setCpuValue(response.data);
             })
-            .finally()
             .catch(error => {
                 console.log(error);
             });
@@ -30,22 +29,21 @@ function CpuDetail() {
             .then(response => {
                 setCpuRank(response.data);
             })
-            .finally()
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-    useEffect(() => {
-        axios.post('/cpuPopular', { lastPart })
-            .then(response => {
-                setCpuPopular(response.data);
-            })
-            .finally()
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.post('/cpuPopular', { lastPart })
+    //         .then(response => {
+    //             setCpuPopular(response.data);
+    //         })
+    //         .finally()
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // }, []);
 
     return(
         <>
@@ -75,30 +73,70 @@ function CpuDetail() {
                 <h3>similar rank</h3>
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>cpu_image</th>
-                        <th className={styles.cssTh}>cpu_name</th>
-                        <th className={styles.cssTh}>cpu_rank</th>
+                        <th className={styles.cssTh}>image</th>
+                        <th className={styles.cssTh}>name</th>
+                        <th className={styles.cssTh}>mark</th>
+                        <th className={styles.cssTh}>rank</th>
                     </tr>
+                    {cpuRank.map((cpu) => (
+                        cpu.cpuId == lastPart  && (
+                        <tr>
+                            <td className={styles.redBorder}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                            <td className={styles.redBorder}>{cpu.cpuName}</td>
+                            <td className={styles.redBorder}>{cpu.cpuMark}</td>
+                            <td className={styles.redBorder}>{cpu.cpuRank}</td>
+                        </tr>
+                    )))}
+                    {cpuRank.map((cpu) => (
+                        cpu.cpuId != lastPart  && (
+                            <tr>
+                                <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}>{cpu.cpuName}</td>
+                                <td className={styles.cssTd}>{cpu.cpuMark}</td>
+                                <td className={styles.cssTd}>{cpu.cpuRank}</td>
+                            </tr>
+                        )))}
                 </table>
             </div>
+            {cpuValue.length > 1 && (
             <div>
                 <h3>similar value</h3>
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>cpu_image</th>
-                        <th className={styles.cssTh}>cpu_name</th>
-                        <th className={styles.cssTh}>cpu_value</th>
+                        <th className={styles.cssTh}>image</th>
+                        <th className={styles.cssTh}>name</th>
+                        <th className={styles.cssTh}>mark</th>
+                        <th className={styles.cssTh}>value</th>
                     </tr>
+                    {cpuValue.map((cpu) => (
+                        cpu.cpuId == lastPart  &&(
+                            <tr>
+                                <td className={styles.redBorder}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.redBorder}>{cpu.cpuName}</td>
+                                <td className={styles.redBorder}>{cpu.cpuMark}</td>
+                                <td className={styles.redBorder}>{cpu.cpuValue}</td>
+                            </tr>
+                        )))}
+                    {cpuValue.map((cpu) => (
+                        cpu.cpuId != lastPart  &&(
+                            <tr>
+                                <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}>{cpu.cpuName}</td>
+                                <td className={styles.cssTd}>{cpu.cpuMark}</td>
+                                <td className={styles.cssTd}>{cpu.cpuValue}</td>
+                            </tr>
+                        )))}
                 </table>
             </div>
+                )}
             <div>
                 <h3>유명</h3>
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>cpu_image</th>
-                        <th className={styles.cssTh}>cpu_name</th>
-                        <th className={styles.cssTh}>cpu_rank</th>
-                        <th className={styles.cssTh}>cpu_price</th>
+                        <th className={styles.cssTh}>image</th>
+                        <th className={styles.cssTh}>name</th>
+                        <th className={styles.cssTh}>rank</th>
+                        <th className={styles.cssTh}>price</th>
                     </tr>
                 </table>
             </div>

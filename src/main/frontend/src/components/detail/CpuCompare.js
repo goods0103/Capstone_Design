@@ -24,8 +24,8 @@ function CpuCompare() {
         axios.get('/category/cpu1')
             .then(response => {
                 const cpus = response.data.map(cpus => ({
-                    value: cpus.cpu_name,
-                    label: cpus.cpu_name
+                    value: cpus.cpuName,
+                    label: cpus.cpuName
                 }));
                 setCpuOption(cpus);
             })
@@ -60,7 +60,7 @@ function CpuCompare() {
         b = Math.round(b);
 
         return (
-            <ProgressBar className={styles.progressBarCss} style={{height:'30px'}}>
+            <ProgressBar className={styles.progressBarCss}>
                 <ProgressBar animated variant="success" now={a} label={`${a}%(${info1})`} key={1} />
                 <ProgressBar animated variant="warning" now={b} label={`${b}%(${info2})`} key={2} />
             </ProgressBar>
