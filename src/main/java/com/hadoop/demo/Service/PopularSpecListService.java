@@ -25,27 +25,27 @@ public class PopularSpecListService {
 
     public List<PopularSpecList> searchSelectCpuByPopular(int cpuId) {
 
-        List<PopularSpecList> popularSpecLists = popularSpecListRepository.findAll();
+//        List<PopularSpecList> popularSpecLists = popularSpecListRepository.findAll();
 
-        for(PopularSpecList list1 : popularSpecLists){
-            int cpuRank = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuRank();
-            int cpuPrice = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuPrice();
-            String cpuUrl = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuUrl();
-
-            int gpuRank = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuRank();
-            int gpuPrice = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuPrice();
-            String gpuUrl = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuUrl();
-
-            list1.setCpuRank(cpuRank);
-            list1.setCpuPrice(cpuPrice);
-            list1.setCpuImage(cpuUrl);
-            list1.setGpuRank(gpuRank);
-            list1.setGpuPrice(gpuPrice);
-            list1.setGpuImage(gpuUrl);
-
-            popularSpecListRepository.save(list1);
-
-        }
+//        for(PopularSpecList list1 : popularSpecLists){
+//            int cpuRank = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuRank();
+//            int cpuPrice = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuPrice();
+//            String cpuUrl = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuUrl();
+//
+//            int gpuRank = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuRank();
+//            int gpuPrice = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuPrice();
+//            String gpuUrl = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuUrl();
+//
+//            list1.setCpuRank(cpuRank);
+//            list1.setCpuPrice(cpuPrice);
+//            list1.setCpuImage(cpuUrl);
+//            list1.setGpuRank(gpuRank);
+//            list1.setGpuPrice(gpuPrice);
+//            list1.setGpuImage(gpuUrl);
+//
+//            popularSpecListRepository.save(list1);
+//
+//        }
 
         int cpuRank2 = cpuListRepository.findByCpuId(cpuId).getCpuRank();
         int cpuPrice2 = cpuListRepository.findByCpuId(cpuId).getCpuPrice();
