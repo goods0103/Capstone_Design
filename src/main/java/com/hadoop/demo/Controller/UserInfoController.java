@@ -2,6 +2,7 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.CompareService;
+import com.hadoop.demo.Service.PopularSpecListService;
 import com.hadoop.demo.Service.UserInfoService;
 import com.hadoop.demo.Service.UserInsertInfoService;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,9 @@ public class UserInfoController {
 
     @Autowired
     UserInfoService userInfoService;
+
+    @Autowired
+    PopularSpecListService popularSpecListService;
 
     @Autowired
     private CompareService compareService;
@@ -210,6 +214,16 @@ public class UserInfoController {
         List<GpuList> similarGpu2 = userInsertInfoService.searchSelectGpuByValue(gpuId.getLastPart());
 
         return similarGpu2;
+    }
+
+    @PostMapping("/cpuPopular")
+    public List<PopularSpecList> handleLastDataByPopular(@RequestBody handleRequest cpuId){
+        return popularSpecListService.searchSelectCpuByPopular(cpuId.getLastPart());
+    }
+
+    @PostMapping("/gpuPopular")
+    public List<PopularSpecList> handleLastDataByPopular2(@RequestBody handleRequest gpuId){
+        return popularSpecListService.searchSelectGpuByPopular(gpuId.getLastPart());
     }
 
 }
