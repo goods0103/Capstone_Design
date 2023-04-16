@@ -38,7 +38,6 @@ public class CpuList {
     private int cpuPrice;
 
     @Column(name = "image_url")
-    @JsonProperty("image_url")
     private String cpuUrl;
 
     @Builder // 7.
