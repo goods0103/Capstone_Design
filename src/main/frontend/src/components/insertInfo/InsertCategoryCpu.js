@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import CategoryBar3 from "./CategoryBar3";
@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 function InsertCategoryCpu() {
     const [cpuList, setCpuList] = useState([]);
     const [data2, setData2] = useState("");
-    const tableRef = useRef(null);
+
 
     useEffect(() => {
         if (data2) {
@@ -35,35 +35,20 @@ function InsertCategoryCpu() {
     };
 
 
-    const scrollToMySpec = () => {
-        // window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
-        if (tableRef.current) {
-            const row = tableRef.current.rows[30]; // 0번째부터 시작하므로 5번째 행은 4입니다
-            row.scrollIntoView({ behavior: 'smooth' }); // smooth하게 스크롤링됩니다
+    const scrollToMySpec = (cpuName) => {
+        const targetRow = document.querySelector(`tr[data-cpu-name="${cpuName}"]`);
+        if (targetRow) {
+            const yOffset = -50; // optional offset to adjust scroll position
+            const y = targetRow.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
         }
     };
-
-    // useEffect(() => {
-    //     // tableRef가 설정될 때마다, 5번째 행으로 스크롤바를 이동시킴
-    //     if (tableRef.current) {
-    //         const row = tableRef.current.rows[10]; // 0번째부터 시작하므로 5번째 행은 4입니다
-    //         row.scrollIntoView({ behavior: 'smooth' }); // smooth하게 스크롤링됩니다
-    //     }
-    // }, [tableRef, cpuList]);
-
     return (
         <>
             <CategoryBar3></CategoryBar3>
-            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
+            <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
-                {/*<div className={styles.filter}>*/}
-                {/*    /!*<p onClick={() => sortProduct("name")}>이름순</p>*!/*/}
-                {/*    <p onClick={() => sortProduct("low")}>낮은 가격</p>*/}
-                {/*    <p onClick={() => sortProduct("high")}>높은 가격</p>*/}
-                {/*    <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>*/}
-                {/*    <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>*/}
-                {/*</div>*/}
-                <table className={styles.cssTable} ref={tableRef}>
+                <table className={styles.cssTable}>
                     <tr>
                         <th className={styles.cssTh}>cpu_image</th>
                         <th className={styles.cssTh}>cpu_name</th>
@@ -72,30 +57,32 @@ function InsertCategoryCpu() {
                         <th className={styles.cssTh}>cpu_price</th>
                     </tr>
                     {cpuList.map((cpu) => (
-                        <tr>
+                        <tr  data-cpu-name={cpu.cpuName}
+                            onClick={() => scrollToMySpec(cpu.cpuName)}
+                        >
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderLeft: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white"
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderLeft: data2 === cpu.cpuName ? "2px solid red" : "1px solid white"
                             }}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}><Link to={`/CpuSpec/${cpu.cpu_id}`}>{cpu.cpu_name}</Link></td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}><Link to={`/CpuSpec/${cpu.cpu_id}`}>{cpu.cpuName}</Link></td>
 
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}>{cpu.cpu_rank}</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}>{cpu.cpuRank}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                            }}>{cpu.cpu_value}</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                            }}>{cpu.cpuValue}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white",
-                                borderRight: data2 === cpu.cpu_name ? "2px solid red" : "1px solid white"
-                            }}>{convertPrice(cpu.cpu_price)}원</td>
+                                borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
+                                borderRight: data2 === cpu.cpuName ? "2px solid red" : "1px solid white"
+                            }}>{convertPrice(cpu.cpuPrice)}원</td>
                         </tr>
                     ))}
                 </table>

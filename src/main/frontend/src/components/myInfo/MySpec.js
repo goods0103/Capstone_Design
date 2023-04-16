@@ -59,33 +59,33 @@ function MySpec() {
     return(
         <>
             <CategoryBar2></CategoryBar2>
-            {localStorage.setItem('cpuData', cpuInfo.cpu_name)}
-            {localStorage.setItem('gpuData', gpuInfo.gpu_name)}
-            {localStorage.setItem('ramData', ramInfo.ram_name)}
+            {localStorage.setItem('cpuData', cpuInfo.cpuName)}
+            {localStorage.setItem('gpuData', gpuInfo.gpuName)}
+            {localStorage.setItem('ramData', ramInfo.ramName)}
             <div>
                 <p>
-                    cpu_name : {cpuInfo.cpu_name}<br/>
-                    cpu_mark : {cpuInfo.cpu_mark}<br/>
-                    cpu_rank : {cpuInfo.cpu_rank}<br/>
-                    cpu_value : {cpuInfo.cpu_value}<br/>
-                    cpu_price : {cpuInfo.cpu_price}<br/>
+                    cpu_name : {cpuInfo.cpuName}<br/>
+                    cpu_mark : {cpuInfo.cpuMark}<br/>
+                    cpu_rank : {cpuInfo.cpuRank}<br/>
+                    cpu_value : {cpuInfo.cpuValue}<br/>
+                    cpu_price : {cpuInfo.cpuPrice}<br/>
                 </p>
                 <br/>
                 <p>
-                    gpu_name : {gpuInfo.gpu_name}<br/>
-                    gpu_mark : {gpuInfo.gpu_mark}<br/>
-                    gpu_rank : {gpuInfo.gpu_rank}<br/>
-                    gpu_value : {gpuInfo.gpu_value}<br/>
-                    gpu_price : {gpuInfo.gpu_price}<br/>
+                    gpu_name : {gpuInfo.gpuName}<br/>
+                    gpu_mark : {gpuInfo.gpuMark}<br/>
+                    gpu_rank : {gpuInfo.gpuRank}<br/>
+                    gpu_value : {gpuInfo.gpuValue}<br/>
+                    gpu_price : {gpuInfo.gpuPrice}<br/>
                 </p>
                 <br/>
                 <p>
-                    ram_name : {ramInfo.ram_name}<br/>
-                    ram_type : {ramInfo.ram_type}<br/>
-                    ram_size : {ramInfo.ram_size}<br/>
-                    ram_latency : {ramInfo.ram_latency}<br/>
-                    ram_read : {ramInfo.ram_read}<br/>
-                    ram_write : {ramInfo.ram_write}<br/>
+                    ram_name : {ramInfo.ramName}<br/>
+                    ram_type : {ramInfo.ramType}<br/>
+                    ram_size : {ramInfo.ramSize}<br/>
+                    ram_latency : {ramInfo.ramLatency}<br/>
+                    ram_read : {ramInfo.ramRead}<br/>
+                    ram_write : {ramInfo.ramWrite}<br/>
                 </p>
                 <br/>
             </div>

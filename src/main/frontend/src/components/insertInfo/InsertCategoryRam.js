@@ -42,31 +42,31 @@ function InsertCategoryRam() {
                     {ramList.map((ram) => (
                         <tr>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderLeft: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderLeft: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
                             <img src="" alt="ram_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
-                                {ram.ram_name}</td>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
+                                {ram.ramName}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
-                                {ram.ram_size}</td>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
+                                {ram.ramSize}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
-                                {ram.ram_latency}</td>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
+                                {ram.ramLatency}</td>
                             <td className={styles.cssTd} style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
-                                {ram.ram_read}</td>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
+                                {ram.ramRead}</td>
                             <td className={styles.cssTd}  style={{
-                                borderBottom: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderTop: data2 === ram.ram_name ? "2px solid red" : "1px solid white",
-                                borderRight: data2 === ram.ram_name ? "2px solid red" : "1px solid white"}}>
-                                {ram.ram_write}</td>
+                                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",
+                                borderRight: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>
+                                {ram.ramWrite}</td>
                         </tr>
                     ))}
                 </table>

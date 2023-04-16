@@ -20,37 +20,36 @@ public class CpuList {
 
 
     @Id
-    @JsonProperty("cpu_name")
     private String cpuName;
 
     @Column(name = "cpu_id")
-    @JsonProperty("cpu_id")
     private int cpuId;
 
     @Column(name = "cpu_mark")
-    @JsonProperty("cpu_mark")
     private int cpuMark;
 
     @Column(name = "cpu_rank")
-    @JsonProperty("cpu_rank")
     private int cpuRank;
 
     @Column(name = "cpu_value")
-    @JsonProperty("cpu_value")
     private double cpuValue;
 
     @Column(name = "cpu_price")
-    @JsonProperty("cpu_price")
     private int cpuPrice;
 
+    @Column(name = "image_url")
+    @JsonProperty("image_url")
+    private String cpuUrl;
+
     @Builder // 7.
-    public CpuList(int cpuId, String cpuName, int cpuMark, int cpuRank, double cpuValue, int cpuPrice) {
+    public CpuList(int cpuId, String cpuName, int cpuMark, int cpuRank, double cpuValue, int cpuPrice, String cpuUrl) {
         this.cpuId = cpuId;
         this.cpuName = cpuName;
         this.cpuMark = cpuMark;
         this.cpuRank = cpuRank;
         this.cpuValue = cpuValue;
         this.cpuPrice = cpuPrice;
+        this.cpuUrl = cpuUrl;
     }
 
 }

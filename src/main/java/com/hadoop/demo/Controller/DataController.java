@@ -1,12 +1,7 @@
 package com.hadoop.demo.Controller;
 
-import com.hadoop.demo.Model.CpuList;
-import com.hadoop.demo.Model.GpuList;
-import com.hadoop.demo.Model.RamList;
-import com.hadoop.demo.Service.CompareService;
-import com.hadoop.demo.Service.CpuListService;
-import com.hadoop.demo.Service.GpuListService;
-import com.hadoop.demo.Service.RamListService;
+import com.hadoop.demo.Model.*;
+import com.hadoop.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +18,10 @@ public class DataController {
     private GpuListService gpuListService;
     @Autowired
     private RamListService ramListService;
-
     @Autowired
     private CompareService compareService;
+    @Autowired
+    private GameListOriginService gameListOriginService;
 
 
     @GetMapping("/category/cpu1")
@@ -63,15 +59,12 @@ public class DataController {
         List<CpuList> cpuList = new ArrayList<>();
         cpu=cpu.replace("+"," ");
         cpu=cpu.replace("=","");
-        System.out.println(cpu);
         int rank = cpuListService.findByName(cpu).getCpuRank();
-        System.out.println(rank);
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-        System.out.println(rank);
 
         for(int i = 0; i < 50; i++)
             cpuList.add(cpuListService.findByRank(rank + i));
@@ -84,15 +77,13 @@ public class DataController {
         List<GpuList> gpuList = new ArrayList<>();
         gpu=gpu.replace("+"," ");
         gpu=gpu.replace("=","");
-        System.out.println(gpu);
         int rank = gpuListService.findByName(gpu).getGpuRank();
-        System.out.println(rank);
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-        System.out.println(rank);
+
 
         for(int i = 0; i < 50; i++)
             gpuList.add(gpuListService.findByRank(rank + i));
@@ -100,5 +91,16 @@ public class DataController {
         return gpuList;
     }
 
+    @GetMapping("/category/game1")
+    public List<GameListOrigin> getAllGameListOrigin() {
+        return gameListOriginService.findAll();
+    }
+
+    @PostMapping("/category/game1/detail")
+    public GameListOrigin getSelectGameDetail(@RequestBody String game) {
+        game = game.replace("+", " ");
+        game = game.replace("=", "");
+        return gameListOriginService.findByName(game);
+    }
 
 }

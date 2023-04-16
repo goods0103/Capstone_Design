@@ -24,8 +24,8 @@ function CpuCompare() {
         axios.get('/category/cpu1')
             .then(response => {
                 const cpus = response.data.map(cpus => ({
-                    value: cpus.cpu_name,
-                    label: cpus.cpu_name
+                    value: cpus.cpuName,
+                    label: cpus.cpuName
                 }));
                 setCpuOption(cpus);
             })

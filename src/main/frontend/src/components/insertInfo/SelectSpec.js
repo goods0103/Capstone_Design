@@ -76,9 +76,9 @@ function SelectSpec() {
             <CategoryBar3></CategoryBar3>
             <div>
             {cpuInfo.map((cpu) => (
-                cpu.cpu_name === selectCpu && (
+                cpu.cpuName === selectCpu && (
                 <p>
-                    cpu_name : {cpu.cpu_name}<br/>
+                    cpu_name : {cpu.cpuName}<br/>
                     cpu_mark : {cpu.cpu_mark}<br/>
                     cpu_rank : {cpu.cpu_rank}<br/>
                     cpu_value : {cpu.cpu_value}<br/>
