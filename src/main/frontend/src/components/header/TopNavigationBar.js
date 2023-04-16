@@ -17,7 +17,7 @@ export const TopNavigationBar = ({ cart }) => {
       </div>
 
       <div className={styles.menu}>
-        <Link to="/cart">
+        <Link to="/MySpec">
           <div className={styles.shopping_cart}>
             <img src="/images/icon-shopping-cart.svg" alt="cart" />
             <span>MySpec</span>

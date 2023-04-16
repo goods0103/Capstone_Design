@@ -9,6 +9,9 @@ function CpuDetail() {
     const [cpuRank, setCpuRank] = useState([]);
     const [cpuPopular, setCpuPopular] = useState([]);
     const [cpuName, setCpuName] = useState([]);
+    const [cpuInfo, setCpuInfo] = useState([]);
+    const [myCpuInfo, setMyCpuInfo] = useState("");
+
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
@@ -44,6 +47,27 @@ function CpuDetail() {
     //             console.log(error);
     //         });
     // }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/category/cpu1');
+                setCpuInfo(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        cpuValue.map((cpu)=>{
+            if(cpu.cpu_id === lastPart){
+                setMyCpuInfo(cpu.cpu_value);
+            }
+        })
+    });
 
     return(
         <>

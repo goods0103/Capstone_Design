@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Select from "react-select";
 import CategoryBar3 from "./CategoryBar3";
@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 function InsertCategoryCpu() {
     const [cpuList, setCpuList] = useState([]);
     const [data2, setData2] = useState("");
-
+    const tableRef = useRef(null);
 
     useEffect(() => {
         if (data2) {
@@ -34,39 +34,23 @@ function InsertCategoryCpu() {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
-    // const sortProduct = (type) => {
-    //     if (type === "low") {
-    //         const newProduct = [...cpuList];
-    //         newProduct.sort((a, b) => {
-    //             if (a.cpu_price === 0 && b.cpu_price === 0) {
-    //                 return 0; // 두 객체 모두 cpu_price가 0인 경우에는 순서를 유지
-    //             } else if (a.cpu_price === 0) {
-    //                 return 1; // a.cpu_price가 0이고 b.cpu_price가 0이 아닌 경우 b를 먼저 위치시킴
-    //             } else if (b.cpu_price === 0) {
-    //                 return -1; // a.cpu_price가 0이 아니고 b.cpu_price가 0인 경우 a를 먼저 위치시킴
-    //             } else {
-    //                 return a.cpu_price - b.cpu_price; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
-    //             }
-    //         });
-    //         setCpuList(newProduct);
-    //     } else if (type === "high") {
-    //         const newProduct = [...cpuList];
-    //         newProduct.sort((a, b) => b.cpu_price - a.cpu_price);
-    //         setCpuList(newProduct);
-    //     } else if (type === "rankLow") {
-    //         const newProduct = [...cpuList];
-    //         newProduct.sort((a, b) => b.cpu_rank - a.cpu_rank);
-    //         setCpuList(newProduct);
-    //     } else if (type === "rankHigh") {
-    //         const newProduct = [...cpuList];
-    //         newProduct.sort((a, b) => a.cpu_rank - b.cpu_rank);
-    //         setCpuList(newProduct);
-    //
-    //     }
-    // };
+
     const scrollToMySpec = () => {
-        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+        // window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+        if (tableRef.current) {
+            const row = tableRef.current.rows[30]; // 0번째부터 시작하므로 5번째 행은 4입니다
+            row.scrollIntoView({ behavior: 'smooth' }); // smooth하게 스크롤링됩니다
+        }
     };
+
+    // useEffect(() => {
+    //     // tableRef가 설정될 때마다, 5번째 행으로 스크롤바를 이동시킴
+    //     if (tableRef.current) {
+    //         const row = tableRef.current.rows[10]; // 0번째부터 시작하므로 5번째 행은 4입니다
+    //         row.scrollIntoView({ behavior: 'smooth' }); // smooth하게 스크롤링됩니다
+    //     }
+    // }, [tableRef, cpuList]);
+
     return (
         <>
             <CategoryBar3></CategoryBar3>
@@ -79,7 +63,7 @@ function InsertCategoryCpu() {
                 {/*    <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>*/}
                 {/*    <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>*/}
                 {/*</div>*/}
-                <table className={styles.cssTable}>
+                <table className={styles.cssTable} ref={tableRef}>
                     <tr>
                         <th className={styles.cssTh}>cpu_image</th>
                         <th className={styles.cssTh}>cpu_name</th>
