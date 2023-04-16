@@ -22,6 +22,8 @@ public class CpuListService {
 
     public List<CpuList> findAll() { return cpuListRepository.findAll();}
 
+    public List<String> findAllCpuName() { return cpuListRepository.findAllCpuName();}
+
     public CpuList findByName(String name) {
         return cpuListRepository.findByCpuName(name);
     }

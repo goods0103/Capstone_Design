@@ -16,4 +16,6 @@ public interface CpuListRepository extends JpaRepository<CpuList, Long> {
     List<CpuList> findByOrderByCpuRankAsc();
 
     List<CpuList> findByCpuValueNotOrderByCpuValueAsc(double cpuValue);
+
+    List<String> findAllCpuName(); // findAll + 컬럼명의 형태로 메서드 이름을 작성
 }

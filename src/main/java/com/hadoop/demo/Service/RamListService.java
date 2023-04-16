@@ -19,4 +19,6 @@ public class RamListService {
 
     public List<RamList> findAll() { return ramListRepository.findAll();}
 
+    public List<String> findAllRamName() { return ramListRepository.findAllRamName();}
+
 }

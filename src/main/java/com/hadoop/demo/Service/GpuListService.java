@@ -21,6 +21,8 @@ public class GpuListService {
 
     public List<GpuList> findAll() { return gpuListRepository.findAll();}
 
+    public List<String> findAllGpuName() { return gpuListRepository.findAllGpuName();}
+
     public GpuList findByName(String name) {
         return gpuListRepository.findByGpuName(name);
     }

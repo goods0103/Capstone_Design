@@ -43,17 +43,6 @@ public class CrawlingController {
     @Autowired
     private GameFindExceptionService gameFindExceptionService;
 
-    @PostMapping("/find_cpu_details")
-    public CpuDetails getCpuInfo(@RequestBody UserInfoController.handleRequest id) throws IOException {
-        String cpuName = insertCpuList.findById(id.getLastPart()).getCpuName();
-        return cpuDetailsService.findByName(cpuName);
-    }
-
-    @PostMapping("/find_gpu_details")
-    public GpuDetails getGpuInfo(@RequestBody UserInfoController.handleRequest id) throws IOException {
-        String gpuName = insertGpuList.findById(id.getLastPart()).getGpuName();
-        return gpuDetailsService.findByName(gpuName);
-    }
 
 //    @GetMapping("/cpu_info")
 //    public String insertCpuInfoDB() throws IOException {

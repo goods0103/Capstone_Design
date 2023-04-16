@@ -24,10 +24,13 @@ import MyCategoryRam from "./components/myInfo/MyCategoryRam";
 import InsertCategoryCpu from "./components/insertInfo/InsertCategoryCpu";
 import InsertCategoryGpu from "./components/insertInfo/InsertCategoryGpu";
 import InsertCategoryRam from "./components/insertInfo/InsertCategoryRam";
+import InsertCategoryBottleNeck from "./components/insertInfo/InsertCategoryBottleNeck";
 import SelectSpec from "./components/insertInfo/SelectSpec";
 import CpuDetail from "./components/detail/CpuDetail";
 import GpuDetail from "./components/detail/GpuDetail";
 import CpuCompare from "./components/detail/CpuCompare";
+
+
 
 
 function App() {
@@ -193,6 +196,13 @@ function App() {
                   <InsertCategoryRam />
               }
           />
+          <Route
+              path="/InsertCategoryBottleNeck"
+              element={
+                  <InsertCategoryBottleNeck />
+              }
+          />
+
           <Route
               path="/MyCategoryCpu"
               element={

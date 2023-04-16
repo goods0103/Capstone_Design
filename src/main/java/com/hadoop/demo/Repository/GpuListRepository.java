@@ -17,4 +17,6 @@ public interface GpuListRepository extends JpaRepository<GpuList, Long> {
 
     List<GpuList> findByGpuValueNotOrderByGpuValueAsc(double gpuValue);
 
+    List<String> findAllGpuName(); // findAll + 컬럼명의 형태로 메서드 이름을 작성
+
 }

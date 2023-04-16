@@ -42,4 +42,32 @@
 }
 
 
+/*--- Category.BottleNeck.js ---*/
 
+.selectTag {
+    width: 30%;
+    height: 20%;
+}
+
+.selectTagShow {
+    width: 25%;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 2rem;
+    border: none;
+}
+
+.formTag {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+.buttonSubmit {
+    background-color:antiquewhite;
+    border-radius: 30%;
+    color:black;
+    position: absolute;
+    left: 27%;
+    height: 40px;
+    width: 100px;
+}
