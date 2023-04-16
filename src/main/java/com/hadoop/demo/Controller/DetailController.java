@@ -53,13 +53,13 @@ public class DetailController {
     }
 
     // 모델명을 보내 한개의 cpu gpu detail 부분 요청 시
-    @PostMapping("/find_cpu_details")
+    @PostMapping("/find_cpu_name")
     public CpuDetails findCpuName(@RequestBody String name) throws IOException {
         name = name.replace("+"," ");
         return cpuDetailsService.findByName(name);
     }
 
-    @PostMapping("/find_gpu_details")
+    @PostMapping("/find_gpu_name")
     public GpuDetails findGpuName(@RequestBody String name) throws IOException {
         name = name.replace("+"," ").replace("=","");
         return gpuDetailsService.findByName(name);
