@@ -1,24 +1,14 @@
 package com.hadoop.demo.Controller;
 
-import com.hadoop.demo.Model.GameList;
-import com.hadoop.demo.Model.GameListOrigin;
 import com.hadoop.demo.Service.GameListOriginService;
 import com.hadoop.demo.Service.GameOriginFindExceptionService;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.util.List;
 
 @CrossOrigin
 @RestController
-public class GameListController {
+public class GameListCrawlingController {
 
     @Autowired
     private GameListOriginService gameListOriginService;
@@ -54,7 +44,7 @@ public class GameListController {
 //    }
 //
 //    @GetMapping("game_list")
-//    public void getMinimumGameRequirement() throws IOException {  // 게임의 최소사양 gpu, cpu, ram 크롤링
+//    public void getMinimumGameRequirement() throws IOException {  // 게임의 전체 사양 gpu, cpu, ram 크롤링
 //
 //        List<GameListOrigin> gameLists = gameListOriginService.findAll();
 //        for(GameListOrigin gameList : gameLists) {

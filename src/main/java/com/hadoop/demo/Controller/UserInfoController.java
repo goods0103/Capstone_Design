@@ -158,17 +158,13 @@ public class UserInfoController {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
     }
 
-//    @GetMapping("/MySpec")
-//    public CpuList getMatchingColumns() {
-//        //System.out.println(compareService.getMatchingCpu());
-//        return compareService.getMatchingCpu();
-//    }
-
+    // Scoop.exe 실행시 자동으로 알림 보내기
     @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> streamData() {
         return sink.asFlux();
     }
 
+    // 직접 기입해서 보낸 cpu gpu ram userinserinfo 테이블에 저장
     @PostMapping("/selectedId")
     public void handleSelectedId(@RequestBody UserInsertInfo userInsertInfo){
         String selectedCpu = userInsertInfo.getSelectedCpu();
@@ -184,38 +180,28 @@ public class UserInfoController {
 
     }
 
+    // cpu gpu rank순 value순으로 10개 보내기
     @PostMapping("/cpuRank")
     public List<CpuList> handleLastDataByRank(@RequestBody handleRequest cpuId){
-        //System.out.println("cpuId" + cpuId.getLastPart());
-        List<CpuList> similarCpu1 = userInsertInfoService.searchSelectCpuByRank(cpuId.getLastPart());
-
-        return similarCpu1;
+        return userInsertInfoService.searchSelectCpuByRank(cpuId.getLastPart());
     }
 
     @PostMapping("/cpuValue")
     public List<CpuList> handleLastDataByValue(@RequestBody handleRequest cpuId){
-        //System.out.println("cpuId" + cpuId.getLastPart());
-        List<CpuList> similarCpu2 = userInsertInfoService.searchSelectCpuByValue(cpuId.getLastPart());
-
-        return similarCpu2;
+        return userInsertInfoService.searchSelectCpuByValue(cpuId.getLastPart());
     }
 
     @PostMapping("/gpuRank")
     public List<GpuList> handleLastDataByRank2(@RequestBody handleRequest gpuId){
-        //System.out.println("gpuId" + gpuId.getLastPart());
-        List<GpuList> similarGpu1 = userInsertInfoService.searchSelectGpuByRank(gpuId.getLastPart());
-
-        return similarGpu1;
+        return userInsertInfoService.searchSelectGpuByRank(gpuId.getLastPart());
     }
 
     @PostMapping("/gpuValue")
     public List<GpuList> handleLastDataByValue2(@RequestBody handleRequest gpuId){
-        //System.out.println("gpuId" + gpuId.getLastPart());
-        List<GpuList> similarGpu2 = userInsertInfoService.searchSelectGpuByValue(gpuId.getLastPart());
-
-        return similarGpu2;
+        return userInsertInfoService.searchSelectGpuByValue(gpuId.getLastPart());
     }
 
+    // cpu gpu 인기순으로 보내주기
     @PostMapping("/cpuPopular")
     public List<PopularSpecList> handleLastDataByPopular(@RequestBody handleRequest cpuId){
         return popularSpecListService.searchSelectCpuByPopular(cpuId.getLastPart());
