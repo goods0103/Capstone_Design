@@ -52,6 +52,9 @@ function CpuDetail() {
             });
     }, []);
 
+    const convertPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
 
     return(
         <>
@@ -168,7 +171,7 @@ function CpuDetail() {
                                 <td className={styles.redBorder}><img src={cpu.cpuImage} alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{cpu.cpuName}</td>
                                 <td className={styles.redBorder}>{cpu.cpuRank}</td>
-                                <td className={styles.redBorder}>{cpu.cpuPrice}</td>
+                                <td className={styles.redBorder}>{convertPrice(cpu.cpuPrice)}</td>
                             </tr>
                         )))}
                     {cpuPopular.map((cpu) => (
@@ -177,7 +180,7 @@ function CpuDetail() {
                                 <td className={styles.cssTd}><img src={cpu.cpuImage} alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{cpu.cpuName}</td>
                                 <td className={styles.cssTd}>{cpu.cpuRank}</td>
-                                <td className={styles.cssTd}>{cpu.cpuPrice}</td>
+                                <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}</td>
                             </tr>
                         )))}
                 </table>
