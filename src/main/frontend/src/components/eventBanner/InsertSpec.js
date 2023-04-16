@@ -26,7 +26,7 @@ function InsertSpec() {
 
     // cpu 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
-        axios.get('/category/cpu1')
+        axios.get('/category/cpu_name')
             .then(response => {
                 const cpus = response.data.map(cpus => ({
                     value: cpus.cpuName,
@@ -41,7 +41,7 @@ function InsertSpec() {
 
     // gpu 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
-        axios.get('/category/gpu1')
+        axios.get('/category/gpu_name')
             .then(response => {
                 const gpus = response.data.map(gpus => ({
                     value: gpus.gpuName,
@@ -56,7 +56,7 @@ function InsertSpec() {
 
     // ram 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
-        axios.get('/category/ram1')
+        axios.get('/category/ram_name')
             .then(response => {
                 const rams = response.data.map(rams => ({
                     value: rams.ramName,

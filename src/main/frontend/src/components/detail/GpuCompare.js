@@ -10,7 +10,7 @@ function GpuCompare() {
 
     // cpu 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
-        axios.get('/category/gpu1')
+        axios.get('/category/gpu_name')
             .then(response => {
                 const gpus = response.data.map(gpus => ({
                     value: gpus.gpu_name,
