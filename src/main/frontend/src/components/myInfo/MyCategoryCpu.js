@@ -12,7 +12,6 @@ function MyCategoryCpu() {
     useEffect(() => {
         if (data2) {
             const fetchData = async () => {
-                console.log(data2);
                 try {
                     const response = await axios.post('/myCpuRanking', `${data2}`);
                     setCpuList(response.data);
@@ -54,9 +53,7 @@ function MyCategoryCpu() {
                         <th className={styles.cssTh}>cpu_price</th>
                     </tr>
                     {cpuList.map((cpu) => (
-                        <tr  data-cpu-name={cpu.cpuName}
-                             onClick={() => scrollToMySpec(cpu.cpuName)}
-                        >
+                        <tr  data-cpu-name={cpu.cpuName}>
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",

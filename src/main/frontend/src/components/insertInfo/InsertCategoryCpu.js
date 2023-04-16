@@ -57,9 +57,7 @@ function InsertCategoryCpu() {
                         <th className={styles.cssTh}>cpu_price</th>
                     </tr>
                     {cpuList.map((cpu) => (
-                        <tr  data-cpu-name={cpu.cpuName}
-                            onClick={() => scrollToMySpec(cpu.cpuName)}
-                        >
+                        <tr  data-cpu-name={cpu.cpuName}>
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",

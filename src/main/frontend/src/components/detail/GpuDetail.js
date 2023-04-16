@@ -9,7 +9,7 @@ function GpuDetail() {
     const [gpuValue, setGpuValue] = useState([]);
     const [gpuRank, setGpuRank] = useState([]);
     const [gpuPopular, setGpuPopular] = useState([]);
-
+    const [gpuInfo, setGpuInfo] = useState([]);
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
@@ -46,29 +46,30 @@ function GpuDetail() {
                 console.log(error);
             });
     }, []);
-
+    useEffect(() => {
+        axios.post('/find_gpu_details', { lastPart })
+            .then(response => {
+                setGpuInfo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
     return(
         <>
             <Link to={`/gpuCompare/?id=${lastPart}`}><button>비교하기</button></Link>
             <div>
                 <p>
-                    Class: Desktop                Socket: AM4 <br/>
-
-                    Clockspeed: 3.7 GHz           Turbo Speed: 4.6 GHz<br/>
-
-                    Cores: 6 Threads: 12          Typical TDP: 65 W<br/>
-
-                    Cache Size: L1: 384 KB, L2: 3.0 MB, L3: 32 MB<br/>
-
-                    Other names: AMD Ryzen 5 5600X 6-Core Processor<br/>
-
-                    CPU First Seen on Charts: Q4 2020<br/>
-
-                    CPUmark/$Price: 136.81<br/>
-
-                    Overall Rank: 328<br/>
-
-                    Last Price Change: $160.44 USD (2023-04-10) <br/>
+                    name : {gpuInfo.gpuName} &emsp;
+                    memory size : {gpuInfo.memorySize}
+                    <br/>
+                    core clock : {gpuInfo.coreClock} &emsp;
+                    memory clock : {gpuInfo.memoryClock}
+                    <br/>
+                    tdp : {gpuInfo.tdp} &emsp;
+                    category : {gpuInfo.category}
+                    <br/>
+                    otherName : {gpuInfo.otherName}
                 </p>
             </div>
             <div>
@@ -145,8 +146,8 @@ function GpuDetail() {
                             <tr>
                                 <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{gpu.gpuName}</td>
-                                <td className={styles.redBorder}>{gpu.gpuMark}</td>
-                                <td className={styles.redBorder}>{gpu.gpuValue}</td>
+                                <td className={styles.redBorder}>{gpu.gpuRank}</td>
+                                <td className={styles.redBorder}>{gpu.gpuPrice}</td>
                             </tr>
                         )))}
                     {gpuPopular.map((gpu) => (
@@ -154,8 +155,8 @@ function GpuDetail() {
                             <tr>
                                 <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{gpu.gpuName}</td>
-                                <td className={styles.cssTd}>{gpu.gpuMark}</td>
-                                <td className={styles.cssTd}>{gpu.gpuValue}</td>
+                                <td className={styles.cssTd}>{gpu.gpuRank}</td>
+                                <td className={styles.cssTd}>{gpu.gpuPrice}</td>
                             </tr>
                         )))}
                 </table>
