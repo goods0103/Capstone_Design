@@ -52,6 +52,9 @@ function CpuDetail() {
             });
     }, []);
 
+    const convertPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
 
     return(
         <>
@@ -74,23 +77,23 @@ function CpuDetail() {
                     otherName : {cpuInfo.otherName}
                     <br/>
                     Single Thread Rating : {cpuInfo.str}
-                {/*Class: Desktop                Socket: AM4 <br/>*/}
+                    {/*Class: Desktop                Socket: AM4 <br/>*/}
 
-                {/*Clockspeed: 3.7 GHz           Turbo Speed: 4.6 GHz<br/>*/}
+                    {/*Clockspeed: 3.7 GHz           Turbo Speed: 4.6 GHz<br/>*/}
 
-                {/*Cores: 6 Threads: 12          Typical TDP: 65 W<br/>*/}
+                    {/*Cores: 6 Threads: 12          Typical TDP: 65 W<br/>*/}
 
-                {/*Cache Size: L1: 384 KB, L2: 3.0 MB, L3: 32 MB<br/>*/}
+                    {/*Cache Size: L1: 384 KB, L2: 3.0 MB, L3: 32 MB<br/>*/}
 
-                {/*Other names: AMD Ryzen 5 5600X 6-Core Processor<br/>*/}
+                    {/*Other names: AMD Ryzen 5 5600X 6-Core Processor<br/>*/}
 
-                {/*CPU First Seen on Charts: Q4 2020<br/>*/}
+                    {/*CPU First Seen on Charts: Q4 2020<br/>*/}
 
-                {/*CPUmark/$Price: 136.81<br/>*/}
+                    {/*CPUmark/$Price: 136.81<br/>*/}
 
-                {/*Overall Rank: 328<br/>*/}
+                    {/*Overall Rank: 328<br/>*/}
 
-                {/*Last Price Change: $160.44 USD (2023-04-10) <br/>*/}
+                    {/*Last Price Change: $160.44 USD (2023-04-10) <br/>*/}
                 </p>
             </div>
             <div>
@@ -104,13 +107,13 @@ function CpuDetail() {
                     </tr>
                     {cpuRank.map((cpu) => (
                         cpu.cpuId == lastPart  && (
-                        <tr>
-                            <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.redBorder}>{cpu.cpuName}</td>
-                            <td className={styles.redBorder}>{cpu.cpuMark}</td>
-                            <td className={styles.redBorder}>{cpu.cpuRank}</td>
-                        </tr>
-                    )))}
+                            <tr>
+                                <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.redBorder}>{cpu.cpuName}</td>
+                                <td className={styles.redBorder}>{cpu.cpuMark}</td>
+                                <td className={styles.redBorder}>{cpu.cpuRank}</td>
+                            </tr>
+                        )))}
                     {cpuRank.map((cpu) => (
                         cpu.cpuId != lastPart  && (
                             <tr>
@@ -123,36 +126,36 @@ function CpuDetail() {
                 </table>
             </div>
             {cpuValue.length > 1 && (
-            <div>
-                <h3>similar value</h3>
-                <table className={styles.cssTable}>
-                    <tr>
-                        <th className={styles.cssTh}>image</th>
-                        <th className={styles.cssTh}>name</th>
-                        <th className={styles.cssTh}>mark</th>
-                        <th className={styles.cssTh}>value</th>
-                    </tr>
-                    {cpuValue.map((cpu) => (
-                        cpu.cpuId == lastPart  &&(
-                            <tr>
-                                <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                <td className={styles.redBorder}>{cpu.cpuName}</td>
-                                <td className={styles.redBorder}>{cpu.cpuMark}</td>
-                                <td className={styles.redBorder}>{cpu.cpuValue}</td>
-                            </tr>
-                        )))}
-                    {cpuValue.map((cpu) => (
-                        cpu.cpuId != lastPart  &&(
-                            <tr>
-                                <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                <td className={styles.cssTd}>{cpu.cpuName}</td>
-                                <td className={styles.cssTd}>{cpu.cpuMark}</td>
-                                <td className={styles.cssTd}>{cpu.cpuValue}</td>
-                            </tr>
-                        )))}
-                </table>
-            </div>
-                )}
+                <div>
+                    <h3>similar value</h3>
+                    <table className={styles.cssTable}>
+                        <tr>
+                            <th className={styles.cssTh}>image</th>
+                            <th className={styles.cssTh}>name</th>
+                            <th className={styles.cssTh}>mark</th>
+                            <th className={styles.cssTh}>value</th>
+                        </tr>
+                        {cpuValue.map((cpu) => (
+                            cpu.cpuId == lastPart  &&(
+                                <tr>
+                                    <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                    <td className={styles.redBorder}>{cpu.cpuName}</td>
+                                    <td className={styles.redBorder}>{cpu.cpuMark}</td>
+                                    <td className={styles.redBorder}>{cpu.cpuValue}</td>
+                                </tr>
+                            )))}
+                        {cpuValue.map((cpu) => (
+                            cpu.cpuId != lastPart  &&(
+                                <tr>
+                                    <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                    <td className={styles.cssTd}>{cpu.cpuName}</td>
+                                    <td className={styles.cssTd}>{cpu.cpuMark}</td>
+                                    <td className={styles.cssTd}>{cpu.cpuValue}</td>
+                                </tr>
+                            )))}
+                    </table>
+                </div>
+            )}
             <div>
                 <h3>유명</h3>
                 <table className={styles.cssTable}>
@@ -168,7 +171,7 @@ function CpuDetail() {
                                 <td className={styles.redBorder}><img src={cpu.cpuImage} alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{cpu.cpuName}</td>
                                 <td className={styles.redBorder}>{cpu.cpuRank}</td>
-                                <td className={styles.redBorder}>{cpu.cpuPrice}</td>
+                                <td className={styles.redBorder}>{convertPrice(cpu.cpuPrice)}</td>
                             </tr>
                         )))}
                     {cpuPopular.map((cpu) => (
@@ -177,7 +180,7 @@ function CpuDetail() {
                                 <td className={styles.cssTd}><img src={cpu.cpuImage} alt="cpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{cpu.cpuName}</td>
                                 <td className={styles.cssTd}>{cpu.cpuRank}</td>
-                                <td className={styles.cssTd}>{cpu.cpuPrice}</td>
+                                <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}</td>
                             </tr>
                         )))}
                 </table>

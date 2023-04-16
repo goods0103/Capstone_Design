@@ -55,6 +55,11 @@ function GpuDetail() {
                 console.log(error);
             });
     }, []);
+
+    const convertPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     return(
         <>
             <Link to={`/gpuCompare/?id=${lastPart}`}><button>비교하기</button></Link>
@@ -147,7 +152,7 @@ function GpuDetail() {
                                 <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{gpu.gpuName}</td>
                                 <td className={styles.redBorder}>{gpu.gpuRank}</td>
-                                <td className={styles.redBorder}>{gpu.gpuPrice}</td>
+                                <td className={styles.redBorder}>{convertPrice(gpu.gpuPrice)}</td>
                             </tr>
                         )))}
                     {gpuPopular.map((gpu) => (
@@ -156,7 +161,7 @@ function GpuDetail() {
                                 <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{gpu.gpuName}</td>
                                 <td className={styles.cssTd}>{gpu.gpuRank}</td>
-                                <td className={styles.cssTd}>{gpu.gpuPrice}</td>
+                                <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}</td>
                             </tr>
                         )))}
                 </table>

@@ -4,12 +4,20 @@ import Select from "react-select";
 import styles from "../eventBanner/eventBanner.module.css"
 import CategoryBar2 from "./CategoryBar2";
 import CategoryBar from "../category/CategoryBar";
+import {Link} from "react-router-dom";
+import MyBottleNeck from "./MyBottleNeck";
 
 function MySpec() {
 
     const [cpuInfo, setCpuInfo] = useState([]);
     const [gpuInfo, setGpuInfo] = useState([]);
     const [ramInfo, setRamInfo] = useState([]);
+    const [bottleNeckInfo, setBottleNeckInfo] = useState([]);
+    const [showComponent, setShowComponent] = useState(false);
+
+    function showMyBottleNeck() {
+        setShowComponent(true);
+    }
 
     // hello
     useEffect(() => {
@@ -52,6 +60,16 @@ function MySpec() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        axios.get('/myBottleNeck')
+            .then(response => {
+                setBottleNeckInfo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
@@ -62,6 +80,8 @@ function MySpec() {
             {localStorage.setItem('cpuData', cpuInfo.cpuName)}
             {localStorage.setItem('gpuData', gpuInfo.gpuName)}
             {localStorage.setItem('ramData', ramInfo.ramName)}
+
+
             <div>
                 <p>
                     cpu_name : {cpuInfo.cpuName}<br/>
@@ -89,6 +109,8 @@ function MySpec() {
                 </p>
                 <br/>
             </div>
+            {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}
+            {showComponent && <MyBottleNeck bottleneck={bottleNeckInfo}/>}
         </>
     );
 }
