@@ -57,9 +57,7 @@ function InsertCategoryGpu() {
                         <th className={styles.cssTh}>price</th>
                     </tr>
                     {gpuList.map((gpu) => (
-                        <tr  data-gpu-name={gpu.gpuName}
-                             onClick={() => scrollToMySpec(gpu.gpuName)}
-                        >
+                        <tr data-gpu-name={gpu.gpuName}>
                             <td className={styles.cssTd}  style={{
                                 borderBottom: data2 === gpu.gpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpuName ? "2px solid red" : "1px solid white",

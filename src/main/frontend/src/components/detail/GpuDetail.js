@@ -145,8 +145,8 @@ function GpuDetail() {
                             <tr>
                                 <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{gpu.gpuName}</td>
-                                <td className={styles.redBorder}>{gpu.gpuMark}</td>
-                                <td className={styles.redBorder}>{gpu.gpuValue}</td>
+                                <td className={styles.redBorder}>{gpu.gpuRank}</td>
+                                <td className={styles.redBorder}>{gpu.gpuPrice}</td>
                             </tr>
                         )))}
                     {gpuPopular.map((gpu) => (
@@ -154,8 +154,8 @@ function GpuDetail() {
                             <tr>
                                 <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{gpu.gpuName}</td>
-                                <td className={styles.cssTd}>{gpu.gpuMark}</td>
-                                <td className={styles.cssTd}>{gpu.gpuValue}</td>
+                                <td className={styles.cssTd}>{gpu.gpuRank}</td>
+                                <td className={styles.cssTd}>{gpu.gpuPrice}</td>
                             </tr>
                         )))}
                 </table>
