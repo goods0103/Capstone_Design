@@ -13,8 +13,8 @@ function GpuCompare() {
         axios.get('/category/gpu_name')
             .then(response => {
                 const gpus = response.data.map(gpus => ({
-                    value: gpus.gpu_name,
-                    label: gpus.gpu_name
+                    value: gpus,
+                    label: gpus
                 }));
                 setGpuOption(gpus);
             })
