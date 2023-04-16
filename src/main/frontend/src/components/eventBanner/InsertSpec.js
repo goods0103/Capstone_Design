@@ -15,9 +15,10 @@ function InsertSpec() {
     useEffect(() => {
         axios.get('/category/cpu_name')
             .then(response => {
+                console.log(response.data);
                 const cpus = response.data.map(cpus => ({
-                    value: cpus.cpuName,
-                    label: cpus.cpuName
+                    value: cpus,
+                    label: cpus
                 }));
                 setCpuOption(cpus);
             })
@@ -31,8 +32,8 @@ function InsertSpec() {
         axios.get('/category/gpu_name')
             .then(response => {
                 const gpus = response.data.map(gpus => ({
-                    value: gpus.gpuName,
-                    label: gpus.gpuName
+                    value: gpus,
+                    label: gpus
                 }));
                 setGpuOption(gpus);
             })
@@ -46,8 +47,8 @@ function InsertSpec() {
         axios.get('/category/ram_name')
             .then(response => {
                 const rams = response.data.map(rams => ({
-                    value: rams.ramName,
-                    label: rams.ramName
+                    value: rams,
+                    label: rams
                 }));
                 setRamOption(rams);
             })
