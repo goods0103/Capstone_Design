@@ -37,14 +37,19 @@ public class CpuList {
     @Column(name = "cpu_price")
     private int cpuPrice;
 
+    @Column(name = "image_url")
+    @JsonProperty("image_url")
+    private String cpuUrl;
+
     @Builder // 7.
-    public CpuList(int cpuId, String cpuName, int cpuMark, int cpuRank, double cpuValue, int cpuPrice) {
+    public CpuList(int cpuId, String cpuName, int cpuMark, int cpuRank, double cpuValue, int cpuPrice, String cpuUrl) {
         this.cpuId = cpuId;
         this.cpuName = cpuName;
         this.cpuMark = cpuMark;
         this.cpuRank = cpuRank;
         this.cpuValue = cpuValue;
         this.cpuPrice = cpuPrice;
+        this.cpuUrl = cpuUrl;
     }
 
 }
