@@ -84,7 +84,7 @@ function CategoryCpu() {
               </tr>
               {cpuList.map((cpu) => (
                   <tr>
-                      <td className={styles.cssTd}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                      <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                       <td className={styles.cssTd}>{cpu.cpuName}</td>
                       <td className={styles.cssTd}>{cpu.cpuRank}</td>
                       <td className={styles.cssTd}>{cpu.cpuValue}</td>

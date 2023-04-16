@@ -68,7 +68,7 @@ function InsertCategoryCpu() {
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
-                            }}><Link to={`/CpuSpec/${cpu.cpu_id}`}>{cpu.cpuName}</Link></td>
+                            }}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
 
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",

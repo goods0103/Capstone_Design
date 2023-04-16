@@ -102,5 +102,4 @@ public class DataController {
         game = game.replace("=", "");
         return gameListOriginService.findByName(game);
     }
-
 }

@@ -79,35 +79,35 @@ function SelectSpec() {
                 cpu.cpuName === selectCpu && (
                 <p>
                     cpu_name : {cpu.cpuName}<br/>
-                    cpu_mark : {cpu.cpu_mark}<br/>
-                    cpu_rank : {cpu.cpu_rank}<br/>
-                    cpu_value : {cpu.cpu_value}<br/>
-                    cpu_price : {cpu.cpu_price}<br/>
+                    cpu_mark : {cpu.cpuMark}<br/>
+                    cpu_rank : {cpu.cpuRank}<br/>
+                    cpu_value : {cpu.cpuValue}<br/>
+                    cpu_price : {cpu.cpuPrice}<br/>
                 </p>
                 )))}
 
 
                 <br/>
                 {gpuInfo.map((gpu) => (
-                    gpu.gpu_name === selectGpu && (
+                    gpu.gpuName === selectGpu && (
                 <p>
-                    gpu_name : {gpu.gpu_name}<br/>
-                    gpu_mark : {gpu.gpu_mark}<br/>
-                    gpu_rank : {gpu.gpu_rank}<br/>
-                    gpu_value : {gpu.gpu_value}<br/>
-                    gpu_price : {gpu.gpu_price}<br/>
+                    gpu_name : {gpu.gpuName}<br/>
+                    gpu_mark : {gpu.gpuMark}<br/>
+                    gpu_rank : {gpu.gpuRank}<br/>
+                    gpu_value : {gpu.gpuValue}<br/>
+                    gpu_price : {gpu.gpuPrice}<br/>
                 </p>
                     )))}
                 <br/>
                 {ramInfo.map((ram) => (
-                    ram.ram_name === selectRam && (
+                    ram.ramName === selectRam && (
                 <p>
-                    ram_name : {ram.ram_name}<br/>
-                    ram_type : {ram.ram_type}<br/>
-                    ram_size : {ram.ram_size}<br/>
-                    ram_latency : {ram.ram_latency}<br/>
-                    ram_read : {ram.ram_read}<br/>
-                    ram_write : {ram.ram_write}<br/>
+                    ram_name : {ram.ramName}<br/>
+                    ram_type : {ram.ramType}<br/>
+                    ram_size : {ram.ramSize}<br/>
+                    ram_latency : {ram.ramLatency}<br/>
+                    ram_read : {ram.ramRead}<br/>
+                    ram_write : {ram.ramWrite}<br/>
                 </p>
                     )))}
                 <br/>
