@@ -11,19 +11,6 @@ function InsertSpec() {
     const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
     const [ramOption, setRamOption] = useState([]); // ram 에 대한 배열
 
-    // // 임시 데이터
-    // gpuOption = [
-    //     { value: 'rtx 3070', label: 'Rtx 3070' },
-    //     { value: 'rtx 3080', label: 'Rtx 3080' },
-    //     { value: 'rtx 3090', label: 'Rtx 3090' },
-    // ];
-    //
-    // ramOption = [
-    //     { value: '8GB', label: '8GB' },
-    //     { value: '16GB', label: '16GB' },
-    //     { value: '32GB', label: '32GB' },
-    // ];
-
     // cpu 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
         axios.get('/category/cpu_name')
