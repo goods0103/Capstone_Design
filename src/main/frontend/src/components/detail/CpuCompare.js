@@ -43,7 +43,23 @@ function CpuCompare() {
     }
 
     useEffect(() => {
-        axios.post('/cpuid', { id })
+        axios.post('/cpuId', { id })
+            .then(response => {
+                setCpuInfo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+    useEffect(() => {
+        axios.post('/cpuId', { id })
+            .then(response => {
+                setCpuInfo(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        axios.post('/cpuId', { id })
             .then(response => {
                 setCpuInfo(response.data);
             })

@@ -45,9 +45,7 @@ function MyCategoryRam() {
                         <th className={styles.cssTh}>ram_write</th>
                     </tr>
                     {ramList.map((ram) => (
-                        <tr  data-ram-name={ram.ramName}
-                             onClick={() => scrollToMySpec(ram.ramName)}
-                        >
+                        <tr  data-ram-name={ram.ramName}>
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",
