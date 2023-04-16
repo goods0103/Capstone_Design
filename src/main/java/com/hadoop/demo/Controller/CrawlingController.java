@@ -17,9 +17,12 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
+
 @CrossOrigin
 @RestController
 public class CrawlingController {
+
 
     @Autowired
     private CpuListService insertCpuList;
@@ -40,15 +43,15 @@ public class CrawlingController {
     @Autowired
     private GameFindExceptionService gameFindExceptionService;
 
-    @GetMapping("/find_cpu_details")
-    public CpuDetails getCpuInfo(@RequestBody int id) throws IOException {
-        String cpuName = insertCpuList.findById(id).getCpuName();
+    @PostMapping("/find_cpu_details")
+    public CpuDetails getCpuInfo(@RequestBody UserInfoController.handleRequest id) throws IOException {
+        String cpuName = insertCpuList.findById(id.getLastPart()).getCpuName();
         return cpuDetailsService.findByName(cpuName);
     }
 
-    @GetMapping("/find_gpu_details")
-    public GpuDetails getGpuInfo(@RequestBody int id) throws IOException {
-        String gpuName = insertGpuList.findById(id).getGpuName();
+    @PostMapping("/find_gpu_details")
+    public GpuDetails getGpuInfo(@RequestBody UserInfoController.handleRequest id) throws IOException {
+        String gpuName = insertGpuList.findById(id.getLastPart()).getGpuName();
         return gpuDetailsService.findByName(gpuName);
     }
 

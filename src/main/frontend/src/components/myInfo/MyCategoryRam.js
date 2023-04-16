@@ -22,13 +22,18 @@ function MyCategoryRam() {
 
         fetchData();
     }, []);
-    const scrollToMySpec = () => {
-        window.scrollTo({ top: document.body.scrollHeight/2, behavior: 'smooth' });
+    const scrollToMySpec = (ramName) => {
+        const targetRow = document.querySelector(`tr[data-ram-name="${ramName}"]`);
+        if (targetRow) {
+            const yOffset = -50; // optional offset to adjust scroll position
+            const y = targetRow.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
+        }
     };
     return (
         <>
             <CategoryBar2></CategoryBar2>
-            <button onClick={scrollToMySpec}>내 스펙으로 이동</button>
+            <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>
                     <tr>
@@ -40,7 +45,9 @@ function MyCategoryRam() {
                         <th className={styles.cssTh}>ram_write</th>
                     </tr>
                     {ramList.map((ram) => (
-                        <tr>
+                        <tr  data-ram-name={ram.ramName}
+                             onClick={() => scrollToMySpec(ram.ramName)}
+                        >
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",
