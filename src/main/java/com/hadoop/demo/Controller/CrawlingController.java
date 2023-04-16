@@ -24,24 +24,24 @@ import static java.lang.Integer.parseInt;
 public class CrawlingController {
 
 
-    @Autowired
-    private CpuListService insertCpuList;
-    @Autowired
-    private CpuDetailsService cpuDetailsService;
-
-    @Autowired
-    private GpuListService insertGpuList;
-    @Autowired
-    private GpuDetailsService gpuDetailsService;
-
-    @Autowired
-    private RamListService insertRamList;
-
-    @Autowired
-    private GameListService gameListService;
-
-    @Autowired
-    private GameFindExceptionService gameFindExceptionService;
+//    @Autowired
+//    private CpuListService insertCpuList;
+//    @Autowired
+//    private CpuDetailsService cpuDetailsService;
+//
+//    @Autowired
+//    private GpuListService insertGpuList;
+//    @Autowired
+//    private GpuDetailsService gpuDetailsService;
+//
+//    @Autowired
+//    private RamListService insertRamList;
+//
+//    @Autowired
+//    private GameListService gameListService;
+//
+//    @Autowired
+//    private GameFindExceptionService gameFindExceptionService;
 
 
 //    @GetMapping("/cpu_info")
