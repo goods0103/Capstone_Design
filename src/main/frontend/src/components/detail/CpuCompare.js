@@ -21,7 +21,7 @@ function CpuCompare() {
     const [cpuInfo, setCpuInfo] = useState([]);
 
     useEffect(() => {
-        axios.get('/category/cpu1')
+        axios.get('/category/cpu_name')
             .then(response => {
                 const cpus = response.data.map(cpus => ({
                     value: cpus.cpuName,
