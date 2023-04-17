@@ -22,6 +22,8 @@ public class DataController {
     private CompareService compareService;
     @Autowired
     private GameListOriginService gameListOriginService;
+    @Autowired
+    private BottleNeckService bottleNeckService;
 
 
     // cpu gpu ram 전체 리스트 요청 시
@@ -108,10 +110,29 @@ public class DataController {
         return gpuList;
     }
 
+    // ram latency기준으로 +-1값인 객체 전송
+    @PostMapping("/myRamRanking")
+    public List<RamList> getMyRamRank(@RequestBody String ram) {
+        List<RamList> ramList = new ArrayList<>();
+        ram = ram.replace("+"," ").replace("=","");
+        int latency = ramListService.findByName(ram).getRamLatency();
+
+        for(int i = latency - 1; i <= latency + 1; i++)
+            ramList.addAll(ramListService.findByRamLatency(i));
+
+        return ramList;
+    }
+
     // game origin 리스트 보내기
     @GetMapping("/category/game1")
     public List<GameListOrigin> getAllGameListOrigin() {
         return gameListOriginService.findAll();
+    }
+
+    // bottle neck 리스트 보내기
+    @GetMapping("/category/bottelNeck")
+    public List<BottleNeck> getAllBottleNeck() {
+        return bottleNeckService.findAll();
     }
 
 }
