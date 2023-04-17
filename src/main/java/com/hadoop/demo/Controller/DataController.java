@@ -22,6 +22,8 @@ public class DataController {
     private CompareService compareService;
     @Autowired
     private GameListOriginService gameListOriginService;
+    @Autowired
+    private GameListService gameListService;
 
 
     // cpu gpu ram 전체 리스트 요청 시
@@ -114,4 +116,8 @@ public class DataController {
         return gameListOriginService.findAll();
     }
 
+    @GetMapping("/category/game2")
+    public List<GameList> getAllGameList() {
+        return gameListService.findAll();
+    }
 }

@@ -90,14 +90,14 @@ function CategoryGpu() {
                         <th className={styles.cssTh}>value</th>
                         <th className={styles.cssTh}>price</th>
                     </tr>
-                    {gpuList.map((cpu) => (
+                    {gpuList.map((gpu) => (
                         <tr>
-                            <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}>{cpu.gpuName}</td>
-                            <td className={styles.cssTd}>{cpu.gpuMark}</td>
-                            <td className={styles.cssTd}>{cpu.gpuRank}</td>
-                            <td className={styles.cssTd}>{cpu.gpuValue}</td>
-                            <td className={styles.cssTd}>{convertPrice(cpu.gpuPrice)}원</td>
+                            <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                            <td className={styles.cssTd}>{gpu.gpuName}</td>
+                            <td className={styles.cssTd}>{gpu.gpuMark}</td>
+                            <td className={styles.cssTd}>{gpu.gpuRank}</td>
+                            <td className={styles.cssTd}>{gpu.gpuValue}</td>
+                            <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}원</td>
                         </tr>
                     ))}
                 </table>

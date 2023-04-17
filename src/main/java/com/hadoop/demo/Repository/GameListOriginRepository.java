@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface GameListOriginRepository extends JpaRepository<GameListOrigin, Long> {
 
     GameListOrigin findByGameName(String gameName);
+
+    GameListOrigin findByGameId(int Id);
 }
