@@ -203,12 +203,12 @@ public class UserInfoController {
 
     // cpu gpu 인기순으로 보내주기
     @PostMapping("/cpuPopular")
-    public List<PopularSpecList> handleLastDataByPopular(@RequestBody handleRequest cpuId){
+    public List<CpuList> handleLastDataByPopular(@RequestBody handleRequest cpuId){
         return popularSpecListService.searchSelectCpuByPopular(cpuId.getLastPart());
     }
 
     @PostMapping("/gpuPopular")
-    public List<PopularSpecList> handleLastDataByPopular2(@RequestBody handleRequest gpuId){
+    public List<GpuList> handleLastDataByPopular2(@RequestBody handleRequest gpuId){
         return popularSpecListService.searchSelectGpuByPopular(gpuId.getLastPart());
     }
 
