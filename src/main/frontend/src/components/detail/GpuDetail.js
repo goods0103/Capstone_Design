@@ -89,7 +89,7 @@ function GpuDetail() {
                     {gpuRank.map((gpu) => (
                         gpu.gpuId == lastPart  && (
                             <tr>
-                                <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.redBorder}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{gpu.gpuName}</td>
                                 <td className={styles.redBorder}>{gpu.gpuMark}</td>
                                 <td className={styles.redBorder}>{gpu.gpuRank}</td>
@@ -98,7 +98,7 @@ function GpuDetail() {
                     {gpuRank.map((gpu) => (
                         gpu.gpuId != lastPart  && (
                             <tr>
-                                <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{gpu.gpuName}</td>
                                 <td className={styles.cssTd}>{gpu.gpuMark}</td>
                                 <td className={styles.cssTd}>{gpu.gpuRank}</td>
@@ -119,7 +119,7 @@ function GpuDetail() {
                         {gpuValue.map((gpu) => (
                             gpu.gpuId == lastPart  &&(
                                 <tr>
-                                    <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td className={styles.redBorder}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                     <td className={styles.redBorder}>{gpu.gpuName}</td>
                                     <td className={styles.redBorder}>{gpu.gpuMark}</td>
                                     <td className={styles.redBorder}>{gpu.gpuValue}</td>
@@ -128,7 +128,7 @@ function GpuDetail() {
                         {gpuValue.map((gpu) => (
                             gpu.gpuId != lastPart  &&(
                                 <tr>
-                                    <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                     <td className={styles.cssTd}>{gpu.gpuName}</td>
                                     <td className={styles.cssTd}>{gpu.gpuMark}</td>
                                     <td className={styles.cssTd}>{gpu.gpuValue}</td>
@@ -149,7 +149,7 @@ function GpuDetail() {
                     {gpuPopular.map((gpu) => (
                         gpu.gpuId == lastPart  &&(
                             <tr>
-                                <td className={styles.redBorder}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.redBorder}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.redBorder}>{gpu.gpuName}</td>
                                 <td className={styles.redBorder}>{gpu.gpuRank}</td>
                                 <td className={styles.redBorder}>{convertPrice(gpu.gpuPrice)}</td>
@@ -158,7 +158,7 @@ function GpuDetail() {
                     {gpuPopular.map((gpu) => (
                         gpu.gpuId != lastPart  &&(
                             <tr>
-                                <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}>{gpu.gpuName}</td>
                                 <td className={styles.cssTd}>{gpu.gpuRank}</td>
                                 <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}</td>
