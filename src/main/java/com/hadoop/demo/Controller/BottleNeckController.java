@@ -1,18 +1,9 @@
 package com.hadoop.demo.Controller;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.Select;
-import org.springframework.beans.factory.annotation.Value;
+import com.hadoop.demo.Service.BottleNeckService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -20,6 +11,31 @@ import static java.lang.Thread.sleep;
 @CrossOrigin
 @RestController
 public class BottleNeckController {
+
+    @Autowired
+    private BottleNeckService bottleNeckService;
+
+//    // bottleneck 레코드 만들기
+//    @GetMapping("/setBottleNeck")
+//    public void setBottleNeckList() {
+//        List<PopularList> popularLists = popularListService.findAll();
+//        for(PopularList popularList : popularLists) {
+//            String cpu = popularList.getCpuName().replace("?", " ");
+//            for(PopularList popularList1 : popularLists) {
+//                if(popularList1.getGpuName() == null)
+//                    break;
+//                String gpu = popularList1.getGpuName();
+//                Double value = 0.0;
+//
+//                BottleNeck bottleNeck = BottleNeck.builder()
+//                        .cpuInfo(cpu)
+//                        .gpuInfo(gpu)
+//                        .bottleNeckValue(value)
+//                        .build();
+//                bottleNeckService.save(bottleNeck);
+//            }
+//        }
+//    }
 
 //    @Value("${webdriver.chrome.driver}")
 //    private String chromeDriverPath;
