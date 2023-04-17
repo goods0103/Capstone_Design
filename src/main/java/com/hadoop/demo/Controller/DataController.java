@@ -23,6 +23,8 @@ public class DataController {
     @Autowired
     private GameListOriginService gameListOriginService;
     @Autowired
+    private GameListService gameListService;
+    @Autowired
     private BottleNeckService bottleNeckService;
 
 
@@ -129,6 +131,10 @@ public class DataController {
         return gameListOriginService.findAll();
     }
 
+    @GetMapping("/category/game2")
+    public List<GameList> getAllGameList() {
+        return gameListService.findAll();
+    }
     // bottle neck 리스트 보내기
     @GetMapping("/category/bottelNeck")
     public List<BottleNeck> getAllBottleNeck() {

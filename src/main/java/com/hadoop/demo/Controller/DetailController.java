@@ -78,9 +78,7 @@ public class DetailController {
 
     // game 한개 선택 시 그 게임 이름 or id로 game origin 내용 보내기
     @PostMapping("/category/game1/detail")
-    public GameListOrigin getSelectGameDetail(@RequestBody String game) {
-        game = game.replace("+", " ");
-        game = game.replace("=", "");
-        return gameListOriginService.findByName(game);
+    public GameListOrigin getSelectGameDetail(@RequestBody handleRequest id) throws IOException{
+        return gameListOriginService.findById(id.getLastPart());
     }
 }
