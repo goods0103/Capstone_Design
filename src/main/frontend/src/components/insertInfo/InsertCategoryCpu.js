@@ -62,7 +62,7 @@ function InsertCategoryCpu() {
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderLeft: data2 === cpu.cpuName ? "2px solid red" : "1px solid white"
-                            }}><img src="" alt="cpu_image" className={styles.tableImg}/></td>
+                            }}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd} style={{
                                 borderBottom: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === cpu.cpuName ? "2px solid red" : "1px solid white",
