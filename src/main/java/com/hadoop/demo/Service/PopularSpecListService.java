@@ -1,19 +1,17 @@
 package com.hadoop.demo.Service;
 
-import com.hadoop.demo.Model.PopularSpecList;
+import com.hadoop.demo.Model.CpuList;
+import com.hadoop.demo.Model.GpuList;
 import com.hadoop.demo.Repository.CpuListRepository;
 import com.hadoop.demo.Repository.GpuListRepository;
-import com.hadoop.demo.Repository.PopularSpecListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PopularSpecListService {
-
-    @Autowired
-    private PopularSpecListRepository popularSpecListRepository;
 
     @Autowired
     private CpuListRepository cpuListRepository;
@@ -21,107 +19,95 @@ public class PopularSpecListService {
     @Autowired
     private GpuListRepository gpuListRepository;
 
-    public List<PopularSpecList> findAll() { return popularSpecListRepository.findAll(); }
+    public List<CpuList> searchSelectCpuByPopular(int cpuId) {
 
-    public List<PopularSpecList> searchSelectCpuByPopular(int cpuId) {
+        List<CpuList> popularCpuList = new ArrayList<>();
+        List<String> popularCpu = new ArrayList<>();
+        popularCpu.add("Intel Core i5-13600K");
+        popularCpu.add("Intel Core i5-12600K");
+        popularCpu.add("Intel Core i5-12400F");
+        popularCpu.add("Intel Core i3-12100F");
+        popularCpu.add("Intel Core i7-13700K");
+        popularCpu.add("Intel Core i7-9700KF @ 3.60GHz");
+        popularCpu.add("Intel Core i9-13900K");
+        popularCpu.add("AMD Ryzen 5 3600");
+        popularCpu.add("AMD Ryzen 5 5600X");
 
-//        List<PopularSpecList> popularSpecLists = popularSpecListRepository.findAll();
+        for(String cpu : popularCpu){
+            popularCpuList.add(cpuListRepository.findByCpuName(cpu));
+        }
 
-//        for(PopularSpecList list1 : popularSpecLists){
-//            int cpuRank = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuRank();
-//            int cpuPrice = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuPrice();
-//            String cpuUrl = cpuListRepository.findByCpuName(list1.getCpuName()).getCpuUrl();
-//
-//            int gpuRank = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuRank();
-//            int gpuPrice = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuPrice();
-//            String gpuUrl = gpuListRepository.findByGpuName(list1.getGpuName()).getGpuUrl();
-//
-//            list1.setCpuRank(cpuRank);
-//            list1.setCpuPrice(cpuPrice);
-//            list1.setCpuImage(cpuUrl);
-//            list1.setGpuRank(gpuRank);
-//            list1.setGpuPrice(gpuPrice);
-//            list1.setGpuImage(gpuUrl);
-//
-//            popularSpecListRepository.save(list1);
-//
-//        }
-
-        int cpuRank2 = cpuListRepository.findByCpuId(cpuId).getCpuRank();
-        int cpuPrice2 = cpuListRepository.findByCpuId(cpuId).getCpuPrice();
-        String cpuUrl2 = cpuListRepository.findByCpuId(cpuId).getCpuUrl();
-        String cpuName2 = cpuListRepository.findByCpuId(cpuId).getCpuName();
-        List<PopularSpecList> list2  = popularSpecListRepository.findAll();
-        if(list2.size()>9 && list2.get(9).getGpuName()==null){
-            popularSpecListRepository.delete(list2.get(9));
-            PopularSpecList list = PopularSpecList.builder()
-                    .cpuName(cpuName2)
-                    .cpuRank(cpuRank2)
-                    .cpuPrice(cpuPrice2)
-                    .cpuImage(cpuUrl2)
-                    .build();
-            popularSpecListRepository.save(list);
+        if(popularCpuList.size()>9 && popularCpuList.get(9).getCpuName()==null) {
+            cpuListRepository.delete(popularCpuList.get(9));
+            for(String cpu : popularCpu){
+                if(cpu.equals(cpuListRepository.findByCpuId(cpuId).getCpuName())){
+                    break;
+                }
+                else{
+                    popularCpuList.add(cpuListRepository.findByCpuId(cpuId));
+                    break;
+                }
+            }
         }
         else{
-            if(list2.size() == 9){
-                PopularSpecList list = PopularSpecList.builder()
-                        .cpuName(cpuName2)
-                        .cpuRank(cpuRank2)
-                        .cpuPrice(cpuPrice2)
-                        .cpuImage(cpuUrl2)
-                        .build();
-                popularSpecListRepository.save(list);
+            for(String cpu : popularCpu){
+                if(cpu.equals(cpuListRepository.findByCpuId(cpuId).getCpuName())){
+                    break;
+                }
+                else{
+                    popularCpuList.add(cpuListRepository.findByCpuId(cpuId));
+                    break;
+                }
             }
-            else{
-                list2.get(9).setCpuName(cpuName2);
-                list2.get(9).setCpuRank(cpuRank2);
-                list2.get(9).setCpuPrice(cpuPrice2);
-                list2.get(9).setCpuImage(cpuUrl2);
-                popularSpecListRepository.save(list2.get(9));
-            }
-
         }
 
-        return list2;
+        return popularCpuList;
+
     }
 
-    public List<PopularSpecList> searchSelectGpuByPopular(int gpuId) {
+    public List<GpuList> searchSelectGpuByPopular(int gpuId) {
 
-        int gpuRank = gpuListRepository.findByGpuId(gpuId).getGpuRank();
-        int gpuPrice = gpuListRepository.findByGpuId(gpuId).getGpuPrice();
-        String gpuUrl = gpuListRepository.findByGpuId(gpuId).getGpuUrl();
-        String gpuName = gpuListRepository.findByGpuId(gpuId).getGpuName();
-        List<PopularSpecList> list2  = popularSpecListRepository.findAll();
-        if(list2.size()>9 && list2.get(9).getCpuName()==null){
-            popularSpecListRepository.delete(list2.get(9));
-            PopularSpecList list = PopularSpecList.builder()
-                    .gpuName(gpuName)
-                    .gpuRank(gpuRank)
-                    .gpuPrice(gpuPrice)
-                    .gpuImage(gpuUrl)
-                    .build();
-            popularSpecListRepository.save(list);
+        List<GpuList> popularGpuList = new ArrayList<>();
+        List<String> popularGpu = new ArrayList<>();
+        popularGpu.add("GeForce RTX 3060 Ti");
+        popularGpu.add("GeForce RTX 3060");
+        popularGpu.add("GeForce RTX 4070 Ti");
+        popularGpu.add("GeForce GTX 1660 SUPER");
+        popularGpu.add("GeForce RTX 3070");
+        popularGpu.add("GeForce RTX 4090");
+        popularGpu.add("GeForce RTX 3050");
+        popularGpu.add("GeForce RTX 3080");
+        popularGpu.add("GeForce RTX 4080");
+
+        for(String gpu : popularGpu){
+            popularGpuList.add(gpuListRepository.findByGpuName(gpu));
+        }
+
+        if(popularGpuList.size()>9 && popularGpuList.get(9).getGpuName()==null) {
+            gpuListRepository.delete(popularGpuList.get(9));
+            for(String gpu : popularGpu){
+                if(gpu.equals(gpuListRepository.findByGpuId(gpuId).getGpuName())){
+                    break;
+                }
+                else{
+                    popularGpuList.add(gpuListRepository.findByGpuId(gpuId));
+                    break;
+                }
+            }
         }
         else{
-            if(list2.size() == 9){
-                PopularSpecList list = PopularSpecList.builder()
-                        .gpuName(gpuName)
-                        .gpuRank(gpuRank)
-                        .gpuPrice(gpuPrice)
-                        .gpuImage(gpuUrl)
-                        .build();
-                popularSpecListRepository.save(list);
+            for(String gpu : popularGpu){
+                if(gpu.equals(gpuListRepository.findByGpuId(gpuId).getGpuName())){
+                    break;
+                }
+                else{
+                    popularGpuList.add(gpuListRepository.findByGpuId(gpuId));
+                    break;
+                }
             }
-            else{
-                list2.get(9).setGpuName(gpuName);
-                list2.get(9).setGpuRank(gpuRank);
-                list2.get(9).setGpuPrice(gpuPrice);
-                list2.get(9).setGpuImage(gpuUrl);
-                popularSpecListRepository.save(list2.get(9));
-            }
-
         }
 
-        return list2;
+        return popularGpuList;
+
     }
 }
