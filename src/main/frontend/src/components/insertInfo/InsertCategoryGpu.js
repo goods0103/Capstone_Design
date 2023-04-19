@@ -62,7 +62,7 @@ function InsertCategoryGpu() {
                                 borderBottom: data2 === gpu.gpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpuName ? "2px solid red" : "1px solid white",
                                 borderLeft: data2 === gpu.gpuName ? "2px solid red" : "1px solid white"}}>
-                                <img src="" alt="gpu_image" className={styles.tableImg}/></td>
+                                <img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd}  style={{
                                 borderBottom: data2 === gpu.gpuName ? "2px solid red" : "1px solid white",
                                 borderTop: data2 === gpu.gpuName ? "2px solid red" : "1px solid white"}}>

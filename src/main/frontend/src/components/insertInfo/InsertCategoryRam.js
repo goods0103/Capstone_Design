@@ -10,17 +10,22 @@ function InsertCategoryRam() {
     const [data2, setData2] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/category/ram1');
-                setRamList(response.data);
-                setData2(localStorage.getItem('selectRamData'));
-            } catch (error) {
-                console.log(error);
-            }
-        };
+        if (data2) {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.post('/myRamRanking', `${data2}`);
+                    setRamList(response.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
 
-        fetchData();
+            fetchData();
+        }
+    }, [data2]);
+
+    useEffect(() => {
+        setData2(localStorage.getItem('selectRpuData'));
     }, []);
     const scrollToMySpec = (ramName) => {
         const targetRow = document.querySelector(`tr[data-ram-name="${ramName}"]`);

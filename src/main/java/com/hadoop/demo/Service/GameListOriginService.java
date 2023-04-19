@@ -25,4 +25,9 @@ public class GameListOriginService {
         return gameListOriginRepository.findByGameName(name);
     }
 
+    public GameListOrigin findById(int id) {
+        return gameListOriginRepository.findByGameId(id);
+    }
+
+
 }
