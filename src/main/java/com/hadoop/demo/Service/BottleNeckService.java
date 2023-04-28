@@ -19,13 +19,15 @@ public class BottleNeckService {
 
     public List<BottleNeck> findAll() { return bottleNeckRepository.findAll();}
 
-    public BottleNeck findByCpuName(String name) {
+    public List<BottleNeck> findByCpuName(String name) {
         return bottleNeckRepository.findByCpuInfo(name);
     }
 
-    public BottleNeck findByGpuName(String name) {
+    public List<BottleNeck> findByGpuName(String name) {
         return bottleNeckRepository.findByGpuInfo(name);
     }
+
+    public BottleNeck searchByCpuInfoAndGpuInfo(String cpuInfo, String gpuInfo) { return bottleNeckRepository.findByCpuInfoAndGpuInfo(cpuInfo, gpuInfo);}
 
 
 }
