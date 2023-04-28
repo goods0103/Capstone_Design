@@ -1,7 +1,5 @@
 package com.hadoop.demo.Controller;
 
-import com.hadoop.demo.Service.BottleNeckService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,8 +10,29 @@ import static java.lang.Thread.sleep;
 @RestController
 public class BottleNeckController {
 
-    @Autowired
-    private BottleNeckService bottleNeckService;
+//    @Autowired
+//    private BottleNeckService bottleNeckService;
+//
+//    @Autowired
+//    private BottleNeck2Service bottleNeck2Service;
+//
+//    @GetMapping("/setBottleNeck")
+//    public void setBottleNeckList() {
+//        List<BottleNeck> bottleNeckList = bottleNeckService.findAll();
+//        double value = 99.9;
+//        for(BottleNeck bottleNeck1 : bottleNeckList) {
+//
+//
+//                BottleNeck2 bottleNeck = BottleNeck2.builder()
+//                        .cpuInfo(bottleNeck1.getCpuInfo())
+//                        .gpuInfo(bottleNeck1.getGpuInfo())
+//                        .cpuBottleNeckValue(value)
+//                        .gpuBottleNeckValue(value)
+//                        .build();
+//                bottleNeck2Service.save(bottleNeck);
+//
+//        }
+//    }
 
 //    // bottleneck 레코드 만들기
 //    @GetMapping("/setBottleNeck")
