@@ -25,28 +25,17 @@ function CategoryBottleNeck() {
                     label: value
                 }));
                 setGpuOption(uniqueGpus);
-                // const cpus2 = response.data.map(cpus2 => ({
-                //     value: cpus2.gpuInfo,
-                //     label: cpus2.gpuInfo
-                // }));
-                // setGpuOption(cpus2);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-
-
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
     };
-
     const [selectedCpu, setSelectedCpu] = useState("");
     const [selectedGpu, setSelectedGpu] = useState("");
-    const [selectedRam, setSelectedRam] = useState("");
 
     function handleCpuChange(selectedCpu) {
         setSelectedCpu(selectedCpu);
@@ -56,19 +45,6 @@ function CategoryBottleNeck() {
         setSelectedGpu(selectedGpu);
     }
 
-
-    function saveInsertSpec() {
-        axios.post('/selectedBottleNeck',  {
-            selectedCpu: selectedCpu.value,
-            selectedGpu: selectedGpu.value,
-        })
-            .then(response => {
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
-    }
 
     return (
         <>
@@ -101,7 +77,7 @@ function CategoryBottleNeck() {
 
 
 
-                <Link to={'/InsertCategoryBottleNeck'}><button type="submit" onClick={saveInsertSpec} className={styles.buttonSubmit}>Submit</button></Link>
+                <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.buttonSubmit}>Submit</button></Link>
             </form>
         </>
     );

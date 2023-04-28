@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -13,29 +13,29 @@ const data = [
 ];
 function InsertCategoryBottleNeck() {
     const [bottleNeck, setBottleNeck] = useState([]);
-    // useEffect(() => {
-    //     axios.get( "/bottleNeck")
-    //         .then(response => {
-    //            setBottleNeck(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, []);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const gpu = searchParams.get('gpu');
+    const cpu = searchParams.get('cpu');
+    const postData = {
+        cpuName: cpu,
+        gpuName: gpu
+    };
+
     useEffect(() => {
-        axios.get("/bottleNeck")
+        axios.post("/selectedBottleNeck", postData)
             .then(response => {
                 setBottleNeck(response.data);
+                console.log(response.data);
                 const maxValue = Math.max(response.data.cpuBottleNeckValue, response.data.gpuBottleNeckValue); // cpuvalue와 gpuvalue 중에서 큰 값을 찾는다.
-
                 // maxValue를 다시 서버로 보내기 위해 axios.post()를 호출한다.
-                axios.post("/compareValue", { maxValue })
-                    .then(response => {
-                        console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+            //     axios.post("/compareValue", { maxValue })
+            //         .then(response => {
+            //             console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+            //         })
+            //         .catch(error => {
+            //             console.log(error);
+            //         });
             })
             .catch(error => {
                 console.log(error);

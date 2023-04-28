@@ -155,7 +155,9 @@ public class DataController {
     public BottleNeck handleSelectedBottleNeck(@RequestBody PopularList popularList){
         String selectedCpu = popularList.getCpuName();
         String selectedGpu = popularList.getGpuName();
-
+        System.out.println(selectedCpu);
+        System.out.println(selectedGpu);
+        System.out.println(bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu));
         return bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu);
     }
 
