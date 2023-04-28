@@ -159,16 +159,26 @@ public class DataController {
         return bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu);
     }
 
-    @PostMapping("/recommendBottleNeck")
+    @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
             int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
-            if(value < 50) {
-                System.out.println(bottleNeck1.getGpuInfo() + " " + value);
+            if(value < 5)
                 recBottleNecks.add(bottleNeck1);
-            }
+        }
+        return recBottleNecks;
+    }
+
+    @PostMapping("/recommendGpu")
+    public List<BottleNeck> recommendGpu(@RequestBody String gpu){
+        List<BottleNeck> recBottleNecks = new ArrayList<>();
+        List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
+        for(BottleNeck bottleNeck1 : bottleNecks){
+            int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
+            if(value < 5)
+                recBottleNecks.add(bottleNeck1);
         }
         return recBottleNecks;
     }
