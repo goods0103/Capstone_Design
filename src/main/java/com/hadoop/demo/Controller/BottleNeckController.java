@@ -1,5 +1,7 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Service.BottleNeckService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +15,6 @@ public class BottleNeckController {
 //    @Autowired
 //    private BottleNeckService bottleNeckService;
 //
-//    @Autowired
-//    private BottleNeck2Service bottleNeck2Service;
 //
 //    @GetMapping("/setBottleNeck")
 //    public void setBottleNeckList() {
