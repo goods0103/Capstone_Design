@@ -10,37 +10,33 @@ function CategoryBottleNeck() {
     const [cpuOption, setCpuOption] = useState([]); // cpu 에 대한 배열
     const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
 
-
-
-    // cpu 정보를 서버로부터 받아서 배열에 넣는다.
     useEffect(() => {
-        axios.get('/category/cpu_name')
+        axios.get( "/category/bottleNeck")
             .then(response => {
-                const cpus = response.data.map(cpus => ({
-                    value: cpus.cpuName,
-                    label: cpus.cpuName
+                const cpus = response.data.map(cpus => cpus.cpuInfo);
+                const uniqueCpus = [...new Set(cpus)].map(value => ({
+                    value :value,
+                    label: value
                 }));
-                setCpuOption(cpus);
+                setCpuOption(uniqueCpus);
+                const gpus = response.data.map(gpus => gpus.gpuInfo);
+                const uniqueGpus = [...new Set(gpus)].map(value => ({
+                    value: value,
+                    label: value
+                }));
+                setGpuOption(uniqueGpus);
+                // const cpus2 = response.data.map(cpus2 => ({
+                //     value: cpus2.gpuInfo,
+                //     label: cpus2.gpuInfo
+                // }));
+                // setGpuOption(cpus2);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
 
-    // gpu 정보를 서버로부터 받아서 배열에 넣는다.
-    useEffect(() => {
-        axios.get('/category/gpu_name')
-            .then(response => {
-                const gpus = response.data.map(gpus => ({
-                    value: gpus.gpuName,
-                    label: gpus.gpuName
-                }));
-                setGpuOption(gpus);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+
 
 
 
@@ -60,9 +56,7 @@ function CategoryBottleNeck() {
         setSelectedGpu(selectedGpu);
     }
 
-    function handleRamChange(selectedRam) {
-        setSelectedRam(selectedRam);
-    }
+
     function saveInsertSpec() {
         axios.post('/selectedBottleNeck',  {
             selectedCpu: selectedCpu.value,

@@ -136,7 +136,7 @@ public class DataController {
         return gameListService.findAll();
     }
     // bottle neck 리스트 보내기
-    @GetMapping("/category/bottelNeck")
+    @GetMapping("/category/bottleNeck")
     public List<BottleNeck> getAllBottleNeck() {
         return bottleNeckService.findAll();
     }
