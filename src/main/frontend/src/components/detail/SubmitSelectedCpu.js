@@ -29,6 +29,9 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
     const [cpuInfoDetailTurbo, setCpuInfoDetailTurbo] = useState(0);
     const [cpuInfoDetailCore, setCpuInfoDetailCore] = useState(0);
 
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+
     const CpuInfoProgressBar = (info1, info2) => {
         let a, b;
         a = info1/(info1 + info2) * 100;
@@ -47,56 +50,46 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                     </div>
                 }
             </div>
-            // <div>
-            //     <ProgressBar className={styles.progressBarCss}>
-            //         <ProgressBar animated variant="success" now={a} label={`${a}%(${info1})`} key={1} />
-            //         <ProgressBar animated variant="warning" now={b} label={`${b}%(${info2})`} key={2} />
-            //     </ProgressBar>
-            // </div>
         );
     }
 
     useEffect(() => {
-        if (selectedCpu) {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.post('/find_cpu_name', `${selectedCpu.label}`);
-                    setSelectedCpuInfo(response.data);
-                    changeSelectedCpuInfoToInt(selectedCpuInfo);
+        const fetchData = async () => {
+            try {
+                if (selectedCpu) {
+                    const nameResponse = await axios.post('/find_cpu_name', `${selectedCpu.label}`);
+                    setSelectedCpuInfo(nameResponse.data);
+                    if (selectedCpuInfo) {
+                        changeSelectedCpuInfoToInt(nameResponse.data);
+                    }
                     changeCpuInfoToInt(cpuInfo);
-                } catch (error) {
-                    console.log(error);
+                    console.log(nameResponse.data);
                 }
-            };
-            fetchData();
-        }
-    }, [selectedCpu]);
 
-    useEffect(() => {
-        if (selectedCpu) {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.post('/find_cpu_detail_name', `${selectedCpu.label}`);
-                    setSelectedCpuInfoDetail(response.data);
-                    changeSelectedCpuInfoDetailToInt(selectedCpuInfoDetail);
+                if (selectedCpu) {
+                    const detailResponse = await axios.post('/find_cpu_detail_name', `${selectedCpu.label}`);
+                    setSelectedCpuInfoDetail(detailResponse.data);
+                    if (selectedCpuInfoDetail) {
+                        changeSelectedCpuInfoDetailToInt(detailResponse.data);
+                    }
                     changeCpuInfoDetailToInt(cpuInfo2);
-                } catch (error) {
-                    console.log(error);
+                    console.log(detailResponse.data);
                 }
-            };
-            fetchData();
-        }
-    }, [selectedCpu]);
 
-    useEffect(() => {
-        console.log(selectedCpu);
-    }, []);
+                setLoading(false);
+            } catch (error) {
+                console.log(error); // ????
+            }
+        };
 
-    const changeSelectedCpuInfoToInt = (cpuInfo) => {
+        fetchData();
+    }, [selectedCpu, selectedCpuInfo, selectedCpuInfoDetail]);
+
+    const changeSelectedCpuInfoToInt = (cpuInfoF) => {
         // cpuInfo.cpuPrice, cpuInfo.cpuValue
-        const strPrice = cpuInfo.cpuPrice;
-        const strValue = cpuInfo.cpuValue;
-        const strMark = cpuInfo.cpuMark;
+        const strPrice = cpuInfoF.cpuPrice;
+        const strValue = cpuInfoF.cpuValue;
+        const strMark = cpuInfoF.cpuMark;
 
         const intPrice = parseInt(strPrice);
         const intValue = parseInt(strValue);
@@ -107,11 +100,11 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
         setSelectedCpuInfoMark(intMark);
     }
 
-    const changeCpuInfoToInt = (cpuInfo) => {
+    const changeCpuInfoToInt = (cpuInfoF) => {
         // cpuInfo.cpuPrice, cpuInfo.cpuValue
-        const strPrice = cpuInfo.cpuPrice;
-        const strValue = cpuInfo.cpuValue;
-        const strMark = cpuInfo.cpuMark;
+        const strPrice = cpuInfoF.cpuPrice;
+        const strValue = cpuInfoF.cpuValue;
+        const strMark = cpuInfoF.cpuMark;
 
         const intPrice = parseInt(strPrice);
         const intValue = parseInt(strValue);
@@ -122,14 +115,77 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
         setCpuInfoMark(intMark);
     }
 
-    const changeSelectedCpuInfoDetailToInt = (cpuInfoDetail) => {
+    const changeSelectedCpuInfoDetailToInt = (cpuInfoDetailF) => {
         // cpuInfoDetail.clock, cpuInfoDetail.turbo, cpuInfoDetail.core
-        let strClock2 = cpuInfoDetail.clock;
-        let strTurbo2 = cpuInfoDetail.turbo;
-        const strCore = cpuInfoDetail.core;
+        let strClock2 = cpuInfoDetailF.clock;
+        let strTurbo2 = cpuInfoDetailF.turbo;
+        let strCore = cpuInfoDetailF.core;
 
-        const strClock = strClock2.split(' ')[0];
-        const strTurbo = strTurbo2.split(' ')[0];
+        let strClock;
+        let strTurbo;
+
+        if(strClock2) {
+            strClock = strClock2.split(' ')[0];
+        }
+        else {
+            strClock = 0;
+        }
+
+        if(strTurbo2) {
+            strTurbo = strTurbo2.split(' ')[0];
+        }
+        else {
+            strTurbo = 0;
+        }
+
+        if(!strCore) {
+            strCore = 0;
+        }
+
+
+
+
+        const intClock = parseFloat(strClock);
+        const intTurbo = parseFloat(strTurbo);
+        const intCore = parseInt(strCore);
+
+        setSelectedCpuInfoDetailClock(intClock);
+        setSelectedCpuInfoDetailTurbo(intTurbo);
+        setSelectedCpuInfoDetailCore(intCore);
+        console.log(intClock);
+        console.log(intTurbo);
+        console.log(intCore);
+    }
+
+    const changeCpuInfoDetailToInt = (cpuInfoDetailF) => {
+        // cpuInfoDetail.clock, cpuInfoDetail.turbo, cpuInfoDetail.core
+        let strClock2 = cpuInfoDetailF.clock;
+        let strTurbo2 = cpuInfoDetailF.turbo;
+        let strCore = cpuInfoDetailF.core;
+
+        let strClock;
+        let strTurbo;
+
+        if(strClock2) {
+            strClock = strClock2.split(' ')[0];
+        }
+        else {
+            strClock = 0;
+        }
+
+        if(strTurbo2) {
+            strTurbo = strTurbo2.split(' ')[0];
+        }
+        else {
+            strTurbo = 0;
+        }
+
+        if(!strCore) {
+            strCore = 0;
+        }
+
+        // const strClock = strClock2.split(' ')[0];
+        // const strTurbo = strTurbo2.split(' ')[0];
 
         const intClock = parseFloat(strClock);
         const intTurbo = parseFloat(strTurbo);
@@ -140,28 +196,14 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
         setCpuInfoDetailCore(intCore);
     }
 
-    const changeCpuInfoDetailToInt = (cpuInfoDetail) => {
-        // cpuInfoDetail.clock, cpuInfoDetail.turbo, cpuInfoDetail.core
-        let strClock2 = cpuInfoDetail.clock;
-        let strTurbo2 = cpuInfoDetail.turbo;
-        const strCore = cpuInfoDetail.core;
 
-        const strClock = strClock2.split(' ')[0];
-        const strTurbo = strTurbo2.split(' ')[0];
-
-        const intClock = parseFloat(strClock);
-        const intTurbo = parseFloat(strTurbo);
-        const intCore = parseInt(strCore);
-
-        setSelectedCpuInfoDetailClock(intClock);
-        setSelectedCpuInfoDetailTurbo(intTurbo);
-        setSelectedCpuInfoDetailCore(intCore);
+    if (loading) {
+        return <div>Loading...</div>;
     }
-
-
 
     return (
         <>
+            {/*{}*/}
             <div>
                 {(cpuInfoMark > 0 && selectedCpuInfoMark > 0 && !isNaN(cpuInfoMark) && !isNaN(selectedCpuInfoMark)) &&
                     <div>
