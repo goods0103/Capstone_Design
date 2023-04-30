@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,9 @@ public class DataController {
 
     // cpu gpu ram 전체 리스트 요청 시
     @GetMapping("/category/cpu1")
-    public List<CpuList> getAllCpuList() {
+    public List<CpuList> getAllCpuList(HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
+        System.out.println("Client IP Address: " + ipAddress);
         return cpuListService.findAll();
     }
 
