@@ -1,12 +1,8 @@
 package com.hadoop.demo.Model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,6 +12,10 @@ import javax.persistence.Table;
 public class GameList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gameId2;
+
+    @Column(name = "game_name")
     private String gameName;
 
     @Column(name = "game_id")
@@ -33,42 +33,47 @@ public class GameList {
     @Column(name = "minimum_game_gpu2")
     private String minimumGameGpu2;
 
-    @Column(name = "recomended_game_cpu1")
-    private String recomendedGameCpu1;
+    @Column(name = "recommended_game_cpu1")
+    private String recommendedGameCpu1;
 
-    @Column(name = "recomended_game_cpu2")
-    private String recomendedGameCpu2;
+    @Column(name = "recommended_game_cpu2")
+    private String recommendedGameCpu2;
 
-    @Column(name = "recomended_game_gpu1")
-    private String recomendedGameGpu1;
+    @Column(name = "recommended_game_gpu1")
+    private String recommendedGameGpu1;
 
-    @Column(name = "recomended_game_gpu2")
-    private String recomendedGameGpu2;
+    @Column(name = "recommended_game_gpu2")
+    private String recommendedGameGpu2;
 
     @Column(name = "minimum_game_ram")
     private Integer minimumGameRam;
 
-    @Column(name = "recomended_game_ram")
-    private Integer recomendedGameRam;
+    @Column(name = "recommended_game_ram")
+    private Integer recommendedGameRam;
 
     @Column(name = "game_img")
     private String gameImg;
 
     @Builder
-    public GameList(String gameName, int gameId, String minimumGameCpu1, String minimumGameCpu2, String minimumGameGpu1, String minimumGameGpu2, String recomendedGameCpu1, String recomendedGameCpu2, String recomendedGameGpu1, String recomendedGameGpu2, int minimumGameRam, int recomendedGameRam, String gameImg) {
+    public GameList(int gameId2, String gameName, int gameId, String minimumGameCpu1, String minimumGameCpu2, String minimumGameGpu1, String minimumGameGpu2, String recommendedGameCpu1, String recommendedGameCpu2, String recommendedGameGpu1, String recommendedGameGpu2, Integer minimumGameRam, Integer recommendedGameRam, String gameImg) {
+        this.gameId2 = gameId2;
         this.gameName = gameName;
         this.gameId = gameId;
         this.minimumGameCpu1 = minimumGameCpu1;
         this.minimumGameCpu2 = minimumGameCpu2;
         this.minimumGameGpu1 = minimumGameGpu1;
         this.minimumGameGpu2 = minimumGameGpu2;
-        this.recomendedGameCpu1 = recomendedGameCpu1;
-        this.recomendedGameCpu2 = recomendedGameCpu2;
-        this.recomendedGameGpu1 = recomendedGameGpu1;
-        this.recomendedGameGpu2 = recomendedGameGpu2;
+        this.recommendedGameCpu1 = recommendedGameCpu1;
+        this.recommendedGameCpu2 = recommendedGameCpu2;
+        this.recommendedGameGpu1 = recommendedGameGpu1;
+        this.recommendedGameGpu2 = recommendedGameGpu2;
         this.minimumGameRam = minimumGameRam;
-        this.recomendedGameRam = recomendedGameRam;
+        this.recommendedGameRam = recommendedGameRam;
         this.gameImg = gameImg;
     }
+
+
+
+
 
 }
