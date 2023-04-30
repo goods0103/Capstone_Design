@@ -27,4 +27,6 @@ public class UserInfoService {
     public void deleteById(Long id) {
         userInfoRepository.deleteById(id);
     }
+
+    public long Count() {return userInfoRepository.count(); }
 }
