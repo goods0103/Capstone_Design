@@ -2,6 +2,8 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,8 @@ public class DataController {
     private GameListService gameListService;
     @Autowired
     private BottleNeckService bottleNeckService;
+    @Autowired
+    private PopularListService popularListService;
 
 
     // cpu gpu ram 전체 리스트 요청 시
@@ -135,10 +139,47 @@ public class DataController {
     public List<GameList> getAllGameList() {
         return gameListService.findAll();
     }
+
     // bottle neck 리스트 보내기
-    @GetMapping("/category/bottelNeck")
+    @GetMapping("/category/bottleNeck")
     public List<BottleNeck> getAllBottleNeck() {
         return bottleNeckService.findAll();
+    }
+
+    // bottleNeck 실질적인 테이블인 popularList 보내기
+    @GetMapping("/category/bottleNeckList")
+    public List<PopularList> getAllBottleNeckList() { return popularListService.findAll();}
+
+    // 선택한 bottle neck 에 맞는 bottle neck 보내기
+    @PostMapping("/selectedBottleNeck")
+    public BottleNeck handleSelectedBottleNeck(@RequestBody PopularList popularList){
+        String selectedCpu = popularList.getCpuName();
+        String selectedGpu = popularList.getGpuName();
+        return bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu);
+    }
+
+    @PostMapping("/recommendCpu")
+    public List<BottleNeck> recommendCpu(@RequestBody String cpu){
+        List<BottleNeck> recBottleNecks = new ArrayList<>();
+        List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
+        for(BottleNeck bottleNeck1 : bottleNecks){
+            int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
+            if(value < 5)
+                recBottleNecks.add(bottleNeck1);
+        }
+        return recBottleNecks;
+    }
+
+    @PostMapping("/recommendGpu")
+    public List<BottleNeck> recommendGpu(@RequestBody String gpu){
+        List<BottleNeck> recBottleNecks = new ArrayList<>();
+        List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
+        for(BottleNeck bottleNeck1 : bottleNecks){
+            int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
+            if(value < 5)
+                recBottleNecks.add(bottleNeck1);
+        }
+        return recBottleNecks;
     }
 
 }

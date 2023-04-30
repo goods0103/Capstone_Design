@@ -1,7 +1,15 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.BottleNeck;
+import com.hadoop.demo.Model.PopularList;
+import com.hadoop.demo.Service.BottleNeckService;
+import com.hadoop.demo.Service.PopularListService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -11,25 +19,27 @@ import static java.lang.Thread.sleep;
 public class BottleNeckController {
 
 //    @Autowired
+//    private PopularListService popularListService;
+//    @Autowired
 //    private BottleNeckService bottleNeckService;
 //
-//    @Autowired
-//    private BottleNeck2Service bottleNeck2Service;
-//
+
 //    @GetMapping("/setBottleNeck")
 //    public void setBottleNeckList() {
 //        List<BottleNeck> bottleNeckList = bottleNeckService.findAll();
-//        double value = 99.9;
+//        int value = 100;
 //        for(BottleNeck bottleNeck1 : bottleNeckList) {
+//                String gpu = bottleNeck1.getGpuInfo();
+//                gpu = gpu.trim();
+//                bottleNeck1.setGpuInfo(gpu);
 //
-//
-//                BottleNeck2 bottleNeck = BottleNeck2.builder()
-//                        .cpuInfo(bottleNeck1.getCpuInfo())
-//                        .gpuInfo(bottleNeck1.getGpuInfo())
-//                        .cpuBottleNeckValue(value)
-//                        .gpuBottleNeckValue(value)
-//                        .build();
-//                bottleNeck2Service.save(bottleNeck);
+////                BottleNeck bottleNeck = BottleNeck.builder()
+////                        .cpuInfo(bottleNeck1.getCpuInfo())
+////                        .gpuInfo(bottleNeck1.getGpuInfo())
+////                        .cpuBottleNeckValue(value)
+////                        .gpuBottleNeckValue(value)
+////                        .build();
+//                bottleNeckService.save(bottleNeck1);
 //
 //        }
 //    }
@@ -44,12 +54,13 @@ public class BottleNeckController {
 //                if(popularList1.getGpuName() == null)
 //                    break;
 //                String gpu = popularList1.getGpuName();
-//                Double value = 0.0;
+//                int value = 100;
 //
 //                BottleNeck bottleNeck = BottleNeck.builder()
 //                        .cpuInfo(cpu)
 //                        .gpuInfo(gpu)
-//                        .bottleNeckValue(value)
+//                        .cpuBottleNeckValue(value)
+//                        .gpuBottleNeckValue(value)
 //                        .build();
 //                bottleNeckService.save(bottleNeck);
 //            }

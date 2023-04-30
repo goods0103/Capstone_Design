@@ -22,13 +22,13 @@ public class BottleNeck {
     private String gpuInfo;
 
     @Column(name = "cpu_bottleneck_value")
-    private double cpuBottleNeckValue;
+    private int cpuBottleNeckValue;
 
     @Column(name = "gpu_bottleneck_value")
-    private double gpuBottleNeckValue;
+    private int gpuBottleNeckValue;
 
     @Builder
-    public BottleNeck(String cpuInfo, String gpuInfo, double cpuBottleNeckValue, double gpuBottleNeckValue) {
+    public BottleNeck(String cpuInfo, String gpuInfo, int cpuBottleNeckValue, int gpuBottleNeckValue) {
         this.cpuInfo = cpuInfo;
         this.gpuInfo = gpuInfo;
         this.cpuBottleNeckValue = cpuBottleNeckValue;
