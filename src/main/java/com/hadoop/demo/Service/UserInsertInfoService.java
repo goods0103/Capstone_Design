@@ -173,7 +173,6 @@ public class UserInsertInfoService {
             while (similarCpu.size() < 10 && i < sortedList.size()) {
                 CpuList cpu = sortedList.get(i++);
                 similarCpu.add(cpu);
-                System.out.println("name : " + cpu.getCpuName() + "value : " + cpu.getCpuValue());
             }
         }
 
@@ -199,7 +198,6 @@ public class UserInsertInfoService {
             while (similarGpu.size() < 10 && i < sortedList.size()) {
                 GpuList gpu = sortedList.get(i++);
                 similarGpu.add(gpu);
-                System.out.println("name : " + gpu.getGpuName() + "value : " + gpu.getGpuValue());
             }
         }
 
@@ -227,7 +225,6 @@ public class UserInsertInfoService {
             while (similarCpu.size() < 10 && i < sortedList.size()) {
                 CpuList cpu = sortedList.get(i++);
                 similarCpu.add(cpu.getCpuName());
-                System.out.println("name : " + cpu.getCpuName() + "value : " + cpu.getCpuValue());
             }
         }
 
@@ -255,7 +252,6 @@ public class UserInsertInfoService {
             while (similarGpu.size() < 10 && i < sortedList.size()) {
                 GpuList gpu = sortedList.get(i++);
                 similarGpu.add(gpu.getGpuName());
-                System.out.println("name : " + gpu.getGpuName() + "value : " + gpu.getGpuValue());
             }
         }
 
