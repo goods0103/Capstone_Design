@@ -70,11 +70,13 @@ public class DetailController {
     @PostMapping("/find_cpu_detail_name")
     public CpuDetails findCpuName(@RequestBody String name) throws IOException {
         name = name.replace("+"," ").replace("=","");
+        System.out.println(name + " - " + cpuDetailsService.findByName(name));
         return cpuDetailsService.findByName(name);
     }
     @PostMapping("/find_cpu_name")
     public CpuList findCpuName2(@RequestBody String name) throws IOException {
         name = name.replace("+"," ").replace("=","");
+        System.out.println(name + " - " + cpuListService.findByName(name));
         return cpuListService.findByName(name);
     }
 

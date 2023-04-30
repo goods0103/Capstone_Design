@@ -54,12 +54,12 @@ public class GameFindExceptionService {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'System Requirements')]")));
 
         String pageSource = driver.getPageSource();
-        driver.quit();
+        //driver.quit();
 
         Document pageDoc = Jsoup.parse(pageSource);
         Element reqElement = pageDoc.select(".sysreq_contents > .game_area_sys_req_full, .sysreq_contents > .game_area_sys_req.active").first();
 
-        Element cpuElement = reqElement.select("li strong:contains(Processor)").first();
+        Element cpuElement = reqElement.select("li strong:contains(Processor)").last();
 
         //cpu 예외처리
         String cpu = "";
@@ -94,7 +94,7 @@ public class GameFindExceptionService {
                     "Without video card: |\\(TM\\)|\\(R\\)", "");
             //System.out.println("first :" + first);
             if (first.trim().toLowerCase().startsWith("intel") || first.trim().toLowerCase().startsWith("amd")) {
-                if (cpuSplit.length == 1 && first.length() >= 30) {
+                if (cpuSplit.length == 1 && first.length() >= 50) {
                     //Intel 과 AMD만 취급 2개만.
                     int intel_index = first.indexOf("Intel");
                     int amd_index = first.indexOf("AMD");
@@ -211,7 +211,7 @@ public class GameFindExceptionService {
             }
         }
 
-        Element gpuElement = reqElement.select("li strong:contains(Graphics), li strong:contains(Video), li strong:contains(Video Card)").first();
+        Element gpuElement = reqElement.select("li strong:contains(Graphics), li strong:contains(Video), li strong:contains(Video Card)").last();
 
         //gpu 예외처리
         String gpu = "";
@@ -491,7 +491,7 @@ public class GameFindExceptionService {
 
         }
 
-        Element ramElement = reqElement.select("li strong:contains(Memory)").first();
+        Element ramElement = reqElement.select("li strong:contains(Memory)").last();
 
         //Ram 예외처리
         String ram = "";
@@ -524,14 +524,20 @@ public class GameFindExceptionService {
 //        System.out.println("cpu2:" + cpu2);
 //        System.out.println("ram:" + ram);
         GameList gameList = GameList.builder()
+                .gameId2(gamelist.getGameId2())
                 .gameId(gamelist.getGameId())
                 .gameName(gamelist.getGameName())
                 .gameImg(gamelist.getGameImg())
-                .minimumGameCpu1(cpu1)
-                .minimumGameCpu2(cpu2)
-                .minimumGameGpu1(gpu1)
-                .minimumGameGpu2(gpu2)
-                .minimumGameRam(ram1)
+                .recommendedGameCpu1(cpu1)
+                .recommendedGameCpu2(cpu2)
+                .recommendedGameGpu1(gpu1)
+                .recommendedGameGpu2(gpu2)
+                .recommendedGameRam(ram1)
+                .minimumGameCpu1(gamelist.getMinimumGameCpu1())
+                .minimumGameCpu2(gamelist.getMinimumGameCpu2())
+                .minimumGameGpu1(gamelist.getMinimumGameGpu1())
+                .minimumGameGpu2(gamelist.getMinimumGameGpu2())
+                .minimumGameRam(gamelist.getMinimumGameRam())
                 .build();
         gameListService.save(gameList);
     }

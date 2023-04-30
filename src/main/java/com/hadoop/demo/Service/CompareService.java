@@ -32,29 +32,32 @@ public class CompareService {
         List<CpuList> cpulist = cpuListRepository.findAll();
         List<UserInfo> userCpu = userInfoRepository.findAll();
 
-        String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
+        if(userInfoRepository.count()!=0){
+            String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
 
-        for(CpuList cpu : cpulist){
-            if(cpu.getCpuName().contains(lastData) || lastData.contains(cpu.getCpuName()))
-                matchingCpu.add(cpu.getCpuName());
-        }
-
-        String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
-
-        String mostSimilar = "";
-        int maxSimilarity = 100;
-
-        for (String findCpuArray : cpuArray) {
-            int similarity = StringUtils.getLevenshteinDistance(lastData, findCpuArray);
-            if (similarity < maxSimilarity) {
-                maxSimilarity = similarity;
-                mostSimilar = findCpuArray;
+            for(CpuList cpu : cpulist){
+                if(cpu.getCpuName().contains(lastData) || lastData.contains(cpu.getCpuName()))
+                    matchingCpu.add(cpu.getCpuName());
             }
+
+            String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
+
+            String mostSimilar = "";
+            int maxSimilarity = 100;
+
+            for (String findCpuArray : cpuArray) {
+                int similarity = StringUtils.getLevenshteinDistance(lastData, findCpuArray);
+                if (similarity < maxSimilarity) {
+                    maxSimilarity = similarity;
+                    mostSimilar = findCpuArray;
+                }
+            }
+
+            System.out.println("Most similar CPU: " + mostSimilar);
+
+            return cpuListRepository.findByCpuName(mostSimilar);
         }
-
-        System.out.println("Most similar CPU: " + mostSimilar);
-
-        return cpuListRepository.findByCpuName(mostSimilar);
+        return null;
     }
 
     public GpuList getMatchingGpu(){
@@ -103,7 +106,7 @@ public class CompareService {
         List<RamList> ramList = ramListRepository.findAll();
         List<UserInfo> userRam = userInfoRepository.findAll();
 
-        String lastData = userRam.get(userRam.size() - 1).getRamPartNum();
+        String lastData = userRam.get(userRam.size() - 1).getRamManu();
 
         for(RamList ram : ramList){
             if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))
