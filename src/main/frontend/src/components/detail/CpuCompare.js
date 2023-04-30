@@ -131,8 +131,8 @@ function CpuCompare() {
 
             {showComponent &&
                 <SubmitSelectedCpu selectedCpu={selectedCpu}
-                                   cpuInfo={cpuInfo}
-                                   cpuInfo2={cpuInfo2}/>
+                                   gpuInfo={cpuInfo}
+                                   gpuInfo2={cpuInfo2}/>
             }
 
         </>

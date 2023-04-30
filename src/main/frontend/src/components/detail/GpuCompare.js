@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./detail.module.css";
 import Select from "react-select";
+import SubmitSelectedCpu from "./SubmitSelectedCpu";
+import SubmitSelectedGpu from "./SubmitSelectedGpu";
 
 
 function GpuCompare() {
@@ -59,6 +61,9 @@ function GpuCompare() {
                 <input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />
                 <br/>
             </form>
+            <SubmitSelectedGpu selectedGpu={selectedGpu}
+                               gpuInfo={gpuInfo}
+                               gpuInfo2={gpuInfo2}/>
         </>
     );
 }
