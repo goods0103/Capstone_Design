@@ -4,6 +4,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import styles from "./detail.module.css";
 
 
+
 function SubmitSelectedGpu({ selectedGpu, gpuInfo, gpuInfo2 }) {
 
     const [selectedGpuInfo, setSelectedGpuInfo] = useState([]);

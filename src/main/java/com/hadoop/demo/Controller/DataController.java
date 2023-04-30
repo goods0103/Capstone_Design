@@ -160,6 +160,7 @@ public class DataController {
 
     @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
+        cpu = cpu.replace("+"," ").replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -172,6 +173,7 @@ public class DataController {
 
     @PostMapping("/recommendGpu")
     public List<BottleNeck> recommendGpu(@RequestBody String gpu){
+        gpu = gpu.replace("+"," ").replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -179,7 +181,7 @@ public class DataController {
             if(value < 5)
                 recBottleNecks.add(bottleNeck1);
         }
+
         return recBottleNecks;
     }
-
 }
