@@ -83,7 +83,7 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
         };
 
         fetchData();
-    }, [selectedCpu, selectedCpuInfo, selectedCpuInfoDetail]);
+    }, [selectedCpu]);
 
     const changeSelectedCpuInfoToInt = (cpuInfoF) => {
         // cpuInfo.cpuPrice, cpuInfo.cpuValue

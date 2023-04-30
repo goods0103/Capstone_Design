@@ -11,20 +11,18 @@ function CategoryBottleNeck() {
     const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
 
     useEffect(() => {
-        axios.get( "/category/bottleNeck")
+        axios.get( "/category/bottleNeckList")
             .then(response => {
-                const cpus = response.data.map(cpus => cpus.cpuInfo);
-                const uniqueCpus = [...new Set(cpus)].map(value => ({
-                    value :value,
-                    label: value
+                const gpus = response.data.map(gpus => ({
+                    value: gpus.gpuName,
+                    label: gpus.gpuName
                 }));
-                setCpuOption(uniqueCpus);
-                const gpus = response.data.map(gpus => gpus.gpuInfo);
-                const uniqueGpus = [...new Set(gpus)].map(value => ({
-                    value: value,
-                    label: value
+                setGpuOption(gpus);
+                const cpus = response.data.map(cpus => ({
+                    value: cpus.cpuName,
+                    label: cpus.cpuName
                 }));
-                setGpuOption(uniqueGpus);
+                setCpuOption(cpus);
             })
             .catch(error => {
                 console.log(error);
