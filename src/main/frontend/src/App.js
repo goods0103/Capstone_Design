@@ -29,6 +29,7 @@ import SelectSpec from "./components/insertInfo/SelectSpec";
 import CpuDetail from "./components/detail/CpuDetail";
 import GpuDetail from "./components/detail/GpuDetail";
 import CpuCompare from "./components/detail/CpuCompare";
+import GpuCompare from "./components/detail/GpuCompare";
 import GameDetail from "./components/detail/GameDetail";
 
 
@@ -244,6 +245,12 @@ function App() {
               path="/cpuCompare"
               element={
                   <CpuCompare />
+              }
+          />
+          <Route
+              path="/gpuCompare"
+              element={
+                  <GpuCompare />
               }
           />
 
