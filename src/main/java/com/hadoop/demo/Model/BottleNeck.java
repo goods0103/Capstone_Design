@@ -21,13 +21,17 @@ public class BottleNeck {
     @Id
     private String gpuInfo;
 
-    @Column(name = "bottleneck_value")
-    private Double bottleNeckValue;
+    @Column(name = "cpu_bottleneck_value")
+    private int cpuBottleNeckValue;
+
+    @Column(name = "gpu_bottleneck_value")
+    private int gpuBottleNeckValue;
 
     @Builder
-    public BottleNeck(String cpuInfo, String gpuInfo, Double bottleNeckValue) {
+    public BottleNeck(String cpuInfo, String gpuInfo, int cpuBottleNeckValue, int gpuBottleNeckValue) {
         this.cpuInfo = cpuInfo;
         this.gpuInfo = gpuInfo;
-        this.bottleNeckValue = bottleNeckValue;
+        this.cpuBottleNeckValue = cpuBottleNeckValue;
+        this.gpuBottleNeckValue = gpuBottleNeckValue;
     }
 }

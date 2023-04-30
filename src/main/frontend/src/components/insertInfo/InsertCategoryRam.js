@@ -25,7 +25,7 @@ function InsertCategoryRam() {
     }, [data2]);
 
     useEffect(() => {
-        setData2(localStorage.getItem('selectRpuData'));
+        setData2(localStorage.getItem('selectRamData'));
     }, []);
     const scrollToMySpec = (ramName) => {
         const targetRow = document.querySelector(`tr[data-ram-name="${ramName}"]`);
