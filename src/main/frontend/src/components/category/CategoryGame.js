@@ -4,6 +4,7 @@ import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import Select from "react-select";
 import {Link} from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 function CategoryGame() {
 
@@ -12,6 +13,19 @@ function CategoryGame() {
     const [gameOption, setGameOption] = useState([]); // cpu 에 대한 배열
     const [minimumList, setMinimumList] = useState([]);
     const [recommendedList, setRecommendedList] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(100);
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const slicedData = gameList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -93,7 +107,7 @@ function CategoryGame() {
                         <th className={styles.cssTh}>game_name</th>
                         <th className={styles.cssTh}>game</th>
                     </tr>
-                    {gameList.map((game) => {
+                    {slicedData.map((game) => {
                         const minimumGame = minimumList.find((item) => item.gameName === game.gameName);
                         const recommendGame = recommendedList.find((item) => item.gameName === game.gameName);
                         const minstate = minimumGame ? minimumGame.state : null;
@@ -107,6 +121,14 @@ function CategoryGame() {
                         );
                     })}
                 </table>
+                <ReactPaginate
+                    previousLabel={"이전"}
+                    nextLabel={"다음"}
+                    pageCount={Math.ceil(gameList.length / itemsPerPage)}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                />
             </div>
         </>
     );
