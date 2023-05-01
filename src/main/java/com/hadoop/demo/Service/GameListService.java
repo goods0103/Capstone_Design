@@ -244,7 +244,7 @@ public class GameListService {
             //userinfo 에 있는 cpu rank ramSize 반환
             int userCpuRank = compareService.getMatchingCpu().getCpuRank();
             int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize();
+            int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
 
             for(getGameMinSpec minSpec : minSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
@@ -647,7 +647,7 @@ public class GameListService {
             //userinfo 에 있는 cpu rank ramSize 반환
             int userCpuRank = compareService.getMatchingCpu().getCpuRank();
             int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize();
+            int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
 
             for(getGameRecSpec recSpec : recSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
