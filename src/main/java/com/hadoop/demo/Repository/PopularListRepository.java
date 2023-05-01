@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PopularListRepository extends JpaRepository<PopularList, Long> {
 
+    PopularList findById(int id);
 }
