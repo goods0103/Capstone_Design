@@ -58,7 +58,7 @@ public class GameListService {
 
     }
 
-    public getGameSpec sortGameList(String gameName, String cpu1, String cpu2, String gpu1, String gpu2,int ramSize){
+    public getGameSpec sortGameList(String gameName, String cpu1, String cpu2, String gpu1, String gpu2, int ramSize){
 
         getGameSpec getGameSpec;
         
@@ -154,16 +154,14 @@ public class GameListService {
         return gameSpecs;
     }
 
-    public int CompareCpuUserVsGame(String gameName){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    public int CompareCpuUserVsGame(String gameName){
 
-        //List<gameUserCompare> gameUserCompares = new ArrayList<>();
         List<CpuList> cpuLists = cpuListRepository.findAll();
         List<GpuList> gpuLists = gpuListRepository.findAll();
-
-        int minState = 0;
-
         List<String> matchingCpu = new ArrayList<>();
         List<String> matchingGpu = new ArrayList<>();
+        int minState = 0;
 
         if(userInfoService.Count()!=0){
 
@@ -176,8 +174,8 @@ public class GameListService {
 
             if(minSpec.getCpu().equals("") && minSpec.getGpu().equals("")){
                 minState= 1;
-                //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
             }
+
             // list에 mingpu가 없을경우
             else if(!minSpec.getCpu().equals("") && minSpec.getGpu().equals("")){
                 // mincpu와 Cpulist cpu 비교 result = mostsimilar
@@ -186,11 +184,6 @@ public class GameListService {
                             contains(minSpec.getCpu())){
                         matchingCpu.add(cpu.getCpuName());
                     }
-                }
-
-                if(matchingCpu.size()==0){
-                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
-                    matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
                 }
 
                 String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
@@ -212,103 +205,103 @@ public class GameListService {
                 for(int i=2; i<=13; i++){
                     if(minSpec.getCpu().contains("i3-"+i) || minSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                         if(i<=7){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
+                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
+                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
+                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
+                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i3-1215UE";
+                            mostSimilar = "Intel Core i3-1215UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i3-1315U";
+                            mostSimilar = "Intel Core i3-1315U";break;
                         }
 
                     }
                     else if(minSpec.getCpu().contains("i5-"+i) || minSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                         if(i<=3){
-                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
+                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";break;
                         }
                         else if(i==4){
-                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
+                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";break;
                         }
                         else if(i==5){
-                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
+                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";break;
                         }
                         else if(i==6){
-                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
+                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";break;
                         }
                         else if(i==7){
-                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
+                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
+                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
+                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
+                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
+                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i5-1245UE";
+                            mostSimilar = "Intel Core i5-1245UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i5-1335U";
+                            mostSimilar = "Intel Core i5-1335U";break;
                         }
                     }
                     else if(minSpec.getCpu().contains("i7-"+i) || minSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                         if(i==2){
-                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
+                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";break;
                         }
                         else if(i==3){
-                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
+                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";break;
                         }
                         else if(i==4){
-                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
+                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";break;
                         }
                         else if(i==5){
-                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
+                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";break;
                         }
                         else if(i==6){
-                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
+                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";break;
                         }
                         else if(i==7){
-                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
+                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
+                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";
+                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
+                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
+                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i7-1265UE";
+                            mostSimilar = "Intel Core i7-1265UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i7-1365U";
+                            mostSimilar = "Intel Core i7-1365U";break;
                         }
                     }
                     else if(minSpec.getCpu().contains("core2") || minSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
                     }
                 }
 
@@ -324,11 +317,6 @@ public class GameListService {
                 //비교
                 if(userCpuRank<=minCpuRank && userRamSize>=minSpec.getRamSize()){
                     minState = 1;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
-                }
-                else{
-                    minState = 0;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
                 }
 
             }
@@ -374,11 +362,6 @@ public class GameListService {
                 //비교
                 if(userGpuRank<=minGpuRank && userRamSize>=minSpec.getRamSize()){
                     minState = 1;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
-                }
-                else{
-                    minState = 0;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
                 }
 
             }
@@ -415,103 +398,103 @@ public class GameListService {
                 for(int i=2; i<=13; i++){
                     if(minSpec.getCpu().contains("i3-"+i) || minSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                         if(i<=7){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
+                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
+                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
+                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
+                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i3-1215UE";
+                            mostSimilar = "Intel Core i3-1215UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i3-1315U";
+                            mostSimilar = "Intel Core i3-1315U";break;
                         }
 
                     }
-                    else if(minSpec.getCpu().contains("i5-"+i) || minSpec.getCpu().contains("i5 "+i)&& !mostSimilar.contains("i5-"+i)){
+                    else if(minSpec.getCpu().contains("i5-"+i) || minSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                         if(i<=3){
-                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
+                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";break;
                         }
                         else if(i==4){
-                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
+                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";break;
                         }
                         else if(i==5){
-                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
+                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";break;
                         }
                         else if(i==6){
-                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
+                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";break;
                         }
                         else if(i==7){
-                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
+                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
+                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
+                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
+                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
+                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i5-1245UE";
+                            mostSimilar = "Intel Core i5-1245UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i5-1335U";
+                            mostSimilar = "Intel Core i5-1335U";break;
                         }
                     }
-                    else if(minSpec.getCpu().contains("i7-"+i) || minSpec.getCpu().contains("i7 "+i)&& !mostSimilar.contains("i7-"+i)){
+                    else if(minSpec.getCpu().contains("i7-"+i) || minSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                         if(i==2){
-                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
+                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";break;
                         }
                         else if(i==3){
-                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
+                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";break;
                         }
                         else if(i==4){
-                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
+                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";break;
                         }
                         else if(i==5){
-                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
+                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";break;
                         }
                         else if(i==6){
-                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
+                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";break;
                         }
                         else if(i==7){
-                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
+                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";break;
                         }
                         else if(i==8){
-                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
+                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";break;
                         }
                         else if(i==9){
-                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";
+                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";break;
                         }
                         else if(i==10){
-                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
+                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";break;
                         }
                         else if(i==11){
-                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
+                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";break;
                         }
                         else if(i==12){
-                            mostSimilar = "Intel Core i7-1265UE";
+                            mostSimilar = "Intel Core i7-1265UE";break;
                         }
                         else{
-                            mostSimilar = "Intel Core i7-1365U";
+                            mostSimilar = "Intel Core i7-1365U";break;
                         }
                     }
                     else if(minSpec.getCpu().contains("core2") || minSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
                     }
                 }
 
@@ -565,13 +548,7 @@ public class GameListService {
 
                 if(userCpuRank<=minCpuRank && userGpuRank<=minGpuRank && userRamSize>=minSpec.getRamSize()){
                     minState = 1;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
                     System.out.println("state : " + 1);
-                }
-                else{
-                    minState = 0;
-                    //gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
-                    System.out.println("state : " + 0);
                 }
 
             }
@@ -646,103 +623,103 @@ public class GameListService {
                     for(int i=2; i<=13; i++){
                         if(recSpec.getCpu().contains("i3-"+i) || recSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                             if(i<=7){
-                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";
+                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";
+                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";
+                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i3-12300";
+                                mostSimilar = "Intel Core i3-12300";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i3-13100F";
+                                mostSimilar = "Intel Core i3-13100F";break;
                             }
 
                         }
                         else if(recSpec.getCpu().contains("i5-"+i) || recSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                             if(i<=3){
-                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";
+                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";
+                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";
+                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";
+                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";
+                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";
+                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";
+                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";
+                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";
+                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i5-12400";
+                                mostSimilar = "Intel Core i5-12400";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i5-13500H";
+                                mostSimilar = "Intel Core i5-13500H";break;
                             }
                         }
                         else if(recSpec.getCpu().contains("i7-"+i) || recSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                             if(i==2){
-                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";
+                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";break;
                             }
                             else if(i==3){
-                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";
+                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";
+                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";
+                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";
+                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";
+                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";
+                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";
+                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";
+                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";
+                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i7-1270P";
+                                mostSimilar = "Intel Core i7-1270P";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i7-13800H";
+                                mostSimilar = "Intel Core i7-13800H";break;
                             }
                         }
                         else if(recSpec.getCpu().contains("core2") || recSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";
+                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                         }
                     }
 
@@ -835,103 +812,103 @@ public class GameListService {
                     for(int i=2; i<=13; i++){
                         if(recSpec.getCpu().contains("i3-"+i) || recSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                             if(i<=7){
-                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";
+                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";
+                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";
+                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i3-12300";
+                                mostSimilar = "Intel Core i3-12300";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i3-13100F";
+                                mostSimilar = "Intel Core i3-13100F";break;
                             }
 
                         }
                         else if(recSpec.getCpu().contains("i5-"+i) || recSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                             if(i<=3){
-                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";
+                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";
+                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";
+                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";
+                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";
+                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";
+                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";
+                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";
+                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";
+                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i5-12400";
+                                mostSimilar = "Intel Core i5-12400";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i5-13500H";
+                                mostSimilar = "Intel Core i5-13500H";break;
                             }
                         }
                         else if(recSpec.getCpu().contains("i7-"+i) || recSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                             if(i==2){
-                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";
+                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";break;
                             }
                             else if(i==3){
-                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";
+                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";
+                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";
+                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";
+                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";
+                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";
+                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";
+                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";
+                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";
+                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i7-1270P";
+                                mostSimilar = "Intel Core i7-1270P";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i7-13800H";
+                                mostSimilar = "Intel Core i7-13800H";break;
                             }
                         }
                         else if(recSpec.getCpu().contains("core2") || recSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";
+                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                         }
                     }
 
