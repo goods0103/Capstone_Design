@@ -27,6 +27,11 @@ function CpuCompare() {
     const [selectedCpuInfoDetail, setSelectedCpuInfoDetail] = useState([]);
 
     const [showComponent, setShowComponent] = useState(false);
+    const [renderCount, setRenderCount] = useState(0);
+
+    useEffect(() => {
+        console.log('Component is rendered');
+    }, [renderCount]);
 
     useEffect(() => {
         axios.get('/category/cpu_name')
@@ -36,6 +41,7 @@ function CpuCompare() {
                     label: cpus
                 }));
                 setCpuOption(cpus);
+                // setSelectedCpu("");
             })
             .catch(error => {
                 console.log(error);
@@ -47,7 +53,11 @@ function CpuCompare() {
     };
 
     function handleCpuChange(selectedCpu) {
-        setSelectedCpu(selectedCpu);
+        setSelectedCpu(selectedCpu)
+        setShowComponent(false);
+        // setSelectedCpu(selectedCpu);
+        // setRenderCount(renderCount + 1);
+        // setShowComponent(false);
     }
 
     useEffect(() => {
@@ -72,103 +82,9 @@ function CpuCompare() {
             });
     }, []);
 
-    // useEffect(() => {
-    //     axios.post('/cpuId', { id })
-    //         .then(response => {
-    //             setCpuInfo(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    //
-    //     axios.post('/cpuId', { id })
-    //         .then(response => {
-    //             setCpuInfo(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, []);
-
-    const CpuInfoProgressBar = (info1, info2) => {
-        let a, b;
-        a = info1/(info1 + info2) * 100;
-        b = info2/(info1 + info2) * 100;
-        a = Math.round(a);
-        b = Math.round(b);
-
-        return (
-            <ProgressBar className={styles.progressBarCss}>
-                <ProgressBar animated variant="success" now={a} label={`${a}%(${info1})`} key={1} />
-                <ProgressBar animated variant="warning" now={b} label={`${b}%(${info2})`} key={2} />
-            </ProgressBar>
-        );
-    }
-
     function handleClick() {
+        //setRenderCount(renderCount + 1);
         setSelectedCpu(selectedCpu);
-        // if (selectedCpu) {
-        //     try {
-        //         const response = axios.post('/find_cpu_name', `${selectedCpuInfo}`);
-        //         setSelectedCpuInfo(response.data);
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-        //
-        // if (selectedCpu) {
-        //     try {
-        //         const response = axios.post('/find_cpu_detail_name', `${selectedCpuInfoDetail}`);
-        //         setSelectedCpuInfoDetail(response.data);
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-
-        // useEffect(() => {
-        //     if (selectedCpu) {
-        //         const fetchData = async () => {
-        //             try {
-        //                 const response = await axios.post('/find_cpu_detail_name', `${selectedCpuInfo}`);
-        //                 setSelectedCpuInfo(response.data);
-        //             } catch (error) {
-        //                 console.log(error);
-        //             }
-        //         };
-        //         fetchData();
-        //     }
-        // }, [selectedCpu]);
-        //
-        // useEffect(() => {
-        //     if (selectedCpu) {
-        //         const fetchData = async () => {
-        //             try {
-        //                 const response = await axios.post('/find_cpu_detail_name', `${selectedCpuInfoDetail}`);
-        //                 setSelectedCpuInfoDetail(response.data);
-        //             } catch (error) {
-        //                 console.log(error);
-        //             }
-        //         };
-        //         fetchData();
-        //     }
-        // }, [selectedCpu]);
-
-
-        // axios.post('/find_cpu_name', `${selectedCpu}`)
-        //     .then(response => {
-        //         setSelectedCpu(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-        //
-        // axios.post('/find_cpu_detail_name', `${selectedCpu}`)
-        //     .then(response => {
-        //         setSelectedCpu2(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
         setShowComponent(true);
     }
 
@@ -202,10 +118,6 @@ function CpuCompare() {
                     <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
                     <br/>
                     <button type="submit" onClick={handleClick} className={styles.buttonSubmit}>비교하기</button>
-                    <SubmitSelectedCpu selectedCpu={selectedCpu}
-                                       setSelectedCpuInfo={setSelectedCpuInfo}
-                                       setSelectedCpuInfoDetail={setSelectedCpuInfoDetail}
-                                       setShowComponent={setShowComponent}/>
                 </form>
             </div>
             <div className={styles.container2}>
@@ -213,51 +125,14 @@ function CpuCompare() {
                 <div className={styles.itemLabel}>선택할 스펙 정보 출력</div>
             </div>
 
+            {/*<SubmitSelectedCpu selectedCpu={selectedCpu}*/}
+            {/*                   cpuInfo={cpuInfo}*/}
+            {/*                   cpuInfo2={cpuInfo2}/>*/}
+
             {showComponent &&
-            <div>
-                <label>Cpu BenchMark &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={35} label={`${35}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={65} label={`${65}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo.cpuMark, selectedCpuInfoDetail.cpuMark)}
-                <br/>
-                <label>Cpu Clock Speed &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={45} label={`${45}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={55} label={`${55}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo2.clock, selectedCpuInfoDetail.clock)}
-                <br/>
-                <label>Cpu Turbo Speed &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={75} label={`${75}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={25} label={`${25}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo2.turbo, selectedCpuInfoDetail.turbo)}
-                <br/>
-                <label>Cpu Cores &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={55} label={`${55}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={45} label={`${45}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo2.core, selectedCpuInfoDetail.core)}
-                <br/>
-                <label>Cpu Price &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={55} label={`${55}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={45} label={`${45}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo.cpuPrice, selectedCpuInfo.cpuPrice)}
-                <br/>
-                <label>Cpu Value &nbsp;</label><br/>
-                {/*<ProgressBar className={styles.progressBarCss}>*/}
-                {/*    <ProgressBar animated variant="success" now={55} label={`${55}%`} key={1} />*/}
-                {/*    <ProgressBar animated variant="warning" now={45} label={`${45}%`} key={2} />*/}
-                {/*</ProgressBar>*/}
-                {CpuInfoProgressBar(cpuInfo.cpuValue, selectedCpuInfo.cpuValue)}
-                <br/>
-            </div>
+                <SubmitSelectedCpu selectedCpu={selectedCpu}
+                                   cpuInfo={cpuInfo}
+                                   cpuInfo2={cpuInfo2}/>
             }
 
         </>
