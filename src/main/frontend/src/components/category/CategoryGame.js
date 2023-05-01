@@ -4,26 +4,14 @@ import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-import ReactPaginate from "react-paginate";
 
 function CategoryGame() {
 
     const [gameList, setGameList] = useState([]);
     const [selectedGame, setSelectedGame] = useState("");
     const [gameOption, setGameOption] = useState([]); // cpu 에 대한 배열
-
-    const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(100);
-
-    const handlePageClick = ({ selected }) => {
-        setCurrentPage(selected);
-    };
-
-    const slicedData = gameList.slice(
-        currentPage * itemsPerPage,
-        (currentPage + 1) * itemsPerPage
-    );
-
+    const [minimumList, setMinimumList] = useState([]);
+    const [recommendedList, setRecommendedList] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -42,7 +30,28 @@ function CategoryGame() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchMinimumList = async () => {
+            try {
+                const response = await axios.get('/compare');
+                setMinimumList(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
+        fetchMinimumList();
+    }, []);
+
+    useEffect(() => {
+        axios.get('/compare2')
+            .then(response => {
+                setRecommendedList(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
 
     function handleGameChange(selectedGame) {
@@ -82,22 +91,22 @@ function CategoryGame() {
                     <tr>
                         <th className={styles.cssTh}>game_image</th>
                         <th className={styles.cssTh}>game_name</th>
+                        <th className={styles.cssTh}>game</th>
                     </tr>
-                    {slicedData.map((game) => (
-                        <tr  data-game-name={game.gameName}>
-                            <td className={styles.cssTd}><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}><Link to={`/GameSpec/${game.gameId}`}>{game.gameName}</Link></td>
-                        </tr>
-                    ))}
+                    {gameList.map((game) => {
+                        const minimumGame = minimumList.find((item) => item.gameName === game.gameName);
+                        const recommendGame = recommendedList.find((item) => item.gameName === game.gameName);
+                        const minstate = minimumGame ? minimumGame.state : null;
+                        const recstate = recommendGame ? recommendGame.state : null;
+                        return (
+                            <tr data-game-name={game.gameName}>
+                                <td className={styles.cssTd}><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}><Link to={`/GameSpec/${game.gameId}`}>{game.gameName}</Link></td>
+                                <td className={styles.cssTd}>{minstate+recstate}</td>
+                            </tr>
+                        );
+                    })}
                 </table>
-                <ReactPaginate
-                    previousLabel={"이전"}
-                    nextLabel={"다음"}
-                    pageCount={Math.ceil(gameList.length / itemsPerPage)}
-                    onPageChange={handlePageClick}
-                    containerClassName={"pagination"}
-                    activeClassName={"active"}
-                />
             </div>
         </>
     );
