@@ -2,11 +2,24 @@ import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
+import ReactPaginate from "react-paginate";
 
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
   const [data2, setData2] = useState([]);
-  // hello
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(100);
+
+  const handlePageClick = ({ selected }) => {
+      setCurrentPage(selected);
+  };
+
+  const slicedData = cpuList.slice(
+      currentPage * itemsPerPage,
+      (currentPage + 1) * itemsPerPage
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -82,7 +95,7 @@ function CategoryCpu() {
                   <th className={styles.cssTh}>value</th>
                   <th className={styles.cssTh}>price</th>
               </tr>
-              {cpuList.map((cpu) => (
+              {slicedData.map((cpu) => (
                   <tr>
                       <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                       <td className={styles.cssTd}>{cpu.cpuName}</td>
@@ -92,6 +105,14 @@ function CategoryCpu() {
                   </tr>
               ))}
           </table>
+          <ReactPaginate
+              previousLabel={"이전"}
+              nextLabel={"다음"}
+              pageCount={Math.ceil(cpuList.length / itemsPerPage)}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+          />
       </div>
     </>
   );

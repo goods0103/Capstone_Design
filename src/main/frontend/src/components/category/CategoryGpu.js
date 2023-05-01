@@ -2,11 +2,24 @@ import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
+import ReactPaginate from "react-paginate";
 
 // [Mod] for check
 function CategoryGpu() {
     const [gpuList, setGpuList] = useState([]);
     const [data2, setData2] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(100);
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const slicedData = gpuList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
 
 
     useEffect(() => {
@@ -90,7 +103,7 @@ function CategoryGpu() {
                         <th className={styles.cssTh}>value</th>
                         <th className={styles.cssTh}>price</th>
                     </tr>
-                    {gpuList.map((gpu) => (
+                    {slicedData.map((gpu) => (
                         <tr>
                             <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd}>{gpu.gpuName}</td>
@@ -101,6 +114,14 @@ function CategoryGpu() {
                         </tr>
                     ))}
                 </table>
+                <ReactPaginate
+                    previousLabel={"이전"}
+                    nextLabel={"다음"}
+                    pageCount={Math.ceil(gpuList.length / itemsPerPage)}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                />
             </div>
         </>
     );
