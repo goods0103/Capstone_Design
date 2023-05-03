@@ -2,11 +2,34 @@ import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
+import ReactPaginate from "react-paginate";
+import Select from "react-select";
+import {Link} from "react-router-dom";
 
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
-  const [data2, setData2] = useState([]);
-  // hello
+  const [data2, setData2] = useState("AMD Ryzen 5 5600X");
+  const [cpuOption, setCpuOption] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(100);
+
+  const [selectedCpu, setSelectedCpu] = useState({
+      value : localStorage.getItem('cpuData'),
+      label : localStorage.getItem('cpuData')
+  });
+  const [flag, setFlag] = useState(true);
+  const [cpu, setCpu] = useState({});
+
+  const handlePageClick = ({ selected }) => {
+      setCurrentPage(selected);
+  };
+
+  const slicedData = cpuList.slice(
+      currentPage * itemsPerPage,
+      (currentPage + 1) * itemsPerPage
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +43,20 @@ function CategoryCpu() {
 
     fetchData();
   }, []);
+
+    useEffect(() => {
+        axios.get('/category/cpu_name')
+            .then(response => {
+                const cpus = response.data.map(cpus => ({
+                    value: cpus,
+                    label: cpus
+                }));
+                setCpuOption(cpus);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
   const convertPrice = (price) => {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -62,6 +99,27 @@ function CategoryCpu() {
       }
     };
 
+    function handleGpuChange(selectedGpu) {
+        setSelectedCpu(selectedGpu);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const searchCpu = (cpu) => {
+        setFlag(false);
+        {cpuList.map((list) => {
+            if(list.cpuName === cpu.value){
+                setCpu(list);
+            }
+        })
+        }
+    }
+
+    const showTotalList = () => {
+        setFlag(true);
+    }
+
   return (
     <>
       <CategoryBar></CategoryBar>
@@ -74,24 +132,69 @@ function CategoryCpu() {
               <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
           </div>
           <p>{data2}</p>
-          <table className={styles.cssTable}>
-              <tr>
-                  <th className={styles.cssTh}>image</th>
-                  <th className={styles.cssTh}>name</th>
-                  <th className={styles.cssTh}>rank</th>
-                  <th className={styles.cssTh}>value</th>
-                  <th className={styles.cssTh}>price</th>
-              </tr>
-              {cpuList.map((cpu) => (
+
+          <form onSubmit={handleSubmit} className={styles.formTag}>
+              <label>원하는 Cpu를 입력하세요 : </label>
+              <Select
+                  value={selectedCpu}
+                  onChange={handleGpuChange}
+                  options={cpuOption}
+                  placeholder="Choose an option"
+                  isSearchable={true}
+                  className={styles.selectTag}
+              />
+              <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
+              <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
+              <button onClick={() => searchCpu(selectedCpu)}>Cpu 검색</button> &emsp;
+              <button onClick={() => showTotalList()}>전체 리스트 보기</button>
+              <br/>
+          </form>
+          {flag ? (
+              <table className={styles.cssTable}>
+                  <tr>
+                      <th className={styles.cssTh}>image</th>
+                      <th className={styles.cssTh}>name</th>
+                      <th className={styles.cssTh}>rank</th>
+                      <th className={styles.cssTh}>value</th>
+                      <th className={styles.cssTh}>price</th>
+                  </tr>
+                  {slicedData.map((cpu) => (
+                      <tr>
+                          <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                          <td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                          <td className={styles.cssTd}>{cpu.cpuRank}</td>
+                          <td className={styles.cssTd}>{cpu.cpuValue}</td>
+                          <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>
+                      </tr>
+                  ))}
+              </table>) :
+              <table className={styles.cssTable}>
+                  <tr>
+                      <th className={styles.cssTh}>image</th>
+                      <th className={styles.cssTh}>name</th>
+                      <th className={styles.cssTh}>rank</th>
+                      <th className={styles.cssTh}>value</th>
+                      <th className={styles.cssTh}>price</th>
+                  </tr>
                   <tr>
                       <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                      <td className={styles.cssTd}>{cpu.cpuName}</td>
+                      <td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
                       <td className={styles.cssTd}>{cpu.cpuRank}</td>
                       <td className={styles.cssTd}>{cpu.cpuValue}</td>
                       <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>
                   </tr>
-              ))}
-          </table>
+              </table>
+          }
+          {flag &&
+              <ReactPaginate
+                  previousLabel={"이전"}
+                  nextLabel={"다음"}
+                  pageCount={Math.ceil(cpuList.length / itemsPerPage)}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+              />
+          }
       </div>
     </>
   );

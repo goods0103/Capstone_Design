@@ -60,15 +60,15 @@ function MySpec() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        axios.get('/myBottleNeck')
-            .then(response => {
-                setBottleNeckInfo(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.get('/myBottleNeck')
+    //         .then(response => {
+    //             setBottleNeckInfo(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // }, []);
 
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -110,7 +110,7 @@ function MySpec() {
                 <br/>
             </div>
             {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}
-            {showComponent && <MyBottleNeck bottleneck={bottleNeckInfo}/>}
+            {showComponent && <MyBottleNeck/>}
         </>
     );
 }

@@ -1,5 +1,6 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.GameList;
 import com.hadoop.demo.Service.GameListService;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,35 +24,14 @@ public class GameController {
 //    @NoArgsConstructor
 //    @ToString
 //    public static class GameSpec {
-//        private String gameName;
+//        private List<GameList> gameList;
 //        private int minState;
 //        private int recState;
 //    }
 
     @GetMapping("/compare")
     public java.util.List<GameListService.gameUserCompare> GameCpuCompare(){
-        gameListService.CompareCpuUserVsGame().stream().forEach(System.out::println);
-
-        return gameListService.CompareCpuUserVsGame();
-    }
-
-    @GetMapping("/compare2")
-    public java.util.List<GameListService.gameUserCompare> GameCpuCompare2(){
-        gameListService.CompareCpuUserVsGame2().stream().forEach(System.out::println);
-
         return gameListService.CompareCpuUserVsGame2();
-
     }
 
-//    @GetMapping("/compare3")
-//    public List<GameSpec> GameCpuCompare3(){
-//        List<GameSpec> gameSpecs = new ArrayList<>();
-//
-//        for(int i=0; i<gameListService.CompareCpuUserVsGame2().size();i++){
-//            gameSpecs.add(new GameSpec(gameListService.CompareCpuUserVsGame2().get(i).getGameName(),
-//                    gameListService.CompareCpuUserVsGame().get(i).getState(), gameListService.CompareCpuUserVsGame2().get(i).getState()));
-//        }
-//
-//        return gameSpecs;
-//    }
 }
