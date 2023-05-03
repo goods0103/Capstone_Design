@@ -144,22 +144,43 @@ public class GameListService {
     }
 
     //gamelist rec cpu,gpu, rmaSize 이름을 list에 담아 반환
-    public List<getGameSpec> findRecGameSpec(){
+    public List<getGameSpec> findRecGameSpec(int pageNumber){
 
-        List<GameList> gameList = gameListRepository.findAll();//.subList(0, 50);
-        List<getGameSpec> gameSpecs = new ArrayList<>();
+        if(pageNumber==1){
+            List<GameList> gameList = gameListRepository.findAll().subList(0, 50);
+            List<getGameSpec> gameSpecs = new ArrayList<>();
 
-        for(GameList list : gameList){
-            String gameName = list.getGameName();
-            String recCpu1 = list.getRecommendedGameCpu1();
-            String recCpu2 = list.getRecommendedGameCpu2();
-            String recGpu1 = list.getRecommendedGameGpu1();
-            String recGpu2 = list.getRecommendedGameGpu2();
-            String gameImg = list.getGameImg();
-            int recRamSize = list.getRecommendedGameRam();
-            gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
+            for(GameList list : gameList){
+                String gameName = list.getGameName();
+                String recCpu1 = list.getRecommendedGameCpu1();
+                String recCpu2 = list.getRecommendedGameCpu2();
+                String recGpu1 = list.getRecommendedGameGpu1();
+                String recGpu2 = list.getRecommendedGameGpu2();
+                String gameImg = list.getGameImg();
+                int recRamSize = list.getRecommendedGameRam();
+                gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
+            }
+
+            return gameSpecs;
         }
-        return gameSpecs;
+        else{
+            List<GameList> gameList = gameListRepository.findAll().subList((pageNumber-1)*50+1, pageNumber*50);
+            List<getGameSpec> gameSpecs = new ArrayList<>();
+
+            for(GameList list : gameList){
+                String gameName = list.getGameName();
+                String recCpu1 = list.getRecommendedGameCpu1();
+                String recCpu2 = list.getRecommendedGameCpu2();
+                String recGpu1 = list.getRecommendedGameGpu1();
+                String recGpu2 = list.getRecommendedGameGpu2();
+                String gameImg = list.getGameImg();
+                int recRamSize = list.getRecommendedGameRam();
+                gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
+            }
+
+            return gameSpecs;
+        }
+
     }
 
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
@@ -579,14 +600,14 @@ public class GameListService {
 
     }
 
-    public List<gameUserCompare> CompareCpuUserVsGame2(){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    public List<gameUserCompare> CompareCpuUserVsGame2(int pageNumber){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
 
         List<gameUserCompare> gameUserCompares = new ArrayList<>();
         List<CpuList> cpuLists = cpuListRepository.findAll();
         List<GpuList> gpuLists = gpuListRepository.findAll();
 
         //gamelist에서 추출한 <gamename, mincpu> list
-        List<getGameSpec> recSpecs = findRecGameSpec();
+        List<getGameSpec> recSpecs = findRecGameSpec(pageNumber);
         //
 
         List<String> matchingCpu = new ArrayList<>();
