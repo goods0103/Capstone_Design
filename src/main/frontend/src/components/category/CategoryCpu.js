@@ -14,12 +14,12 @@ function CategoryCpu() {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
 
-    const [selectedCpu, setSelectedCpu] = useState({
-        value : data2,
-        label : data2
-    });
-    const [flag, setFlag] = useState(true);
-    const [cpu, setCpu] = useState({});
+  const [selectedCpu, setSelectedCpu] = useState({
+      value : localStorage.getItem('cpuData'),
+      label : localStorage.getItem('cpuData')
+  });
+  const [flag, setFlag] = useState(true);
+  const [cpu, setCpu] = useState({});
 
   const handlePageClick = ({ selected }) => {
       setCurrentPage(selected);

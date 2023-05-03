@@ -16,8 +16,8 @@ function CategoryGpu() {
     const [itemsPerPage, setItemsPerPage] = useState(100);
 
     const [selectedGpu, setSelectedGpu] = useState({
-        value : data2,
-        label : data2
+        value : localStorage.getItem('gpuData'),
+        label : localStorage.getItem('gpuData')
     });
     const [flag, setFlag] = useState(true);
     const [gpu, setGpu] = useState({});
