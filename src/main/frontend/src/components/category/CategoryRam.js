@@ -2,10 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
+import ReactPaginate from "react-paginate";
 
 
 function CategoryRam() {
     const [ramList, setRamList] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(200);
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const slicedData = ramList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
 
     useEffect(() => {
         const fetchData = async () => {
@@ -93,7 +106,7 @@ function CategoryRam() {
                         <th className={styles.cssTh}>read</th>
                         <th className={styles.cssTh}>write</th>
                     </tr>
-                    {ramList.map((ram) => (
+                    {slicedData.map((ram) => (
                         <tr>
                             <td className={styles.cssTd}><img src="" alt="ram_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd}>{ram.ramName}</td>
@@ -104,6 +117,14 @@ function CategoryRam() {
                         </tr>
                     ))}
                 </table>
+                <ReactPaginate
+                    previousLabel={"이전"}
+                    nextLabel={"다음"}
+                    pageCount={Math.ceil(ramList.length / itemsPerPage)}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                />
             </div>
         </>
     );

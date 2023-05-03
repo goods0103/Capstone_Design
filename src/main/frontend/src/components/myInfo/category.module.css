@@ -40,5 +40,11 @@
     cursor: pointer;
 }
 
+/*-------*/
+.CircularChart{
+    width: 100px;
+    height: 100px;
+}
+
 
 
