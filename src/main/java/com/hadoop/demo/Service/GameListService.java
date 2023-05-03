@@ -40,10 +40,10 @@ public class GameListService {
     @AllArgsConstructor
     @ToString
     public static class gameUserCompare{
-
         private String gameName;
-        // minCpu가 userCpu보다 rank가 높을경우 0(부적합) 낮을경우 1(적합)
-        private int state;
+        private String gameImg;
+        private int recState;
+        private int minState;
 
     }
 
@@ -51,568 +51,515 @@ public class GameListService {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class getGameMinSpec{
-
+    public static class getGameSpec{
         private String gameName;
-        private String minCpu;
-        private String minGpu;
-        private int minRamSize;
+        private String gameImg;
+        private String cpu;
+        private String gpu;
+        private int ramSize;
 
     }
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class getGameRecSpec{
+    public getGameSpec sortGameList(String gameName, String gameImg, String cpu1, String cpu2, String gpu1, String gpu2, int ramSize){
 
-        private String gameName;
-        private String recCpu;
-        private String recGpu;
-        private int recRamSize;
+        getGameSpec getGameSpec;
+        
+        if(cpu1!=null && cpu2!=null){
+            if(gpu1!=null && gpu2!=null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
+            }
+            else if(gpu1 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
+            }
+            else if(gpu2 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu2, ramSize);
+            }
+            else{
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, "", ramSize);
+            }
+        }
+        else if(cpu1 != null){
+            if(gpu1!=null && gpu2!=null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
+            }
+            else if(gpu1 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
+            }
+            else if(gpu2 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu2, ramSize);
+            }
+            else{
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, "", ramSize);
+            }
+        }
+        else if(cpu2 != null){
+            if(gpu1!=null && gpu2!=null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu1, ramSize);
+            }
+            else if(gpu1 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu1, ramSize);
+            }
+            else if(gpu2 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu2, ramSize);
+            }
+            else{
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, "", ramSize);
+            }
+        }
+        else{
+            if(gpu1!=null && gpu2!=null){
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu1, ramSize);
+            }
+            else if(gpu1 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu1, ramSize);
+            }
+            else if(gpu2 != null){
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu2, ramSize);
+            }
+            else{
+                getGameSpec = new getGameSpec(gameName, gameImg, "", "", ramSize);
+            }
+        }
 
+        return getGameSpec;
     }
 
     //gamelist min cpu, gpu, ramSize 이름을 list에 담아 반환
-    public List<getGameMinSpec> FindGameSpec(){
+    public getGameSpec findMinGameSpec(String gameName){
 
-        List<GameList> gameList = gameListRepository.findAll();
-        List<getGameMinSpec> minSpecs = new ArrayList<>();
+        GameList gameList = gameListRepository.findByGameName(gameName);
 
-        for(GameList list : gameList){
-            if(list.getMinimumGameCpu1()!=null && list.getMinimumGameCpu2()!=null){
-
-                if(list.getMinimumGameGpu1()!=null && list.getMinimumGameGpu2()!=null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu1() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu2() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu2(), list.getMinimumGameRam()));
-                }
-                else{
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), "", list.getMinimumGameRam()));
-                }
-
-            }
-
-            else if(list.getMinimumGameCpu1() != null){
-
-                if(list.getMinimumGameGpu1()!=null && list.getMinimumGameGpu2()!=null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu1() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu2() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), list.getMinimumGameGpu2(), list.getMinimumGameRam()));
-                }
-                else{
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu1(), "", list.getMinimumGameRam()));
-                }
-
-            }
-            else if(list.getMinimumGameCpu2() != null){
-
-                if(list.getMinimumGameGpu1()!=null && list.getMinimumGameGpu2()!=null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu2(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu1() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu2(), list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu2() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu2(), list.getMinimumGameGpu2(), list.getMinimumGameRam()));
-                }
-                else{
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), list.getMinimumGameCpu2(), "", list.getMinimumGameRam()));
-                }
-
-            }
-            else{
-
-                if(list.getMinimumGameGpu1()!=null && list.getMinimumGameGpu2()!=null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), "", list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu1() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), "", list.getMinimumGameGpu1(), list.getMinimumGameRam()));
-                }
-                else if(list.getMinimumGameGpu2() != null){
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), "", list.getMinimumGameGpu2(), list.getMinimumGameRam()));
-                }
-                else{
-                    minSpecs.add(new getGameMinSpec(list.getGameName(), "", "", list.getMinimumGameRam()));
-                }
-
-            }
-
-        }
-        return minSpecs;
+        String minCpu1 = gameList.getMinimumGameCpu1();
+        String minCpu2 = gameList.getMinimumGameCpu2();
+        String minGpu1 = gameList.getMinimumGameGpu1();
+        String minGpu2 = gameList.getMinimumGameGpu2();
+        String gameImg = gameList.getGameImg();
+        int minRamSize = gameList.getMinimumGameRam();
+        
+        return sortGameList(gameName, gameImg, minCpu1, minCpu2, minGpu1, minGpu2, minRamSize);
     }
 
     //gamelist rec cpu,gpu, rmaSize 이름을 list에 담아 반환
-    public List<getGameRecSpec> FindGameSpec2(){
+    public List<getGameSpec> findRecGameSpec(){
 
-        List<GameList> gameList = gameListRepository.findAll();
-        List<getGameRecSpec> recSpecs = new ArrayList<>();
+        List<GameList> gameList = gameListRepository.findAll();//.subList(0, 50);
+        List<getGameSpec> gameSpecs = new ArrayList<>();
 
         for(GameList list : gameList){
-            if(list.getRecommendedGameCpu1()!=null && list.getRecommendedGameCpu2()!=null){
-
-                if(list.getRecommendedGameGpu1()!=null && list.getRecommendedGameGpu2()!=null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu1() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu2() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu2(), list.getRecommendedGameRam()));
-                }
-                else{
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), "", list.getRecommendedGameRam()));
-                }
-
-            }
-
-            else if(list.getRecommendedGameCpu1() != null){
-
-                if(list.getRecommendedGameGpu1()!=null && list.getRecommendedGameGpu2()!=null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu1() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu2() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu2(), list.getRecommendedGameRam()));
-                }
-                else{
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), "", list.getRecommendedGameRam()));
-                }
-
-            }
-            else if(list.getRecommendedGameCpu2() != null){
-
-                if(list.getRecommendedGameGpu1()!=null && list.getRecommendedGameGpu2()!=null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu1() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu2() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu2(), list.getRecommendedGameRam()));
-                }
-                else{
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), "", list.getRecommendedGameRam()));
-                }
-
-            }
-            else{
-
-                if(list.getRecommendedGameGpu1()!=null && list.getRecommendedGameGpu2()!=null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu1() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu1(), list.getRecommendedGameRam()));
-                }
-                else if(list.getRecommendedGameGpu2() != null){
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), list.getRecommendedGameGpu2(), list.getRecommendedGameRam()));
-                }
-                else{
-                    recSpecs.add(new getGameRecSpec(list.getGameName(), list.getRecommendedGameCpu1(), "", list.getRecommendedGameRam()));
-                }
-
-            }
-
+            String gameName = list.getGameName();
+            String recCpu1 = list.getRecommendedGameCpu1();
+            String recCpu2 = list.getRecommendedGameCpu2();
+            String recGpu1 = list.getRecommendedGameGpu1();
+            String recGpu2 = list.getRecommendedGameGpu2();
+            String gameImg = list.getGameImg();
+            int recRamSize = list.getRecommendedGameRam();
+            gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
         }
-        return recSpecs;
+        return gameSpecs;
     }
 
-    public List<gameUserCompare> CompareCpuUserVsGame(){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    public int CompareCpuUserVsGame(String gameName){
 
-        List<gameUserCompare> gameUserCompares = new ArrayList<>();
         List<CpuList> cpuLists = cpuListRepository.findAll();
         List<GpuList> gpuLists = gpuListRepository.findAll();
-
-        //gamelist에서 추출한 <gamename, mincpu> list
-        List<getGameMinSpec> minSpecs = FindGameSpec();
-        //
         List<String> matchingCpu = new ArrayList<>();
         List<String> matchingGpu = new ArrayList<>();
+        int minState = 0;
 
         if(userInfoService.Count()!=0){
 
             //userinfo 에 있는 cpu rank ramSize 반환
             int userCpuRank = compareService.getMatchingCpu().getCpuRank();
             int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
+            int userRamSize = compareService.getMatchingRam().getRamSize()*2;
 
-            for(getGameMinSpec minSpec : minSpecs){
-                //list에 있는 mincpu, gpu가 없을경우
-                if(minSpec.getMinCpu().equals("") && minSpec.getMinGpu().equals("")){
-                    gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
-                }
-                // list에 mingpu가 없을경우
-                else if(!minSpec.getMinCpu().equals("") && minSpec.getMinGpu().equals("")){
-                    // mincpu와 Cpulist cpu 비교 result = mostsimilar
-                    for(CpuList cpu : cpuLists){
-                        if(minSpec.getMinCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
-                                contains(minSpec.getMinCpu())){
-                            matchingCpu.add(cpu.getCpuName());
-                        }
+            getGameSpec minSpec = findMinGameSpec(gameName);
+
+            if(minSpec.getCpu().equals("") && minSpec.getGpu().equals("")){
+                minState= 1;
+            }
+
+            // list에 mingpu가 없을경우
+            else if(!minSpec.getCpu().equals("") && minSpec.getGpu().equals("")){
+                // mincpu와 Cpulist cpu 비교 result = mostsimilar
+                for(CpuList cpu : cpuLists){
+                    if(minSpec.getCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
+                            contains(minSpec.getCpu())){
+                        matchingCpu.add(cpu.getCpuName());
                     }
-
-                    if(matchingCpu.size()==0){
-                        //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
-                        matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
-                    }
-
-                    String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
-
-                    String mostSimilar = "";
-                    int maxSimilarity = 100;
-
-                    for (String findCpuArray : cpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(minSpec.getMinCpu(), findCpuArray);
-                        if (similarity < maxSimilarity) {
-                            //System.out.println("findCpuArray: "+ findCpuArray);
-                            maxSimilarity = similarity;
-                            mostSimilar = findCpuArray;
-
-                        }
-                    }
-
-                    //sorting이 너무 잘못된 경우
-                    for(int i=2; i<=13; i++){
-                        if(minSpec.getMinCpu().contains("i3-"+i) || minSpec.getMinCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
-                            if(i<=7){
-                                mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i3-1215UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i3-1315U";
-                            }
-
-                        }
-                        else if(minSpec.getMinCpu().contains("i5-"+i) || minSpec.getMinCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
-                            if(i<=3){
-                                mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
-                            }
-                            else if(i==4){
-                                mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
-                            }
-                            else if(i==5){
-                                mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
-                            }
-                            else if(i==6){
-                                mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
-                            }
-                            else if(i==7){
-                                mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i5-1245UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i5-1335U";
-                            }
-                        }
-                        else if(minSpec.getMinCpu().contains("i7-"+i) || minSpec.getMinCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
-                            if(i==2){
-                                mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
-                            }
-                            else if(i==3){
-                                mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
-                            }
-                            else if(i==4){
-                                mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
-                            }
-                            else if(i==5){
-                                mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
-                            }
-                            else if(i==6){
-                                mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
-                            }
-                            else if(i==7){
-                                mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i7-970 @ 3.20GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i7-1265UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i7-1365U";
-                            }
-                        }
-                        else if(minSpec.getMinCpu().contains("core2") || minSpec.getMinCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
-                        }
-                    }
-
-                    //최소사양의 cpuRank get
-                    int minCpuRank = cpuListRepository.findByCpuName(mostSimilar).getCpuRank();
-
-                    //비교
-                    if(userCpuRank<=minCpuRank && userRamSize>=minSpec.getMinRamSize()){
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
-                    }
-                    else{
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
-                    }
-
                 }
 
-                else if(minSpec.getMinCpu().equals("")){
+                if(matchingCpu.size()==0){
+                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
+                    matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
+                }
 
-                    // mincpu와 Cpulist cpu 비교 result = mostsimilar
-                    for(GpuList gpu : gpuLists){
-                        if(minSpec.getMinGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
-                                contains(minSpec.getMinGpu().toLowerCase())){
-                            matchingGpu.add(gpu.getGpuName());
+                String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
+
+                String mostSimilar = "";
+                int maxSimilarity = 100;
+
+                for (String findCpuArray : cpuArray) {
+                    int similarity = StringUtils.getLevenshteinDistance(minSpec.getCpu(), findCpuArray);
+                    if (similarity < maxSimilarity) {
+                        //System.out.println("findCpuArray: "+ findCpuArray);
+                        maxSimilarity = similarity;
+                        mostSimilar = findCpuArray;
+
+                    }
+                }
+
+
+
+                //sorting이 너무 잘못된 경우
+                for(int i=2; i<=13; i++){
+                    if(minSpec.getCpu().contains("i3-"+i) || minSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
+                        if(i<=7){
+                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i3-1215UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i3-1315U";break;
+                        }
+
+                    }
+                    else if(minSpec.getCpu().contains("i5-"+i) || minSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
+                        if(i<=3){
+                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";break;
+                        }
+                        else if(i==4){
+                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";break;
+                        }
+                        else if(i==5){
+                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";break;
+                        }
+                        else if(i==6){
+                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";break;
+                        }
+                        else if(i==7){
+                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i5-1245UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i5-1335U";break;
                         }
                     }
-                    if(matchingGpu.size()==0){
-                        //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
-                        matchingGpu.add(gpuListRepository.findByGpuRank(gpuLists.size()).getGpuName());
+                    else if(minSpec.getCpu().contains("i7-"+i) || minSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
+                        if(i==2){
+                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";break;
+                        }
+                        else if(i==3){
+                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";break;
+                        }
+                        else if(i==4){
+                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";break;
+                        }
+                        else if(i==5){
+                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";break;
+                        }
+                        else if(i==6){
+                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";break;
+                        }
+                        else if(i==7){
+                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i7-1265UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i7-1365U";break;
+                        }
                     }
+                    else if(minSpec.getCpu().contains("core2") || minSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
+                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
+                    }
+                }
 
-                    String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
+                //최소사양의 cpuRank get
+                int minCpuRank = cpuListRepository.findByCpuName(mostSimilar).getCpuRank();
 
-                    String mostSimilar = "";
-                    int maxSimilarity = 100;
+                System.out.println("gameName : " + minSpec.getGameName());
+                System.out.println("cpuName : " + minSpec.getCpu());
+                System.out.println("similarCpu : " + cpuListRepository.findByCpuName(mostSimilar).getCpuName());
+                System.out.println("cpuRank : " + userCpuRank);
+                System.out.println("similarCpuRank : " + minCpuRank);
 
-                    for (String findGpuArray : gpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(minSpec.getMinGpu(), findGpuArray);
-                        if (similarity < maxSimilarity) {
+                //비교
+                if(userCpuRank<=minCpuRank && userRamSize>=minSpec.getRamSize()){
+                    minState = 1;
+                }
+
+            }
+
+            else if(minSpec.getCpu().equals("")){
+
+                // mincpu와 Cpulist cpu 비교 result = mostsimilar
+                for(GpuList gpu : gpuLists){
+                    if(minSpec.getGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
+                            contains(minSpec.getGpu().toLowerCase())){
+                        matchingGpu.add(gpu.getGpuName());
+                    }
+                }
+                if(matchingGpu.size()==0){
+                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
+                    matchingGpu.add(gpuListRepository.findByGpuRank(gpuLists.size()).getGpuName());
+                }
+
+                String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
+
+                String mostSimilar = "";
+                int maxSimilarity = 100;
+
+                for (String findGpuArray : gpuArray) {
+                    int similarity = StringUtils.getLevenshteinDistance(minSpec.getGpu(), findGpuArray);
+                    if (similarity < maxSimilarity) {
 //                        System.out.println("findGpuArray: "+ findGpuArray);
-                            maxSimilarity = similarity;
-                            mostSimilar = findGpuArray;
+                        maxSimilarity = similarity;
+                        mostSimilar = findGpuArray;
 
+                    }
+                }
+
+                //최소사양의 gpuRank get
+                int minGpuRank = gpuListRepository.findByGpuName(mostSimilar).getGpuRank();
+
+                System.out.println("gameName : " + minSpec.getGameName());
+                System.out.println("gpuName : " + minSpec.getGpu());
+                System.out.println("similarGpu : " + gpuListRepository.findByGpuName(mostSimilar).getGpuName());
+                System.out.println("gpuRank : " + userGpuRank);
+                System.out.println("similarGpuRank : " + minGpuRank);
+
+                //비교
+                if(userGpuRank<=minGpuRank && userRamSize>=minSpec.getRamSize()){
+                    minState = 1;
+                }
+
+            }
+
+            else{
+                // mincpu와 Cpulist cpu 비교 result = mostsimilar
+                for(CpuList cpu : cpuLists){
+                    if(minSpec.getCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
+                            contains(minSpec.getCpu())){
+                        matchingCpu.add(cpu.getCpuName());
+                    }
+                }
+                if(matchingCpu.size()==0){
+                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
+                    matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
+                }
+
+                String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
+
+                String mostSimilar = "";
+                int maxSimilarity = 100;
+
+                for (String findCpuArray : cpuArray) {
+                    int similarity = StringUtils.getLevenshteinDistance(minSpec.getCpu(), findCpuArray);
+                    if (similarity < maxSimilarity) {
+                        //System.out.println("findCpuArray: "+ findCpuArray);
+                        maxSimilarity = similarity;
+                        mostSimilar = findCpuArray;
+
+                    }
+                }
+
+                //sorting이 너무 잘못된 경우
+                for(int i=2; i<=13; i++){
+                    if(minSpec.getCpu().contains("i3-"+i) || minSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
+                        if(i<=7){
+                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i3-8100T @ 3.10GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i3-9100T @ 3.10GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i3-1215UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i3-1315U";break;
+                        }
+
+                    }
+                    else if(minSpec.getCpu().contains("i5-"+i) || minSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
+                        if(i<=3){
+                            mostSimilar = "Intel Core i5-3570S @ 3.10GHz";break;
+                        }
+                        else if(i==4){
+                            mostSimilar = "Intel Core i5-4460S @ 2.90GHz";break;
+                        }
+                        else if(i==5){
+                            mostSimilar = "Intel Core i5-5575R @ 2.80GHz";break;
+                        }
+                        else if(i==6){
+                            mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";break;
+                        }
+                        else if(i==7){
+                            mostSimilar = "Intel Core i5-7400T @ 2.40GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i5-1245UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i5-1335U";break;
                         }
                     }
-
-                    //최소사양의 gpuRank get
-                    int minGpuRank = gpuListRepository.findByGpuName(mostSimilar).getGpuRank();
-
-                    //비교
-                    if(userGpuRank<=minGpuRank && userRamSize>=minSpec.getMinRamSize()){
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
+                    else if(minSpec.getCpu().contains("i7-"+i) || minSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
+                        if(i==2){
+                            mostSimilar = "Intel Core i7-2600S @ 2.80GHz";break;
+                        }
+                        else if(i==3){
+                            mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";break;
+                        }
+                        else if(i==4){
+                            mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";break;
+                        }
+                        else if(i==5){
+                            mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";break;
+                        }
+                        else if(i==6){
+                            mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";break;
+                        }
+                        else if(i==7){
+                            mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";break;
+                        }
+                        else if(i==8){
+                            mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";break;
+                        }
+                        else if(i==9){
+                            mostSimilar = "Intel Core i7-970 @ 3.20GHz";break;
+                        }
+                        else if(i==10){
+                            mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";break;
+                        }
+                        else if(i==11){
+                            mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";break;
+                        }
+                        else if(i==12){
+                            mostSimilar = "Intel Core i7-1265UE";break;
+                        }
+                        else{
+                            mostSimilar = "Intel Core i7-1365U";break;
+                        }
                     }
-                    else{
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
+                    else if(minSpec.getCpu().contains("core2") || minSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
+                        mostSimilar = "Intel Core i3-7300 @ 4.00GHz";break;
+                    }
+                }
+
+                //최소사양의 cpuRank get
+                int minCpuRank = cpuListRepository.findByCpuName(mostSimilar).getCpuRank();
+
+                // mincpu와 Cpulist cpu 비교 result = mostsimilar
+                for(GpuList gpu : gpuLists){
+                    if(minSpec.getGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
+                            contains(minSpec.getGpu().toLowerCase())){
+                        matchingGpu.add(gpu.getGpuName());
                     }
 
                 }
-
-                else{
-                    // mincpu와 Cpulist cpu 비교 result = mostsimilar
-                    for(CpuList cpu : cpuLists){
-                        if(minSpec.getMinCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
-                                contains(minSpec.getMinCpu())){
-                            matchingCpu.add(cpu.getCpuName());
-                        }
-                    }
-                    if(matchingCpu.size()==0){
-                        //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
-                        matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
-                    }
-
-                    String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
-
-                    String mostSimilar = "";
-                    int maxSimilarity = 100;
-
-                    for (String findCpuArray : cpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(minSpec.getMinCpu(), findCpuArray);
-                        if (similarity < maxSimilarity) {
-                            //System.out.println("findCpuArray: "+ findCpuArray);
-                            maxSimilarity = similarity;
-                            mostSimilar = findCpuArray;
-
-                        }
-                    }
-
-                    //sorting이 너무 잘못된 경우
-                    for(int i=2; i<=13; i++){
-                        if(minSpec.getMinCpu().contains("i3-"+i) || minSpec.getMinCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
-                            if(i<=7){
-                                mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i3-1215UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i3-1315U";
-                            }
-
-                        }
-                        else if(minSpec.getMinCpu().contains("i5-"+i) || minSpec.getMinCpu().contains("i5 "+i)&& !mostSimilar.contains("i5-"+i)){
-                            if(i<=3){
-                                mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
-                            }
-                            else if(i==4){
-                                mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
-                            }
-                            else if(i==5){
-                                mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
-                            }
-                            else if(i==6){
-                                mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
-                            }
-                            else if(i==7){
-                                mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i5-1245UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i5-1335U";
-                            }
-                        }
-                        else if(minSpec.getMinCpu().contains("i7-"+i) || minSpec.getMinCpu().contains("i7 "+i)&& !mostSimilar.contains("i7-"+i)){
-                            if(i==2){
-                                mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
-                            }
-                            else if(i==3){
-                                mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
-                            }
-                            else if(i==4){
-                                mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
-                            }
-                            else if(i==5){
-                                mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
-                            }
-                            else if(i==6){
-                                mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
-                            }
-                            else if(i==7){
-                                mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
-                            }
-                            else if(i==8){
-                                mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
-                            }
-                            else if(i==9){
-                                mostSimilar = "Intel Core i7-970 @ 3.20GHz";
-                            }
-                            else if(i==10){
-                                mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
-                            }
-                            else if(i==11){
-                                mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
-                            }
-                            else if(i==12){
-                                mostSimilar = "Intel Core i7-1265UE";
-                            }
-                            else{
-                                mostSimilar = "Intel Core i7-1365U";
-                            }
-                        }
-                        else if(minSpec.getMinCpu().contains("core2") || minSpec.getMinCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
-                        }
-                    }
-
-                    //최소사양의 cpuRank get
-                    int minCpuRank = cpuListRepository.findByCpuName(mostSimilar).getCpuRank();
-
-                    // mincpu와 Cpulist cpu 비교 result = mostsimilar
-                    for(GpuList gpu : gpuLists){
-                        if(minSpec.getMinGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
-                                contains(minSpec.getMinGpu().toLowerCase())){
-                            matchingGpu.add(gpu.getGpuName());
-                        }
-                    }
-                    if(matchingGpu.size()==0){
-                        //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
-                        matchingGpu.add(gpuListRepository.findByGpuRank(gpuLists.size()).getGpuName());
-                    }
+                if(matchingGpu.size()==0){
+                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
+                    matchingGpu.add(gpuListRepository.findByGpuRank(gpuLists.size()).getGpuName());
+                }
 
 
-                    String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
+                String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
 
-                    String mostSimilar2 = "";
-                    int maxSimilarity2 = 100;
+                String mostSimilar2 = "";
+                int maxSimilarity2 = 100;
 
-                    for (String findGpuArray : gpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(minSpec.getMinGpu(), findGpuArray);
-                        if (similarity < maxSimilarity2) {
+                for (String findGpuArray : gpuArray) {
+                    int similarity = StringUtils.getLevenshteinDistance(minSpec.getGpu(), findGpuArray);
+                    if (similarity < maxSimilarity2) {
 //                        System.out.println("findGpuArray: "+ findGpuArray);
-                            maxSimilarity2 = similarity;
-                            mostSimilar2 = findGpuArray;
+                        maxSimilarity2 = similarity;
+                        mostSimilar2 = findGpuArray;
 
-                        }
                     }
+                }
 
-                    //최소사양의 gpuRank get
-                    int minGpuRank = gpuListRepository.findByGpuName(mostSimilar2).getGpuRank();
+                //최소사양의 gpuRank get
+                int minGpuRank = gpuListRepository.findByGpuName(mostSimilar2).getGpuRank();
 
-                    if(userCpuRank<=minCpuRank && userGpuRank<=minGpuRank && userRamSize>=minSpec.getMinRamSize()){
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 1));
-                    }
-                    else{
-                        gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 0));
-                    }
+                System.out.println("gameName : " + minSpec.getGameName());
+                System.out.println("cpuName : " + minSpec.getCpu());
+                System.out.println("similarCpu : " + cpuListRepository.findByCpuName(mostSimilar).getCpuName());
+                System.out.println("cpuRank : " + userCpuRank);
+                System.out.println("similarCpuRank : " + minCpuRank);
 
+                System.out.println("ramSize : " + userRamSize);
+                System.out.println("similarRamSize : " + minSpec.getRamSize());
+                System.out.println("gpuName : " + minSpec.getGpu());
+                System.out.println("similarGpu : " + gpuListRepository.findByGpuName(mostSimilar2).getGpuName());
+                System.out.println("gpuRank : " + userGpuRank);
+                System.out.println("similarGpuRank : " + minGpuRank);
+
+                if(userCpuRank<=minCpuRank && userGpuRank<=minGpuRank && userRamSize>=minSpec.getRamSize()){
+                    minState = 1;
+                    System.out.println("state : " + 1);
                 }
 
             }
@@ -620,13 +567,11 @@ public class GameListService {
         }
 
         // userInfo가 없을 경우
-        else{
-            for(getGameMinSpec minSpec : minSpecs){
-                gameUserCompares.add(new gameUserCompare(minSpec.getGameName(), 2));
-            }
+        else {
+            minState = 2;
         }
 
-        return gameUserCompares;
+        return minState;
 
     }
 
@@ -637,8 +582,9 @@ public class GameListService {
         List<GpuList> gpuLists = gpuListRepository.findAll();
 
         //gamelist에서 추출한 <gamename, mincpu> list
-        List<getGameRecSpec> recSpecs = FindGameSpec2();
+        List<getGameSpec> recSpecs = findRecGameSpec();
         //
+
         List<String> matchingCpu = new ArrayList<>();
         List<String> matchingGpu = new ArrayList<>();
 
@@ -647,19 +593,19 @@ public class GameListService {
             //userinfo 에 있는 cpu rank ramSize 반환
             int userCpuRank = compareService.getMatchingCpu().getCpuRank();
             int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
+            int userRamSize = compareService.getMatchingRam().getRamSize();
 
-            for(getGameRecSpec recSpec : recSpecs){
+            for(getGameSpec recSpec : recSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
-                if(recSpec.getRecCpu().equals("") && recSpec.getRecGpu().equals("")){
-                    gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1));
+                if(recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
+                    gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                 }
                 // list에 mingpu가 없을경우
-                else if(!recSpec.getRecCpu().equals("") && recSpec.getRecGpu().equals("")){
+                else if(!recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
                     // mincpu와 Cpulist cpu 비교 result = mostsimilar
                     for(CpuList cpu : cpuLists){
-                        if(recSpec.getRecCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
-                                contains(recSpec.getRecCpu())){
+                        if(recSpec.getCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
+                                contains(recSpec.getCpu())){
                             matchingCpu.add(cpu.getCpuName());
                         }
                     }
@@ -675,7 +621,7 @@ public class GameListService {
                     int maxSimilarity = 100;
 
                     for (String findCpuArray : cpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getRecCpu(), findCpuArray);
+                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getCpu(), findCpuArray);
                         if (similarity < maxSimilarity) {
                             //System.out.println("findCpuArray: "+ findCpuArray);
                             maxSimilarity = similarity;
@@ -686,105 +632,105 @@ public class GameListService {
 
                     //sorting이 너무 잘못된 경우
                     for(int i=2; i<=13; i++){
-                        if(recSpec.getRecCpu().contains("i3-"+i) || recSpec.getRecCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
+                        if(recSpec.getCpu().contains("i3-"+i) || recSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                             if(i<=7){
-                                mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
+                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
+                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
+                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
+                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i3-1215UE";
+                                mostSimilar = "Intel Core i3-12300";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i3-1315U";
+                                mostSimilar = "Intel Core i3-13100F";break;
                             }
 
                         }
-                        else if(recSpec.getRecCpu().contains("i5-"+i) || recSpec.getRecCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
+                        else if(recSpec.getCpu().contains("i5-"+i) || recSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                             if(i<=3){
-                                mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
+                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
+                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
+                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
+                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
+                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
+                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
+                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
+                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
+                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i5-1245UE";
+                                mostSimilar = "Intel Core i5-12400";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i5-1335U";
+                                mostSimilar = "Intel Core i5-13500H";break;
                             }
                         }
-                        else if(recSpec.getRecCpu().contains("i7-"+i) || recSpec.getRecCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
+                        else if(recSpec.getCpu().contains("i7-"+i) || recSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                             if(i==2){
-                                mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
+                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";break;
                             }
                             else if(i==3){
-                                mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
+                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
+                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
+                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
+                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
+                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
+                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i7-970 @ 3.20GHz";
+                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
+                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
+                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i7-1265UE";
+                                mostSimilar = "Intel Core i7-1270P";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i7-1365U";
+                                mostSimilar = "Intel Core i7-13800H";break;
                             }
                         }
-                        else if(recSpec.getRecCpu().contains("core2") || recSpec.getRecCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                        else if(recSpec.getCpu().contains("core2") || recSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
+                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                         }
                     }
 
@@ -792,21 +738,22 @@ public class GameListService {
                     int recCpuRank = cpuListRepository.findByCpuName(mostSimilar).getCpuRank();
 
                     //비교
-                    if(userCpuRank<=recCpuRank && userRamSize>=recSpec.getRecRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1));
+                    if(userCpuRank<=recCpuRank && userRamSize>=recSpec.getRamSize()){
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
+                                CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
                 }
 
-                else if(recSpec.getRecCpu().equals("")){
+                else if(recSpec.getCpu().equals("")){
 
                     // mincpu와 Cpulist cpu 비교 result = mostsimilar
                     for(GpuList gpu : gpuLists){
-                        if(recSpec.getRecGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
-                                contains(recSpec.getRecGpu().toLowerCase())){
+                        if(recSpec.getGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
+                                contains(recSpec.getGpu().toLowerCase())){
                             matchingGpu.add(gpu.getGpuName());
                         }
                     }
@@ -821,7 +768,7 @@ public class GameListService {
                     int maxSimilarity = 100;
 
                     for (String findGpuArray : gpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getRecGpu(), findGpuArray);
+                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getGpu(), findGpuArray);
                         if (similarity < maxSimilarity) {
 //                        System.out.println("findGpuArray: "+ findGpuArray);
                             maxSimilarity = similarity;
@@ -834,11 +781,12 @@ public class GameListService {
                     int recGpuRank = gpuListRepository.findByGpuName(mostSimilar).getGpuRank();
 
                     //비교
-                    if(userGpuRank<=recGpuRank && userRamSize>=recSpec.getRecRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1));
+                    if(userGpuRank<=recGpuRank && userRamSize>=recSpec.getRamSize()){
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
+                                CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
                 }
@@ -846,8 +794,8 @@ public class GameListService {
                 else{
                     // mincpu와 Cpulist cpu 비교 result = mostsimilar
                     for(CpuList cpu : cpuLists){
-                        if(recSpec.getRecCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
-                                contains(recSpec.getRecCpu())){
+                        if(recSpec.getCpu().toLowerCase().contains(cpu.getCpuName()) || cpu.getCpuName().toLowerCase().
+                                contains(recSpec.getCpu())){
                             matchingCpu.add(cpu.getCpuName());
                         }
                     }
@@ -862,7 +810,7 @@ public class GameListService {
                     int maxSimilarity = 100;
 
                     for (String findCpuArray : cpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getRecCpu(), findCpuArray);
+                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getCpu(), findCpuArray);
                         if (similarity < maxSimilarity) {
                             //System.out.println("findCpuArray: "+ findCpuArray);
                             maxSimilarity = similarity;
@@ -873,105 +821,105 @@ public class GameListService {
 
                     //sorting이 너무 잘못된 경우
                     for(int i=2; i<=13; i++){
-                        if(recSpec.getRecCpu().contains("i3-"+i) || recSpec.getRecCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
+                        if(recSpec.getCpu().contains("i3-"+i) || recSpec.getCpu().contains("i3 "+i) && !mostSimilar.contains("i3-"+i)){
                             if(i<=7){
-                                mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                                mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i3-8100T @ 3.10GHz";
+                                mostSimilar = "Intel Core i3-8350K @ 4.00GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i3-9100T @ 3.10GHz";
+                                mostSimilar = "Intel Core i3-9350K @ 4.00GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i3-1005G1 @ 1.20GHz";
+                                mostSimilar = "Intel Core i3-10325 @ 3.90GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i3-1115G4E @ 3.00GHz";
+                                mostSimilar = "Intel Core i3-11100B @ 3.60GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i3-1215UE";
+                                mostSimilar = "Intel Core i3-12300";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i3-1315U";
+                                mostSimilar = "Intel Core i3-13100F";break;
                             }
 
                         }
-                        else if(recSpec.getRecCpu().contains("i5-"+i) || recSpec.getRecCpu().contains("i5 "+i)&& !mostSimilar.contains("i5-"+i)){
+                        else if(recSpec.getCpu().contains("i5-"+i) || recSpec.getCpu().contains("i5 "+i) && !mostSimilar.contains("i5-"+i)){
                             if(i<=3){
-                                mostSimilar = "Intel Core i5-3570S @ 3.10GHz";
+                                mostSimilar = "Intel Core i5-3170K @ 3.20GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i5-4460S @ 2.90GHz";
+                                mostSimilar = "Intel Core i5-4690K @ 3.50GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i5-5575R @ 2.80GHz";
+                                mostSimilar = "Intel Core i5-5675C @ 3.10GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i5-6442EQ @ 1.90GHz";
+                                mostSimilar = "Intel Core i5-6600K @ 3.50GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i5-7400T @ 2.40GHz";
+                                mostSimilar = "Intel Core i5-7600K @ 3.80GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i5-8365UE @ 1.60GHz";
+                                mostSimilar = "Intel Core i5-8600K @ 3.60GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i5-9300HF @ 2.40GHz";
+                                mostSimilar = "Intel Core i5-9600KF @ 3.70GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i5-10210Y @ 1.00GHz";
+                                mostSimilar = "Intel Core i5-10600K @ 4.10GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i5-1130G7 @ 1.10GHz";
+                                mostSimilar = "Intel Core i5-11500H @ 2.90GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i5-1245UE";
+                                mostSimilar = "Intel Core i5-12400";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i5-1335U";
+                                mostSimilar = "Intel Core i5-13500H";break;
                             }
                         }
-                        else if(recSpec.getRecCpu().contains("i7-"+i) || recSpec.getRecCpu().contains("i7 "+i)&& !mostSimilar.contains("i7-"+i)){
+                        else if(recSpec.getCpu().contains("i7-"+i) || recSpec.getCpu().contains("i7 "+i) && !mostSimilar.contains("i7-"+i)){
                             if(i==2){
-                                mostSimilar = "Intel Core i7-2600S @ 2.80GHz";
+                                mostSimilar = "Intel Core i7-2700K @ 3.50GHz";break;
                             }
                             else if(i==3){
-                                mostSimilar = "Intel Core i7-3612QM @ 2.10GHz";
+                                mostSimilar = "Intel Core i7-3960X @ 3.30GHz";break;
                             }
                             else if(i==4){
-                                mostSimilar = "Intel Core i7-4770TE @ 2.30GHz";
+                                mostSimilar = "Intel Core i7-4960X @ 3.60GHz";break;
                             }
                             else if(i==5){
-                                mostSimilar = "Intel Core i7-5700EQ @ 2.60GHz";
+                                mostSimilar = "Intel Core i7-5960X @ 3.00GHz";break;
                             }
                             else if(i==6){
-                                mostSimilar = "Intel Core i7-6822EQ @ 2.00GHz";
+                                mostSimilar = "Intel Core i7-6900K @ 3.20GHz";break;
                             }
                             else if(i==7){
-                                mostSimilar = "Intel Core i7-7700HQ @ 2.80GHz";
+                                mostSimilar = "Intel Core i7-7800X @ 3.50GHz";break;
                             }
                             else if(i==8){
-                                mostSimilar = "Intel Core i7-8665UE @ 1.70GHz";
+                                mostSimilar = "Intel Core i7-8700T @ 2.40GHz";break;
                             }
                             else if(i==9){
-                                mostSimilar = "Intel Core i7-970 @ 3.20GHz";
+                                mostSimilar = "Intel Core i7-9700E @ 2.60GHz";break;
                             }
                             else if(i==10){
-                                mostSimilar = "Intel Core i7-10510Y @ 1.20GHz";
+                                mostSimilar = "Intel Core i7-10700T @ 2.00GHz";break;
                             }
                             else if(i==11){
-                                mostSimilar = "Intel Core i7-1180G7 @ 1.30GHz";
+                                mostSimilar = "Intel Core i7-11700T @ 1.40GHz";break;
                             }
                             else if(i==12){
-                                mostSimilar = "Intel Core i7-1265UE";
+                                mostSimilar = "Intel Core i7-1270P";break;
                             }
                             else{
-                                mostSimilar = "Intel Core i7-1365U";
+                                mostSimilar = "Intel Core i7-13800H";break;
                             }
                         }
-                        else if(recSpec.getRecCpu().contains("core2") || recSpec.getRecCpu().contains("core 2") && !mostSimilar.contains("core2")){
-                            mostSimilar = "Intel Core i3-7300 @ 4.00GHz";
+                        else if(recSpec.getCpu().contains("core2") || recSpec.getCpu().contains("core 2") && !mostSimilar.contains("core2")){
+                            mostSimilar = "Intel Core i3-7350K @ 4.20GHz";break;
                         }
                     }
 
@@ -980,8 +928,8 @@ public class GameListService {
 
                     // mincpu와 Cpulist cpu 비교 result = mostsimilar
                     for(GpuList gpu : gpuLists){
-                        if(recSpec.getRecGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
-                                contains(recSpec.getRecGpu().toLowerCase())){
+                        if(recSpec.getGpu().toLowerCase().contains(gpu.getGpuName().toLowerCase()) || gpu.getGpuName().toLowerCase().
+                                contains(recSpec.getGpu().toLowerCase())){
                             matchingGpu.add(gpu.getGpuName());
                         }
                     }
@@ -997,7 +945,7 @@ public class GameListService {
                     int maxSimilarity2 = 100;
 
                     for (String findGpuArray : gpuArray) {
-                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getRecGpu(), findGpuArray);
+                        int similarity = StringUtils.getLevenshteinDistance(recSpec.getGpu(), findGpuArray);
                         if (similarity < maxSimilarity2) {
 //                        System.out.println("findGpuArray: "+ findGpuArray);
                             maxSimilarity2 = similarity;
@@ -1009,11 +957,12 @@ public class GameListService {
                     //최소사양의 gpuRank get
                     int minGpuRank = gpuListRepository.findByGpuName(mostSimilar2).getGpuRank();
 
-                    if(userCpuRank<=recCpuRank && userGpuRank<=minGpuRank && userRamSize>=recSpec.getRecRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1));
+                    if(userCpuRank<=recCpuRank && userGpuRank<=minGpuRank && userRamSize>=recSpec.getRamSize()){
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
+                                CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
                 }
@@ -1024,13 +973,13 @@ public class GameListService {
 
         // userInfo가 없을 경우
         else{
-            for(getGameRecSpec recSpec : recSpecs){
-                gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 2));
+            for(getGameSpec recSpec : recSpecs){
+                gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 2, 2));
             }
         }
 
         return gameUserCompares;
 
     }
-
 }
+
