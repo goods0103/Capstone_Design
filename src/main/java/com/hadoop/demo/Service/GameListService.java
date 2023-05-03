@@ -41,6 +41,7 @@ public class GameListService {
     @ToString
     public static class gameUserCompare{
         private String gameName;
+        private String gameImg;
         private int recState;
         private int minState;
 
@@ -52,70 +53,71 @@ public class GameListService {
     @AllArgsConstructor
     public static class getGameSpec{
         private String gameName;
+        private String gameImg;
         private String cpu;
         private String gpu;
         private int ramSize;
 
     }
 
-    public getGameSpec sortGameList(String gameName, String cpu1, String cpu2, String gpu1, String gpu2, int ramSize){
+    public getGameSpec sortGameList(String gameName, String gameImg, String cpu1, String cpu2, String gpu1, String gpu2, int ramSize){
 
         getGameSpec getGameSpec;
         
         if(cpu1!=null && cpu2!=null){
             if(gpu1!=null && gpu2!=null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
             }
             else if(gpu1 != null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
             }
             else if(gpu2 != null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu2, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu2, ramSize);
             }
             else{
-                getGameSpec = new getGameSpec(gameName, cpu1, "", ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, "", ramSize);
             }
         }
         else if(cpu1 != null){
             if(gpu1!=null && gpu2!=null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
             }
             else if(gpu1 != null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu1, ramSize);
             }
             else if(gpu2 != null){
-                getGameSpec = new getGameSpec(gameName, cpu1, gpu2, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, gpu2, ramSize);
             }
             else{
-                getGameSpec = new getGameSpec(gameName, cpu1, "", ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu1, "", ramSize);
             }
         }
         else if(cpu2 != null){
             if(gpu1!=null && gpu2!=null){
-                getGameSpec = new getGameSpec(gameName, cpu2, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu1, ramSize);
             }
             else if(gpu1 != null){
-                getGameSpec = new getGameSpec(gameName, cpu2, gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu1, ramSize);
             }
             else if(gpu2 != null){
-                getGameSpec = new getGameSpec(gameName, cpu2, gpu2, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, gpu2, ramSize);
             }
             else{
-                getGameSpec = new getGameSpec(gameName, cpu2, "", ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, cpu2, "", ramSize);
             }
         }
         else{
             if(gpu1!=null && gpu2!=null){
-                getGameSpec = new getGameSpec(gameName, "", gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu1, ramSize);
             }
             else if(gpu1 != null){
-                getGameSpec = new getGameSpec(gameName, "", gpu1, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu1, ramSize);
             }
             else if(gpu2 != null){
-                getGameSpec = new getGameSpec(gameName, "", gpu2, ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, "", gpu2, ramSize);
             }
             else{
-                getGameSpec = new getGameSpec(gameName, "", "", ramSize);
+                getGameSpec = new getGameSpec(gameName, gameImg, "", "", ramSize);
             }
         }
 
@@ -131,15 +133,16 @@ public class GameListService {
         String minCpu2 = gameList.getMinimumGameCpu2();
         String minGpu1 = gameList.getMinimumGameGpu1();
         String minGpu2 = gameList.getMinimumGameGpu2();
+        String gameImg = gameList.getGameImg();
         int minRamSize = gameList.getMinimumGameRam();
         
-        return sortGameList(gameName, minCpu1, minCpu2, minGpu1, minGpu2, minRamSize);
+        return sortGameList(gameName, gameImg, minCpu1, minCpu2, minGpu1, minGpu2, minRamSize);
     }
 
     //gamelist rec cpu,gpu, rmaSize 이름을 list에 담아 반환
     public List<getGameSpec> findRecGameSpec(){
 
-        List<GameList> gameList = gameListRepository.findAll().subList(0, 50);
+        List<GameList> gameList = gameListRepository.findAll();//.subList(0, 50);
         List<getGameSpec> gameSpecs = new ArrayList<>();
 
         for(GameList list : gameList){
@@ -148,8 +151,9 @@ public class GameListService {
             String recCpu2 = list.getRecommendedGameCpu2();
             String recGpu1 = list.getRecommendedGameGpu1();
             String recGpu2 = list.getRecommendedGameGpu2();
+            String gameImg = list.getGameImg();
             int recRamSize = list.getRecommendedGameRam();
-            gameSpecs.add(sortGameList(gameName, recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
+            gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
         }
         return gameSpecs;
     }
@@ -186,6 +190,11 @@ public class GameListService {
                     }
                 }
 
+                if(matchingCpu.size()==0){
+                    //gamelist에서 추출한 mincpu와 cpulist에서 추출한 cpu중에 유사한것이 없을경우 rank가 가장 낮은 cpu add
+                    matchingCpu.add(cpuListRepository.findByCpuRank(cpuLists.size()).getCpuName());
+                }
+
                 String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
 
                 String mostSimilar = "";
@@ -200,6 +209,8 @@ public class GameListService {
 
                     }
                 }
+
+
 
                 //sorting이 너무 잘못된 경우
                 for(int i=2; i<=13; i++){
@@ -587,7 +598,7 @@ public class GameListService {
             for(getGameSpec recSpec : recSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
                 if(recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
-                    gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1, 1));
+                    gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                 }
                 // list에 mingpu가 없을경우
                 else if(!recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
@@ -728,10 +739,10 @@ public class GameListService {
 
                     //비교
                     if(userCpuRank<=recCpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1, 1));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0,
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
                                 CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
@@ -771,10 +782,10 @@ public class GameListService {
 
                     //비교
                     if(userGpuRank<=recGpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1, 1));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0,
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
                                 CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
@@ -947,10 +958,10 @@ public class GameListService {
                     int minGpuRank = gpuListRepository.findByGpuName(mostSimilar2).getGpuRank();
 
                     if(userCpuRank<=recCpuRank && userGpuRank<=minGpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 1, 1));
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 0,
+                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
                                 CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
@@ -963,7 +974,7 @@ public class GameListService {
         // userInfo가 없을 경우
         else{
             for(getGameSpec recSpec : recSpecs){
-                gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), 2, 2));
+                gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 2, 2));
             }
         }
 
