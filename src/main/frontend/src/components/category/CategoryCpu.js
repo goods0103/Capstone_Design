@@ -131,7 +131,6 @@ function CategoryCpu() {
               <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
               <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
           </div>
-          <p>{data2}</p>
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
               <label>원하는 Cpu를 입력하세요 : </label>
@@ -185,6 +184,8 @@ function CategoryCpu() {
                   </tr>
               </table>
           }
+      </div>
+        <div className={styles.page}>
           {flag &&
               <ReactPaginate
                   previousLabel={"이전"}
