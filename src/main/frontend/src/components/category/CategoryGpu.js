@@ -3,14 +3,24 @@ import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
+import Select from "react-select";
+import {Link} from "react-router-dom";
 
 // [Mod] for check
 function CategoryGpu() {
     const [gpuList, setGpuList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("GeForce RTX 3070");
+    const [gpuOption, setGpuOption] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(100);
+
+    const [selectedGpu, setSelectedGpu] = useState({
+        value : localStorage.getItem('gpuData'),
+        label : localStorage.getItem('gpuData')
+    });
+    const [flag, setFlag] = useState(true);
+    const [gpu, setGpu] = useState({});
 
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
@@ -34,6 +44,20 @@ function CategoryGpu() {
         };
 
         fetchData();
+    }, []);
+
+    useEffect(() => { // Select 에서 사용할 gpu label, value 값들
+        axios.get('/category/gpu_name')
+            .then(response => {
+                const gpus = response.data.map(gpus => ({
+                    value: gpus,
+                    label: gpus
+                }));
+                setGpuOption(gpus);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
     const convertPrice = (price) => {
@@ -80,6 +104,27 @@ function CategoryGpu() {
         }
     };
 
+    function handleGpuChange(selectedGpu) {
+        setSelectedGpu(selectedGpu);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const searchGpu = (gpu) => {
+        setFlag(false);
+        {gpuList.map((list) => {
+            if(list.gpuName === gpu.value){
+                setGpu(list);
+            }
+        })
+        }
+    }
+
+    const showTotalList = () => {
+        setFlag(true);
+    }
+
     return (
         <>
             <CategoryBar></CategoryBar>
@@ -94,26 +139,63 @@ function CategoryGpu() {
 
                 </div>
                 <p>{data2}</p>
-                <table className={styles.cssTable}>
-                    <tr>
-                        <th className={styles.cssTh}>image</th>
-                        <th className={styles.cssTh}>name</th>
-                        <th className={styles.cssTh}>mark</th>
-                        <th className={styles.cssTh}>rank</th>
-                        <th className={styles.cssTh}>value</th>
-                        <th className={styles.cssTh}>price</th>
-                    </tr>
-                    {slicedData.map((gpu) => (
+                <form onSubmit={handleSubmit} className={styles.formTag}>
+                    <label>원하는 Gpu를 입력하세요 : </label>
+                    <Select
+                        value={selectedGpu}
+                        onChange={handleGpuChange}
+                        options={gpuOption}
+                        placeholder="Choose an option"
+                        isSearchable={true}
+                        className={styles.selectTag}
+                    />
+                    <label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>
+                    <input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />
+                    <button onClick={() => searchGpu(selectedGpu)}>Gpu 검색</button> &emsp;
+                    <button onClick={() => showTotalList()}>전체 리스트 보기</button>
+                    <br/>
+                </form>
+                {flag ? (
+                    <table className={styles.cssTable}>
+                        <tr>
+                            <th className={styles.cssTh}>image</th>
+                            <th className={styles.cssTh}>name</th>
+                            <th className={styles.cssTh}>mark</th>
+                            <th className={styles.cssTh}>rank</th>
+                            <th className={styles.cssTh}>value</th>
+                            <th className={styles.cssTh}>price</th>
+                        </tr>
+                        {slicedData.map((gpu) => (
+                            <tr>
+                                <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                <td className={styles.cssTd}><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                <td className={styles.cssTd}>{gpu.gpuMark}</td>
+                                <td className={styles.cssTd}>{gpu.gpuRank}</td>
+                                <td className={styles.cssTd}>{gpu.gpuValue}</td>
+                                <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}원</td>
+                            </tr>
+                        ))}
+                    </table> ) :
+                    <table className={styles.cssTable}>
+                        <tr>
+                            <th className={styles.cssTh}>image</th>
+                            <th className={styles.cssTh}>name</th>
+                            <th className={styles.cssTh}>mark</th>
+                            <th className={styles.cssTh}>rank</th>
+                            <th className={styles.cssTh}>value</th>
+                            <th className={styles.cssTh}>price</th>
+                        </tr>
                         <tr>
                             <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}>{gpu.gpuName}</td>
+                            <td className={styles.cssTd}><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
                             <td className={styles.cssTd}>{gpu.gpuMark}</td>
                             <td className={styles.cssTd}>{gpu.gpuRank}</td>
                             <td className={styles.cssTd}>{gpu.gpuValue}</td>
                             <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}원</td>
                         </tr>
-                    ))}
-                </table>
+                    </table>
+                }
+                {flag &&
                 <ReactPaginate
                     previousLabel={"이전"}
                     nextLabel={"다음"}
@@ -121,7 +203,7 @@ function CategoryGpu() {
                     onPageChange={handlePageClick}
                     containerClassName={"pagination"}
                     activeClassName={"active"}
-                />
+                /> }
             </div>
         </>
     );
