@@ -34,6 +34,10 @@ public class GameListService {
 
     public List<GameList> findAll() { return gameListRepository.findAll();}
 
+    public GameList findByName(String name) {
+        return gameListRepository.findByGameName(name);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

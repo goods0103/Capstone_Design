@@ -47,6 +47,8 @@ public class DetailController {
     private GpuDetailsService gpuDetailsService;
 
     @Autowired
+    private GameListService gameListService;
+    @Autowired
     private GameListOriginService gameListOriginService;
 
     // id를 보내 한개의 cpu gpu detail 부분 요청 시
@@ -90,14 +92,16 @@ public class DetailController {
 
     @PostMapping("/find_gpu_detail_name")
     public GpuDetails findGpuName(@RequestBody String name) throws IOException {
-        name = name.replace("+"," ").replace("=","");
-        return gpuDetailsService.findByName(name);
+        name = name.replace("=","");
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        return gpuDetailsService.findByName(decodedString);
     }
 
     @PostMapping("/find_gpu_name")
     public GpuList findGpuName2(@RequestBody String name) throws IOException {
-        name = name.replace("+"," ").replace("=","");
-        return gpuListService.findByName(name);
+        name = name.replace("=","");
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        return gpuListService.findByName(decodedString);
     }
 
     // id를 보내 한개의 cpu gpu list 부분 요청 시
@@ -125,8 +129,16 @@ public class DetailController {
     // game 한개 선택 시 그 게임 이름 or id로 game origin 내용 보내기
     @PostMapping("/category/game1/detail")
     public GameListOrigin getSelectGameDetail(@RequestBody String game) {
-        game = game.replace("+", " ");
         game = game.replace("=", "");
-        return gameListOriginService.findByName(game);
+        String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8);
+        return gameListOriginService.findByName(decodedString);
+    }
+
+    // game 한개 선택 시 게임 정보 보내기
+    @PostMapping("/category/game1/detail2")
+    public GameList getSelectGameDetail2(@RequestBody String game) {
+        game = game.replace("=", "");
+        String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8);
+        return gameListService.findByName(decodedString);
     }
 }
