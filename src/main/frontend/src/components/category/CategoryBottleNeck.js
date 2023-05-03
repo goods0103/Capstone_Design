@@ -46,6 +46,7 @@ function CategoryBottleNeck() {
 
     return (
         <>
+            <CategoryBar></CategoryBar>
             <form onSubmit={handleSubmit} className={styles.formTag}>
                 <label>원하는 Cpu를 입력하세요 : </label>
                 <Select

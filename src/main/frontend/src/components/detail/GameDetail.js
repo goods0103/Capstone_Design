@@ -13,7 +13,7 @@ function GameDetail() {
 
 
     useEffect(() => {
-        axios.post("/category/game1/detail", { lastPart })
+        axios.post("/category/game1/detail",  lastPart )
             .then(response => {
                 setGameInfo(response.data);
             })

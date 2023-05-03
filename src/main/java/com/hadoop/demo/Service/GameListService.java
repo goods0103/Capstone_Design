@@ -46,6 +46,22 @@ public class GameListService {
 //        private int minState;
 //
 //    }
+    public GameList findByName(String name) {
+        return gameListRepository.findByGameName(name);
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @ToString
+    public static class gameUserCompare{
+        private String gameName;
+        private String gameImg;
+        private int recState;
+        private int minState;
+
+    }
 
     @Getter
     @Setter
