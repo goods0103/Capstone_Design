@@ -3,13 +3,22 @@ import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
+import Select from "react-select";
 
 
 function CategoryRam() {
     const [ramList, setRamList] = useState([]);
-
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(200);
+    const [selectedRam, setSelectedRam] = useState({
+        value : "",
+        label : ""
+    });
+
+    const [RamOption, setRamOption] = useState([]); // cpu 에 대한 배열
+
+    const [flag, setFlag] = useState(true);
+    const [ram, setRam] = useState({});
 
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
@@ -25,6 +34,11 @@ function CategoryRam() {
             try {
                 const response = await axios.get('/category/ram1');
                 setRamList(response.data);
+                const rams = response.data.map(rams => ({
+                    value: rams.ramName,
+                    label: rams.ramName
+                }));
+                setRamOption(rams);
             } catch (error) {
                 console.log(error);
             }
@@ -86,20 +100,56 @@ function CategoryRam() {
             setRamList(newProduct);
         }
     };
+    function handleRamChange(selectedGame) {
+        setSelectedRam(selectedGame);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const searchRam = (ram) => {
+        setFlag(false);
+        {ramList.map((list) => {
+            if(list.ramName === ram.value){
+                setRam(list);
+            }
+        })
+        }
+    }
+    const showTotalList = () => {
+        setFlag(true);
+    }
     return (
         <>
             <CategoryBar></CategoryBar>
+            <div className={styles.filter}>
+                {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
+                <p onClick={() => sortProduct("sizeHigh")}>크기순</p>
+                <p onClick={() => sortProduct("latencyLow")}>지연도순</p>
+                <p onClick={() => sortProduct("readLow")}>읽기 속도순</p>
+                <p onClick={() => sortProduct("writeLow")}>쓰기 속도순</p>
+            </div>
+            <form onSubmit={handleSubmit} className={styles.formTag}>
+                <label>원하는 Ram을 입력하세요 : </label>
+                <Select
+                    value={selectedRam}
+                    onChange={handleRamChange}
+                    options={RamOption}
+                    placeholder="Choose an option"
+                    isSearchable={true}
+                    className={styles.selectTag}
+                />
+                <label htmlFor="ramSelect">Selected Ram : &nbsp;</label>
+                <input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />
+                <button onClick={() => searchRam(selectedRam)}>Ram 검색</button>  &emsp;
+                <button onClick={() => showTotalList()}>전체 리스트 보기</button>
+                <br/>
+            </form>
             <div>
-                <div className={styles.filter}>
-                    {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-                    <p onClick={() => sortProduct("sizeHigh")}>크기순</p>
-                    <p onClick={() => sortProduct("latencyLow")}>지연도순</p>
-                    <p onClick={() => sortProduct("readLow")}>읽기 속도순</p>
-                    <p onClick={() => sortProduct("writeLow")}>쓰기 속도순</p>
-                </div>
+
+                {flag ?  (
                 <table className={styles.cssTable}>
                     <tr>
-                        <th className={styles.cssTh}>image</th>
                         <th className={styles.cssTh}>name</th>
                         <th className={styles.cssTh}>size</th>
                         <th className={styles.cssTh}>latency</th>
@@ -108,7 +158,6 @@ function CategoryRam() {
                     </tr>
                     {slicedData.map((ram) => (
                         <tr>
-                            <td className={styles.cssTd}><img src="" alt="ram_image" className={styles.tableImg}/></td>
                             <td className={styles.cssTd}>{ram.ramName}</td>
                             <td className={styles.cssTd}>{ram.ramSize}</td>
                             <td className={styles.cssTd}>{ram.ramLatency}</td>
@@ -117,6 +166,27 @@ function CategoryRam() {
                         </tr>
                     ))}
                 </table>
+                    ) :
+                    <table className={styles.cssTable}>
+                        <tr>
+                            <th className={styles.cssTh}>name</th>
+                            <th className={styles.cssTh}>size</th>
+                            <th className={styles.cssTh}>latency</th>
+                            <th className={styles.cssTh}>read</th>
+                            <th className={styles.cssTh}>write</th>
+                        </tr>
+                        <tr>
+                            <td className={styles.cssTd}>{ram.ramName}</td>
+                            <td className={styles.cssTd}>{ram.ramSize}</td>
+                            <td className={styles.cssTd}>{ram.ramLatency}</td>
+                            <td className={styles.cssTd}>{ram.ramRead}</td>
+                            <td className={styles.cssTd}>{ram.ramWrite}</td>
+                        </tr>
+                    </table>
+                        }
+            </div>
+            <div className={styles.page}>
+                {flag &&
                 <ReactPaginate
                     previousLabel={"이전"}
                     nextLabel={"다음"}
@@ -125,6 +195,7 @@ function CategoryRam() {
                     containerClassName={"pagination"}
                     activeClassName={"active"}
                 />
+                }
             </div>
         </>
     );
