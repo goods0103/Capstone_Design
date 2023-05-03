@@ -88,6 +88,9 @@ function CategoryGame() {
         })
         }
     }
+    const showTotalList = () => {
+        setFlag(true);
+    }
     return (
         <>
             <CategoryBar></CategoryBar>
@@ -104,7 +107,8 @@ function CategoryGame() {
                     />
                     <label htmlFor="gameSelect">Selected Game : &nbsp;</label>
                     <input name = "gameSelect" className={styles.selectTagShow} value={selectedGame ? selectedGame.label : ''} />
-                    <button onClick={() => searchGame(selectedGame)}>게임 검색</button>
+                    <button onClick={() => searchGame(selectedGame)}>게임 검색</button>  &emsp;
+                    <button onClick={() => showTotalList()}>전체 리스트 보기</button>
                     <br/>
                 </form>
                 {flag ?  (
@@ -140,6 +144,8 @@ function CategoryGame() {
                         </tr>
                     </table>
                 }
+            </div>
+            <div className={styles.page}>
                 {flag &&
                 <ReactPaginate
                     previousLabel={"이전"}

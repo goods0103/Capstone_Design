@@ -116,6 +116,9 @@ function CategoryRam() {
         })
         }
     }
+    const showTotalList = () => {
+        setFlag(true);
+    }
     return (
         <>
             <CategoryBar></CategoryBar>
@@ -138,7 +141,8 @@ function CategoryRam() {
                 />
                 <label htmlFor="ramSelect">Selected Ram : &nbsp;</label>
                 <input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />
-                <button onClick={() => searchRam(selectedRam)}>Ram 검색</button>
+                <button onClick={() => searchRam(selectedRam)}>Ram 검색</button>  &emsp;
+                <button onClick={() => showTotalList()}>전체 리스트 보기</button>
                 <br/>
             </form>
             <div>

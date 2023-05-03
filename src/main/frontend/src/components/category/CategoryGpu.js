@@ -138,7 +138,6 @@ function CategoryGpu() {
                     <p onClick={() => sortProduct("gpuValue")}>가성비순</p>
 
                 </div>
-                <p>{data2}</p>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
                     <label>원하는 Gpu를 입력하세요 : </label>
                     <Select
@@ -195,6 +194,8 @@ function CategoryGpu() {
                         </tr>
                     </table>
                 }
+            </div>
+            <div className={styles.page}>
                 {flag &&
                 <ReactPaginate
                     previousLabel={"이전"}
