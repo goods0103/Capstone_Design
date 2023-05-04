@@ -18,6 +18,8 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "ip_address")
+    private String ipAddress;
     @Column(name = "cpu_info")
     private String cpuInfo;
     @Column(name = "gpu_info")
@@ -37,11 +39,14 @@ public class UserInfo {
     private int ramCount;
 
     @Builder
-    public UserInfo(String cpu, String gpu, String ramManu, String ramPartNum, String ramType, int ramSize, int ramSpeed, int ramCount) {
-        cpuInfo = cpu; gpuInfo = gpu;
-        this.ramManu = ramManu; this.ramPartNum = ramPartNum;
-        this.ramType = ramType; this.ramSize = ramSize;
-        this.ramSpeed = ramSpeed; this.ramCount = ramCount;
+    public UserInfo(String ipAddress, String cpuInfo, String gpuInfo,
+                    String ramManu, String ramPartNum, String ramType,
+                    int ramSize, int ramSpeed, int ramCount) {
+        this.ipAddress = ipAddress;
+        this.cpuInfo = cpuInfo;        this.gpuInfo = gpuInfo;
+        this.ramManu = ramManu;        this.ramPartNum = ramPartNum;
+        this.ramType = ramType;        this.ramSize = ramSize;
+        this.ramSpeed = ramSpeed;        this.ramCount = ramCount;
     }
 
 }
