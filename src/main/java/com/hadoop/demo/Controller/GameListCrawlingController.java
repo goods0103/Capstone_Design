@@ -1,15 +1,27 @@
 package com.hadoop.demo.Controller;
 
+import com.hadoop.demo.Model.GameList;
+import com.hadoop.demo.Model.GameListOrigin;
 import com.hadoop.demo.Service.GameListOriginService;
+import com.hadoop.demo.Service.GameListService;
 import com.hadoop.demo.Service.GameOriginFindExceptionService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin
 @RestController
 public class GameListCrawlingController {
 
+    @Autowired
+    private GameListService gameListService;
     @Autowired
     private GameListOriginService gameListOriginService;
     @Autowired
@@ -43,12 +55,25 @@ public class GameListCrawlingController {
 //        }
 //    }
 //
+//    @GetMapping("/game_insert")
+//    public void setGameListOrigin() throws IOException {
+//        List<GameList> gameLists = gameListService.findAll();
+//
+//        for(GameList gameList : gameLists) {
+//            GameListOrigin gameListOrigin = GameListOrigin.builder()
+//                    .gameId(gameList.getGameId())
+//                    .gameName(gameList.getGameName())
+//                    .build();
+//            gameListOriginService.save(gameListOrigin);
+//        }
+//
+//    }
 //    @GetMapping("game_list")
 //    public void getMinimumGameRequirement() throws IOException {  // 게임의 전체 사양 gpu, cpu, ram 크롤링
 //
 //        List<GameListOrigin> gameLists = gameListOriginService.findAll();
 //        for(GameListOrigin gameList : gameLists) {
-//            if (gameList.getGameOriginId() >= 407) {
+//            if (gameList.getGameOriginId() >= 0) {
 //                String url = "https://store.steampowered.com/app/" + gameList.getGameId() + "/" + gameList.getGameName() + "/";
 //                System.out.println("url " + url);
 //                Document doc = Jsoup.connect(url).get();

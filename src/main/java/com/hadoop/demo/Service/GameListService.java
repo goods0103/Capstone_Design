@@ -34,6 +34,22 @@ public class GameListService {
 
     public List<GameList> findAll() { return gameListRepository.findAll();}
 
+//    @Getter
+//    @Setter
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @ToString
+//    public static class gameUserCompare{
+//        private String gameName;
+//        private String gameImg;
+//        private int recState;
+//        private int minState;
+//
+//    }
+    public GameList findByName(String name) {
+        return gameListRepository.findByGameName(name);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -142,20 +158,21 @@ public class GameListService {
     //gamelist rec cpu,gpu, rmaSize 이름을 list에 담아 반환
     public List<getGameSpec> findRecGameSpec(){
 
-        List<GameList> gameList = gameListRepository.findAll();//.subList(0, 50);
-        List<getGameSpec> gameSpecs = new ArrayList<>();
+            List<GameList> gameList = gameListRepository.findAll();
+            List<getGameSpec> gameSpecs = new ArrayList<>();
 
-        for(GameList list : gameList){
-            String gameName = list.getGameName();
-            String recCpu1 = list.getRecommendedGameCpu1();
-            String recCpu2 = list.getRecommendedGameCpu2();
-            String recGpu1 = list.getRecommendedGameGpu1();
-            String recGpu2 = list.getRecommendedGameGpu2();
-            String gameImg = list.getGameImg();
-            int recRamSize = list.getRecommendedGameRam();
-            gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
-        }
-        return gameSpecs;
+            for(GameList list : gameList){
+                String gameName = list.getGameName();
+                String recCpu1 = list.getRecommendedGameCpu1();
+                String recCpu2 = list.getRecommendedGameCpu2();
+                String recGpu1 = list.getRecommendedGameGpu1();
+                String recGpu2 = list.getRecommendedGameGpu2();
+                String gameImg = list.getGameImg();
+                int recRamSize = list.getRecommendedGameRam();
+                gameSpecs.add(sortGameList(gameName, gameImg,  recCpu1, recCpu2, recGpu1, recGpu2, recRamSize));
+            }
+
+            return gameSpecs;
     }
 
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
@@ -575,9 +592,9 @@ public class GameListService {
 
     }
 
-    public List<gameUserCompare> CompareCpuUserVsGame2(){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+    public List<GameList> CompareCpuUserVsGame2(){  //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
 
-        List<gameUserCompare> gameUserCompares = new ArrayList<>();
+        //List<GameList> gameUserCompares = new ArrayList<>();
         List<CpuList> cpuLists = cpuListRepository.findAll();
         List<GpuList> gpuLists = gpuListRepository.findAll();
 
@@ -598,7 +615,9 @@ public class GameListService {
             for(getGameSpec recSpec : recSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
                 if(recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
-                    gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
+                    gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(1);
+                    gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(1);
+                    //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                 }
                 // list에 mingpu가 없을경우
                 else if(!recSpec.getCpu().equals("") && recSpec.getGpu().equals("")){
@@ -739,11 +758,15 @@ public class GameListService {
 
                     //비교
                     if(userCpuRank<=recCpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(1);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(1);
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
-                                CompareCpuUserVsGame(recSpec.getGameName())));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(1);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(CompareCpuUserVsGame(recSpec.getGameName()));
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
+                        //        CompareCpuUserVsGame(recSpec.getGameName())));
                     }
 
                 }
@@ -782,11 +805,14 @@ public class GameListService {
 
                     //비교
                     if(userGpuRank<=recGpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(1);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(1);
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
-                                CompareCpuUserVsGame(recSpec.getGameName())));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(0);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(CompareCpuUserVsGame(recSpec.getGameName()));
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0);
                     }
 
                 }
@@ -958,11 +984,15 @@ public class GameListService {
                     int minGpuRank = gpuListRepository.findByGpuName(mostSimilar2).getGpuRank();
 
                     if(userCpuRank<=recCpuRank && userGpuRank<=minGpuRank && userRamSize>=recSpec.getRamSize()){
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(1);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(1);
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 1, 1));
                     }
                     else{
-                        gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
-                                CompareCpuUserVsGame(recSpec.getGameName())));
+                        gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(0);
+                        gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(CompareCpuUserVsGame(recSpec.getGameName()));
+                        //gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 0,
+
                     }
 
                 }
@@ -974,11 +1004,13 @@ public class GameListService {
         // userInfo가 없을 경우
         else{
             for(getGameSpec recSpec : recSpecs){
-                gameUserCompares.add(new gameUserCompare(recSpec.getGameName(), recSpec.getGameImg(), 2, 2));
+                gameListRepository.findByGameName(recSpec.getGameName()).setMinimumGameRam(2);
+                gameListRepository.findByGameName(recSpec.getGameName()).setRecommendedGameRam(2);
             }
         }
 
-        return gameUserCompares;
+        List<GameList> gameLists = gameListRepository.findAll();
+        return gameLists;
 
     }
 }

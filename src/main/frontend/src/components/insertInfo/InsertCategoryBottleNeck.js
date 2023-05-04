@@ -6,6 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./category.module.css"
+import CategoryBar from "../category/CategoryBar";
 
 function InsertCategoryBottleNeck() {
     const [bottleNeck, setBottleNeck] = useState([]);
@@ -61,6 +62,7 @@ function InsertCategoryBottleNeck() {
 
     return(
         <>
+            <CategoryBar></CategoryBar>
             <div className={styles.Chart}>
             <div className={styles.barChart}>
                 <p> 프로세서 {bottleNeck.cpuInfo}가 {bottleNeck.cpuBottleNeckValue}% 활용되고 그래픽 카드 {bottleNeck.gpuInfo}가 {bottleNeck.gpuBottleNeckValue}% 활용됩니다. </p>
