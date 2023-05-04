@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class DataController {
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
-        cpu = cpu.replace("+"," ").replace("=","");
+        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         int rank = cpuListService.findByName(cpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
@@ -104,14 +106,13 @@ public class DataController {
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
-        gpu = gpu.replace("+"," ").replace("=","");
+        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         int rank = gpuListService.findByName(gpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-
 
         for(int i = 0; i < 50; i++)
             gpuList.add(gpuListService.findByRank(rank + i));
@@ -123,7 +124,7 @@ public class DataController {
     @PostMapping("/myRamRanking")
     public List<RamList> getMyRamRank(@RequestBody String ram) {
         List<RamList> ramList = new ArrayList<>();
-        ram = ram.replace("+"," ").replace("=","");
+        ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
         int latency = ramListService.findByName(ram).getRamLatency();
 
         for(int i = latency - 1; i <= latency + 1; i++)
@@ -163,7 +164,7 @@ public class DataController {
 
     @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
-        cpu = cpu.replace("+"," ").replace("=","");
+        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -176,7 +177,7 @@ public class DataController {
 
     @PostMapping("/recommendGpu")
     public List<BottleNeck> recommendGpu(@RequestBody String gpu){
-        gpu = gpu.replace("+"," ").replace("=","");
+        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -184,7 +185,6 @@ public class DataController {
             if(value < 5)
                 recBottleNecks.add(bottleNeck1);
         }
-
         return recBottleNecks;
     }
 }
