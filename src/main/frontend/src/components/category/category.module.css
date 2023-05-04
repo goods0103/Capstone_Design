@@ -104,3 +104,9 @@
     background-color: #333;
     color: #fff;
 }
+
+/*------------*/
+
+.pagination .page-link.spaced {
+    margin: 0 5px;
+}
