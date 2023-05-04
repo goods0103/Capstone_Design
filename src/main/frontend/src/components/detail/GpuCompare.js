@@ -61,7 +61,7 @@ function GpuCompare() {
     }
 
     useEffect(() => {
-        axios.post('/find_gpu_id2', { id })
+        axios.post('/find_gpu_id', { id })
             .then(response => {
                 setGpuInfo(response.data);
             })
@@ -71,7 +71,7 @@ function GpuCompare() {
     }, []);
 
     useEffect(() => {
-        axios.post('/find_gpu_details2', { id })
+        axios.post('/find_gpu_details', { id })
             .then(response => {
                 setGpuInfo2(response.data);
             })

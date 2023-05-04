@@ -2,12 +2,11 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +30,13 @@ public class DataController {
     private BottleNeckService bottleNeckService;
     @Autowired
     private PopularListService popularListService;
+    @Autowired
+    private UserInsertInfoService userInsertInfoService;
 
 
     // cpu gpu ram 전체 리스트 요청 시
     @GetMapping("/category/cpu1")
-    public List<CpuList> getAllCpuList(HttpServletRequest request) {
-        String ipAddress = request.getRemoteAddr();
-        System.out.println("Client IP Address: " + ipAddress);
+    public List<CpuList> getAllCpuList() {
         return cpuListService.findAll();
     }
 
@@ -56,31 +55,32 @@ public class DataController {
     public List<String> getAllCpuName() {
         return cpuListService.findAllCpuName();
     }
-
     @GetMapping("/category/ram_name")
     public List<String> getAllRamName() {
         return ramListService.findAllRamName();
     }
-
     @GetMapping("/category/gpu_name")
     public List<String> getAllGpuName() {
         return gpuListService.findAllGpuName();
     }
 
-    // Scoop에 뜬 cpu gpu ram 정보를 기존 리스트와 비교하여 맞는 리스트 보내주기
-    @GetMapping("/mySpecCpu")
-    public CpuList getMyCpu() {
-        return compareService.getMatchingCpu();
-    }
+    // Scoop에 뜬 cpu gpu ram 정보를 기존 리스트와 비교하여 가공한 데이터를 UserInsertInfo 테이블에 넣고 반환
+    @Transactional
+    @GetMapping("/mySpec")
+    public UserInsertInfo getMySpec(HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
+        if(userInsertInfoService.findByIpAddress(ipAddress) != null)
+            userInsertInfoService.deleteByIpAddress(ipAddress);
 
-    @GetMapping("/mySpecGpu")
-    public GpuList getMyGpu() {
-        return compareService.getMatchingGpu();
-    }
+        UserInsertInfo userInsertInfo = UserInsertInfo.builder()
+                .ipAddress(ipAddress)
+                .selectedGpu(compareService.getMatchingCpu(ipAddress).getCpuName())
+                .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
+                .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
+                .build();
 
-    @GetMapping("/mySpecRam")
-    public RamList getMyRam() {
-        return compareService.getMatchingRam();
+        userInsertInfoService.save(userInsertInfo);
+        return userInsertInfo;
     }
 
     // cpu gpu rank순으로 위아래 50개 보내기

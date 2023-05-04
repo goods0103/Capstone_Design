@@ -193,11 +193,11 @@ public class GameListService {
         int minState = 0;
 
         if(userInfoService.Count()!=0){
-
+            String ipAddress = "0:0:0:0:0:0:0:1";
             //userinfo 에 있는 cpu rank ramSize 반환
-            int userCpuRank = compareService.getMatchingCpu().getCpuRank();
-            int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize()*2;
+            int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
+            int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
+            int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize()*2;
 
             getGameSpec minSpec = findMinGameSpec(gameName);
 
@@ -614,11 +614,11 @@ public class GameListService {
         List<String> matchingGpu = new ArrayList<>();
 
         if(userInfoService.Count()!=0){
-
+            String ipAddress = "0:0:0:0:0:0:0:1";
             //userinfo 에 있는 cpu rank ramSize 반환
-            int userCpuRank = compareService.getMatchingCpu().getCpuRank();
-            int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-            int userRamSize = compareService.getMatchingRam().getRamSize();
+            int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
+            int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
+            int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize();
 
             for(getGameSpec recSpec : recSpecs){
                 //list에 있는 mincpu, gpu가 없을경우
