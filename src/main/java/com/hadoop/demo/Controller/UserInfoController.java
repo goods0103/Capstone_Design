@@ -1,7 +1,6 @@
 package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
-import com.hadoop.demo.Service.CompareService;
 import com.hadoop.demo.Service.PopularSpecListService;
 import com.hadoop.demo.Service.UserInfoService;
 import com.hadoop.demo.Service.UserInsertInfoService;
@@ -22,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,10 +47,6 @@ public class UserInfoController {
     @Autowired
     PopularSpecListService popularSpecListService;
 
-    @Autowired
-    private CompareService compareService;
-
-    private CpuList matchingCpuList;
     private int n = 1;
     private String cpu, gpu, rType, rManu, rPartNum;
     private int rSize, rSpeed, rCount;
@@ -89,8 +86,10 @@ public class UserInfoController {
     }
 
 
+    @Transactional
     @PostMapping("/api/spring")
-    public ResponseEntity<String> sendString(@RequestBody String data) {
+    public ResponseEntity<String> sendString(@RequestBody String data, HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
 
         data = data.split("\"")[3].trim();
 
@@ -124,9 +123,16 @@ public class UserInfoController {
         if (gpu != null) {
             System.out.println(cpu + " " +  gpu + " " + rManu + " " + rPartNum + " " + rType + " " + rSize + " " + rSpeed + " " + rCount);
             n = 1;
+            // 이미 있으면 ip로 비교해서 삭제
+            if(userInfoService.findByIpAddress(ipAddress) != null) {
+                System.out.println("find");
+                userInfoService.deleteByIpAddress(ipAddress);
+            }
+
             UserInfo userInfo = UserInfo.builder()
-                    .cpu(cpu)
-                    .gpu(gpu)
+                    .ipAddress(ipAddress)
+                    .cpuInfo(cpu)
+                    .gpuInfo(gpu)
                     .ramManu(rManu)
                     .ramPartNum(rPartNum)
                     .ramType(rType)
@@ -140,9 +146,6 @@ public class UserInfoController {
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
             gpu = null;
-            compareService.getMatchingCpu();
-            compareService.getMatchingGpu();
-            compareService.getMatchingRam();
             return ResponseEntity.ok(data);
         }
         return null;
@@ -165,13 +168,19 @@ public class UserInfoController {
     }
 
     // 직접 기입해서 보낸 cpu gpu ram userinserinfo 테이블에 저장
+    @Transactional
     @PostMapping("/selectedId")
-    public void handleSelectedId(@RequestBody UserInsertInfo userInsertInfo){
+    public void handleSelectedId(@RequestBody UserInsertInfo userInsertInfo, HttpServletRequest request){
+        String ipAddress = request.getRemoteAddr();
         String selectedCpu = userInsertInfo.getSelectedCpu();
         String selectedGpu = userInsertInfo.getSelectedGpu();
         String selectedRam = userInsertInfo.getSelectedRam();
 
+        if(userInsertInfoService.findByIpAddress(ipAddress) != null)
+            userInsertInfoService.deleteByIpAddress(ipAddress);
+
         userInsertInfo = UserInsertInfo.builder()
+                .ipAddress(ipAddress)
                 .selectedCpu(selectedCpu)
                 .selectedGpu(selectedGpu)
                 .selectedRam(selectedRam)

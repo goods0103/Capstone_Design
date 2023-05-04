@@ -61,7 +61,7 @@ function CpuCompare() {
     }
 
     useEffect(() => {
-        axios.post('/find_cpu_id2', { id })
+        axios.post('/find_cpu_id', { id })
             .then(response => {
                 setCpuInfo(response.data);
             })
@@ -72,7 +72,7 @@ function CpuCompare() {
     }, []);
 
     useEffect(() => {
-        axios.post('/find_cpu_details2', { id })
+        axios.post('/find_cpu_details', { id })
             .then(response => {
                 setCpuInfo2(response.data);
             })
