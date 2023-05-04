@@ -69,34 +69,29 @@ public class DetailController {
     // 모델명을 보내 한개의 cpu gpu detail 부분 요청 시
     @PostMapping("/find_cpu_detail_name")
     public CpuDetails findCpuDetailName(@RequestBody String name) throws IOException {
-        name = name.replace("=","");
-        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return cpuDetailsService.findByName(decodedString);
     }
     @PostMapping("/find_cpu_name")
     public CpuList findCpuName(@RequestBody String name) throws IOException {
-        name = name.replace("=","");
-        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return cpuListService.findByName(decodedString);
     }
 
     @PostMapping("/find_gpu_detail_name")
     public GpuDetails findGpuDetailName(@RequestBody String name) throws IOException {
-        name = name.replace("=","");
-        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return gpuDetailsService.findByName(decodedString);
     }
     @PostMapping("/find_gpu_name")
     public GpuList findGpuName(@RequestBody String name) throws IOException {
-        name = name.replace("=","");
-        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return gpuListService.findByName(decodedString);
     }
     // ram 이름으로 ramList 반환
     @PostMapping("/find_ram_name")
     public RamList findRamName(@RequestBody String name) throws IOException {
-        name = name.replace("=","");
-        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8);
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return ramListService.findByName(decodedString);
     }
 
