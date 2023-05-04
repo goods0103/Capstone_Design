@@ -1,6 +1,7 @@
 import styles from "./topNavigationBar.module.css";
 import { Link } from "react-router-dom";
 import {useEffect, useState} from "react";
+import CategoryBar from "../category/CategoryBar";
 
 export const TopNavigationBar = ({ cart }) => {
   const [localData, setLocalData] = useState("");
@@ -12,40 +13,32 @@ export const TopNavigationBar = ({ cart }) => {
       <div className={styles.inner}>
         <Link to="/">
           <h1 className={styles.logo}>
-            <img src="/images/logo.png" alt="logo" />
+            <img src="/images/scoop.png" alt="logo" />
           </h1>
         </Link>
-        <div className={styles.input_wrap}>
-          <input type="text" placeholder="상품을 검색해보세요!" />
-          <img src="/images/icon-search.svg" alt="search" />
-        </div>
+        <CategoryBar className={styles.categoryBarCSS}></CategoryBar>
+        {/*<div className={styles.input_wrap}>*/}
+        {/*  <input type="text" placeholder="상품을 검색해보세요!" />*/}
+        {/*  <img src="/images/icon-search.svg" alt="search" />*/}
+        {/*</div>*/}
       </div>
 
       <div className={styles.menu}>
-        <Link to={localData ? "/mySpec" : "/showMySpec"}>
-
-          <div className={styles.shopping_cart}>
-            <img src="/images/icon-shopping-cart.svg" alt="cart" />
+        <Link to={localData ? "/mySpec" : "/showMySpec"} style={{ textDecoration: 'none' }}>
+          <div className={styles.mypage1}>
             <span>MySpec</span>
-            {cart.length >= 1 ? (
-              <div className={styles.new_shopping_cart}>
-                <p>{cart.length}</p>
-              </div>
-            ) : (
-              ""
-            )}
           </div>
         </Link>
-        <Link to={"/insertSpec"}>
-          <div className={styles.mypage}>
-            <img src="/images/icon-user.svg" alt="user" />
+        &emsp;
+        <Link to={"/insertSpec"} style={{ textDecoration: 'none' }}>
+          <div className={styles.mypage2} >
             <span>InsertSpec</span>
           </div>
         </Link>
-        <Link to={"/HowToViewSpec"}>
-          <div className={styles.mypage}>
-            <img src="/images/icon-user.svg" alt="user" />
-            <span>HowToViewSpec</span>
+        &emsp;
+        <Link to={"/HowToViewSpec"} style={{ textDecoration: 'none' }}>
+          <div className={styles.mypage3} >
+            <span>HowToView</span>
           </div>
         </Link>
       </div>

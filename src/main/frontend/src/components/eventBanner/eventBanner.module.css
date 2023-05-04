@@ -1,9 +1,11 @@
 .banner {
   position: relative;
-  width: 100%;
-  height: 400px;
+  width: 35%;
+  height: 600px;
   background: #f2f2f2;
   margin-bottom: 80px;
+  left: 55%;
+  top:5px;
 }
 
 .right {
@@ -30,13 +32,13 @@
   background: transparent;
 }
 
-.button {
+/* .button {
   background-color:antiquewhite;
   height: 130px;
   width: 300px;
   border-radius: 50px;
   color:black
-}
+} */
 
 /*----*/
 
@@ -51,6 +53,7 @@
 .selectTag {
   width: 30%;
   height: 20%;
+  background-color: none;
 }
 
 .selectTagShow {
@@ -59,11 +62,13 @@
   font-size: 20px;
   margin-bottom: 2rem;
   border: none;
+  background-color: rgba(255, 255, 255, 0);
+  color :#FFFFFF;
 }
 
 .formTag {
   margin-top: 1rem;
-  margin-left: 2rem;
+  margin-left: 4rem;
 }
 
 .buttonSubmit {
@@ -75,3 +80,92 @@
   height: 40px;
   width: 100px;
 }
+
+/* Rectangle 1 */
+.buttonSpec{
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 25%;
+  height: 1100px;
+  left: 259px;
+  top: 679px;
+
+  background: #30D5C8;
+  border: 1px solid #000000;
+  border-radius: 149px;
+
+
+  /* 스펙 불러오기 */
+
+  position: absolute;
+  width: 10%;
+  height: 60px;
+  left: 286px;
+  top: 600px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 28px */
+
+  color: #FFFFFF;
+}
+
+
+
+.buttonInsert{
+
+/* Rectangle 2 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 25%;
+height: 70px;
+left: 498px;
+top: 678px;
+background-color: #151515;
+border: 2px solid #30D5C8;
+border-radius: 149px;
+
+
+/* 스펙 입력하기 */
+
+position: absolute;
+width: 10%;
+height: 60px;
+left: 530px;
+top: 600px;
+
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 140%;
+/* or 31px */
+
+color: #FFFFFF;
+
+
+}
+
+.title{
+  position: absolute;
+width: 35%;
+height: 60px;
+left: 290px;
+top: 300px;
+
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 45px;
+line-height: 140%;
+}
+.sub{
+  font-size: 30px;
+}
+
