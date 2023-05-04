@@ -104,3 +104,13 @@
     background-color: #333;
     color: #fff;
 }
+
+/*--- CategoryBar.js ---*/
+.categoryBarCSS{
+    border: none;
+}
+
+/*--- Categorybar.js ---*/
+.category-bar {
+    border-bottom: none;
+  }

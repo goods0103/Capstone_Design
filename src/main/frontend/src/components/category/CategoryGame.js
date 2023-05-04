@@ -124,8 +124,8 @@ function CategoryGame() {
                             <tr data-game-name={game.gameName}>
                                 <td className={styles.cssTd}><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
                                 <td className={styles.cssTd}><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
-                                <td className={styles.cssTd}>{game.minState}</td>
-                                <td className={styles.cssTd}>{game.recState}</td>
+                                <td className={styles.cssTd}>{game.minimumGameRam}</td>
+                                <td className={styles.cssTd}>{game.recommendedGameRam}</td>
 
                             </tr>
                         );
