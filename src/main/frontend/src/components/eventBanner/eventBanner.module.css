@@ -87,9 +87,9 @@
 
   position: absolute;
   width: 25%;
-  height: 1100px;
-  margin-left: 0%;
-  top: 679px;
+  height: 60px;
+  left: 15%;
+  top: 65%;
 
   background: #30D5C8;
   border: 1px solid #000000;
@@ -101,8 +101,8 @@
   position: absolute;
   width: 10%;
   height: 60px;
-  left: 286px;
-  top: 600px;
+  left: 15%;
+  top: 65%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -120,53 +120,52 @@
 
 /* Rectangle 2 */
 
-  box-sizing: border-box;
+box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 70px;
-  margin-left: 3%;
-  top: 678px;
-  background-color: #151515;
-  border: 2px solid #30D5C8;
-  border-radius: 149px;
+position: absolute;
+width: 25%;
+height: 70px;
+left: 30%;
+top: 65%;
+background-color: #151515;
+border: 2px solid #30D5C8;
+border-radius: 149px;
 
 
 /* 스펙 입력하기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 530px;
-  top: 600px;
+position: absolute;
+width: 10%;
+height: 60px;
+left: 30%;
+top: 65%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 140%;
-  /* or 31px */
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 140%;
+/* or 31px */
 
-  color: #FFFFFF;
+color: #FFFFFF;
 
 
-  }
+}
 
 .title{
   position: absolute;
-  width: 35%;
-  margin-top : 5%;
-  left: 290px;
-  top: 300px;
+width: 35%;
+height: 60px;
+left: 15%;
+top: 30%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 45px;
-  line-height: 140%;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 45px;
+line-height: 140%;
 }
-
 .sub{
-    font-size: 30px;
+  font-size: 30px;
 }
 

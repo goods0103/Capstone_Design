@@ -1,7 +1,6 @@
 import Nav from 'react-bootstrap/Nav';
 import { Link as ReactRouterDomLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import styles from "./category.module.css"
 
 
 const Link = ({ isActive, children, ...props }) => {
