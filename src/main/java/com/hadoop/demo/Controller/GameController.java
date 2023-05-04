@@ -1,7 +1,10 @@
 package com.hadoop.demo.Controller;
+import com.hadoop.demo.Model.GameList;
 import com.hadoop.demo.Service.GameListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -26,9 +29,9 @@ public class GameController {
 //        return gameListService.CompareCpuUserVsGame2();
 //    }
 
-    @RequestMapping("/compare/{pageNumber}")
-    public java.util.List<GameListService.gameUserCompare> GameCpuCompare(@PathVariable int pageNumber){
-        return gameListService.CompareCpuUserVsGame2(pageNumber);
+    @RequestMapping("/compare")
+    public List<GameList> GameCpuCompare(){
+        return gameListService.CompareCpuUserVsGame2();
     }
 
 }
