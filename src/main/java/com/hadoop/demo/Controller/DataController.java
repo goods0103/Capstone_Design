@@ -76,7 +76,7 @@ public class DataController {
 
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
-                .selectedGpu(compareService.getMatchingCpu(ipAddress).getCpuName())
+                .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
                 .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
                 .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
                 .build();
