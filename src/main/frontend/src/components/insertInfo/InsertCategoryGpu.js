@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 function InsertCategoryGpu() {
 
     const [gpuList, setGpuList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("");
 
 
     useEffect(() => {

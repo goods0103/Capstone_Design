@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "gamelist")
+@Table(name = "gamelist", indexes = @Index(name = "idx_game_name", columnList = "game_name"))
 public class GameList {
 
     @Id
