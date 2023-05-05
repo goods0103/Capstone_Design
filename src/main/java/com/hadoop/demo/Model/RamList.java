@@ -1,24 +1,21 @@
 package com.hadoop.demo.Model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "ramlist")
+@Table(name = "ramlist", indexes = @Index(name = "idx_ram_name", columnList = "ram_name"))
 public class RamList {
 
     @Id
+    @Column(name = "ram_name")
     private String ramName;
 
     @Column(name = "ram_id")

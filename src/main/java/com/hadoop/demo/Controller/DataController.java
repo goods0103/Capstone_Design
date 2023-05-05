@@ -93,8 +93,8 @@ public class DataController {
         int rank = cpuListService.findByName(cpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
-        else if (rank >= 1475)
-            rank = 1451;
+        else if (rank >= 1468)
+            rank = 1444;
         else rank -= 25;
 
         for(int i = 0; i < 50; i++)
@@ -110,8 +110,8 @@ public class DataController {
         int rank = gpuListService.findByName(gpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
-        else if (rank >= 1475)
-            rank = 1451;
+        else if (rank >= 1471)
+            rank = 1447;
         else rank -= 25;
 
         for(int i = 0; i < 50; i++)
