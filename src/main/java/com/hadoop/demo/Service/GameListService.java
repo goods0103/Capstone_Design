@@ -32,14 +32,13 @@ public class GameListService {
         return gameListRepository.findByGameName(name);
     }
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
-    public int CompareCpuUserVsGame2(String gameName){
+    public int CompareCpuUserVsGame2(String gameName, String ipAddress){
 
         String minCpu = null;
         String minGpu = null;
         int minRamSize = 0;
         int minState = 0;
 
-        String ipAddress = "0:0:0:0:0:0:0:1";
         //userinfo 에 있는 cpu rank ramSize 반환
 
         int userCpuRank = cpuListRepository.findByCpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedCpu()).getCpuRank();
@@ -90,7 +89,8 @@ public class GameListService {
 
     }
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
-    public List<GameList> CompareCpuUserVsGame() {
+    public List<GameList> CompareCpuUserVsGame(String ipAddress) {
+
 
         List<GameList> gameLists = gameListRepository.findAll().subList(0,50);
 
@@ -118,7 +118,6 @@ public class GameListService {
             }
 
             if(userInfoService.Count()!=0){
-                String ipAddress = "0:0:0:0:0:0:0:1";
                 //userinfo 에 있는 cpu rank ramSize 반환
                 int userCpuRank = cpuListRepository.findByCpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedCpu()).getCpuRank();
                 int userGpuRank = gpuListRepository.findByGpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedGpu()).getGpuRank();
@@ -139,7 +138,7 @@ public class GameListService {
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(1);
                     } else {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(0);
-                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName()));
+                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
                     }
                 }
                 // 권장 gpu만 있을 경우
@@ -151,7 +150,7 @@ public class GameListService {
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(1);
                     } else {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(0);
-                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName()));
+                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
                     }
                 }
                 // 권장 cpu, gpu가 모두 있을경우
@@ -164,7 +163,7 @@ public class GameListService {
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(1);
                     } else {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(0);
-                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName()));
+                        gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
                     }
 
                 }

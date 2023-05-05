@@ -4,6 +4,7 @@ import com.hadoop.demo.Service.GameListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -14,8 +15,8 @@ public class GameController {
     private GameListService gameListService;
 
     @RequestMapping("/compare")
-    public List<GameList> GameCpuCompare(){
-        return gameListService.CompareCpuUserVsGame();
+    public List<GameList> GameCpuCompare(HttpServletRequest request){
+        return gameListService.CompareCpuUserVsGame(request.getRemoteAddr());
     }
 
 }
