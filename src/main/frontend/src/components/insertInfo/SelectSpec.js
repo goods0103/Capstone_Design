@@ -5,6 +5,10 @@ import styles from "../eventBanner/eventBanner.module.css"
 import CategoryBar3 from "./CategoryBar3";
 import CategoryBar from "../category/CategoryBar";
 import MyBottleNeck from "../myInfo/MyBottleNeck";
+import ShowInsertInfo from "./ShowInsertInfo";
+import ShowInsertInfoRam from "./ShowInsertInfoRam";
+import styles2 from "./category.module.css"
+
 
 function SelectSpec() {
 
@@ -78,44 +82,34 @@ function SelectSpec() {
     return(
         <>
             <CategoryBar3></CategoryBar3>
-            <div>
-            {cpuInfo.map((cpu) => (
-                cpu.cpuName === selectCpu && (
-                <p>
-                    cpu_name : {cpu.cpuName}<br/>
-                    cpu_mark : {cpu.cpuMark}<br/>
-                    cpu_rank : {cpu.cpuRank}<br/>
-                    cpu_value : {cpu.cpuValue}<br/>
-                    cpu_price : {cpu.cpuPrice}<br/>
-                </p>
-                )))}
-
-
+            <div className={styles2.divParent}>
+                {cpuInfo.map((cpu) => (
+                    cpu.cpuName === selectCpu && (
+                        <div className={styles2.divChild}>
+                            <ShowInsertInfo infoName={cpu.cpuName} infoMark={cpu.cpuMark} infoRank={cpu.cpuRank} infoPrice={cpu.cpuPrice}
+                                            infoValue={cpu.cpuValue} infoUrl={cpu.cpuUrl} infoCategory="cpu" infoId={cpu.cpuId}/>
+                        </div>
+                    )))}
                 <br/>
                 {gpuInfo.map((gpu) => (
                     gpu.gpuName === selectGpu && (
-                <p>
-                    gpu_name : {gpu.gpuName}<br/>
-                    gpu_mark : {gpu.gpuMark}<br/>
-                    gpu_rank : {gpu.gpuRank}<br/>
-                    gpu_value : {gpu.gpuValue}<br/>
-                    gpu_price : {gpu.gpuPrice}<br/>
-                </p>
+                        <div className={styles2.divChild}>
+                            <ShowInsertInfo infoName={gpu.gpuName} infoMark={gpu.gpuMark} infoRank={gpu.gpuRank} infoPrice={gpu.gpuPrice}
+                                            infoValue={gpu.gpuValue} infoUrl={gpu.gpuUrl} infoCategory="gpu" infoId={gpu.gpuId}/>
+                        </div>
                     )))}
                 <br/>
                 {ramInfo.map((ram) => (
+                    // src/main/frontend/public/images/product/ramCategory01.png
                     ram.ramName === selectRam && (
-                <p>
-                    ram_name : {ram.ramName}<br/>
-                    ram_type : {ram.ramType}<br/>
-                    ram_size : {ram.ramSize}<br/>
-                    ram_latency : {ram.ramLatency}<br/>
-                    ram_read : {ram.ramRead}<br/>
-                    ram_write : {ram.ramWrite}<br/>
-                </p>
+                        <div className={styles2.divChild}>
+                            <ShowInsertInfoRam infoName={ram.ramName} infoType={ram.ramType} infoSize={ram.ramSize} infoLatency={ram.ramLatency}
+                                            infoRead={ram.ramRead} infoWrite={ram.ramWrite} infoUrl="/images/product/ramCategory01.png" infoId={ram.ramId}/>
+                        </div>
                     )))}
                 <br/>
             </div>
+            <br/>
             {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}
             {showComponent && <MyBottleNeck/>}
         </>

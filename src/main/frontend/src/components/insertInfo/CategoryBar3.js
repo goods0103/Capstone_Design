@@ -17,7 +17,7 @@ const StyledLink = styled(Link)`
   line-height: 1.8;
   border: 1px solid lightgray;
   font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
-  color: ${(props) => (props.isActive ? "rgb(25,103,206)" : "black")};
+  color: ${(props) => (props.isActive ? "rgb(25,103,206)" : "white")};
 `;
 
 function CategoryBar3() {
