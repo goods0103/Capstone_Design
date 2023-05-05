@@ -7,7 +7,7 @@ import CategoryBar3 from "./CategoryBar3";
 
 function InsertCategoryRam() {
     const [ramList, setRamList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("");
 
     useEffect(() => {
         if (data2) {

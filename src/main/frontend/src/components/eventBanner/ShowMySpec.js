@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import styles from "./eventBanner.module.css";
 
 function ShowMySpec() {
-    let waring = "시스템 정보를 불러오기 위한 파일을 다운로드 중입니다. 다운이 완료되면 실행 시켜 주세요"
-
+    let waring = "시스템 정보를 불러오기 위한 파일을 다운로드 중입니다. 다운이 완료되면 실행 시켜 주세요!!!"
+    const [flag, setFlag] = useState(false);
 
     const [data, setData] = useState([]);
     const downloadFile = async () => {
+        setFlag(true);
         const response = await axios({
             url: 'http://localhost:12000/ShowMySpec',
             method: 'GET',
@@ -29,28 +30,41 @@ function ShowMySpec() {
         const eventSource = new EventSource('/stream-data');
         eventSource.onmessage = event => {
             setData(prevData => [...prevData, event.data]);
+            setFlag(false);
         };
     }, []);
 
 
     return (
         <div>
-            <Link to="/MySpec">
-                <button>develop button</button>
-            </Link>
+
 
             <p>
-                {waring}
+            &emsp;{waring}
 
-                <button className={styles.button} onClick={downloadFile}>download</button>
-
+                <button className={styles.button} onClick={downloadFile}>download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <Link to="/MySpec">
+                    <button>develop button</button>
+                </Link>
+              
             </p>
             {data.map((item, index) => (
                 <div key={index}>
-                    <Link to="/MySpec">Go to MySpec</Link>
+                      <Link to="/MySpec"><button className={styles.link}>GotoMySpec</button></Link>
                 </div>
                 ))}
+                {flag && (
+            <div className={styles.arrow}>Click!</div>
+            )}
+            {flag && (
+            <img
+                className={styles.banner}
+                src="images/loading.gif"
+                alt="First slide"
+            />
+            )}
         </div>
+
 
     );
 }
