@@ -6,20 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "gpulist")
+@Table(name = "gpulist", indexes = @Index(name = "idx_gpu_name", columnList = "gpu_name"))
 public class GpuList {
 
 
     @Id
+    @Column(name = "gpu_name")
     private String gpuName;
 
     @Column(name = "gpu_id")

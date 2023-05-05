@@ -6,20 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "cpulist")
+@Table(name = "cpulist", indexes = @Index(name = "idx_cpu_name", columnList = "cpu_name"))
 public class CpuList {
 
-
     @Id
+    @Column(name = "cpu_name")
     private String cpuName;
 
     @Column(name = "cpu_id")
