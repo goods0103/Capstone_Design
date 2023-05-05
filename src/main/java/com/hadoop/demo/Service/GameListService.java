@@ -162,7 +162,7 @@ public class GameListService {
                         gamelist.setMinState(1);
                     } else {
                         gamelist.setRecState(0);
-                        gamelist.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress);
+                        gamelist.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
                     }
 
                 }
