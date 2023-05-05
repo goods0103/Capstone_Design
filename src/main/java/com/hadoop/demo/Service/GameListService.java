@@ -1,9 +1,7 @@
 package com.hadoop.demo.Service;
 
 import com.hadoop.demo.Model.GameList;
-import com.hadoop.demo.Repository.CpuListRepository;
-import com.hadoop.demo.Repository.GameListRepository;
-import com.hadoop.demo.Repository.GpuListRepository;
+import com.hadoop.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,9 +16,11 @@ public class GameListService {
     @Autowired
     private GpuListRepository gpuListRepository;
     @Autowired
-    private CompareService compareService;
+    private RamListRepository ramListRepository;
     @Autowired
-    private UserInfoService userInfoService;
+    private UserInsertInfoRepository userInsertInfoRepository;
+    @Autowired
+    private  UserInfoService userInfoService;
 
     public GameList save(GameList gameList) {
         return gameListRepository.save(gameList);
@@ -41,15 +41,21 @@ public class GameListService {
 
         String ipAddress = "0:0:0:0:0:0:0:1";
         //userinfo 에 있는 cpu rank ramSize 반환
-        int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
-        int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
-        int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize()*2;
-        minCpu = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuName();
-        minGpu = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuName();
+
+        int userCpuRank = cpuListRepository.findByCpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedCpu()).getCpuRank();
+        int userGpuRank = gpuListRepository.findByGpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedGpu()).getGpuRank();
+        int userRamSize = ramListRepository.findByRamName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedRam()).getRamSize();
+
+        if(!gameListRepository.findByGameName(gameName).getMinimumGameCpu().equals("")){
+            minCpu = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuName();
+        }
+        if(!gameListRepository.findByGameName(gameName).getMinimumGameGpu().equals("")){
+            minGpu = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuName();
+        }
 
         //userinfo 에 있는 cpu rank ramSize 반환
-        int minCpuRank = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuRank();
-        int minGpuRank = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuRank();
+        int minCpuRank = 0;
+        int minGpuRank = 0;
 
         //최소 cpu, gpu가 모두없을 경우
         if (minCpu == null && minGpu == null) {
@@ -57,6 +63,7 @@ public class GameListService {
         }
         //최소 cpu만 있을 경우
         else if (minCpu != null && minGpu == null) {
+            minCpuRank = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuRank();
             minRamSize = gameListRepository.findByGameName(gameName).getMinimumGameRam();
             if (userRamSize >= minRamSize && userCpuRank <= minCpuRank) {
                 minState = 1;
@@ -64,6 +71,7 @@ public class GameListService {
         }
         // 권장 gpu만 있을 경우
         else if (minCpu == null) {
+            minGpuRank = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuRank();
             minRamSize = gameListRepository.findByGameName(gameName).getMinimumGameRam();
             if (userRamSize >= minRamSize && userGpuRank <= minGpuRank) {
                 minState = 1;
@@ -71,6 +79,8 @@ public class GameListService {
         }
         // 권장 cpu, gpu가 모두 있을경우
         else {
+            minCpuRank = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuRank();
+            minGpuRank = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuRank();
             minRamSize = gameListRepository.findByGameName(gameName).getMinimumGameRam();
             if (userRamSize >= minRamSize && userGpuRank <= minGpuRank && userCpuRank <= minCpuRank) {
                 minState = 1;
@@ -82,7 +92,7 @@ public class GameListService {
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
     public List<GameList> CompareCpuUserVsGame() {
 
-        List<GameList> gameLists = gameListRepository.findAll();
+        List<GameList> gameLists = gameListRepository.findAll().subList(0,50);
 
         String recCpu = null;
         String recGpu = null;
@@ -90,17 +100,31 @@ public class GameListService {
 
         //gamelist에서 추출한 <gamename, mincpu> list
         for (GameList gameList : gameLists) {
-            recCpu = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuName();
-            recGpu = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuName();
+
+            System.out.println(gameList.getGameName());
+            if(!gameList.getRecommendedGameCpu().equals("")){
+                recCpu = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuName();
+                System.out.println(recCpu);
+            }
+            else{
+                recCpu=null;
+            }
+            if(!gameList.getRecommendedGameGpu().equals("")){
+                recGpu = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuName();
+                System.out.println(recGpu);
+            }
+            else{
+                recGpu=null;
+            }
 
             if(userInfoService.Count()!=0){
                 String ipAddress = "0:0:0:0:0:0:0:1";
                 //userinfo 에 있는 cpu rank ramSize 반환
-                int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
-                int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
-                int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize();
-                int recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
-                int recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
+                int userCpuRank = cpuListRepository.findByCpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedCpu()).getCpuRank();
+                int userGpuRank = gpuListRepository.findByGpuName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedGpu()).getGpuRank();
+                int userRamSize = ramListRepository.findByRamName(userInsertInfoRepository.findByIpAddress(ipAddress).getSelectedRam()).getRamSize();
+                int recCpuRank = 0;
+                int recGpuRank = 0;
                 //권장 cpu, gpu가 모두없을 경우
                 if (recCpu == null && recGpu == null) {
                     gameListRepository.findByGameName(gameList.getGameName()).setRecState(1);
@@ -108,6 +132,7 @@ public class GameListService {
                 }
                 // 권장 cpu만 있을 경우
                 else if (recCpu != null && recGpu == null) {
+                    recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
                     recRamSize = gameList.getRecommendedGameRam();
                     if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(1);
@@ -120,6 +145,7 @@ public class GameListService {
                 // 권장 gpu만 있을 경우
                 else if (recCpu == null) {
                     recRamSize = gameList.getRecommendedGameRam();
+                    recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
                     if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(1);
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(1);
@@ -131,6 +157,8 @@ public class GameListService {
                 // 권장 cpu, gpu가 모두 있을경우
                 else {
                     recRamSize = gameList.getRecommendedGameRam();
+                    recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
+                    recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
                     if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(1);
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(1);
@@ -149,8 +177,7 @@ public class GameListService {
             }
         }
 
-        List<GameList> gameList2 = gameListRepository.findAll();
-        return gameList2;
+        return gameLists;
     }
 }
 
