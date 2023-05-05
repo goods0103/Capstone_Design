@@ -104,6 +104,12 @@ function InsertSpec() {
                     placeholder="Choose an option"
                     isSearchable={true}
                     className={styles.selectTag}
+                    styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          color: 'black',
+                        }),
+                      }}
                 />
                 <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
                 <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
@@ -117,6 +123,12 @@ function InsertSpec() {
                     placeholder="Choose an option"
                     isSearchable={true}
                     className={styles.selectTag}
+                    styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          color: 'black',
+                        }),
+                      }}
                 />
                 <label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>
                 <input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />
@@ -130,6 +142,12 @@ function InsertSpec() {
                     placeholder="Choose an option"
                     isSearchable={true}
                     className={styles.selectTag}
+                    styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          color: 'black',
+                        }),
+                      }}
                 />
                 <label htmlFor="ramSelect">Selected Ram : &nbsp;</label>
                 <input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />

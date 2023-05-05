@@ -12,6 +12,8 @@ function MySpec() {
     const [cpuInfo, setCpuInfo] = useState([]);
     const [gpuInfo, setGpuInfo] = useState([]);
     const [ramInfo, setRamInfo] = useState([]);
+    const [mySpec, setMySpec] = useState([]);
+
     const [bottleNeckInfo, setBottleNeckInfo] = useState([]);
     const [showComponent, setShowComponent] = useState(false);
 
@@ -23,34 +25,50 @@ function MySpec() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/mySpecCpu');
-                setCpuInfo(response.data);
+                if(mySpec){
+                    const response = await axios.post('/find_cpu_name', `${mySpec.selectedCpu}`);
+                    setCpuInfo(response.data);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
-
         fetchData();
-    }, []);
+    }, [mySpec]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/mySpecGpu');
-                setGpuInfo(response.data);
+                if(mySpec){
+                    const response = await axios.post('/find_gpu_name', `${mySpec.selectedGpu}`);
+                    setGpuInfo(response.data);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
-
         fetchData();
-    }, []);
+    }, [mySpec]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/mySpecRam');
-                setRamInfo(response.data);
+                if(mySpec){
+                    const response = await axios.post('/find_ram_name', `${mySpec.selectedRam}`);
+                    setRamInfo(response.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, [mySpec]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/mySpec');
+                setMySpec(response.data);
 
             } catch (error) {
                 console.log(error);

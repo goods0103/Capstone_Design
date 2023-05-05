@@ -8,3 +8,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+document.body.style.backgroundColor = `#121212`;
+document.body.style.color = "white";

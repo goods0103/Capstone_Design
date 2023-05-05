@@ -2,12 +2,13 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +32,13 @@ public class DataController {
     private BottleNeckService bottleNeckService;
     @Autowired
     private PopularListService popularListService;
+    @Autowired
+    private UserInsertInfoService userInsertInfoService;
 
 
     // cpu gpu ram 전체 리스트 요청 시
     @GetMapping("/category/cpu1")
-    public List<CpuList> getAllCpuList(HttpServletRequest request) {
-        String ipAddress = request.getRemoteAddr();
-        System.out.println("Client IP Address: " + ipAddress);
+    public List<CpuList> getAllCpuList() {
         return cpuListService.findAll();
     }
 
@@ -56,38 +57,39 @@ public class DataController {
     public List<String> getAllCpuName() {
         return cpuListService.findAllCpuName();
     }
-
     @GetMapping("/category/ram_name")
     public List<String> getAllRamName() {
         return ramListService.findAllRamName();
     }
-
     @GetMapping("/category/gpu_name")
     public List<String> getAllGpuName() {
         return gpuListService.findAllGpuName();
     }
 
-    // Scoop에 뜬 cpu gpu ram 정보를 기존 리스트와 비교하여 맞는 리스트 보내주기
-    @GetMapping("/mySpecCpu")
-    public CpuList getMyCpu() {
-        return compareService.getMatchingCpu();
-    }
+    // Scoop에 뜬 cpu gpu ram 정보를 기존 리스트와 비교하여 가공한 데이터를 UserInsertInfo 테이블에 넣고 반환
+    @Transactional
+    @GetMapping("/mySpec")
+    public UserInsertInfo getMySpec(HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
+        if(userInsertInfoService.findByIpAddress(ipAddress) != null)
+            userInsertInfoService.deleteByIpAddress(ipAddress);
 
-    @GetMapping("/mySpecGpu")
-    public GpuList getMyGpu() {
-        return compareService.getMatchingGpu();
-    }
+        UserInsertInfo userInsertInfo = UserInsertInfo.builder()
+                .ipAddress(ipAddress)
+                .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
+                .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
+                .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
+                .build();
 
-    @GetMapping("/mySpecRam")
-    public RamList getMyRam() {
-        return compareService.getMatchingRam();
+        userInsertInfoService.save(userInsertInfo);
+        return userInsertInfo;
     }
 
     // cpu gpu rank순으로 위아래 50개 보내기
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
-        cpu = cpu.replace("+"," ").replace("=","");
+        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         int rank = cpuListService.findByName(cpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
@@ -104,14 +106,13 @@ public class DataController {
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
-        gpu = gpu.replace("+"," ").replace("=","");
+        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         int rank = gpuListService.findByName(gpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1475)
             rank = 1451;
         else rank -= 25;
-
 
         for(int i = 0; i < 50; i++)
             gpuList.add(gpuListService.findByRank(rank + i));
@@ -123,7 +124,7 @@ public class DataController {
     @PostMapping("/myRamRanking")
     public List<RamList> getMyRamRank(@RequestBody String ram) {
         List<RamList> ramList = new ArrayList<>();
-        ram = ram.replace("+"," ").replace("=","");
+        ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
         int latency = ramListService.findByName(ram).getRamLatency();
 
         for(int i = latency - 1; i <= latency + 1; i++)
@@ -163,7 +164,7 @@ public class DataController {
 
     @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
-        cpu = cpu.replace("+"," ").replace("=","");
+        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -176,7 +177,7 @@ public class DataController {
 
     @PostMapping("/recommendGpu")
     public List<BottleNeck> recommendGpu(@RequestBody String gpu){
-        gpu = gpu.replace("+"," ").replace("=","");
+        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         List<BottleNeck> recBottleNecks = new ArrayList<>();
         List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
@@ -184,7 +185,6 @@ public class DataController {
             if(value < 5)
                 recBottleNecks.add(bottleNeck1);
         }
-
         return recBottleNecks;
     }
 }

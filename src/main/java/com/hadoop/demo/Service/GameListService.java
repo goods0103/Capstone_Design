@@ -39,13 +39,15 @@ public class GameListService {
         int minRamSize = 0;
         int minState = 0;
 
+        String ipAddress = "0:0:0:0:0:0:0:1";
+        //userinfo 에 있는 cpu rank ramSize 반환
+        int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
+        int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
+        int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize()*2;
         minCpu = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuName();
         minGpu = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuName();
 
         //userinfo 에 있는 cpu rank ramSize 반환
-        int userCpuRank = compareService.getMatchingCpu().getCpuRank();
-        int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-        int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
         int minCpuRank = cpuListRepository.findByCpuName(gameListRepository.findByGameName(gameName).getMinimumGameCpu()).getCpuRank();
         int minGpuRank = gpuListRepository.findByGpuName(gameListRepository.findByGameName(gameName).getMinimumGameGpu()).getGpuRank();
 
@@ -91,14 +93,14 @@ public class GameListService {
             recCpu = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuName();
             recGpu = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuName();
 
-            if (userInfoService.Count() != 0) {
+            if(userInfoService.Count()!=0){
+                String ipAddress = "0:0:0:0:0:0:0:1";
                 //userinfo 에 있는 cpu rank ramSize 반환
-                int userCpuRank = compareService.getMatchingCpu().getCpuRank();
-                int userGpuRank = compareService.getMatchingGpu().getGpuRank();
-                int userRamSize = compareService.getMatchingRam().getRamSize() * 2;
+                int userCpuRank = compareService.getMatchingCpu(ipAddress).getCpuRank();
+                int userGpuRank = compareService.getMatchingGpu(ipAddress).getGpuRank();
+                int userRamSize = compareService.getMatchingRam(ipAddress).getRamSize();
                 int recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
                 int recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
-
                 //권장 cpu, gpu가 모두없을 경우
                 if (recCpu == null && recGpu == null) {
                     gameListRepository.findByGameName(gameList.getGameName()).setRecState(1);
@@ -136,6 +138,7 @@ public class GameListService {
                         gameListRepository.findByGameName(gameList.getGameName()).setRecState(0);
                         gameListRepository.findByGameName(gameList.getGameName()).setMinState(CompareCpuUserVsGame2(gameList.getGameName()));
                     }
+
                 }
 
             }

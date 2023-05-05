@@ -204,6 +204,8 @@ function CategoryGpu() {
                     onPageChange={handlePageClick}
                     containerClassName={"pagination"}
                     activeClassName={"active"}
+                    pageClassName={"page-item"}
+                    pageLinkClassName={"page-link spaced"}
                 /> }
             </div>
         </>
