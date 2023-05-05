@@ -13,25 +13,9 @@ public class GameController {
     @Autowired
     private GameListService gameListService;
 
-//    @Getter
-//    @Setter
-//    @AllArgsConstructor
-//    @NoArgsConstructor
-//    @ToString
-//    public static class GameSpec {
-//        private List<GameList> gameList;
-//        private int minState;
-//        private int recState;
-//    }
-
-//    @GetMapping("/compare")
-//    public java.util.List<GameListService.gameUserCompare> GameCpuCompare(){
-//        return gameListService.CompareCpuUserVsGame2();
-//    }
-
     @RequestMapping("/compare")
     public List<GameList> GameCpuCompare(){
-        return gameListService.CompareCpuUserVsGame2();
+        return gameListService.CompareCpuUserVsGame();
     }
 
 }
