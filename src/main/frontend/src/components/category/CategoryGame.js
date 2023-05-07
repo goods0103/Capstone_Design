@@ -5,6 +5,9 @@ import CategoryBar from "./CategoryBar";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Table from "react-bootstrap/Table";
 
 function CategoryGame() {
     const [selectedGame, setSelectedGame] = useState({
@@ -93,10 +96,10 @@ function CategoryGame() {
     }
     return (
         <>
-            <CategoryBar></CategoryBar>
+            {/*<CategoryBar></CategoryBar>*/}
             <div>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
-                    <label>원하는 Game을 입력하세요 : </label>
+                    <label>원하는 Game을 입력하세요 : </label> <br/>
                     <Select
                         value={selectedGame}
                         onChange={handleGameChange}
@@ -105,58 +108,75 @@ function CategoryGame() {
                         isSearchable={true}
                         className={styles.selectTag}
                     />
-                    <label htmlFor="gameSelect">Selected Game : &nbsp;</label>
-                    <input name = "gameSelect" className={styles.selectTagShow} value={selectedGame ? selectedGame.label : ''} />
-                    <button onClick={() => searchGame(selectedGame)}>게임 검색</button>  &emsp;
-                    <button onClick={() => showTotalList()}>전체 리스트 보기</button>
-                    <br/>
+                    {/*<label htmlFor="gameSelect">Selected Game : &nbsp;</label>*/}
+                    {/*<input name = "gameSelect" className={styles.selectTagShow} value={selectedGame ? selectedGame.label : ''} />*/}
+                    <button onClick={() => searchGame(selectedGame)} className={styles.buttonSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button>  &emsp;
+                    <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
+                    <br/><br/><br/>
                 </form>
-                {flag ?  (
-                <table className={styles.cssTable}>
-                    <tr>
-                        <th className={styles.cssTh}>game_image</th>
-                        <th className={styles.cssTh}>game_name</th>
-                        <th className={styles.cssTh}>game_min</th>
-                        <th className={styles.cssTh}>game_rec</th>
-                    </tr>
-                    {slicedData.map((game) => {
-                        return (
-                            <tr data-game-name={game.gameName}>
-                                <td className={styles.cssTd}><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                                <td className={styles.cssTd}><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
-                                <td className={styles.cssTd}>{game.minState}</td>
-                                <td className={styles.cssTd}>{game.recState}</td>
+                {flag ? (
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>game_image</th>
+                                    <th className={styles.cssTh}>game_name</th>
+                                    <th className={styles.cssTh}>game_min</th>
+                                    <th className={styles.cssTh}>game_rec</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {slicedData.map((game) => {
+                                    return (
+                                        <tr data-game-name={game.gameName}>
+                                            <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
+                                            <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
+                                            <td>{game.minState}</td>
+                                            <td>{game.recState}</td>
 
-                            </tr>
-                        );
-                    })}
-                </table>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </Table>
+                    </div>
                     ) :
-                    <table className={styles.cssTable}>
-                        <tr>
-                            <th className={styles.cssTh}>game_image</th>
-                            <th className={styles.cssTh}>game_name</th>
-                            <th className={styles.cssTh}>game</th>
-                        </tr>
-                        <tr>
-                            <td className={styles.cssTd}><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}><Link to={`/GameSpec/${game.gameId}`}>{game.gameName}</Link></td>
-                        </tr>
-                    </table>
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>game_image</th>
+                                    <th className={styles.cssTh}>game_name</th>
+                                    <th className={styles.cssTh}>game</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
+                                    <td><Link to={`/GameSpec/${game.gameId}`}>{game.gameName}</Link></td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
                 }
             </div>
             <div className={styles.page}>
                 {flag &&
-                <ReactPaginate
-                    previousLabel={"이전"}
-                    nextLabel={"다음"}
-                    pageCount={Math.ceil(gameList.length / itemsPerPage)}
-                    onPageChange={handlePageClick}
-                    containerClassName={"pagination"}
-                    activeClassName={"active"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link spaced"}
-                />
+                    <ReactPaginate
+                        previousLabel={<span className={styles.paginationIconLeft}>
+                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                </span>}
+                        nextLabel={<span className={styles.paginationIconRight}>
+                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                            </span>}
+                        pageCount={Math.ceil(gameList.length / itemsPerPage)}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link spaced"}
+                    />
                 }
             </div>
         </>

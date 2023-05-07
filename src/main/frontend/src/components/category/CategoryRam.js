@@ -4,6 +4,9 @@ import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
+import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Table from "react-bootstrap/Table";
 
 
 function CategoryRam() {
@@ -121,7 +124,7 @@ function CategoryRam() {
     }
     return (
         <>
-            <CategoryBar></CategoryBar>
+            {/*<CategoryBar></CategoryBar>*/}
             <div className={styles.filter}>
                 {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
                 <p onClick={() => sortProduct("sizeHigh")}>크기순</p>
@@ -130,7 +133,7 @@ function CategoryRam() {
                 <p onClick={() => sortProduct("writeLow")}>쓰기 속도순</p>
             </div>
             <form onSubmit={handleSubmit} className={styles.formTag}>
-                <label>원하는 Ram을 입력하세요 : </label>
+                <label>원하는 Ram을 입력하세요 : </label> <br/>
                 <Select
                     value={selectedRam}
                     onChange={handleRamChange}
@@ -139,64 +142,80 @@ function CategoryRam() {
                     isSearchable={true}
                     className={styles.selectTag}
                 />
-                <label htmlFor="ramSelect">Selected Ram : &nbsp;</label>
-                <input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />
-                <button onClick={() => searchRam(selectedRam)}>Ram 검색</button>  &emsp;
-                <button onClick={() => showTotalList()}>전체 리스트 보기</button>
-                <br/>
+                {/*<label htmlFor="ramSelect">Selected Ram : &nbsp;</label>*/}
+                {/*<input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />*/}
+                <button onClick={() => searchRam(selectedRam)} className={styles.buttonSearch}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button>  &emsp;
+                <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
+                <br/><br/><br/>
             </form>
             <div>
-
-                {flag ?  (
-                <table className={styles.cssTable}>
-                    <tr>
-                        <th className={styles.cssTh}>name</th>
-                        <th className={styles.cssTh}>size</th>
-                        <th className={styles.cssTh}>latency</th>
-                        <th className={styles.cssTh}>read</th>
-                        <th className={styles.cssTh}>write</th>
-                    </tr>
-                    {slicedData.map((ram) => (
-                        <tr>
-                            <td className={styles.cssTd}>{ram.ramName}</td>
-                            <td className={styles.cssTd}>{ram.ramSize}</td>
-                            <td className={styles.cssTd}>{ram.ramLatency}</td>
-                            <td className={styles.cssTd}>{ram.ramRead}</td>
-                            <td className={styles.cssTd}>{ram.ramWrite}</td>
-                        </tr>
-                    ))}
-                </table>
+                {flag ? (
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>size</th>
+                                    <th className={styles.cssTh}>latency</th>
+                                    <th className={styles.cssTh}>read</th>
+                                    <th className={styles.cssTh}>write</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {slicedData.map((ram) => (
+                                    <tr>
+                                        <td>{ram.ramName}</td>
+                                        <td>{ram.ramSize}</td>
+                                        <td>{ram.ramLatency}</td>
+                                        <td>{ram.ramRead}</td>
+                                        <td>{ram.ramWrite}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>
                     ) :
-                    <table className={styles.cssTable}>
-                        <tr>
-                            <th className={styles.cssTh}>name</th>
-                            <th className={styles.cssTh}>size</th>
-                            <th className={styles.cssTh}>latency</th>
-                            <th className={styles.cssTh}>read</th>
-                            <th className={styles.cssTh}>write</th>
-                        </tr>
-                        <tr>
-                            <td className={styles.cssTd}>{ram.ramName}</td>
-                            <td className={styles.cssTd}>{ram.ramSize}</td>
-                            <td className={styles.cssTd}>{ram.ramLatency}</td>
-                            <td className={styles.cssTd}>{ram.ramRead}</td>
-                            <td className={styles.cssTd}>{ram.ramWrite}</td>
-                        </tr>
-                    </table>
-                        }
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>size</th>
+                                    <th className={styles.cssTh}>latency</th>
+                                    <th className={styles.cssTh}>read</th>
+                                    <th className={styles.cssTh}>write</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{ram.ramName}</td>
+                                    <td>{ram.ramSize}</td>
+                                    <td>{ram.ramLatency}</td>
+                                    <td>{ram.ramRead}</td>
+                                    <td>{ram.ramWrite}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                }
             </div>
             <div className={styles.page}>
                 {flag &&
-                <ReactPaginate
-                    previousLabel={"이전"}
-                    nextLabel={"다음"}
-                    pageCount={Math.ceil(ramList.length / itemsPerPage)}
-                    onPageChange={handlePageClick}
-                    containerClassName={"pagination"}
-                    activeClassName={"active"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link spaced"}
-                />
+                    <ReactPaginate
+                        previousLabel={<span className={styles.paginationIconLeft}>
+                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                </span>}
+                        nextLabel={<span className={styles.paginationIconRight}>
+                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                            </span>}
+                        pageCount={Math.ceil(ramList.length / itemsPerPage)}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link spaced"}
+                    />
                 }
             </div>
         </>
