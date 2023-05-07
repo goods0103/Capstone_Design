@@ -1,11 +1,9 @@
 .banner {
   position: relative;
   width: 35%;
-  height: 600px;
+  height: 30%;
   background: #151515;
-  margin-bottom: 80px;
   left: 55%;
-  top:5px;
 }
 
 .right {
@@ -116,43 +114,35 @@
 
 
 
-.buttonInsert{
+.buttonInsert {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 70px;
+  left: 30%;
+  top: 65%;
+  background-color: #FFFFFF;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
-/* Rectangle 2 */
+  position: absolute;
+  width: 10%;
+  height: 60px;
+  left: 30%;
+  top: 65%;
 
-box-sizing: border-box;
-
-position: absolute;
-width: 25%;
-height: 70px;
-left: 30%;
-top: 65%;
-background-color: #151515;
-border: 2px solid #30D5C8;
-border-radius: 149px;
-
-
-/* 스펙 입력하기 */
-
-position: absolute;
-width: 10%;
-height: 60px;
-left: 30%;
-top: 65%;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 140%;
-/* or 31px */
-
-background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 31px */
+  
+  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 
 .title{
   position: absolute;
