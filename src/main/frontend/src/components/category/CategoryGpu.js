@@ -5,6 +5,9 @@ import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {Link} from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
 
 // [Mod] for check
 function CategoryGpu() {
@@ -127,7 +130,7 @@ function CategoryGpu() {
 
     return (
         <>
-            <CategoryBar></CategoryBar>
+            {/*<CategoryBar></CategoryBar>*/}
             <div>
                 <div className={styles.filter}>
                     {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
@@ -139,7 +142,7 @@ function CategoryGpu() {
 
                 </div>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
-                    <label>원하는 Gpu를 입력하세요 : </label>
+                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
                     <Select
                         value={selectedGpu}
                         onChange={handleGpuChange}
@@ -148,65 +151,85 @@ function CategoryGpu() {
                         isSearchable={true}
                         className={styles.selectTag}
                     />
-                    <label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>
-                    <input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />
-                    <button onClick={() => searchGpu(selectedGpu)}>Gpu 검색</button> &emsp;
-                    <button onClick={() => showTotalList()}>전체 리스트 보기</button>
-                    <br/>
+                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
+                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
+                    <button onClick={() => searchGpu(selectedGpu)} className={styles.buttonSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
+                    <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
+                    <br/><br/><br/>
                 </form>
                 {flag ? (
-                    <table className={styles.cssTable}>
-                        <tr>
-                            <th className={styles.cssTh}>image</th>
-                            <th className={styles.cssTh}>name</th>
-                            <th className={styles.cssTh}>mark</th>
-                            <th className={styles.cssTh}>rank</th>
-                            <th className={styles.cssTh}>value</th>
-                            <th className={styles.cssTh}>price</th>
-                        </tr>
-                        {slicedData.map((gpu) => (
-                            <tr>
-                                <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                <td className={styles.cssTd}><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
-                                <td className={styles.cssTd}>{gpu.gpuMark}</td>
-                                <td className={styles.cssTd}>{gpu.gpuRank}</td>
-                                <td className={styles.cssTd}>{gpu.gpuValue}</td>
-                                <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}원</td>
-                            </tr>
-                        ))}
-                    </table> ) :
-                    <table className={styles.cssTable}>
-                        <tr>
-                            <th className={styles.cssTh}>image</th>
-                            <th className={styles.cssTh}>name</th>
-                            <th className={styles.cssTh}>mark</th>
-                            <th className={styles.cssTh}>rank</th>
-                            <th className={styles.cssTh}>value</th>
-                            <th className={styles.cssTh}>price</th>
-                        </tr>
-                        <tr>
-                            <td className={styles.cssTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
-                            <td className={styles.cssTd}>{gpu.gpuMark}</td>
-                            <td className={styles.cssTd}>{gpu.gpuRank}</td>
-                            <td className={styles.cssTd}>{gpu.gpuValue}</td>
-                            <td className={styles.cssTd}>{convertPrice(gpu.gpuPrice)}원</td>
-                        </tr>
-                    </table>
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>image</th>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>mark</th>
+                                    <th className={styles.cssTh}>rank</th>
+                                    <th className={styles.cssTh}>value</th>
+                                    <th className={styles.cssTh}>price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {slicedData.map((gpu) => (
+                                    <tr>
+                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                        <td>{gpu.gpuMark}</td>
+                                        <td>{gpu.gpuRank}</td>
+                                        <td>{gpu.gpuValue}</td>
+                                        <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>)
+                    :
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>image</th>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>mark</th>
+                                    <th className={styles.cssTh}>rank</th>
+                                    <th className={styles.cssTh}>value</th>
+                                    <th className={styles.cssTh}>price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                    <td>{gpu.gpuMark}</td>
+                                    <td>{gpu.gpuRank}</td>
+                                    <td>{gpu.gpuValue}</td>
+                                    <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
                 }
             </div>
+            <br/>
             <div className={styles.page}>
                 {flag &&
-                <ReactPaginate
-                    previousLabel={"이전"}
-                    nextLabel={"다음"}
-                    pageCount={Math.ceil(gpuList.length / itemsPerPage)}
-                    onPageChange={handlePageClick}
-                    containerClassName={"pagination"}
-                    activeClassName={"active"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link spaced"}
-                /> }
+                    <ReactPaginate
+                        previousLabel={<span className={styles.paginationIconLeft}>
+                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                </span>}
+                        nextLabel={<span className={styles.paginationIconRight}>
+                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                            </span>}
+                        pageCount={Math.ceil(gpuList.length / itemsPerPage)}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link spaced"}
+                    />
+                }
             </div>
         </>
     );

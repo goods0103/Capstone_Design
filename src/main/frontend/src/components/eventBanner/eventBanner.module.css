@@ -1,12 +1,3 @@
-.banner {
-  position: relative;
-  width: 35%;
-  height: 600px;
-  background: #151515;
-  margin-bottom: 80px;
-  left: 55%;
-  top:5px;
-}
 
 .right {
   position: absolute;
@@ -54,6 +45,10 @@
   width: 30%;
   height: 20%;
   background-color: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 30px;
+  margin-bottom: 50px;
 }
 
 .selectTagShow {
@@ -72,13 +67,57 @@
 }
 
 .buttonSubmit {
-  background-color:antiquewhite;
-  border-radius: 30%;
-  color:black;
+  box-sizing: border-box;
+
   position: absolute;
-  left: 27%;
-  height: 40px;
+  width: 25%;
+  height: 60px;
+  left: 15%;
+  top: 65%;
+
+  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  border: 1px solid #000000;
+  border-radius: 149px;
+
+
+  /* 스펙 불러오기 */
+
+  position: relative;
   width: 100px;
+  height: 50px;
+  margin-left: 11%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 28px */
+
+  color: #FFFFFF;
+
+  /* 애니메이션 적용. 2개의 애니메이션 */
+  animation-name: slide-up;
+  animation-duration: 3.0s;
+  animation-fill-mode: both;
+}
+
+.animationCpu {
+  animation-name: fadeIn;
+  animation-duration: 2.0s;
+  animation-fill-mode: both;
+}
+
+.animationGpu {
+  animation-name: fadeIn;
+  animation-duration: 3.0s;
+  animation-fill-mode: both;
+}
+
+.animationRam {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: both;
 }
 
 /* Rectangle 1 */
@@ -112,76 +151,106 @@
   /* or 28px */
 
   color: #FFFFFF;
+
+  /* 애니메이션 적용. 2개의 애니메이션 */
+  animation-name: slide-up, bounce;
+  animation-duration: 2.0s, 1s;
+  animation-fill-mode: both, forwards;
+  animation-delay: 0s, 2.0s;
+  animation-iteration-count: 1, infinite;
 }
 
 
 
 .buttonInsert{
 
-/* Rectangle 2 */
+  /* Rectangle 2 */
 
-box-sizing: border-box;
+  box-sizing: border-box;
 
-position: absolute;
-width: 25%;
-height: 70px;
-left: 30%;
-top: 65%;
-background-color: #151515;
-border: 2px solid #30D5C8;
-border-radius: 149px;
-
-
-/* 스펙 입력하기 */
-
-position: absolute;
-width: 10%;
-height: 60px;
-left: 30%;
-top: 65%;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 140%;
-/* or 31px */
-
-background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  position: absolute;
+  width: 25%;
+  height: 70px;
+  left: 30%;
+  top: 65%;
+  background-color: #151515;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
 
+  /* 스펙 입력하기 */
+
+  position: absolute;
+  width: 10%;
+  height: 60px;
+  left: 30%;
+  top: 65%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 140%;
+  /* or 31px */
+
+  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation-name: slide-up;
+  animation-duration: 3.0s;
+  animation-fill-mode: both;
 }
 
 .title{
   position: absolute;
-width: 35%;
-height: 50px;
-left: 15%;
-top: 30%;
+  width: 35%;
+  height: 50px;
+  left: 15%;
+  top: 30%;
 
-font-family: 'Roboto';
-font-style: normal;
-font-size: 50px;
-line-height: 140%;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 50px;
+  line-height: 140%;
 }
+
 .main{
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }
 .sub{
   font-size: 30px;
   height: 30px;
   color : white;
+  animation-name: fadeIn;
+  animation-duration: 2.0s;
+  animation-fill-mode: both;
 }
 
 .trd {
   height: 15px;
   font-size : 15px;
   color : gray;
+  animation-name: fadeIn;
+  animation-duration: 2.5s;
+  animation-fill-mode: both;
+}
+
+.banner {
+  position: relative;
+  width: 35%;
+  height: 30%;
+  background: #151515;
+  left: 55%;
+  animation-name: slide-in;
+  animation-duration: 3.0s;
+  animation-fill-mode: both;
 }
 
 /*--- ShowMySpec.js ---*/
@@ -243,6 +312,8 @@ line-height: 140%;
 
 }
 
+
+/*-----animation Css------*/
 .arrow {
   width: 0;
   height: 0;
@@ -263,3 +334,65 @@ line-height: 140%;
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*.title p {*/
+/*  animation-name: fadeIn;*/
+/*  animation-duration: 1s;*/
+/*  animation-fill-mode: both;*/
+/*}*/
+
+/*.fade-in {*/
+/*  animation-name: fadeIn;*/
+/*  animation-duration: 1s;*/
+/*  animation-fill-mode: both;*/
+/*}*/
