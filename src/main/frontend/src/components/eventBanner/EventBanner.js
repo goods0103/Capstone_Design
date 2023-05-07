@@ -13,19 +13,19 @@ export const EventBanner = () => {
   return (
     <div>
       <div className={styles.title}>
-          <p className={styles.main}>Computer Spec Compare</p>
-          <p className={styles.sub}>컴퓨터 스펙 비교</p>
-          <p className={styles.trd}>당신의 컴퓨터를 비교하고 업그레이드를 선택하세요!</p>
+        <p className={styles.main}>Computer Spec Compare</p>
+        <p className={styles.sub}>컴퓨터 스펙 비교</p>
+        <p className={styles.trd}>당신의 컴퓨터를 비교하고 업그레이드를 선택하세요!</p>
       </div>
          
     {/*<Carousel fade>*/}
     {/*  <Carousel.Item>*/}
 
-        <img
+      <img
           className={styles.banner}
           src="images/banner10.jpg"
           alt="First slide"
-        />
+      />
     {/*    <div className={styles.right}>*/}
     {/*    <img src="images/icon-swiper-2.svg" alt="right" />*/}
     {/*  </div>*/}

@@ -5,6 +5,14 @@ import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {Link} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
+import Table from 'react-bootstrap/Table';
+
+// import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
+// import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
+// import { solid } from '@fortawesome/fontawesome-svg-core';
 
 function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
@@ -122,7 +130,7 @@ function CategoryCpu() {
 
   return (
     <>
-      <CategoryBar></CategoryBar>
+      {/*<CategoryBar></CategoryBar>*/}
       <div>
           <div className={styles.filter}>
               {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
@@ -133,7 +141,7 @@ function CategoryCpu() {
           </div>
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
-              <label>원하는 Cpu를 입력하세요 : </label>
+              <label>원하는 Cpu를 입력하세요 : </label> <br/>
               <Select
                   value={selectedCpu}
                   onChange={handleGpuChange}
@@ -141,55 +149,91 @@ function CategoryCpu() {
                   placeholder="Choose an option"
                   isSearchable={true}
                   className={styles.selectTag}
+                  styles={{
+                      option: (provided, state) => ({
+                          ...provided,
+                          color: 'black',
+                      }),
+                  }}
               />
-              <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
-              <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
-              <button onClick={() => searchCpu(selectedCpu)}>Cpu 검색</button> &emsp;
-              <button onClick={() => showTotalList()}>전체 리스트 보기</button>
-              <br/>
+              {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
+              {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
+              <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
+              <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
+              <br/><br/><br/>
+
           </form>
           {flag ? (
-              <table className={styles.cssTable}>
-                  <tr>
-                      <th className={styles.cssTh}>image</th>
-                      <th className={styles.cssTh}>name</th>
-                      <th className={styles.cssTh}>rank</th>
-                      <th className={styles.cssTh}>value</th>
-                      <th className={styles.cssTh}>price</th>
-                  </tr>
-                  {slicedData.map((cpu) => (
-                      <tr>
-                          <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                          <td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
-                          <td className={styles.cssTd}>{cpu.cpuRank}</td>
-                          <td className={styles.cssTd}>{cpu.cpuValue}</td>
-                          <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>
-                      </tr>
-                  ))}
-              </table>) :
-              <table className={styles.cssTable}>
-                  <tr>
-                      <th className={styles.cssTh}>image</th>
-                      <th className={styles.cssTh}>name</th>
-                      <th className={styles.cssTh}>rank</th>
-                      <th className={styles.cssTh}>value</th>
-                      <th className={styles.cssTh}>price</th>
-                  </tr>
-                  <tr>
-                      <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                      <td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
-                      <td className={styles.cssTd}>{cpu.cpuRank}</td>
-                      <td className={styles.cssTd}>{cpu.cpuValue}</td>
-                      <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>
-                  </tr>
-              </table>
+              <div className={styles.cssTable}>
+                  <Table striped bordered hover variant="dark">
+                      <thead>
+                          <tr>
+                              <th className={styles.cssTh}>Image</th>
+                              <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Rank</th>
+                              <th className={styles.cssTh}>Value</th>
+                              <th className={styles.cssTh}>Price</th>
+                              {/*<th>Image</th>*/}
+                              {/*<th>Name</th>*/}
+                              {/*<th>Rank</th>*/}
+                              {/*<th>Value</th>*/}
+                              {/*<th>Price</th>*/}
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {slicedData.map((cpu) => (
+                              <tr>
+                                  {/*<td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>*/}
+                                  {/*<td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>*/}
+                                  {/*<td className={styles.cssTd}>{cpu.cpuRank}</td>*/}
+                                  {/*<td className={styles.cssTd}>{cpu.cpuValue}</td>*/}
+                                  {/*<td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>*/}
+                                  <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                  <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                                  <td>{cpu.cpuRank}</td>
+                                  <td>{cpu.cpuValue}</td>
+                                  <td>{convertPrice(cpu.cpuPrice)}원</td>
+                              </tr>
+                          ))}
+                      </tbody>
+                  </Table>
+              </div>)
+               :
+              <div className={styles.cssTable}>
+                  <Table striped bordered hover variant="dark">
+                      <thead>
+                          <tr>
+                              <th className={styles.cssTh}>Image</th>
+                              <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Rank</th>
+                              <th className={styles.cssTh}>Value</th>
+                              <th className={styles.cssTh}>Price</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                              <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                              <td>{cpu.cpuRank}</td>
+                              <td>{cpu.cpuValue}</td>
+                              <td>{convertPrice(cpu.cpuPrice)}원</td>
+                          </tr>
+                      </tbody>
+                  </Table>
+              </div>
           }
       </div>
+      <br/>
         <div className={styles.page}>
           {flag &&
               <ReactPaginate
-                  previousLabel={"이전"}
-                  nextLabel={"다음"}
+                  previousLabel={<span className={styles.paginationIconLeft}>
+                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                </span>}
+                  nextLabel={<span className={styles.paginationIconRight}>
+                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                            </span>}
                   pageCount={Math.ceil(cpuList.length / itemsPerPage)}
                   onPageChange={handlePageClick}
                   containerClassName={"pagination"}
@@ -204,3 +248,6 @@ function CategoryCpu() {
 }
 
 export default CategoryCpu;
+
+// previousLabel={<FontAwesomeIcon icon={faChevronLeft} />}
+// nextLabel={<FontAwesomeIcon icon={faChevronRight} />}

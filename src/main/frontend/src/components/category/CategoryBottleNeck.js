@@ -46,32 +46,36 @@ function CategoryBottleNeck() {
 
     return (
         <>
-            <CategoryBar></CategoryBar>
+            {/*<CategoryBar></CategoryBar>*/}
             <form onSubmit={handleSubmit} className={styles.formTag}>
-                <label>원하는 Cpu를 입력하세요 : </label>
-                <Select
-                    value={selectedCpu}
-                    onChange={handleCpuChange}
-                    options={cpuOption}
-                    placeholder="Choose an option"
-                    isSearchable={true}
-                    className={styles.selectTag}
-                />
-                <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
-                <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
+                <div className={styles.animationCpu}>
+                    <label>원하는 Cpu를 입력하세요 : </label> <br/>
+                    <Select
+                        value={selectedCpu}
+                        onChange={handleCpuChange}
+                        options={cpuOption}
+                        placeholder="Choose an option"
+                        isSearchable={true}
+                        className={styles.selectTag}
+                    />
+                    {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
+                    {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
+                </div>
                 <br/>
 
-                <label>원하는 Gpu를 입력하세요 : </label>
-                <Select
-                    value={selectedGpu}
-                    onChange={handleGpuChange}
-                    options={gpuOption}
-                    placeholder="Choose an option"
-                    isSearchable={true}
-                    className={styles.selectTag}
-                />
-                <label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>
-                <input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />
+                <div className={styles.animationGpu}>
+                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
+                    <Select
+                        value={selectedGpu}
+                        onChange={handleGpuChange}
+                        options={gpuOption}
+                        placeholder="Choose an option"
+                        isSearchable={true}
+                        className={styles.selectTag}
+                    />
+                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
+                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
+                </div>
                 <br/>
 
 
