@@ -1,11 +1,9 @@
 .banner {
   position: relative;
   width: 35%;
-  height: 600px;
+  height: 30%;
   background: #151515;
-  margin-bottom: 80px;
   left: 55%;
-  top:5px;
 }
 
 .right {
