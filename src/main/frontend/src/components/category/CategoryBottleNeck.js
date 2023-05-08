@@ -48,8 +48,11 @@ function CategoryBottleNeck() {
         <>
             {/*<CategoryBar></CategoryBar>*/}
             <form onSubmit={handleSubmit} className={styles.formTag}>
+                <h2 className={styles.animationLabel}>BottleNeck</h2>
+                <hr className={styles.hrStyle}/>
+                <br/><br/>
                 <div className={styles.animationCpu}>
-                    <label>원하는 Cpu를 입력하세요 : </label> <br/>
+                    <label className={styles.labelStyle}>원하는 Cpu를 입력하세요</label> <br/>
                     <Select
                         value={selectedCpu}
                         onChange={handleCpuChange}
@@ -57,14 +60,30 @@ function CategoryBottleNeck() {
                         placeholder="Choose an option"
                         isSearchable={true}
                         className={styles.selectTag}
+                        styles={{
+                            option: (provided, state) => ({
+                                ...provided,
+                                color: 'black',
+                            }),
+                            control: (provided, state) => ({
+                                ...provided,
+                                backgroundColor: '#3c3c3c',
+                                border: state.isFocused ? '3px solid white' : 'solid',
+                            }),
+                            singleValue: (provided) => ({
+                                ...provided,
+                                color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                        }}
                     />
                     {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
                     {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
                 </div>
-                <br/>
+                <br/><br/><br/>
 
                 <div className={styles.animationGpu}>
-                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
+                    <label className={styles.labelStyle}>원하는 Gpu를 입력하세요</label> <br/>
                     <Select
                         value={selectedGpu}
                         onChange={handleGpuChange}
@@ -72,14 +91,31 @@ function CategoryBottleNeck() {
                         placeholder="Choose an option"
                         isSearchable={true}
                         className={styles.selectTag}
+                        styles={{
+                            option: (provided, state) => ({
+                                ...provided,
+                                color: 'black',
+                            }),
+                            control: (provided, state) => ({
+                                ...provided,
+                                backgroundColor: '#3c3c3c',
+                                border: state.isFocused ? '3px solid white' : 'solid',
+                            }),
+                            menu: (provided, state) => ({
+                                ...provided,
+                                maxWidth: '800px', // Select 태그의 너비와 동일한 값으로 설정
+                            }),
+                            singleValue: (provided) => ({
+                                ...provided,
+                                color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                        }}
                     />
                     {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
                     {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
                 </div>
-                <br/>
-
-
-
+                <br/><br/><br/>
                 <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.buttonSubmit}>Submit</button></Link>
             </form>
         </>

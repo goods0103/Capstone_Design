@@ -44,11 +44,13 @@
 .selectTag {
   width: 30%;
   height: 20%;
-  background-color: none;
+  background-color: #3c3c3c;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 30px;
-  margin-bottom: 50px;
+  /*margin-right: 30px;*/
+  /*margin-bottom: 50px;*/
+  color: white;
+  /*border: 2px solid white;*/
 }
 
 .selectTagShow {
@@ -62,30 +64,26 @@
 }
 
 .formTag {
-  margin-top: 1rem;
-  margin-left: 4rem;
+  /*margin-top: 5%;*/
+  /*margin-left: 40%;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  /*height: 70vh;*/
+  text-align:center;
+  margin-top: 5%;
 }
 
 .buttonSubmit {
   box-sizing: border-box;
-
-  position: absolute;
-  width: 25%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
-
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
   border-radius: 149px;
 
-
-  /* 스펙 불러오기 */
-
   position: relative;
-  width: 100px;
+  width: 200px;
   height: 50px;
-  margin-left: 11%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -105,19 +103,43 @@
 .animationCpu {
   animation-name: fadeIn;
   animation-duration: 2.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+  /*width: 40%;*/
 }
 
 .animationGpu {
   animation-name: fadeIn;
   animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
 }
 
 .animationRam {
   animation-name: fadeIn;
   animation-duration: 4.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+}
+
+.animationLabel {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: none;
+}
+
+.hrStyle {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: none;
+  /*border-color: red;*/
+  width: 10%; /* 원하는 너비로 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.labelStyle {
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* Rectangle 1 */
@@ -157,7 +179,7 @@
   animation-duration: 2.0s, 1s;
   animation-fill-mode: both, forwards;
   animation-delay: 0s, 2.0s;
-  animation-iteration-count: 1, infinite;
+  animation-iteration-count: 1, 3;
 }
 
 
