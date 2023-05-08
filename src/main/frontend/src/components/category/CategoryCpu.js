@@ -20,6 +20,7 @@ function CategoryCpu() {
   const [data2, setData2] = useState("AMD Ryzen 5 5600X");
   const [cpuOption, setCpuOption] = useState([]);
 
+
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
 
@@ -153,32 +154,13 @@ function CategoryCpu() {
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
               <label>원하는 Cpu를 입력하세요 : </label> <br/>
-              <Select
-                  value={selectedCpu}
-                  onChange={handleGpuChange}
-                  options={cpuOption}
-                  placeholder="Choose an option"
-                  isSearchable={true}
-                  className={styles.selectTag}
-                  styles={{
-                      option: (provided, state) => ({
-                          ...provided,
-                          color: 'black',
-                      }),
-                  }}
-              />
-              <SearchBox
+              <input
+                  type="text"
                   placeholder="Search products"
                   value={searchValue}
-                  onChange={handleSearch}
-                  data={filteredProducts.map((product) => ({
-                      key: product.value,
-                      value: product.label,
-                  }))}
+                  onChange={(e) => setSearchValue(e.target.value)}
               />
-              {filteredProducts.map((product) => (
-                  <div key={product.value}>{product.label}</div>
-              ))}
+
               {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
               {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
               <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
@@ -235,6 +217,9 @@ function CategoryCpu() {
                           </tr>
                       </thead>
                       <tbody>
+                      {filteredProducts.map((product) => (
+                          cpuList.map((cpu) =>(
+                              cpu.cpuName=== product.value &&(
                           <tr>
                               <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                               <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
@@ -242,6 +227,7 @@ function CategoryCpu() {
                               <td>{cpu.cpuValue}</td>
                               <td>{convertPrice(cpu.cpuPrice)}원</td>
                           </tr>
+                              )))))}
                       </tbody>
                   </Table>
               </div>

@@ -39,6 +39,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [scrollY, setScrollY] = useState(0);
+
   const convertPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
@@ -53,8 +54,7 @@ function App() {
 
   return (
     <HashRouter>
-      <TopNavigationBar cart={cart} />
-      {/* <CategoryBar></CategoryBar> */}
+      {<TopNavigationBar cart={cart} />}
       <TopButton></TopButton>
       <Routes>
         <Route
@@ -64,6 +64,7 @@ function App() {
               convertPrice={convertPrice}
               products={products}
               setProducts={setProducts}
+
             />
           }
         />
