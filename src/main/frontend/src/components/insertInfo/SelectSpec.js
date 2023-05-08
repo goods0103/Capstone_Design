@@ -81,7 +81,6 @@ function SelectSpec() {
 
     return(
         <>
-            <CategoryBar3></CategoryBar3>
             <div className={styles2.divParent}>
                 {cpuInfo.map((cpu) => (
                     cpu.cpuName === selectCpu && (

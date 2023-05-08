@@ -3,9 +3,10 @@ import axios from "axios";
 import Select from "react-select";
 import styles from "./eventBanner.module.css"
 import {Link} from "react-router-dom";
+import {useStateValue} from "../reducer/StateProvider";
 
 function InsertSpec() {
-
+    const [{count}, dispatch]= useStateValue();
     const [cpuOption, setCpuOption] = useState([]); // cpu 에 대한 배열
     // 나중에 스프링에서 데이터를 받아오면 let -> const 로 변환
     const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
@@ -90,8 +91,15 @@ function InsertSpec() {
             .catch(error => {
                 console.log(error);
             });
+        dispatch({
+            type:'3',
+        });
 
     }
+    useEffect(() => {
+        localStorage.setItem("state", JSON.stringify(count));
+        console.log(count);
+      }, [count]);
 
     return (
         <>

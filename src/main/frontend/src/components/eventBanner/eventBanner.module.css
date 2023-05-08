@@ -184,24 +184,39 @@ line-height: 140%;
 
 /*--- ShowMySpec.js ---*/
 
+
+
+
+/* 스펙 입력하기 */
+
+
+/* or 31px */
+
+
+
 .button{
   box-sizing: border-box;
   /*position: absolute;*/
   /*width: 25%;*/
   /*height: 60px;*/
+  background-color: #151515;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  border: 1px solid #000000;
-  border-radius: 149px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
 
 
 
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
-  left : 10%;
+  top: 17%;
+  left : 15%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -210,7 +225,7 @@ line-height: 140%;
   line-height: 140%;
   /* or 28px */
 
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 
 }
 .link{
@@ -227,7 +242,7 @@ line-height: 140%;
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
+  top: 17%;
   left : 30%;
 
   font-family: 'Roboto';
@@ -260,4 +275,14 @@ line-height: 140%;
     top: 90%;
   }
 }
-
+.loading{
+  background: #151515;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.waring{
+  position: absolute;
+  left:14%;
+}
