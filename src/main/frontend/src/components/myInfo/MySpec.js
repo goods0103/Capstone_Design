@@ -94,7 +94,6 @@ function MySpec() {
 
     return(
         <>
-            <CategoryBar2></CategoryBar2>
             {localStorage.setItem('cpuData', cpuInfo.cpuName)}
             {localStorage.setItem('gpuData', gpuInfo.gpuName)}
             {localStorage.setItem('ramData', ramInfo.ramName)}

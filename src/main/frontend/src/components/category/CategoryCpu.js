@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
+import SearchBox from "react-search-box";
 
 // import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
 // import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@ function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
   const [data2, setData2] = useState("AMD Ryzen 5 5600X");
   const [cpuOption, setCpuOption] = useState([]);
+
 
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
@@ -128,6 +130,16 @@ function CategoryCpu() {
         setFlag(true);
     }
 
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearch = (value) => {
+        setSearchValue(value);
+    }
+
+    const filteredProducts = cpuOption.filter((product) =>
+        product.value.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
   return (
     <>
       {/*<CategoryBar></CategoryBar>*/}
@@ -142,20 +154,13 @@ function CategoryCpu() {
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
               <label>원하는 Cpu를 입력하세요 : </label> <br/>
-              <Select
-                  value={selectedCpu}
-                  onChange={handleGpuChange}
-                  options={cpuOption}
-                  placeholder="Choose an option"
-                  isSearchable={true}
-                  className={styles.selectTag}
-                  styles={{
-                      option: (provided, state) => ({
-                          ...provided,
-                          color: 'black',
-                      }),
-                  }}
+              <input
+                  type="text"
+                  placeholder="Search products"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
               />
+
               {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
               {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
               <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
@@ -212,6 +217,9 @@ function CategoryCpu() {
                           </tr>
                       </thead>
                       <tbody>
+                      {filteredProducts.map((product) => (
+                          cpuList.map((cpu) =>(
+                              cpu.cpuName=== product.value &&(
                           <tr>
                               <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                               <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
@@ -219,6 +227,7 @@ function CategoryCpu() {
                               <td>{cpu.cpuValue}</td>
                               <td>{convertPrice(cpu.cpuPrice)}원</td>
                           </tr>
+                              )))))}
                       </tbody>
                   </Table>
               </div>

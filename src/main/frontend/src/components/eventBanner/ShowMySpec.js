@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import styles from "./eventBanner.module.css";
+import {useStateValue} from "../reducer/StateProvider";
 
 function ShowMySpec() {
-    let waring = "시스템 정보를 불러오기 위한 파일을 다운로드 중입니다. 다운이 완료되면 실행 시켜 주세요!!!"
+    const [waring, setWaring]  = useState("다운로드 버튼을 눌러주세요!!!");
     const [flag, setFlag] = useState(false);
-
+    const [{count}, dispatch]= useStateValue();
     const [data, setData] = useState([]);
     const downloadFile = async () => {
         setFlag(true);
+        setWaring("시스템 정보를 불러오기 위한 파일을 다운로드 중입니다.!!!");
         const response = await axios({
             url: 'http://localhost:12000/ShowMySpec',
             method: 'GET',
@@ -31,26 +33,35 @@ function ShowMySpec() {
         eventSource.onmessage = event => {
             setData(prevData => [...prevData, event.data]);
             setFlag(false);
+            setWaring("Show My Spec 버튼을 눌러 내 시스템 정보를 확인하세요!!!");
         };
     }, []);
-
+    const handleClick = () => {
+        dispatch({
+            type:'2',
+        });
+    };
+    useEffect(() => {
+        localStorage.setItem("state", JSON.stringify(count));
+        console.log(count);
+      }, [count]);
 
     return (
         <div>
 
 
-            <p>
+            <p className={styles.waring}>
             &emsp;{waring}
-
+            </p>
                 <button className={styles.button} onClick={downloadFile}>download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <Link to="/MySpec">
-                    <button>develop button</button>
+                    <button onClick={handleClick}>develop button</button>
                 </Link>
               
-            </p>
+            
             {data.map((item, index) => (
-                <div key={index}>
-                      <Link to="/MySpec"><button className={styles.link}>GotoMySpec</button></Link>
+                <div key={index} onClick={handleClick}>
+                      <Link to="/MySpec"><button className={styles.link}>ShowMySpec</button></Link>
                 </div>
                 ))}
                 {flag && (
@@ -58,7 +69,7 @@ function ShowMySpec() {
             )}
             {flag && (
             <img
-                className={styles.banner}
+                className={styles.loading}
                 src="images/loading.gif"
                 alt="First slide"
             />

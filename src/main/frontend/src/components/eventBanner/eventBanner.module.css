@@ -1,3 +1,10 @@
+.banner {
+  position: relative;
+  width: 35%;
+  height: 30%;
+  background: #151515;
+  left: 55%;
+}
 
 .right {
   position: absolute;
@@ -44,11 +51,13 @@
 .selectTag {
   width: 30%;
   height: 20%;
-  background-color: none;
+  background-color: #3c3c3c;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 30px;
-  margin-bottom: 50px;
+  /*margin-right: 30px;*/
+  /*margin-bottom: 50px;*/
+  color: white;
+  /*border: 2px solid white;*/
 }
 
 .selectTagShow {
@@ -62,30 +71,26 @@
 }
 
 .formTag {
-  margin-top: 1rem;
-  margin-left: 4rem;
+  /*margin-top: 5%;*/
+  /*margin-left: 40%;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  /*height: 70vh;*/
+  text-align:center;
+  margin-top: 5%;
 }
 
 .buttonSubmit {
   box-sizing: border-box;
-
-  position: absolute;
-  width: 25%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
-
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
   border-radius: 149px;
 
-
-  /* 스펙 불러오기 */
-
   position: relative;
-  width: 100px;
+  width: 200px;
   height: 50px;
-  margin-left: 11%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -105,19 +110,43 @@
 .animationCpu {
   animation-name: fadeIn;
   animation-duration: 2.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+  /*width: 40%;*/
 }
 
 .animationGpu {
   animation-name: fadeIn;
   animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
 }
 
 .animationRam {
   animation-name: fadeIn;
   animation-duration: 4.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+}
+
+.animationLabel {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: none;
+}
+
+.hrStyle {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: none;
+  /*border-color: red;*/
+  width: 10%; /* 원하는 너비로 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.labelStyle {
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* Rectangle 1 */
@@ -157,62 +186,60 @@
   animation-duration: 2.0s, 1s;
   animation-fill-mode: both, forwards;
   animation-delay: 0s, 2.0s;
-  animation-iteration-count: 1, infinite;
+  animation-iteration-count: 1, 3;
 }
 
 
 
 .buttonInsert{
 
-  /* Rectangle 2 */
+/* Rectangle 2 */
 
-  box-sizing: border-box;
+box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 70px;
-  left: 30%;
-  top: 65%;
-  background-color: #151515;
-  border: 2px solid #30D5C8;
-  border-radius: 149px;
+position: absolute;
+width: 25%;
+height: 70px;
+left: 30%;
+top: 65%;
+background-color: #151515;
+border: 2px solid #30D5C8;
+border-radius: 149px;
 
 
-  /* 스펙 입력하기 */
+/* 스펙 입력하기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 30%;
-  top: 65%;
+position: absolute;
+width: 10%;
+height: 60px;
+left: 30%;
+top: 65%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 140%;
-  /* or 31px */
+font-family: 'Roboto';
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 140%;
+/* or 31px */
 
-  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 
-  animation-name: slide-up;
-  animation-duration: 3.0s;
-  animation-fill-mode: both;
+
 }
 
 .title{
   position: absolute;
-  width: 35%;
-  height: 50px;
-  left: 15%;
-  top: 30%;
+width: 35%;
+height: 50px;
+left: 15%;
+top: 30%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-size: 50px;
-  line-height: 140%;
+font-family: 'Roboto';
+font-style: normal;
+font-size: 50px;
+line-height: 140%;
 }
 
 .main{
@@ -260,19 +287,24 @@
   /*position: absolute;*/
   /*width: 25%;*/
   /*height: 60px;*/
+  background-color: #151515;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  border: 1px solid #000000;
-  border-radius: 149px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
 
 
 
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
-  left : 10%;
+  top: 17%;
+  left : 15%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -281,7 +313,7 @@
   line-height: 140%;
   /* or 28px */
 
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 
 }
 .link{
@@ -298,7 +330,7 @@
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
+  top: 17%;
   left : 30%;
 
   font-family: 'Roboto';
@@ -332,6 +364,18 @@
   100% {
     top: 90%;
   }
+}
+
+.loading{
+  background: #151515;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.waring{
+  position: absolute;
+  left:14%;
 }
 
 @keyframes fadeIn {
@@ -396,3 +440,4 @@
 /*  animation-duration: 1s;*/
 /*  animation-fill-mode: both;*/
 /*}*/
+
