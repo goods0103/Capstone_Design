@@ -70,7 +70,8 @@ th {
     height: 20%;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 30px;
+    /*margin-bottom: 50px;*/
+    background-color: #3c3c3c;
     /*margin-bottom: 50px;*/
     /*animation-name: slide-in;*/
     /*animation-duration: 3.0s;*/
@@ -91,33 +92,24 @@ th {
 }
 
 .formTag {
-    margin-top: 1rem;
-    margin-left: 2rem;
-    animation-name: slide-in;
-    animation-duration: 3.0s;
-    animation-fill-mode: both;
+    /*margin-top: 1rem;*/
+    /*margin-left: 2rem;*/
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+    text-align: center;
+    margin-top: 5%;
 }
 
 .buttonSubmit {
     box-sizing: border-box;
-
-    position: absolute;
-    width: 25%;
-    height: 60px;
-    left: 15%;
-    top: 65%;
-
     background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
     border: 1px solid #000000;
     border-radius: 149px;
 
-
-    /* 스펙 불러오기 */
-
     position: relative;
-    width: 100px;
+    width: 200px;
     height: 50px;
-    margin-left: 11%;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -128,6 +120,7 @@ th {
 
     color: #FFFFFF;
 
+    /* 애니메이션 적용. 2개의 애니메이션 */
     animation-name: slide-up;
     animation-duration: 3.0s;
     animation-fill-mode: both;
@@ -148,13 +141,39 @@ th {
 .animationCpu {
     animation-name: fadeIn;
     animation-duration: 2.0s;
-    animation-fill-mode: both;
+    animation-fill-mode: backwards;
+    animation-delay: 1s;
+    /*width: 40%;*/
 }
 
 .animationGpu {
     animation-name: fadeIn;
     animation-duration: 3.0s;
-    animation-fill-mode: both;
+    animation-fill-mode: backwards;
+    animation-delay: 1s;
+}
+
+
+.animationLabel {
+    animation-name: fadeIn;
+    animation-duration: 4.0s;
+    animation-fill-mode: none;
+}
+
+.hrStyle {
+
+    animation-name: fadeIn;
+    animation-duration: 4.0s;
+    animation-fill-mode: none;
+    /*border-color: red;*/
+    width: 10%; /* 원하는 너비로 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+
+}
+
+.labelStyle {
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 /*---페이지 관련 Css---*/
@@ -238,6 +257,17 @@ th {
 @keyframes fadeIn {
     0% {
         transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(150px);
         opacity: 0;
     }
     100% {
