@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
+import SearchBox from "react-search-box";
 
 // import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
 // import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -128,6 +129,16 @@ function CategoryCpu() {
         setFlag(true);
     }
 
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleSearch = (value) => {
+        setSearchValue(value);
+    }
+
+    const filteredProducts = cpuOption.filter((product) =>
+        product.value.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
   return (
     <>
       {/*<CategoryBar></CategoryBar>*/}
@@ -156,6 +167,18 @@ function CategoryCpu() {
                       }),
                   }}
               />
+              <SearchBox
+                  placeholder="Search products"
+                  value={searchValue}
+                  onChange={handleSearch}
+                  data={filteredProducts.map((product) => ({
+                      key: product.value,
+                      value: product.label,
+                  }))}
+              />
+              {filteredProducts.map((product) => (
+                  <div key={product.value}>{product.label}</div>
+              ))}
               {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
               {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
               <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
