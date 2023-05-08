@@ -6,45 +6,36 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "gpulist")
+@Table(name = "gpulist", indexes = @Index(name = "idx_gpu_name", columnList = "gpu_name"))
 public class GpuList {
 
 
     @Id
-    @JsonProperty("gpu_name")
+    @Column(name = "gpu_name")
     private String gpuName;
 
     @Column(name = "gpu_id")
-    @JsonProperty("gpu_id")
     private int gpuId;
 
     @Column(name = "gpu_mark")
-    @JsonProperty("gpu_mark")
     private int gpuMark;
 
     @Column(name = "gpu_rank")
-    @JsonProperty("gpu_rank")
     private int gpuRank;
 
     @Column(name = "gpu_value")
-    @JsonProperty("gpu_value")
     private double gpuValue;
 
     @Column(name = "gpu_price")
-    @JsonProperty("gpu_price")
     private int gpuPrice;
 
     @Column(name = "image_url")
-    @JsonProperty("image_url")
     private String gpuUrl;
 
     @Builder // 7.

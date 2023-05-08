@@ -1,0 +1,98 @@
+.cssTh {
+    /*background-color: #f2f2f2;*/
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTd {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.cssTable {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.tableImg {
+    width:50px;
+    height:30px;
+}
+
+/*-------*/
+
+.filter {
+    display: flex;
+    width: 85%;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+
+.filter > p:not(:last-child)::after {
+    content: "|";
+    padding: 10px;
+}
+
+.filter p {
+    cursor: pointer;
+}
+
+/*-------*/
+.Chart{
+    display: flex;
+}
+.CircularChart{
+    width: 100px;
+    height: 100px;
+}
+
+/*---ShowInsertInfo.js----*/
+/*.specCss {*/
+/*    margin-left: 50px;*/
+/*    margin-top: 50px;*/
+/*    display : flex;*/
+/*    align-Items: center;*/
+/*    background-color: white;*/
+/*    border: 2px solid #ccc;*/
+/*    border-radius: 10px;*/
+/*    width: 30%;*/
+/*}*/
+
+.specCss {
+    width: 40rem;
+    border: 3px solid #30D5C8;
+    border-radius: 10px;
+}
+
+.image {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px 0 0 10px;
+}
+
+/*.specInfoCss {*/
+/*    background-color: white;*/
+/*    color: black;*/
+/*    margin-left: 50px;*/
+/*    border-left: 2px solid #ccc;*/
+/*    padding: 10px;*/
+/*}*/
+.specInfoCss {
+    color: black;
+}
+
+
+.divParent {
+    display: flex;
+    justifyContent: center;
+    alignItems: center;
+    margin: 0 auto;
+}
+
+.divChild {
+    margin-top: 50px;
+    flex: 1;
+}

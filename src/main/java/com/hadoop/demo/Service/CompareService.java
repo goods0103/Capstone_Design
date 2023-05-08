@@ -1,13 +1,7 @@
 package com.hadoop.demo.Service;
 
-import com.hadoop.demo.Model.CpuList;
-import com.hadoop.demo.Model.GpuList;
-import com.hadoop.demo.Model.RamList;
-import com.hadoop.demo.Model.UserInfo;
-import com.hadoop.demo.Repository.CpuListRepository;
-import com.hadoop.demo.Repository.GpuListRepository;
-import com.hadoop.demo.Repository.RamListRepository;
-import com.hadoop.demo.Repository.UserInfoRepository;
+import com.hadoop.demo.Model.*;
+import com.hadoop.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -26,50 +20,57 @@ public class CompareService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public CpuList getMatchingCpu(){
+    public CpuList getMatchingCpu(String ipAddress){
         List<String> matchingCpu = new ArrayList<>();
 
+        UserInfo userCpu = userInfoRepository.findByIpAddress(ipAddress);
         List<CpuList> cpulist = cpuListRepository.findAll();
-        List<UserInfo> userCpu = userInfoRepository.findAll();
 
-        String lastData = userCpu.get(userCpu.size() - 1).getCpuInfo();
 
-        for(CpuList cpu : cpulist){
-            if(cpu.getCpuName().contains(lastData) || lastData.contains(cpu.getCpuName()))
-                matchingCpu.add(cpu.getCpuName());
-        }
+        String findUserCpu = userCpu.getCpuInfo();
 
-        String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
-
-        String mostSimilar = "";
-        int maxSimilarity = 100;
-
-        for (String findCpuArray : cpuArray) {
-            int similarity = StringUtils.getLevenshteinDistance(lastData, findCpuArray);
-            if (similarity < maxSimilarity) {
-                maxSimilarity = similarity;
-                mostSimilar = findCpuArray;
+            for(CpuList cpu : cpulist){
+                if(cpu.getCpuName().contains(findUserCpu) || findUserCpu.contains(cpu.getCpuName()))
+                    matchingCpu.add(cpu.getCpuName());
             }
-        }
 
-        System.out.println("Most similar CPU: " + mostSimilar);
+            String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
 
-        return cpuListRepository.findByCpuName(mostSimilar);
+            String mostSimilar = "";
+            int maxSimilarity = 100;
+
+            for (String findCpuArray : cpuArray) {
+                int similarity = StringUtils.getLevenshteinDistance(findUserCpu, findCpuArray);
+                if (similarity < maxSimilarity) {
+                    maxSimilarity = similarity;
+                    mostSimilar = findCpuArray;
+                }
+            }
+
+            System.out.println("Most similar CPU: " + mostSimilar);
+
+            return cpuListRepository.findByCpuName(mostSimilar);
     }
 
-    public GpuList getMatchingGpu(){
+    public GpuList getMatchingGpu(String ipAddress){
         List<String> matchingGpu = new ArrayList<>();
 
+        UserInfo userGpu = userInfoRepository.findByIpAddress(ipAddress);
         List<GpuList> gpulist = gpuListRepository.findAll();
-        List<UserInfo> userGpu = userInfoRepository.findAll();
 
-        String lastData = userGpu.get(userGpu.size() - 1).getGpuInfo();
+        String lastData = userGpu.getGpuInfo();
 
         for(GpuList gpu : gpulist){
             if(gpu.getGpuName().contains(lastData) || lastData.contains(gpu.getGpuName()))
                 matchingGpu.add(gpu.getGpuName());
         }
-
+//        if(matchingGpu.size()==0){
+//            String gpuCpu = userGpu.get(userGpu.size() - 1).getCpuInfo();
+//            for(GpuList gpu : gpulist){
+//                if(gpu.getGpuName().contains(gpuCpu) || gpuCpu.contains(gpu.getGpuName()))
+//                    matchingGpu.add(gpu.getGpuName());
+//            }
+//        }
         String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);
 
         String mostSimilar = "";
@@ -88,13 +89,13 @@ public class CompareService {
         return gpuListRepository.findByGpuName(mostSimilar);
     }
 
-    public RamList getMatchingRam(){
+    public RamList getMatchingRam(String ipAddress){
         List<String> matchingRam = new ArrayList<>();
 
+        UserInfo userRam = userInfoRepository.findByIpAddress(ipAddress);
         List<RamList> ramList = ramListRepository.findAll();
-        List<UserInfo> userRam = userInfoRepository.findAll();
 
-        String lastData = userRam.get(userRam.size() - 1).getRamPartNum();
+        String lastData = userRam.getRamPartNum();
 
         for(RamList ram : ramList){
             if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))

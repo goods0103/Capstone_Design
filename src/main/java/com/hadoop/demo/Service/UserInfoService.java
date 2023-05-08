@@ -27,4 +27,10 @@ public class UserInfoService {
     public void deleteById(Long id) {
         userInfoRepository.deleteById(id);
     }
+
+    public long Count() {return userInfoRepository.count(); }
+
+    public UserInfo findByIpAddress(String ipAddress) { return userInfoRepository.findByIpAddress(ipAddress);}
+
+    public void deleteByIpAddress(String ipAddress) { userInfoRepository.deleteByIpAddress(ipAddress);}
 }

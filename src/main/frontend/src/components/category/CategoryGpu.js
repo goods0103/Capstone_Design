@@ -2,22 +2,65 @@ import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
 import CategoryBar from "./CategoryBar";
+import ReactPaginate from "react-paginate";
+import Select from "react-select";
+import {Link} from "react-router-dom";
+import Table from "react-bootstrap/Table";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
 
 // [Mod] for check
 function CategoryGpu() {
     const [gpuList, setGpuList] = useState([]);
+    const [data2, setData2] = useState("GeForce RTX 3070");
+    const [gpuOption, setGpuOption] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage, setItemsPerPage] = useState(100);
+
+    const [selectedGpu, setSelectedGpu] = useState({
+        value : localStorage.getItem('gpuData'),
+        label : localStorage.getItem('gpuData')
+    });
+    const [flag, setFlag] = useState(true);
+    const [gpu, setGpu] = useState({});
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const slicedData = gpuList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/category/gpu1');
                 setGpuList(response.data);
+                setData2(localStorage.getItem('gpuData'));
             } catch (error) {
                 console.log(error);
             }
         };
 
         fetchData();
+    }, []);
+
+    useEffect(() => { // Select 에서 사용할 gpu label, value 값들
+        axios.get('/category/gpu_name')
+            .then(response => {
+                const gpus = response.data.map(gpus => ({
+                    value: gpus,
+                    label: gpus
+                }));
+                setGpuOption(gpus);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
     const convertPrice = (price) => {
@@ -34,39 +77,60 @@ function CategoryGpu() {
         if (type === "low") {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => {
-                if (a.gpu_price === 0 && b.gpu_price === 0) {
+                if (a.gpuPrice === 0 && b.gpuPrice === 0) {
                     return 0; // 두 객체 모두 cpu_price가 0인 경우에는 순서를 유지
-                } else if (a.gpu_price === 0) {
+                } else if (a.gpuPrice === 0) {
                     return 1; // a.cpu_price가 0이고 b.cpu_price가 0이 아닌 경우 b를 먼저 위치시킴
-                } else if (b.gpu_price === 0) {
+                } else if (b.gpuPrice === 0) {
                     return -1; // a.cpu_price가 0이 아니고 b.cpu_price가 0인 경우 a를 먼저 위치시킴
                 } else {
-                    return a.gpu_price - b.gpu_price; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
+                    return a.gpuPrice - b.gpuPrice; // 두 객체 모두 cpu_price가 0이 아닌 경우 cpu_price 기준으로 정렬
                 }
             });
             setGpuList(newProduct);
         } else if (type === "high") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_price - a.gpu_price);
+            newProduct.sort((a, b) => b.gpuPrice - a.gpuPrice);
             setGpuList(newProduct);
         } else if (type === "rankLow") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_rank - a.gpu_rank);
+            newProduct.sort((a, b) => b.gpuRank - a.gpuRank);
             setGpuList(newProduct);
         } else if (type === "rankHigh") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => a.gpu_rank - b.gpu_rank);
+            newProduct.sort((a, b) => a.gpuRank - b.gpuRank);
             setGpuList(newProduct);
         } else if (type === "gpuValue") {
             const newProduct = [...gpuList];
-            newProduct.sort((a, b) => b.gpu_value - a.gpu_value);
+            newProduct.sort((a, b) => b.gpuValue - a.gpuValue);
             setGpuList(newProduct);
         }
     };
 
+    function handleGpuChange(selectedGpu) {
+        setSelectedGpu(selectedGpu);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const searchGpu = (gpu) => {
+        setFlag(false);
+        {gpuList.map((list) => {
+            if(list.gpuName === gpu.value){
+                setGpu(list);
+            }
+        })
+        }
+    }
+
+    const showTotalList = () => {
+        setFlag(true);
+    }
+
     return (
         <>
-            <CategoryBar></CategoryBar>
+            {/*<CategoryBar></CategoryBar>*/}
             <div>
                 <div className={styles.filter}>
                     {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
@@ -77,26 +141,95 @@ function CategoryGpu() {
                     <p onClick={() => sortProduct("gpuValue")}>가성비순</p>
 
                 </div>
-                <table className={styles.cssTable}>
-                    <tr>
-                        <th className={styles.cssTh}>gpu_image</th>
-                        <th className={styles.cssTh}>gpu_name</th>
-                        <th className={styles.cssTh}>gpu_mark</th>
-                        <th className={styles.cssTh}>gpu_rank</th>
-                        <th className={styles.cssTh}>gpu_value</th>
-                        <th className={styles.cssTh}>gpu_price</th>
-                    </tr>
-                    {gpuList.map((cpu) => (
-                        <tr>
-                            <td className={styles.cssTd}><img src="" alt="gpu_image" className={styles.tableImg}/></td>
-                            <td className={styles.cssTd}>{cpu.gpu_name}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_mark}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_rank}</td>
-                            <td className={styles.cssTd}>{cpu.gpu_value}</td>
-                            <td className={styles.cssTd}>{convertPrice(cpu.gpu_price)}원</td>
-                        </tr>
-                    ))}
-                </table>
+                <form onSubmit={handleSubmit} className={styles.formTag}>
+                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
+                    <Select
+                        value={selectedGpu}
+                        onChange={handleGpuChange}
+                        options={gpuOption}
+                        placeholder="Choose an option"
+                        isSearchable={true}
+                        className={styles.selectTag}
+                    />
+                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
+                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
+                    <button onClick={() => searchGpu(selectedGpu)} className={styles.buttonSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
+                    <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
+                    <br/><br/><br/>
+                </form>
+                {flag ? (
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>image</th>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>mark</th>
+                                    <th className={styles.cssTh}>rank</th>
+                                    <th className={styles.cssTh}>value</th>
+                                    <th className={styles.cssTh}>price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {slicedData.map((gpu) => (
+                                    <tr>
+                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                        <td>{gpu.gpuMark}</td>
+                                        <td>{gpu.gpuRank}</td>
+                                        <td>{gpu.gpuValue}</td>
+                                        <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>)
+                    :
+                    <div className={styles.cssTable}>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                                <tr>
+                                    <th className={styles.cssTh}>image</th>
+                                    <th className={styles.cssTh}>name</th>
+                                    <th className={styles.cssTh}>mark</th>
+                                    <th className={styles.cssTh}>rank</th>
+                                    <th className={styles.cssTh}>value</th>
+                                    <th className={styles.cssTh}>price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                    <td>{gpu.gpuMark}</td>
+                                    <td>{gpu.gpuRank}</td>
+                                    <td>{gpu.gpuValue}</td>
+                                    <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                }
+            </div>
+            <br/>
+            <div className={styles.page}>
+                {flag &&
+                    <ReactPaginate
+                        previousLabel={<span className={styles.paginationIconLeft}>
+                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                </span>}
+                        nextLabel={<span className={styles.paginationIconRight}>
+                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                            </span>}
+                        pageCount={Math.ceil(gpuList.length / itemsPerPage)}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link spaced"}
+                    />
+                }
             </div>
         </>
     );

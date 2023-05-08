@@ -1,9 +1,9 @@
+/*---Table 관련 Css----*/
 .cssTh {
-    background-color: #f2f2f2;
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
 }
 
 .cssTd {
@@ -12,13 +12,36 @@
     padding: 8px;
 }
 
+td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+/*tr:hover {*/
+/*    background-color: #ebebeb;*/
+/*}*/
+
 .cssTable {
     border-collapse: collapse;
+    margin: 0 auto;
+    width: 70%;
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+    animation: 1.5s ease-in-out fadeIn;
 }
 
 .tableImg {
-    width:50px;
-    height:30px;
+    width:100px;
+    height:60px;
 }
 
 /*-------*/
@@ -40,4 +63,185 @@
 }
 
 
+/*--- Category.BottleNeck.js ---*/
 
+.selectTag {
+    width: 30%;
+    height: 20%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+    /*margin-bottom: 50px;*/
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+}
+
+.selectTagShow {
+    width: 25%;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 2rem;
+    border: none;
+    background-color: transparent;
+    color :#FFFFFF;
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+}
+
+.formTag {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    animation-name: slide-in;
+    animation-duration: 3.0s;
+    animation-fill-mode: both;
+}
+
+.buttonSubmit {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 25%;
+    height: 60px;
+    left: 15%;
+    top: 65%;
+
+    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #000000;
+    border-radius: 149px;
+
+
+    /* 스펙 불러오기 */
+
+    position: relative;
+    width: 100px;
+    height: 50px;
+    margin-left: 11%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+
+    animation-name: slide-up;
+    animation-duration: 3.0s;
+    animation-fill-mode: both;
+}
+
+.buttonSearch {
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.buttonTotalList {
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.animationCpu {
+    animation-name: fadeIn;
+    animation-duration: 2.0s;
+    animation-fill-mode: both;
+}
+
+.animationGpu {
+    animation-name: fadeIn;
+    animation-duration: 3.0s;
+    animation-fill-mode: both;
+}
+
+/*---페이지 관련 Css---*/
+.page{
+    display: flex;
+    justify-content: center;
+}
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 5px 10px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pagination li a:hover {
+    background-color: #f2f2f2;
+}
+
+.active a {
+    background-color: #333;
+    color: #fff;
+}
+
+.pagination .page-link.spaced {
+    margin: 0 5px;
+}
+
+.paginationIconLeft {
+    margin-right: 10px;
+}
+
+.paginationIconRight {
+    margin-left: 10px;
+}
+
+/*------animation-----*/
+@keyframes slide-in {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes loadEffect3 {
+    0%{
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    65%{
+        opacity: 0.65;
+        transform: scale(1.01);
+    }
+    85%{
+        opacity: 0.85;
+        transform: scale(0.97);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
