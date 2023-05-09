@@ -45,7 +45,7 @@ function InsertCategoryCpu() {
     };
     return (
         <>
-            <CategoryBar3></CategoryBar3>
+
             <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>

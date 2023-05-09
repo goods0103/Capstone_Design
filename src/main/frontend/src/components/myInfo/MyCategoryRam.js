@@ -35,7 +35,6 @@ function MyCategoryRam() {
     };
     return (
         <>
-            <CategoryBar2></CategoryBar2>
             <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
                 <table className={styles.cssTable}>

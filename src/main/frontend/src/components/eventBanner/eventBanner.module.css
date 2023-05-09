@@ -1,3 +1,10 @@
+.banner {
+  position: relative;
+  width: 35%;
+  height: 30%;
+  background: #151515;
+  left: 55%;
+}
 
 .right {
   position: absolute;
@@ -186,55 +193,53 @@
 
 .buttonInsert{
 
-  /* Rectangle 2 */
+/* Rectangle 2 */
 
-  box-sizing: border-box;
+box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 70px;
-  left: 30%;
-  top: 65%;
-  background-color: #151515;
-  border: 2px solid #30D5C8;
-  border-radius: 149px;
+position: absolute;
+width: 25%;
+height: 70px;
+left: 30%;
+top: 65%;
+background-color: #151515;
+border: 2px solid #30D5C8;
+border-radius: 149px;
 
 
-  /* 스펙 입력하기 */
+/* 스펙 입력하기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 30%;
-  top: 65%;
+position: absolute;
+width: 10%;
+height: 60px;
+left: 30%;
+top: 65%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 140%;
-  /* or 31px */
+font-family: 'Roboto';
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 140%;
+/* or 31px */
 
-  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 
-  animation-name: slide-up;
-  animation-duration: 3.0s;
-  animation-fill-mode: both;
+
 }
 
 .title{
   position: absolute;
-  width: 35%;
-  height: 50px;
-  left: 15%;
-  top: 30%;
+width: 35%;
+height: 50px;
+left: 15%;
+top: 30%;
 
-  font-family: 'Roboto';
-  font-style: normal;
-  font-size: 50px;
-  line-height: 140%;
+font-family: 'Roboto';
+font-style: normal;
+font-size: 50px;
+line-height: 140%;
 }
 
 .main{
@@ -282,19 +287,24 @@
   /*position: absolute;*/
   /*width: 25%;*/
   /*height: 60px;*/
+  background-color: #151515;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  border: 1px solid #000000;
-  border-radius: 149px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
 
 
 
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
-  left : 10%;
+  top: 17%;
+  left : 15%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -303,7 +313,7 @@
   line-height: 140%;
   /* or 28px */
 
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 
 }
 .link{
@@ -320,7 +330,7 @@
   position: absolute;
   width: 10%;
   height: 60px;
-  top: 50%;
+  top: 17%;
   left : 30%;
 
   font-family: 'Roboto';
@@ -354,6 +364,18 @@
   100% {
     top: 90%;
   }
+}
+
+.loading{
+  background: #151515;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.waring{
+  position: absolute;
+  left:14%;
 }
 
 @keyframes fadeIn {
@@ -418,3 +440,4 @@
 /*  animation-duration: 1s;*/
 /*  animation-fill-mode: both;*/
 /*}*/
+

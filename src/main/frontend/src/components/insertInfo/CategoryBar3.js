@@ -12,12 +12,14 @@ const StyledLink = styled(Link)`
   padding: 6px 12px;
   margin: 0 auto;
   text-align: center;
-  text-decoration:none;
-  border-radius: 10px;
+  text-decoration : none;
   line-height: 1.8;
-  border: 1px solid lightgray;
+  border: none;
   font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
-  color: ${(props) => (props.isActive ? "rgb(25,103,206)" : "white")};
+  color: ${(props) => (props.isActive ? "rgb(48,213,200)" : "white")};
+  &:hover {
+    color: #999;
+  }
 `;
 
 function CategoryBar3() {
@@ -25,18 +27,21 @@ function CategoryBar3() {
 
     return (
         <>
-            <Nav justify variant="tabs">
+            <Nav>
                 <Nav.Item>
-                    <StyledLink to="/SelectSpec" isActive={pathname === "/SelectSpec"}>Insert Spec</StyledLink>
+                    <StyledLink to="/InsertCategoryCpu" isActive={pathname === "/InsertCategoryCpu"}>CPU</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/InsertCategoryCpu" isActive={pathname === "/InsertCategoryCpu"}>Insert Cpu</StyledLink>
+                    <StyledLink to="/InsertCategoryGpu" isActive={pathname === "/InsertCategoryGpu"}>GPU</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/InsertCategoryGpu" isActive={pathname === "/InsertCategoryGpu"}>Insert Gpu</StyledLink>
+                    <StyledLink to="/InsertCategoryRam" isActive={pathname === "/InsertCategoryRam"}>RAM</StyledLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <StyledLink to="/InsertCategoryRam" isActive={pathname === "/InsertCategoryRam"}>Insert Ram</StyledLink>
+                    <StyledLink to="/category/game1" isActive={pathname === "/category/game1"}>GAME</StyledLink>
+                </Nav.Item>
+                <Nav.Item>
+                    <StyledLink to="/category/bottleneck1" isActive={pathname === "/category/bottleneck1"}>BOTTLENECK</StyledLink>
                 </Nav.Item>
             </Nav>
         </>
