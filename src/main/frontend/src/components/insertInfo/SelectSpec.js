@@ -86,7 +86,7 @@ function SelectSpec() {
                     cpu.cpuName === selectCpu && (
                         <div className={styles2.divChild}>
                             <ShowInsertInfo infoName={cpu.cpuName} infoMark={cpu.cpuMark} infoRank={cpu.cpuRank} infoPrice={cpu.cpuPrice}
-                                            infoValue={cpu.cpuValue} infoUrl={cpu.cpuUrl} infoCategory="cpu" infoId={cpu.cpuId}/>
+                                            infoValue={cpu.cpuValue} infoUrl="/images/product/cpuCategory01.png" infoCategory="cpu" infoId={cpu.cpuId}/>
                         </div>
                     )))}
                 <br/>
@@ -94,7 +94,7 @@ function SelectSpec() {
                     gpu.gpuName === selectGpu && (
                         <div className={styles2.divChild}>
                             <ShowInsertInfo infoName={gpu.gpuName} infoMark={gpu.gpuMark} infoRank={gpu.gpuRank} infoPrice={gpu.gpuPrice}
-                                            infoValue={gpu.gpuValue} infoUrl={gpu.gpuUrl} infoCategory="gpu" infoId={gpu.gpuId}/>
+                                            infoValue={gpu.gpuValue} infoUrl="/images/product/gpuCategory01.png" infoCategory="gpu" infoId={gpu.gpuId}/>
                         </div>
                     )))}
                 <br/>
