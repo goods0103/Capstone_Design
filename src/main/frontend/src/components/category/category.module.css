@@ -96,6 +96,7 @@ th {
     animation-name: slide-in;
     animation-duration: 3.0s;
     animation-fill-mode: both;
+    text-decoration : 10px;
 }
 
 .buttonSubmit {

@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
-import SearchBox from "react-search-box";
 
 // import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
 // import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -144,17 +143,11 @@ function CategoryCpu() {
     <>
       {/*<CategoryBar></CategoryBar>*/}
       <div>
-          <div className={styles.filter}>
-              {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-              <p onClick={() => sortProduct("low")}>낮은 가격</p>
-              <p onClick={() => sortProduct("high")}>높은 가격</p>
-              <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
-              <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
-          </div>
+
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
-              <label>원하는 Cpu를 입력하세요 : </label> <br/>
               <input
+                  className={styles.input}
                   type="text"
                   placeholder="Search products"
                   value={searchValue}
@@ -169,6 +162,13 @@ function CategoryCpu() {
               <br/><br/><br/>
 
           </form>
+          <div className={styles.filter}>
+              {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
+              <p onClick={() => sortProduct("low")}>낮은 가격</p>
+              <p onClick={() => sortProduct("high")}>높은 가격</p>
+              <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
+              <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
+          </div>
           {flag ? (
               <div className={styles.cssTable}>
                   <Table striped bordered hover variant="dark">
