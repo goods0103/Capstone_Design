@@ -39,6 +39,52 @@ th {
     animation: 1.5s ease-in-out fadeIn;
 }
 
+.cssTableGame {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    /*width: 70%;*/
+    max-width: 80%; /* 적절한 값으로 설정해주세요 */
+    margin: 0 auto;
+}
+
+.cssTableCell {
+    width: 20%;
+    margin-bottom: 1rem;
+    /*margin-right: 20px;*/
+}
+
+.cssTableCaption {
+    /*background-color: #333;*/
+    color: white;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+.cssTableGame img {
+    /*max-width: 800px;*/
+    /*max-height: 500px;*/
+    width: 70%;
+    /*height: 95%;*/
+    /*image-rendering: -webkit-optimize-contrast;*/
+    image-rendering: pixelated;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+}
+
+.cssTableGame img:hover {
+    transform: scale(1.05);
+}
+
+.cssTable td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
 .tableImg {
     width:100px;
     height:60px;

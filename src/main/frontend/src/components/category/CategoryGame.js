@@ -18,6 +18,7 @@ function CategoryGame() {
     const [gameOption, setGameOption] = useState([]); // cpu 에 대한 배열
     const [minimumList, setMinimumList] = useState([]);
     const [recommendedList, setRecommendedList] = useState([]);
+    const [gameNameImage, setGameNameImage] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(100);
@@ -36,6 +37,7 @@ function CategoryGame() {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/category/game2');
+                setGameNameImage(response.data); // 게임 이름과 이미지 출력하기 위해
                 const cpus = response.data.map(cpus => ({
                     value: cpus.gameName,
                     label: cpus.gameName
@@ -49,6 +51,20 @@ function CategoryGame() {
 
         fetchData();
     }, []);
+
+    // // 게임 이름과 이미지만 받아오는 request
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('/category/gameNameImage');
+    //             setGameNameImage(response.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
         const fetchMinimumList = async () => {
@@ -116,31 +132,43 @@ function CategoryGame() {
                     <br/><br/><br/>
                 </form>
                 {flag ? (
-                    <div className={styles.cssTable}>
-                        <Table striped bordered hover variant="dark">
-                            <thead>
-                                <tr>
-                                    <th className={styles.cssTh}>game_image</th>
-                                    <th className={styles.cssTh}>game_name</th>
-                                    <th className={styles.cssTh}>game_min</th>
-                                    <th className={styles.cssTh}>game_rec</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {slicedData.map((game) => {
-                                    return (
-                                        <tr data-game-name={game.gameName}>
-                                            <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                                            <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
-                                            <td>{game.minState}</td>
-                                            <td>{game.recState}</td>
-
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </Table>
-                    </div>
+                    // <div className={styles.cssTable}>
+                    //     <Table striped bordered hover variant="dark">
+                    //         <thead>
+                    //             <tr>
+                    //                 <th className={styles.cssTh}>game_image</th>
+                    //                 <th className={styles.cssTh}>game_name</th>
+                    //                 <th className={styles.cssTh}>game_min</th>
+                    //                 <th className={styles.cssTh}>game_rec</th>
+                    //             </tr>
+                    //         </thead>
+                    //         <tbody>
+                    //             {slicedData.map((game) => {
+                    //                 return (
+                    //                     <tr data-game-name={game.gameName}>
+                    //                         <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
+                    //                         <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
+                    //                         <td>{game.minState}</td>
+                    //                         <td>{game.recState}</td>
+                    //
+                    //                     </tr>
+                    //                 );
+                    //             })}
+                    //         </tbody>
+                    //     </Table>
+                    // </div>
+                        <div className={styles.cssTableGame}>
+                            {slicedData.map((game) => {
+                                return (
+                                    <div className={styles.cssTableCell}>
+                                        <Link to={`/GameSpec/${game.gameName}`}><img src={game.gameImg} alt="game_image" /></Link>
+                                        <div className={styles.cssTableCaption}>
+                                            {game.gameName}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     ) :
                     <div className={styles.cssTable}>
                         <Table striped bordered hover variant="dark">
