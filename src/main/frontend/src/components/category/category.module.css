@@ -140,7 +140,7 @@ th {
 
 .animationCpu {
     animation-name: fadeIn;
-    animation-duration: 2.0s;
+    animation-duration: 1.0s;
     animation-fill-mode: backwards;
     animation-delay: 1s;
     /*width: 40%;*/
@@ -148,7 +148,7 @@ th {
 
 .animationGpu {
     animation-name: fadeIn;
-    animation-duration: 3.0s;
+    animation-duration: 1.5s;
     animation-fill-mode: backwards;
     animation-delay: 1s;
 }
