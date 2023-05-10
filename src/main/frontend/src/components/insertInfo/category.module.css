@@ -85,14 +85,98 @@
 }
 
 
+/*.divParent {*/
+/*    display: flex;*/
+/*    justifyContent: center;*/
+/*    alignItems: center;*/
+/*    !*margin: 0 auto;*!*/
+
+/*    !*max-width: 50%; !* 적절한 값으로 설정해주세요 *!*!*/
+/*    !*margin: 5% auto 0 auto;*!*/
+/*    position: absolute;*/
+/*    left: 55%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    !*max-width: 50%;*!*/
+/*    margin: 5% auto 0 auto;*/
+
+/*    !*background-color: white;*!*/
+/*}*/
+
+/*.divChild {*/
+/*    text-align: center;*/
+/*    margin-right: 200px;*/
+/*}*/
+
 .divParent {
     display: flex;
-    justifyContent: center;
-    alignItems: center;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .divChild {
-    margin-top: 50px;
-    flex: 1;
+    text-align: center;
+    margin: 5% 5% 0 5%;
+}
+
+.divChild:last-child {
+    margin-right: 0;
+}
+
+/*------ShowInsertInfo.jsx-------*/
+
+.urlLabel {
+    /* 더 알아보기 > */
+
+    /*position: absolute;*/
+    /*width: 161px;*/
+    /*height: 32px;*/
+    /*left: 470px;*/
+    /*top: 557px;*/
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    color: #0046CF;
+}
+
+.linkUrl {
+    text-decoration: none;
+}
+
+.hrStyle {
+    /*animation-name: fadeIn;*/
+    /*animation-duration: 4.0s;*/
+    /*animation-fill-mode: none;*/
+
+    width: 100%; /* 원하는 너비로 설정 */
+    margin: 0 auto 1rem auto; /* 가운데 정렬 */
+}
+
+.selectSpecCss {
+    background-color:white;
+    min-height:100vh;
+}
+
+.infoSpecTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    height: 2em;
+}
+
+.infoSpecSubTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.infoSpecSub {
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
