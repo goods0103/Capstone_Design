@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
-import SearchBox from "react-search-box";
+
 
 // import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
 // import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +19,6 @@ function CategoryCpu() {
   const [cpuList, setCpuList] = useState([]);
   const [data2, setData2] = useState("AMD Ryzen 5 5600X");
   const [cpuOption, setCpuOption] = useState([]);
-
-
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
 
@@ -128,6 +126,7 @@ function CategoryCpu() {
 
     const showTotalList = () => {
         setFlag(true);
+        setSearchValue("");
     }
 
     const [searchValue, setSearchValue] = useState("");
@@ -142,33 +141,33 @@ function CategoryCpu() {
 
   return (
     <>
-      {/*<CategoryBar></CategoryBar>*/}
       <div>
-          <div className={styles.filter}>
-              {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-              <p onClick={() => sortProduct("low")}>낮은 가격</p>
-              <p onClick={() => sortProduct("high")}>높은 가격</p>
-              <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
-              <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
-          </div>
+
 
           <form onSubmit={handleSubmit} className={styles.formTag}>
-              <label>원하는 Cpu를 입력하세요 : </label> <br/>
+              <p onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
               <input
+                  className={styles.input}
                   type="text"
-                  placeholder="Search products"
+                  placeholder="원하는 CPU를 입력해주세요."
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          searchCpu(selectedCpu);
+                      }
+                  }}
               />
-
-              {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
-              {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
-              <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
-              <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
-              <br/><br/><br/>
-
           </form>
+
+          <div className={styles.filter}>
+              <button className={styles.filterButton} onClick={() => sortProduct("low")}>낮은 가격</button>
+              <button className={styles.filterButton} onClick={() => sortProduct("high")}>높은 가격</button>
+              <button className={styles.filterButton} onClick={() => sortProduct("rankHigh")}>cpu 높은 순️</button>
+              <button className={styles.filterButton} onClick={() => sortProduct("rankLow")}>cpu 낮은 순️</button>
+              <button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>
+          </div>
           {flag ? (
               <div className={styles.cssTable}>
                   <Table striped bordered hover variant="dark">
@@ -176,6 +175,7 @@ function CategoryCpu() {
                           <tr>
                               <th className={styles.cssTh}>Image</th>
                               <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
                               <th className={styles.cssTh}>Value</th>
                               <th className={styles.cssTh}>Price</th>
@@ -196,6 +196,7 @@ function CategoryCpu() {
                                   {/*<td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>*/}
                                   <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                                   <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                                  <td>{cpu.cpuMark}</td>
                                   <td>{cpu.cpuRank}</td>
                                   <td>{cpu.cpuValue}</td>
                                   <td>{convertPrice(cpu.cpuPrice)}원</td>
@@ -211,6 +212,7 @@ function CategoryCpu() {
                           <tr>
                               <th className={styles.cssTh}>Image</th>
                               <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
                               <th className={styles.cssTh}>Value</th>
                               <th className={styles.cssTh}>Price</th>
@@ -223,6 +225,7 @@ function CategoryCpu() {
                           <tr>
                               <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                               <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                              <td>{cpu.cpuMark}</td>
                               <td>{cpu.cpuRank}</td>
                               <td>{cpu.cpuValue}</td>
                               <td>{convertPrice(cpu.cpuPrice)}원</td>
