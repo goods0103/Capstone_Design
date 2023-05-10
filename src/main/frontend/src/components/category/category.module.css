@@ -134,10 +134,10 @@ th {
 
 
 
-a {
-    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
-    text-decoration: none !important; /* 밑줄 제거 */
-}
+/*a {*/
+/*    color: white !important; !* 링크 글자 색을 흰색으로 지정 *!*/
+/*    text-decoration: none !important; !* 밑줄 제거 *!*/
+/*}*/
 /*--- Category.BottleNeck.js ---*/
 
 .selectTag {
