@@ -47,7 +47,7 @@ function CategoryBottleNeck() {
     return (
         <>
             {/*<CategoryBar></CategoryBar>*/}
-            <form onSubmit={handleSubmit} className={styles.formTag}>
+            <form onSubmit={handleSubmit} className={styles.bottleNeckFormTag}>
                 <h2 className={styles.animationLabel}>BottleNeck</h2>
                 <hr className={styles.hrStyle}/>
                 <br/><br/>

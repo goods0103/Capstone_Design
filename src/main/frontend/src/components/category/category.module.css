@@ -49,20 +49,49 @@ th {
 .filter {
     display: flex;
     width: 85%;
-    margin: 0 auto;
-    justify-content: flex-end;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left : 15%;
 }
 
-.filter > p:not(:last-child)::after {
-    content: "|";
-    padding: 10px;
-}
+.filterButton {
+    /* Group 1 */
 
-.filter p {
+    width:10%;
+    height: 40px;
+    margin-right :2%;
+
+    backdrop-filter: blur(2px);
+
+    box-sizing: border-box;
+
+
+
+    background: #151515;
+    border: 2px solid #4C4B4B;
+    border-radius: 149px;
+
+
+    /* CPU 높은순 */
+
+    font-style: normal;
+    font-size: 15px;
+    /* or 28px */
+
+    color: #A2A2A2;
+
+    display: flex; /* 추가 */
+    justify-content: center; /* 추가 */
+    align-items: center; /* 추가 */
     cursor: pointer;
 }
 
 
+
+a {
+    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
 /*--- Category.BottleNeck.js ---*/
 
 .selectTag {
@@ -90,15 +119,44 @@ th {
     /*animation-duration: 3.0s;*/
     /*animation-fill-mode: both;*/
 }
-
+.bottleNeckFormTag{
+    text-align: center;
+    margin-top: 5%;
+}
 .formTag {
     /*margin-top: 1rem;*/
     /*margin-left: 2rem;*/
     /*animation-name: slide-in;*/
     /*animation-duration: 3.0s;*/
     /*animation-fill-mode: both;*/
-    text-align: center;
-    margin-top: 5%;
+    margin-left: 15%; /* 왼쪽 여백을 15%로 조정합니다. */
+    margin-right: 15%; /* 오른쪽 여백을 15%로 조정합니다. */
+    height:30%;
+    border-bottom: 1px solid #f0f0f0;
+
+}
+.input{
+    position: absolute;
+    margin-left:3%;
+    width: 80%;
+    height :3%;
+    top: 16%;
+    background-color : #151515;
+    border : none;
+
+    box-sizing: border-box;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+    color: #FFFFFF;
+
+}
+input:focus {
+    outline: none;
 }
 
 .buttonSubmit {
@@ -128,15 +186,35 @@ th {
 
 .buttonSearch {
     background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
+    position: relative;
+    top:30px;
+
 }
 
 .buttonTotalList {
-    background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
+    position: absolute;
+    width: 10%;
+    height: 40px;
+    right: 15%;
+    border-radius: 149px;
+
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+
+
+
+
+    font-style: normal;
+
+    font-size: 15px;
+
+    /* or 31px */
+
+    color:#A2A2A2;
+
 }
+
+
 
 .animationCpu {
     animation-name: fadeIn;
