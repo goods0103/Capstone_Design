@@ -131,10 +131,14 @@ th {
     align-items: center; /* 추가 */
     cursor: pointer;
 }
+.filterButtonSelected {
+    background-color: #ffffff;
+    color: #151515;
+
+}
 
 
-
-a {
+.link {
     color: white !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
@@ -177,16 +181,17 @@ a {
     /*animation-fill-mode: both;*/
     margin-left: 15%; /* 왼쪽 여백을 15%로 조정합니다. */
     margin-right: 15%; /* 오른쪽 여백을 15%로 조정합니다. */
-    height:30%;
+    height:35%;
     border-bottom: 1px solid #f0f0f0;
 
 }
 .input{
-    position: absolute;
+    position: relative;
     margin-left:3%;
+    margin-bottom:1%;
     width: 80%;
     height :3%;
-    top: 16%;
+    top: 15%;
     background-color : #151515;
     border : none;
 
@@ -233,7 +238,7 @@ input:focus {
 .buttonSearch {
     background-color: transparent;
     position: relative;
-    top:30px;
+    top:35px;
 
 }
 

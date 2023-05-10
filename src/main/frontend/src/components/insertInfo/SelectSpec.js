@@ -80,7 +80,7 @@ function SelectSpec() {
     };
 
     return(
-        <>
+        <div className={styles2.parent}>
             <div className={styles2.divParent}>
                 {cpuInfo.map((cpu) => (
                     cpu.cpuName === selectCpu && (
@@ -108,10 +108,10 @@ function SelectSpec() {
                     )))}
                 <br/>
             </div>
-            <br/>
-            {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}
-            {showComponent && <MyBottleNeck/>}
-        </>
+         <br/>
+        {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}
+        {showComponent && <MyBottleNeck/>}
+    </div>
     );
 }
 

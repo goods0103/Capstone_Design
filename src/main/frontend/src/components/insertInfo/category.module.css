@@ -83,12 +83,17 @@
 .specInfoCss {
     color: black;
 }
-
+.parent {
+    background-color: white;
+    min-height: 100vh;
+    overflow: hidden;
+}
 
 .divParent {
     display: flex;
     justifyContent: center;
     alignItems: center;
+
     margin: 0 auto;
 }
 

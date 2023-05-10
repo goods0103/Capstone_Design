@@ -11,36 +11,31 @@ import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "
 
 // [Mod] for check
 function CategoryGpu() {
+    // axios를 통해 받아오는 GPU 정보를 담는 useState
     const [gpuList, setGpuList] = useState([]);
-    const [data2, setData2] = useState("GeForce RTX 3070");
+    // 검색을 위한 gpu 이름을 위한 useState
     const [gpuOption, setGpuOption] = useState([]);
-
+    // 페이지 나눔을 위한 useState
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(100);
-
     const [selectedGpu, setSelectedGpu] = useState({
         value : localStorage.getItem('gpuData'),
         label : localStorage.getItem('gpuData')
     });
+    //검색 시 뜨는 화면 구분을 위한 useState
     const [flag, setFlag] = useState(true);
-    const [gpu, setGpu] = useState({});
 
-    const handlePageClick = ({ selected }) => {
-        setCurrentPage(selected);
-    };
+    // 필터 선택여부를 위한 useState
+    const [selectedFilter, setSelectedFilter] = useState("none");
+    //검색을 위한 useState
+    const [searchValue, setSearchValue] = useState("");
 
-    const slicedData = gpuList.slice(
-        currentPage * itemsPerPage,
-        (currentPage + 1) * itemsPerPage
-    );
-
-
+    // GPU 정보
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/category/gpu1');
                 setGpuList(response.data);
-                setData2(localStorage.getItem('gpuData'));
             } catch (error) {
                 console.log(error);
             }
@@ -49,6 +44,7 @@ function CategoryGpu() {
         fetchData();
     }, []);
 
+    // GPU 이름 정보
     useEffect(() => { // Select 에서 사용할 gpu label, value 값들
         axios.get('/category/gpu_name')
             .then(response => {
@@ -63,17 +59,21 @@ function CategoryGpu() {
             });
     }, []);
 
+    //페이지 이동
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+    //페이지 분배
+    const slicedData = gpuList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
+    //돈 단위 바꾸기
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     const sortProduct = (type) => {
-        // 이름순 수정
-        // if (type === "name") {
-        //     const newProduct = [...cpuList];
-        //     newProduct.sort((a, b) => a.cpu_name - b.cpu_name);
-        //     setCpuList(newProduct);
-        // }
         if (type === "low") {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => {
@@ -107,57 +107,110 @@ function CategoryGpu() {
         }
     };
 
-    function handleGpuChange(selectedGpu) {
-        setSelectedGpu(selectedGpu);
-    }
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     const searchGpu = (gpu) => {
         setFlag(false);
-        {gpuList.map((list) => {
-            if(list.gpuName === gpu.value){
-                setGpu(list);
-            }
-        })
-        }
     }
 
     const showTotalList = () => {
         setFlag(true);
+        setSearchValue("");
     }
+
+    const filteredProducts = gpuOption.filter((product) =>
+        product.value.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
     return (
         <>
-            {/*<CategoryBar></CategoryBar>*/}
             <div>
-                <div className={styles.filter}>
-                    {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-                    <p onClick={() => sortProduct("low")}>낮은 가격</p>
-                    <p onClick={() => sortProduct("high")}>높은 가격</p>
-                    <p onClick={() => sortProduct("rankHigh")}>gpu 순위 ⬆️</p>
-                    <p onClick={() => sortProduct("rankLow")}>gpu 순위 ⬇️</p>
-                    <p onClick={() => sortProduct("gpuValue")}>가성비순</p>
-
-                </div>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
-                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
-                    <Select
-                        value={selectedGpu}
-                        onChange={handleGpuChange}
-                        options={gpuOption}
-                        placeholder="Choose an option"
-                        isSearchable={true}
-                        className={styles.selectTag}
+                    <p onClick={() => searchGpu(selectedGpu)} className={styles.buttonSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
+                    <input
+                        className={styles.input}
+                        type="text"
+                        placeholder="원하는 GPU를 입력해주세요."
+                        value={searchValue}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                searchGpu(selectedGpu);
+                            }
+                        }}
                     />
-                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
-                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
-                    <button onClick={() => searchGpu(selectedGpu)} className={styles.buttonSearch}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
-                    <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
-                    <br/><br/><br/>
                 </form>
+                <div className={styles.filter}>
+                    <button
+                        className={
+                            selectedFilter === "low"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("low");
+                            sortProduct("low");
+                        }}
+                    >
+                        낮은 가격
+                    </button>
+                    <button
+                        className={
+                            selectedFilter === "high"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("high");
+                            sortProduct("high");
+                        }}
+                    >
+                        높은 가격
+                    </button>
+                    <button
+                        className={
+                            selectedFilter === "rankHigh"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("rankHigh");
+                            sortProduct("rankHigh");
+                        }}
+                    >
+                        gpu 높은 순️
+                    </button>
+                    <button
+                        className={
+                            selectedFilter === "rankLow"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("rankLow");
+                            sortProduct("rankLow");
+                        }}
+                    >
+                        gpu 낮은 순️
+                    </button>
+                    <button
+                        className={
+                            selectedFilter === "gpuValue"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("gpuValue");
+                            sortProduct("gpuValue");
+                        }}
+                    >
+                        가성비 순️
+                    </button>
+                    <button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>
+                </div>
                 {flag ? (
                     <div className={styles.cssTable}>
                         <Table striped bordered hover variant="dark">
@@ -199,6 +252,9 @@ function CategoryGpu() {
                                 </tr>
                             </thead>
                             <tbody>
+                            {gpuList.map((gpu) =>(
+                                filteredProducts.map((product) => (
+                                    gpu.gpuName=== product.value &&(
                                 <tr>
                                     <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
                                     <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
@@ -207,6 +263,7 @@ function CategoryGpu() {
                                     <td>{gpu.gpuValue}</td>
                                     <td>{convertPrice(gpu.gpuPrice)}원</td>
                                 </tr>
+                                    )))))}
                             </tbody>
                         </Table>
                     </div>
