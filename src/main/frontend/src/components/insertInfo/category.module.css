@@ -1,9 +1,8 @@
 .cssTh {
-    /*background-color: #f2f2f2;*/
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
 }
 
 .cssTd {
@@ -15,14 +14,45 @@
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 70%;
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+    animation: 1.5s ease-in-out fadeIn;
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    font-weight: bold;
 }
 
 .tableImg {
-    width:50px;
-    height:30px;
+    width:100px;
+    height:60px;
 }
 
-/*-------*/
+.mySpecInfo {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    background-color: #008080 !important;
+/*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
+}
+
+.mySpecInfoHover:hover {
+    background-color: #61F3EB !important;
+    transform: scale(1.1) !important;
+}
+
+/*----pointerEvents: 'none' ---*/
 
 .filter {
     display: flex;
@@ -151,6 +181,11 @@
     text-decoration: none;
 }
 
+.link {
+    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
 .hrStyle {
     /*animation-name: fadeIn;*/
     /*animation-duration: 4.0s;*/
@@ -181,4 +216,17 @@
 .infoSpecSub {
     font-size: 0.9rem;
     margin-bottom: 1rem;
+}
+
+/*--animation---*/
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
