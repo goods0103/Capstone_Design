@@ -85,6 +85,29 @@
 }
 
 
+/*.divParent {*/
+/*    display: flex;*/
+/*    justifyContent: center;*/
+/*    alignItems: center;*/
+/*    !*margin: 0 auto;*!*/
+
+/*    !*max-width: 50%; !* 적절한 값으로 설정해주세요 *!*!*/
+/*    !*margin: 5% auto 0 auto;*!*/
+/*    position: absolute;*/
+/*    left: 55%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    !*max-width: 50%;*!*/
+/*    margin: 5% auto 0 auto;*/
+
+/*    !*background-color: white;*!*/
+/*}*/
+
+/*.divChild {*/
+/*    text-align: center;*/
+/*    margin-right: 200px;*/
+/*}*/
+
 .divParent {
     display: flex;
     justify-content: center;
