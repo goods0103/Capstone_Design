@@ -87,6 +87,7 @@ function InsertInfoBottleNeck() {
                             pathColor: "#fff",
                             trailColor: "transparent"
                         })}
+                        className={styles.circularProgressBar}
                     />
                     <ChangingProgressProvider values={[0, 20, 80]}>
                         {value => (
@@ -102,6 +103,7 @@ function InsertInfoBottleNeck() {
                             />
                         )}
                     </ChangingProgressProvider>
+
                 </div>
                 <p>{Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
             </div>

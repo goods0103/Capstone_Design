@@ -272,6 +272,14 @@ th {
     text-align: center;
 }
 
+/*----Circular ProgressBar----*/
+.circularProgressBar {
+    position: relative;
+    top: 1%;
+    margin-left: 1230%;
+    width:100px;
+}
+
 /*--animation---*/
 
 @keyframes fadeIn {
