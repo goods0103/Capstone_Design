@@ -106,8 +106,8 @@ th {
 }
 
 .image {
-    width: 300px;
-    height: 200px;
+    width: 180px;
+    height : 120px;
     border-radius: 10px 0 0 10px;
 }
 
@@ -154,7 +154,8 @@ th {
 
 .divChild {
     text-align: center;
-    margin: 5% 5% 0 5%;
+    width : 13%;
+    margin: 2% 5% 0 1%;
 }
 
 .divChild:last-child {
@@ -197,6 +198,18 @@ th {
     color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
+.move{
+    width: 7%;
+    height: 40px;
+    margin-left: 78%;
+    margin-bottom:1%;
+    border-radius: 149px;
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+    font-style: normal;
+    font-size: 13px;
+    color:#ffffff;
+}
 
 .hrStyle {
     /*animation-name: fadeIn;*/
@@ -213,19 +226,20 @@ th {
 }
 
 .infoSpecTitle {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
     height: 2em;
+    font-weight: bold;
 }
 
 .infoSpecSubTitle {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
 }
 
 .infoSpecSub {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 

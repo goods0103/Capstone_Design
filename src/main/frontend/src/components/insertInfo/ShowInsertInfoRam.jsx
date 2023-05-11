@@ -15,7 +15,7 @@ export default function ShowInsertInfoRam({infoName, infoType, infoSize, infoLat
                 alt="gpu_image"
             /> <br/><br/>
             <div className={styles.infoSpecTitle}>{infoName}</div>
-                <div className={styles.urlLabel}><Link to={`/category/ram1`} className={styles.linkUrl}>더 알아보기 ></Link></div>
+                <div className={styles.urlLabel}><Link to={`/InsertCategoryRam`} className={styles.linkUrl}>더 알아보기 ></Link></div>
             <hr className={styles.hrStyle}/>
             <div className={styles.infoSpecSubTitle}>Type & Size</div>
             <div className={styles.infoSpecSub}>{infoType}&nbsp;{infoSize}</div>
