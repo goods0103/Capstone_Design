@@ -17,7 +17,7 @@ export default function ShowInsertInfoGpu({infoName, infoMark, infoRank, infoVal
             <div className={styles.infoSpecTitle}>{infoName}</div>
                 <div className={styles.urlLabel}><Link to={`/GpuSpec/${infoId}`} className={styles.linkUrl}>더 알아보기 ></Link></div>
             <hr className={styles.hrStyle}/>
-            <div className={styles.infoSpecSubTitle}>Bench Mark</div>
+            <div className={styles.infoSpecSubTitle}>Mark Rating</div>
             <div className={styles.infoSpecSub}>{infoMark}</div>
             <div className={styles.infoSpecSubTitle}>Rank</div>
             <div className={styles.infoSpecSub}>{infoRank}</div>

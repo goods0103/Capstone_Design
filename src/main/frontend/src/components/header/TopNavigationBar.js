@@ -83,7 +83,7 @@ export const TopNavigationBar = ({ cart }) => {
       }
       {count===3 && <div className={styles.menu}>
         &emsp;&emsp;
-        <Link to={"/insertSpec"} style={{ textDecoration: 'none' }}>
+        <Link to={"/selectSpec"} style={{ textDecoration: 'none' }}>
           <div className={styles.mypage1}>
             <span>Spec</span>
           </div>
