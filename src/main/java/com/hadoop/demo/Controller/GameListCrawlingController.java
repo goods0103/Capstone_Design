@@ -27,6 +27,58 @@ public class GameListCrawlingController {
     @Autowired
     private GameOriginFindExceptionService gameOriginFindExceptionService;
 
+//    @GetMapping("/gameOrigin")
+//    public void setGameOrigin() throws IOException { // game origin 제작사, 배급사, 출시일, 이미지 가져오기
+//
+//        List<GameListOrigin> gameLists = gameListOriginService.findAll();
+//
+//        for (GameListOrigin gameList : gameLists) {
+//            if (gameList.getGameOriginId() >= 445) {
+//                String url = "https://store.steampowered.com/app/" + gameList.getGameId() + "/" + gameList.getGameName() + "/";
+//                System.out.println("url " + url);
+//                Document doc = Jsoup.connect(url).get();
+//                if (doc != null) {
+//                    Element ageGateElement = doc.selectFirst("div.agegate_birthday_desc");
+//                    if (ageGateElement != null && ageGateElement.text().equals("Please enter your birth date to continue:")) {
+//                        gameOriginFindExceptionService.search2(gameList, url);
+//                    } else {
+//                        Element reqElement = doc.select("#game_highlights > div.rightcol").first();
+//
+//                        String imgUrl = reqElement.select("#gameHeaderImageCtn > img[src]").attr("src");
+//
+//                        Element dateElement = reqElement.select("div > div.glance_ctn_responsive_left > div.release_date > div.date").first();
+//                        String releaseDate = dateElement.text();
+//
+//                        Element developerElement = reqElement.select("#developers_list").first();
+//                        String developer = developerElement.text();
+//
+//                        Element publisherElement = reqElement.select("div > div.glance_ctn_responsive_left > div:nth-child(4) > div.summary.column").first();
+//                        String publisher = publisherElement.text();
+//
+//
+//                        GameListOrigin gameList2 = GameListOrigin.builder()
+//                                .gameOriginId(gameList.getGameOriginId())
+//                                .gameId(gameList.getGameId())
+//                                .gameName(gameList.getGameName())
+//                                .minimumGameCpu(gameList.getMinimumGameCpu())
+//                                .minimumGameGpu(gameList.getMinimumGameGpu())
+//                                .minimumGameRam(gameList.getMinimumGameRam())
+//                                .recommendedGameCpu(gameList.getRecommendedGameCpu())
+//                                .recommendedGameGpu(gameList.getRecommendedGameGpu())
+//                                .recommendedGameRam(gameList.getRecommendedGameRam())
+//                                .developer(developer)
+//                                .publisher(publisher)
+//                                .releaseDate(releaseDate)
+//                                .img(imgUrl)
+//                                .build();
+//                        gameListOriginService.save(gameList2);
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
+
 //    @GetMapping("/game_info2")
 //    public void getGameInfo2() throws IOException {  //게임 리스트와 id, img 크롤링
 //

@@ -39,7 +39,7 @@ public class DataController {
     // cpu gpu ram 전체 리스트 요청 시
     @GetMapping("/category/cpu1")
     public List<CpuList> getAllCpuList() {
-        return cpuListService.findAll();
+        return cpuListService.orderByCpuRank();
     }
 
     @GetMapping("/category/ram1")
@@ -49,7 +49,7 @@ public class DataController {
 
     @GetMapping("/category/gpu1")
     public List<GpuList> getAllGpuList() {
-        return gpuListService.findAll();
+        return gpuListService.orderByGpuRank();
     }
 
     // cpu gpu ram 전체 리스트 중 이름만 요청 시

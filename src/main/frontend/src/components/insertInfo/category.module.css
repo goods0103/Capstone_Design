@@ -49,7 +49,7 @@ th {
     padding: 10px;
     vertical-align: middle;
     /*background-color: #008080 !important;*/
-    color: #25cff2 !important;
+    color: #1EDDFF !important;
     font-size: 1.5rem;
 /*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
 }
@@ -203,7 +203,7 @@ th {
 }
 
 .myLink {
-    color: #25cff2 !important; /* 링크 글자 색을 흰색으로 지정 */
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
 .move{
@@ -268,6 +268,43 @@ th {
     /* or 28px */
 
     color: #FFFFFF;
+}
+
+.buttonBottleNeck {
+    box-sizing: border-box;
+    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #000000;
+    border-radius: 149px;
+
+    position: relative;
+    width: 200px;
+    height: 50px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+
+    /* 애니메이션 적용. 2개의 애니메이션 */
+    animation-name: slide-up;
+    animation-duration: 3.0s;
+    animation-fill-mode: backwards;
+}
+
+.bottleNeckComp {
+    text-align: center;
+}
+
+/*----Circular ProgressBar----*/
+.circularProgressBar {
+    position: relative;
+    top: 1%;
+    margin-left: 1230%;
+    width:100px;
 }
 
 /*--animation---*/

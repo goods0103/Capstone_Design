@@ -4,8 +4,18 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Link} from "react-router-dom";
 import {ListGroup} from "react-bootstrap";
+import MyBottleNeck from "../myInfo/MyBottleNeck";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBarsStaggered, faCircleInfo, faDesktop} from "@fortawesome/free-solid-svg-icons";
 
 export default function ShowInsertInfo({infoName, infoMark, infoRank, infoValue, infoPrice, infoUrl, infoId}) {
+
+    const [showComponent, setShowComponent] = useState(false);
+
+    function showMyBottleNeck() {
+        setShowComponent(true);
+    }
+
     return(
         <div className={styles.divChild}>
             {/*<div className={styles.specCss}>*/}
@@ -35,7 +45,7 @@ export default function ShowInsertInfo({infoName, infoMark, infoRank, infoValue,
                 alt="cpu_image"
             /><br/><br/>
             <div className={styles.infoSpecTitle}>{infoName}</div>
-                <div className={styles.urlLabel}><Link to={`/CpuSpec/${infoId}`} className={styles.linkUrl}>더 알아보기 ></Link></div>
+                <div className={styles.urlLabel}><Link to={`/CpuSpec/${infoId}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Detail</Link></div>
             <hr className={styles.hrStyle}/>
             <div className={styles.infoSpecSubTitle}>Mark Rating</div>
             <div className={styles.infoSpecSub}>{infoMark}</div>

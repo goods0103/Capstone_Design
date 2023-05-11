@@ -9,6 +9,10 @@ import ShowInsertInfo from "./ShowInsertInfo";
 import ShowInsertInfoRam from "./ShowInsertInfoRam";
 import styles2 from "./category.module.css"
 import ShowInsertInfoGpu from "./ShowInsertInfoGpu";
+import InsertInfoBottleNeck from "./InsertInfoBottleNeck";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faWineBottle} from "@fortawesome/free-solid-svg-icons";
+// import Button from "react-bootstrap/Button";
 
 
 function SelectSpec() {
@@ -124,11 +128,13 @@ function SelectSpec() {
                 <br/>
             </div>
             <br/>
-            <div>
-                {!showComponent && <button type="submit" onClick={showMyBottleNeck} className={styles2.buttonSubmit}>
-                       BottleNeck
-                    </button>}
-                {showComponent && <MyBottleNeck/>}
+            {/*<div>*/}
+            {/*    {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles.buttonSubmit}>BottleNeck</button>}*/}
+            {/*    {showComponent && <MyBottleNeck/>}*/}
+            {/*</div>*/}
+            <div className={styles2.bottleNeckComp}>
+                {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
+                {showComponent && <InsertInfoBottleNeck/>}
             </div>
         </>
     );
