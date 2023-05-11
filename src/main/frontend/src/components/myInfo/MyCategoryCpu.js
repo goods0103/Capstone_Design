@@ -43,7 +43,7 @@ function MyCategoryCpu() {
     return (
         <>
             <div>
-                <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -58,14 +58,26 @@ function MyCategoryCpu() {
                         </thead>
                         <tbody>
                         {cpuList.map((cpu) => (
-                            <tr data-cpu-name={cpu.cpuName}>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}>{cpu.cpuMark}</td>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}>{cpu.cpuRank}</td>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}>{cpu.cpuValue}</td>
-                                <td className={data2 === cpu.cpuName ? `${styles.highlighted}` : ''}>{convertPrice(cpu.cpuPrice)}원</td>
-                            </tr>
+                            data2 === cpu.cpuName ? (
+                                    <tr className={styles.mySpecInfoHover} data-cpu-name={cpu.cpuName}>
+                                        <td className={styles.mySpecInfo}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                        <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td className={styles.mySpecInfo}>{cpu.cpuMark}</td>
+                                        <td className={styles.mySpecInfo}>{cpu.cpuRank}</td>
+                                        <td className={styles.mySpecInfo}>{cpu.cpuValue}</td>
+                                        <td className={styles.mySpecInfo}>{convertPrice(cpu.cpuPrice)}원</td>
+                                    </tr>
+                                ) :
+                                (
+                                    <tr>
+                                        <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td>{cpu.cpuMark}</td>
+                                        <td>{cpu.cpuRank}</td>
+                                        <td>{cpu.cpuValue}</td>
+                                        <td>{convertPrice(cpu.cpuPrice)}원</td>
+                                    </tr>
+                                )
                         ))}
                         </tbody>
                     </Table>

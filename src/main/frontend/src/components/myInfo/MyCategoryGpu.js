@@ -61,14 +61,26 @@ function MyCategoryGpu() {
                         </thead>
                         <tbody>
                         {gpuList.map((gpu) => (
-                            <tr data-gpu-name={gpu.gpuName}>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}>{gpu.gpuMark}</td>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}>{gpu.gpuRank}</td>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}>{gpu.gpuValue}</td>
-                                <td className={data2 === gpu.gpuName ? `${styles.highlighted}` : ''}>{convertPrice(gpu.gpuPrice)}원</td>
-                            </tr>
+                            data2 === gpu.gpuName ? (
+                                <tr className={styles.mySpecInfoHover} data-gpu-name={gpu.gpuName}>
+                                    <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
+                                    <td className={styles.mySpecInfo}>{gpu.gpuMark}</td>
+                                    <td className={styles.mySpecInfo}>{gpu.gpuRank}</td>
+                                    <td className={styles.mySpecInfo}>{gpu.gpuValue}</td>
+                                    <td className={styles.mySpecInfo}>{convertPrice(gpu.gpuPrice)}원</td>
+                                </tr>
+                            ) : (
+                                <tr>
+                                    <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
+                                    <td>{gpu.gpuMark}</td>
+                                    <td>{gpu.gpuRank}</td>
+                                    <td>{gpu.gpuValue}</td>
+                                    <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                </tr>
+                            )
+
                         ))}
                         </tbody>
                     </Table>

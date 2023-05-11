@@ -51,13 +51,23 @@ function MyCategoryRam() {
                         </thead>
                         <tbody>
                         {ramList.map((ram) => (
-                            <tr data-ram-name={ram.ramName}>
-                                <td className={data2 === ram.ramName ? `${styles.highlighted}` : ''}>{ram.ramName}</td>
-                                <td className={data2 === ram.ramName ? `${styles.highlighted}` : ''}>{ram.ramSize}</td>
-                                <td className={data2 === ram.ramName ? `${styles.highlighted}` : ''}>{ram.ramLatency}</td>
-                                <td className={data2 === ram.ramName ? `${styles.highlighted}` : ''}>{ram.ramRead}</td>
-                                <td className={data2 === ram.ramName ? `${styles.highlighted}` : ''}>{ram.ramWrite}</td>
-                            </tr>
+                            data2 === ram.ramName ? (
+                                <tr className={styles.mySpecInfoHover} data-ram-name={ram.ramName}>
+                                    <td className={styles.mySpecInfo}>{ram.ramName}</td>
+                                    <td className={styles.mySpecInfo}>{ram.ramSize}</td>
+                                    <td className={styles.mySpecInfo}>{ram.ramLatency}</td>
+                                    <td className={styles.mySpecInfo}>{ram.ramRead}</td>
+                                    <td className={styles.mySpecInfo}>{ram.ramWrite}</td>
+                                </tr>
+                            ) : (
+                                <tr>
+                                    <td>{ram.ramName}</td>
+                                    <td>{ram.ramSize}</td>
+                                    <td>{ram.ramLatency}</td>
+                                    <td>{ram.ramRead}</td>
+                                    <td>{ram.ramWrite}</td>
+                                </tr>
+                            )
                         ))}
                         </tbody>
                     </Table>
