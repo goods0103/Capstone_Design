@@ -60,7 +60,7 @@ function CategoryGpu() {
                 console.log(error);
             });
     }, []);
-
+//실험
     //페이지 이동
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
