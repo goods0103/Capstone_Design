@@ -37,7 +37,7 @@ function MyCategoryRam() {
     return (
         <>
             <div>
-                <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>

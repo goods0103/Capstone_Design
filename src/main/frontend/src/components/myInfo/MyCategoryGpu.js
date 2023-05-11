@@ -46,7 +46,7 @@ function MyCategoryGpu() {
     return (
         <>
             <div>
-                <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -64,7 +64,7 @@ function MyCategoryGpu() {
                             data2 === gpu.gpuName ? (
                                 <tr className={styles.mySpecInfoHover} data-gpu-name={gpu.gpuName}>
                                     <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                    <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
+                                    <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.myLink}>{gpu.gpuName}</Link></td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuMark}</td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuRank}</td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuValue}</td>

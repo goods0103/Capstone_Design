@@ -61,7 +61,7 @@ function MyCategoryCpu() {
                             data2 === cpu.cpuName ? (
                                     <tr className={styles.mySpecInfoHover} data-cpu-name={cpu.cpuName}>
                                         <td className={styles.mySpecInfo}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.myLink}>{cpu.cpuName}</Link></td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuMark}</td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuRank}</td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuValue}</td>

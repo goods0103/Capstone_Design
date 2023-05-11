@@ -198,6 +198,18 @@ th {
     color: #25cff2 !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
+.move{
+    width: 7%;
+    height: 40px;
+    margin-left: 78%;
+    margin-bottom:1%;
+    border-radius: 149px;
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+    font-style: normal;
+    font-size: 13px;
+    color:#ffffff;
+}
 
 .hrStyle {
     /*animation-name: fadeIn;*/

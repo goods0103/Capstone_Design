@@ -28,13 +28,15 @@
     text-align: center;
     padding: 10px;
     vertical-align: middle;
-    color: #25cff2 !important;
+    /*background-color: #008080 !important;*/
+    color: #30D5C8 !important;
     font-size: 1.5rem;
     /*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
 }
 
 .mySpecInfoHover:hover {
-    color: #61F3EB !important;
+    /*background-color: #61F3EB !important;*/
+    background-color: #008080 !important;
     transform: scale(1.1) !important;
 }
 
@@ -42,6 +44,12 @@
     color: white !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
+
+.myLink {
+    color: #30D5C8 !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
 .move{
     width: 7%;
     height: 40px;

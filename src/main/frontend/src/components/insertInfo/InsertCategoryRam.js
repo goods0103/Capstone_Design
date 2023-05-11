@@ -38,7 +38,7 @@ function InsertCategoryRam() {
     };
     return (
         <>
-            <button onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+            <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
             <div>
                 {/*<table className={styles.cssTable}>*/}
                 {/*    <tr>*/}
@@ -81,7 +81,7 @@ function InsertCategoryRam() {
                 {/*    ))}*/}
                 {/*</table>*/}
                 <div className={styles.cssTable}>
-                    <Table  bordered hover variant="dark">
+                    <Table striped bordered hover variant="dark">
                         <thead>
                         <tr>
                             <th className={styles.cssTh}>name</th>
