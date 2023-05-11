@@ -159,7 +159,7 @@ function CategoryGpu() {
                             sortProduct("low");
                         }}
                     >
-                        낮은 가격
+                        가격순
                     </button>
                     <button
                         className={
@@ -172,7 +172,7 @@ function CategoryGpu() {
                             sortProduct("high");
                         }}
                     >
-                        높은 가격
+                        가격순
                     </button>
                     <button
                         className={
@@ -185,7 +185,7 @@ function CategoryGpu() {
                             sortProduct("rankHigh");
                         }}
                     >
-                        gpu 높은 순️
+                        Rank순
                     </button>
                     <button
                         className={
@@ -198,7 +198,7 @@ function CategoryGpu() {
                             sortProduct("rankLow");
                         }}
                     >
-                        gpu 낮은 순️
+                        Rank순️
                     </button>
                     <button
                         className={
@@ -211,7 +211,7 @@ function CategoryGpu() {
                             sortProduct("gpuValue");
                         }}
                     >
-                        가성비 순️
+                        Value순️
                     </button>
                     <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
                 </div>
@@ -220,12 +220,12 @@ function CategoryGpu() {
                         <Table striped bordered hover variant="dark">
                             <thead>
                                 <tr>
-                                    <th className={styles.cssTh}>image</th>
-                                    <th className={styles.cssTh}>name</th>
-                                    <th className={styles.cssTh}>mark</th>
-                                    <th className={styles.cssTh}>rank</th>
-                                    <th className={styles.cssTh}>value</th>
-                                    <th className={styles.cssTh}>price</th>
+                                    <th className={styles.cssTh}></th>
+                                    <th className={styles.cssTh}>Name</th>
+                                    <th className={styles.cssTh}>Mark</th>
+                                    <th className={styles.cssTh}>Rank</th>
+                                    <th className={styles.cssTh}>Value</th>
+                                    <th className={styles.cssTh}>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -236,7 +236,7 @@ function CategoryGpu() {
                                         <td>{gpu.gpuMark}</td>
                                         <td>{gpu.gpuRank}</td>
                                         <td>{gpu.gpuValue}</td>
-                                        <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                        <td>{convertPrice(Math.round(gpu.gpuPrice / 100) * 100)}원</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -247,12 +247,12 @@ function CategoryGpu() {
                         <Table striped bordered hover variant="dark">
                             <thead>
                                 <tr>
-                                    <th className={styles.cssTh}>image</th>
-                                    <th className={styles.cssTh}>name</th>
-                                    <th className={styles.cssTh}>mark</th>
-                                    <th className={styles.cssTh}>rank</th>
-                                    <th className={styles.cssTh}>value</th>
-                                    <th className={styles.cssTh}>price</th>
+                                    <th className={styles.cssTh}></th>
+                                    <th className={styles.cssTh}>Name</th>
+                                    <th className={styles.cssTh}>Mark</th>
+                                    <th className={styles.cssTh}>Rank</th>
+                                    <th className={styles.cssTh}>Value</th>
+                                    <th className={styles.cssTh}>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -265,7 +265,7 @@ function CategoryGpu() {
                                     <td>{gpu.gpuMark}</td>
                                     <td>{gpu.gpuRank}</td>
                                     <td>{gpu.gpuValue}</td>
-                                    <td>{convertPrice(gpu.gpuPrice)}원</td>
+                                    <td>{convertPrice(Math.round(gpu.gpuPrice / 100) * 100)}원</td>
                                 </tr>
                                     )))))}
                             </tbody>

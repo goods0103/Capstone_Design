@@ -205,7 +205,7 @@ function CategoryCpu() {
                   <Table striped bordered hover variant="dark">
                       <thead>
                           <tr>
-                              <th className={styles.cssTh}>Image</th>
+                              <th className={styles.cssTh}></th>
                               <th className={styles.cssTh}>Name</th>
                               <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
@@ -221,7 +221,7 @@ function CategoryCpu() {
                                   <td>{cpu.cpuMark}</td>
                                   <td>{cpu.cpuRank}</td>
                                   <td>{cpu.cpuValue}</td>
-                                  <td>{convertPrice(cpu.cpuPrice)}원</td>
+                                  <td>{convertPrice(Math.round(cpu.gpuPrice / 100) * 100)}원</td>
                               </tr>
                           ))}
                       </tbody>
@@ -232,7 +232,7 @@ function CategoryCpu() {
                   <Table striped bordered hover variant="dark">
                       <thead>
                           <tr>
-                              <th className={styles.cssTh}>Image</th>
+                              <th className={styles.cssTh}></th>
                               <th className={styles.cssTh}>Name</th>
                               <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
@@ -250,7 +250,7 @@ function CategoryCpu() {
                               <td>{cpu.cpuMark}</td>
                               <td>{cpu.cpuRank}</td>
                               <td>{cpu.cpuValue}</td>
-                              <td>{convertPrice(cpu.cpuPrice)}원</td>
+                              <td>{convertPrice(Math.round(cpu.gpuPrice / 100) * 100)}원</td>
                           </tr>
                               )))))}
                       </tbody>

@@ -1,6 +1,7 @@
 package com.hadoop.demo.Service;
 
 import com.hadoop.demo.Model.CpuList;
+import com.hadoop.demo.Model.GpuList;
 import com.hadoop.demo.Model.UserInfo;
 import com.hadoop.demo.Repository.CpuDetailsRepository;
 import com.hadoop.demo.Repository.CpuListRepository;
@@ -33,5 +34,7 @@ public class CpuListService {
     }
 
     public CpuList findById(int id) { return cpuListRepository.findByCpuId(id); }
+
+    public List<CpuList> orderByCpuRank() { return cpuListRepository.findByOrderByCpuRankAsc();}
 
 }
