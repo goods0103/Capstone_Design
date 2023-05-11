@@ -181,6 +181,7 @@ th {
     /*animation-fill-mode: both;*/
     margin-left: 15%; /* 왼쪽 여백을 15%로 조정합니다. */
     margin-right: 15%; /* 오른쪽 여백을 15%로 조정합니다. */
+    margin-bottom: 2%; /* 오른쪽 여백을 15%로 조정합니다. */
     height:35%;
     border-bottom: 1px solid #f0f0f0;
 
@@ -244,7 +245,7 @@ input:focus {
 
 .buttonTotalList {
     position: absolute;
-    width: 10%;
+    width: 7%;
     height: 40px;
     right: 15%;
     border-radius: 149px;
