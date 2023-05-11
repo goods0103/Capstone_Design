@@ -81,7 +81,7 @@ function InsertCategoryRam() {
                 {/*    ))}*/}
                 {/*</table>*/}
                 <div className={styles.cssTable}>
-                    <Table striped bordered  variant="dark">
+                    <Table  bordered hover variant="dark">
                         <thead>
                         <tr>
                             <th className={styles.cssTh}>name</th>

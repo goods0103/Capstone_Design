@@ -89,7 +89,7 @@ function InsertCategoryGpu() {
                 {/*    ))}*/}
                 {/*</table>*/}
                 <div className={styles.cssTable}>
-                    <Table striped bordered  variant="dark">
+                    <Table striped bordered hover variant="dark">
                         <thead>
                         <tr>
                             <th className={styles.cssTh}>Image</th>
@@ -105,7 +105,7 @@ function InsertCategoryGpu() {
                             data2 === gpu.gpuName ? (
                                     <tr className={styles.mySpecInfoHover} data-gpu-name={gpu.gpuName}>
                                         <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
+                                        <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.myLink}>{gpu.gpuName}</Link></td>
                                         <td className={styles.mySpecInfo}>{gpu.gpuMark}</td>
                                         <td className={styles.mySpecInfo}>{gpu.gpuRank}</td>
                                         <td className={styles.mySpecInfo}>{gpu.gpuValue}</td>
