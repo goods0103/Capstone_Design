@@ -9,7 +9,7 @@ import ShowInsertInfo from "./ShowInsertInfo";
 import ShowInsertInfoRam from "./ShowInsertInfoRam";
 import styles2 from "./category.module.css"
 import ShowInsertInfoGpu from "./ShowInsertInfoGpu";
-import InsertInfoBottleNeck from "./InsertInfoBottleNect";
+import InsertInfoBottleNeck from "./InsertInfoBottleNeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWineBottle} from "@fortawesome/free-solid-svg-icons";
 // import Button from "react-bootstrap/Button";
