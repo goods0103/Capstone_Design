@@ -39,16 +39,24 @@ th {
     height:60px;
 }
 
+/*tr[data-cpu-name1="selectedInfo"]::before {*/
+/*    content: "✨";*/
+/*    margin-right: 10px;*/
+/*}*/
+
 .mySpecInfo {
     text-align: center;
     padding: 10px;
     vertical-align: middle;
-    background-color: #008080 !important;
+    /*background-color: #008080 !important;*/
+    color: #25cff2 !important;
+    font-size: 1.5rem;
 /*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
 }
 
 .mySpecInfoHover:hover {
-    background-color: #61F3EB !important;
+    /*background-color: #61F3EB !important;*/
+    background-color: #008080 !important;
     transform: scale(1.1) !important;
 }
 
@@ -183,6 +191,11 @@ th {
 
 .link {
     color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #25cff2 !important; /* 링크 글자 색을 흰색으로 지정 */
     text-decoration: none !important; /* 밑줄 제거 */
 }
 
