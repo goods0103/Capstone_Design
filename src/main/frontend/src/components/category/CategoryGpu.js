@@ -13,6 +13,7 @@ import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "
 function CategoryGpu() {
     // axios를 통해 받아오는 GPU 정보를 담는 useState
     const [gpuList, setGpuList] = useState([]);
+    const [gpuOriginList, setGpuOriginList] = useState([]);
     // 검색을 위한 gpu 이름을 위한 useState
     const [gpuOption, setGpuOption] = useState([]);
     // 페이지 나눔을 위한 useState
@@ -36,6 +37,7 @@ function CategoryGpu() {
             try {
                 const response = await axios.get('/category/gpu1');
                 setGpuList(response.data);
+                setGpuOriginList(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -118,6 +120,8 @@ function CategoryGpu() {
     const showTotalList = () => {
         setFlag(true);
         setSearchValue("");
+        setGpuList(gpuOriginList);
+        setSelectedFilter("");
     }
 
     const filteredProducts = gpuOption.filter((product) =>
@@ -128,7 +132,7 @@ function CategoryGpu() {
         <>
             <div>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
-                    <p onClick={() => searchGpu(selectedGpu)} className={styles.buttonSearch}>
+                    <p onClick={() => searchGpu(searchValue)} className={styles.buttonSearch}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
                     <input
                         className={styles.input}
@@ -138,7 +142,7 @@ function CategoryGpu() {
                         onChange={(e) => setSearchValue(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
-                                searchGpu(selectedGpu);
+                                searchGpu(searchValue);
                             }
                         }}
                     />
@@ -209,7 +213,7 @@ function CategoryGpu() {
                     >
                         가성비 순️
                     </button>
-                    <button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>
+                    <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
                 </div>
                 {flag ? (
                     <div className={styles.cssTable}>
@@ -228,7 +232,7 @@ function CategoryGpu() {
                                 {slicedData.map((gpu) => (
                                     <tr>
                                         <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                        <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                        <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
                                         <td>{gpu.gpuMark}</td>
                                         <td>{gpu.gpuRank}</td>
                                         <td>{gpu.gpuValue}</td>
@@ -257,7 +261,7 @@ function CategoryGpu() {
                                     gpu.gpuName=== product.value &&(
                                 <tr>
                                     <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
-                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`}>{gpu.gpuName}</Link></td>
+                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
                                     <td>{gpu.gpuMark}</td>
                                     <td>{gpu.gpuRank}</td>
                                     <td>{gpu.gpuValue}</td>

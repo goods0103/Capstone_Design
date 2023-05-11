@@ -87,18 +87,17 @@
 
 .divParent {
     display: flex;
-    justifyContent: center;
-    alignItems: center;
-    /*margin: 0 auto;*/
-
-    max-width: 50%; /* 적절한 값으로 설정해주세요 */
-    margin: 5% auto 0 auto;
-    /*background-color: white;*/
+    justify-content: center;
+    align-items: center;
 }
 
 .divChild {
     text-align: center;
-    margin-right: 200px;
+    margin: 5% 5% 0 5%;
+}
+
+.divChild:last-child {
+    margin-right: 0;
 }
 
 /*------ShowInsertInfo.jsx-------*/
