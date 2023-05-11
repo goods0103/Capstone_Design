@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import styles from "./eventBanner.module.css";
 import {useStateValue} from "../reducer/StateProvider";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDownload} from "@fortawesome/free-solid-svg-icons";
 
 function ShowMySpec() {
     const [waring, setWaring]  = useState("다운로드 버튼을 눌러주세요!!!");
@@ -53,7 +55,7 @@ function ShowMySpec() {
             <p className={styles.waring}>
             &emsp;{waring}
             </p>
-                <button className={styles.button} onClick={downloadFile}>download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <button className={styles.button} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <Link to="/MySpec">
                     <button onClick={handleClick}>develop button</button>
                 </Link>

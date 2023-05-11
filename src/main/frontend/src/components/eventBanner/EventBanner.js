@@ -3,6 +3,8 @@ import styles from "./eventBanner.module.css";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {useStateValue} from "../reducer/StateProvider";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDownload, faFileArrowDown} from "@fortawesome/free-solid-svg-icons";
 
 
 export const EventBanner = () => {
@@ -107,7 +109,7 @@ export const EventBanner = () => {
     <div className={styles.frame}>
       <Link to={"/showMySpec"}>
         <button className={styles.buttonSpec}>
-          Get My Spec
+          <FontAwesomeIcon icon={faFileArrowDown} bounce size="xl" />&emsp;Get My Spec
         </button>
       </Link>
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
