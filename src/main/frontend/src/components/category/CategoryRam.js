@@ -12,6 +12,7 @@ import Table from "react-bootstrap/Table";
 function CategoryRam() {
     // axios를 통해 받아오는 RAM 정보를 담는 useState
     const [ramList, setRamList] = useState([]);
+    const [ramOriginList, setRamOriginList] = useState([]);
     // 검색을 위한 RAM 이름을 위한 useState
     const [ramOption, setRamOption] = useState([]);
     // 페이지 나눔을 위한 useState
@@ -34,6 +35,7 @@ function CategoryRam() {
             try {
                 const response = await axios.get('/category/ram1');
                 setRamList(response.data);
+                setRamOriginList(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -123,6 +125,8 @@ function CategoryRam() {
     const showTotalList = () => {
         setFlag(true);
         setSearchValue("");
+        setRamList(ramOriginList);
+        setSelectedFilter("");
     }
 
     const filteredProducts = ramOption.filter((product) =>
@@ -133,7 +137,7 @@ function CategoryRam() {
         <>
             <div>
             <form onSubmit={handleSubmit} className={styles.formTag}>
-                <p onClick={() => searchRam(selectedRam)} className={styles.buttonSearch}>
+                <p onClick={() => searchRam(searchValue)} className={styles.buttonSearch}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
                 <input
                     className={styles.input}
@@ -143,7 +147,7 @@ function CategoryRam() {
                     onChange={(e) => setSearchValue(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
-                            searchRam(selectedRam);
+                            searchRam(searchValue);
                         }
                     }}
                 />
@@ -201,7 +205,7 @@ function CategoryRam() {
                     >
                         쓰기속도 순
                     </button>
-                    <button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>
+                    <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
                 </div>
                 {flag ? (
                     <div className={styles.cssTable}>

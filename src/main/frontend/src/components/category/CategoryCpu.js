@@ -13,15 +13,12 @@ import Table from 'react-bootstrap/Table';
 function CategoryCpu() {
     // axios를 통해 받아오는 CPU 정보를 담는 useState
   const [cpuList, setCpuList] = useState([]);
+  const [cpuOriginList, setCpuOriginList] = useState([]);
   // 검색을 위한 cpu 이름을 위한 useState
   const [cpuOption, setCpuOption] = useState([]);
   // 페이지 나눔을 위한 useState
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
-  const [selectedCpu, setSelectedCpu] = useState({
-      value : localStorage.getItem('cpuData'),
-      label : localStorage.getItem('cpuData')
-  });
     //검색 시 뜨는 화면 구분을 위한 useState
   const [flag, setFlag] = useState(true);
   // 필터 선택여부를 위한 useState
@@ -35,6 +32,8 @@ function CategoryCpu() {
       try {
         const response = await axios.get('/category/cpu1');
         setCpuList(response.data);
+        setCpuOriginList(response.data);
+
       } catch (error) {
         console.log(error);
       }
@@ -108,12 +107,19 @@ function CategoryCpu() {
     };
 
     const searchCpu = (cpu) => {
-        setFlag(false);
+        if(cpu===""){
+            setFlag(true);
+        }
+        else{
+            setFlag(false);
+        }
     }
 
     const showTotalList = () => {
         setFlag(true);
         setSearchValue("");
+        setCpuList(cpuOriginList);
+        setSelectedFilter("");
     }
 
     const filteredProducts = cpuOption.filter((product) =>
@@ -124,7 +130,7 @@ function CategoryCpu() {
     <>
       <div>
           <form onSubmit={handleSubmit} className={styles.formTag}>
-              <p onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
+              <p onClick={() => searchCpu(searchValue)} className={styles.buttonSearch}>
                   <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
               <input
                   className={styles.input}
@@ -134,7 +140,7 @@ function CategoryCpu() {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyDown={(e) => {
                       if (e.key === 'Enter') {
-                          searchCpu(selectedCpu);
+                          searchCpu(searchValue);
                       }
                   }}
               />
@@ -192,7 +198,7 @@ function CategoryCpu() {
               >
                   cpu 낮은 순️
               </button>
-              <button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>
+              <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
           </div>
           {flag ? (
               <div className={styles.cssTable}>
