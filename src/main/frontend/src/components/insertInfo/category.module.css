@@ -146,10 +146,17 @@ th {
 /*    margin-right: 200px;*/
 /*}*/
 
+.divGranpaParent {
+    background-color: #F0F6F8;
+    width: 100%;
+    height: calc(100vh - 90px);
+}
+
 .divParent {
     display: flex;
     justify-content: center;
     align-items: center;
+    color :#353535;
 }
 
 .divChild {
@@ -245,9 +252,9 @@ th {
 
 .buttonBottleNeck {
     box-sizing: border-box;
-    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-    border: 1px solid #000000;
-    border-radius: 149px;
+    background: linear-gradient(101.93deg, #bddfe8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #3ca4e0c4;
+    border-radius: 20px;
 
     position: relative;
     width: 200px;
@@ -266,10 +273,12 @@ th {
     animation-name: slide-up;
     animation-duration: 3.0s;
     animation-fill-mode: backwards;
+
 }
 
 .bottleNeckComp {
-    text-align: center;
+    margin-left: 24%;
+    color: #353535;
 }
 
 /*----Circular ProgressBar----*/

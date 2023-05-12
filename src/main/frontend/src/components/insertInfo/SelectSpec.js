@@ -86,6 +86,7 @@ function SelectSpec() {
 
     return(
         <>
+        <div className={styles2.divGranpaParent} >
             <div className={styles2.divParent}>
                 {cpuInfo.map((cpu) => (
                     cpu.cpuName === selectCpu && (
@@ -135,6 +136,7 @@ function SelectSpec() {
             <div className={styles2.bottleNeckComp}>
                 {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
                 {showComponent && <InsertInfoBottleNeck/>}
+            </div>
             </div>
         </>
     );
