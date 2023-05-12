@@ -96,5 +96,126 @@
     width: 80%;
     height: 30px;
 }
-/*----*/
+/*----cpuCompare.js-----*/
+.selectContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin-top: 5rem;
+}
 
+.formContainer {
+    display: flex;
+    alignItems: center;
+    /*margin-left: 1rem; !* 선택적으로 여백 추가 *!*/
+    /*margin-top: 10%;*/
+
+}
+
+.fromStyle {
+    width: 100%;
+    margin: auto;
+}
+
+.selectTagCompare {
+    width: 50%;
+    height: 10%;
+    margin-right: 1rem;
+}
+
+.selectSpecLabel {
+    width: 100%;
+    margin-right: 10%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.hrStyle {
+    animation-name: fadeIn;
+    animation-duration: 4.0s;
+    animation-fill-mode: none;
+    /*border-color: red;*/
+    width: 80%; /* 원하는 너비로 설정 */
+    margin: 2rem auto 0 auto; /* 가운데 정렬 */
+    border: 1px solid;
+}
+
+/*------SubmitSelectedCpu.jsx-------*/
+.detailCompareContainer {
+    text-align: center;
+}
+
+.image {
+    width: 180px;
+    height : 120px;
+    border-radius: 10px 0 0 10px;
+}
+
+.infoNameFrame {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.infoNameLabel {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+span + span {
+    margin-left: 10%;
+}
+
+.infoTitleLabel {
+    text-align: left;
+    margin-left:10%;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+.infoDetailLabel {
+    margin-bottom: 1rem;
+}
+
+.infoProgressBar {
+    margin-bottom: 1.5rem;
+    height: 1.5rem;
+    /*min-width: 30%;*/
+    /*width: 100px;*/
+}
+
+.infoProgressBarSpan {
+    width: 50%;
+    margin-left: 5%;
+}
+
+.infoProgressBarFrame {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    /*min-height: 50px;*/
+    /*min-width: 500px;*/
+    /*width: 100%; !* 예시 값 *!*/
+    /*margin: 0 auto; !* 가운데 정렬 *!*/
+}
+
+.infoProgressBarLabel {
+    min-width: 300px;
+}
+
+
+/*------animation------*/
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

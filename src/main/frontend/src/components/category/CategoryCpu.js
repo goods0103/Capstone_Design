@@ -205,7 +205,7 @@ function CategoryCpu() {
                   <Table striped bordered hover variant="dark">
                       <thead>
                           <tr>
-                              <th className={styles.cssTh}></th>
+                              <th className={styles.cssTh}>Image</th>
                               <th className={styles.cssTh}>Name</th>
                               <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
