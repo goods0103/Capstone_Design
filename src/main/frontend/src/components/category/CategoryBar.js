@@ -8,6 +8,7 @@ const Link = ({ isActive, children, ...props }) => {
 };
 
 const StyledLink = styled(Link)`
+  font-family: Arial, serif;
   box-sizing: border-box;
   display: block;
   padding: 6px 12px;

@@ -221,7 +221,7 @@ function CategoryCpu() {
                                   <td>{cpu.cpuMark}</td>
                                   <td>{cpu.cpuRank}</td>
                                   <td>{cpu.cpuValue}</td>
-                                  <td>{convertPrice(Math.round(cpu.gpuPrice / 100) * 100)}원</td>
+                                  <td>{convertPrice(Math.round(cpu.cpuPrice / 100) * 100)}원</td>
                               </tr>
                           ))}
                       </tbody>
@@ -250,7 +250,7 @@ function CategoryCpu() {
                               <td>{cpu.cpuMark}</td>
                               <td>{cpu.cpuRank}</td>
                               <td>{cpu.cpuValue}</td>
-                              <td>{convertPrice(Math.round(cpu.gpuPrice / 100) * 100)}원</td>
+                              <td>{convertPrice(Math.round(cpu.cpuPrice / 100) * 100)}원</td>
                           </tr>
                               )))))}
                       </tbody>

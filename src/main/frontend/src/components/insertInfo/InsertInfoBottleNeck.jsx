@@ -54,58 +54,43 @@ function InsertInfoBottleNeck() {
     return (
         <>
             <div className={styles.bottleNeckComp}>
-                <p> 프로세서 {bottleNeck.cpuInfo}가 {bottleNeck.cpuBottleNeckValue}% 활용되고 그래픽 카드 {bottleNeck.gpuInfo}가 {bottleNeck.gpuBottleNeckValue}% 활용됩니다.</p>
+                <div className={styles.bottleNeckText}>
+                <p className={styles.bottleNeckTitle}>CALCULATOR RESULT</p>
+                    {bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue>5 &&(
+                        <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 {bottleNeck.gpuInfo}에 비해 약합니다.</p>
+                        )}
+                    {bottleNeck.gpuBottleNeckValue-bottleNeck.cpuBottleNeckValue>5 &&(
+                        <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 {bottleNeck.cpuInfo}에 비해 약합니다.</p>
+                    )}
+                        <p>이 구성에서는 {Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
+                </div>
                 <div className={styles.CircularChart}>
-                    <AnimatedProgressProvider
-                        valueStart={0}
-                        valueEnd={86}
-                        duration={2.4}
-                        easingFunction={easeQuadInOut}
-                        repeat
-                    >
-                        {value => {
-                            const roundedValue = Math.round(value);
-                            return (
-                                <CircularProgressbar
-                                    value={value}
-                                    text={`${roundedValue}%`}
-                                    /* This is important to include, because if you're fully managing the
-                              animation yourself, you'll want to disable the CSS animation. */
-                                    styles={buildStyles({ pathTransition: "none" })}
-                                />
-                            );
-                        }}
-                    </AnimatedProgressProvider>
-                    <CircularProgressbar
-                        value={percentage}
-                        text={`${percentage}%`}
-                        background
-                        backgroundPadding={6}
-                        styles={buildStyles({
-                            backgroundColor: "#3e98c7",
-                            textColor: "#fff",
-                            pathColor: "#fff",
-                            trailColor: "transparent"
-                        })}
-                        className={styles.circularProgressBar}
-                    />
-                    <ChangingProgressProvider values={[0, 20, 80]}>
-                        {value => (
+                    {/*<CircularProgressbar*/}
+                    {/*    value={Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}*/}
+                    {/*    text={`${Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%`}*/}
+                    {/*    background*/}
+                    {/*    backgroundPadding={6}*/}
+                    {/*    styles={buildStyles({*/}
+                    {/*        backgroundColor: "#3e98c7",*/}
+                    {/*        textColor: "#fff",*/}
+                    {/*        pathColor: "#fff",*/}
+                    {/*        trailColor: "transparent"*/}
+                    {/*    })}*/}
+                    {/*    className={styles.circularProgressBar}*/}
+                    {/*/>*/}
                             <CircularProgressbar
-                                value={value}
-                                text={`${value}%`}
-                                circleRatio={0.75}
+                                value={Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}
+                                text={`${Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%`}
+                                circleRatio={0.5}
+                                arcSweepAngle={180}
                                 styles={buildStyles({
-                                    rotation: 1 / 2 + 1 / 8,
+                                    rotation: 1 / 2 + 1 / 4,
                                     strokeLinecap: "butt",
                                     trailColor: "#eee"
                                 })}
                             />
-                        )}
-                    </ChangingProgressProvider>
-
                 </div>
-                <p>{Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
+
             </div>
 
         </>
