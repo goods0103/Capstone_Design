@@ -17,7 +17,7 @@ export default function ShowInsertInfoGpu({infoName, infoMark, infoRank, infoVal
                 alt="gpu_image"
             /><br/><br/>
             <div className={styles.infoSpecTitle}>{infoName}</div>
-                <div className={styles.urlLabel}><Link to={`/GpuSpec/${infoId}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Detail</Link></div>
+                <div className={styles.urlLabel}><Link to={`/GpuSpec/${infoId}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>
             <hr className={styles.hrStyle}/>
             <div className={styles.infoSpecSubTitle}>Mark Rating</div>
             <div className={styles.infoSpecSub}>{infoMark}</div>
@@ -26,7 +26,7 @@ export default function ShowInsertInfoGpu({infoName, infoMark, infoRank, infoVal
             <div className={styles.infoSpecSubTitle}>Value</div>
             <div className={styles.infoSpecSub}>{infoValue}</div>
             <div className={styles.infoSpecSubTitle}>Price</div>
-            <div className={styles.infoSpecSub}>{infoPrice}</div>
+            <div className={styles.infoSpecSub}>₩{infoPrice}</div>
             <hr className={styles.hrStyle}/>
         </div>
 

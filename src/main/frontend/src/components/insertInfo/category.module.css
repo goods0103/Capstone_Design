@@ -154,10 +154,17 @@ th {
 /*    margin-right: 200px;*/
 /*}*/
 
+.divGranpaParent {
+    background-color: #F0F6F8;
+    width: 100%;
+    height: calc(100vh - 90px);
+}
+
 .divParent {
     display: flex;
     justify-content: center;
     align-items: center;
+    color :#353535;
 }
 
 .divChild {
@@ -272,9 +279,9 @@ th {
 
 .buttonBottleNeck {
     box-sizing: border-box;
-    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-    border: 1px solid #000000;
-    border-radius: 149px;
+    background: linear-gradient(101.93deg, #bddfe8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #3ca4e0c4;
+    border-radius: 20px;
 
     position: relative;
     width: 15%;
@@ -283,7 +290,7 @@ th {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1rem;
     line-height: 140%;
     /* or 28px */
 

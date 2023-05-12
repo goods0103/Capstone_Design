@@ -17,16 +17,16 @@ export default function ShowInsertInfoRam({infoName, infoType, infoSize, infoLat
                 alt="gpu_image"
             /> <br/><br/>
             <div className={styles.infoSpecTitle}>{infoName}</div>
-                <div className={styles.urlLabel}><Link to={`/InsertCategoryRam`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Detail</Link></div>
+                <div className={styles.urlLabel}><Link to={`/InsertCategoryRam`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>
             <hr className={styles.hrStyle}/>
             <div className={styles.infoSpecSubTitle}>Type & Size</div>
             <div className={styles.infoSpecSub}>{infoType}&nbsp;{infoSize}</div>
-            <div className={styles.infoSpecSubTitle}>Latency</div>
+            <div className={styles.infoSpecSubTitle}>Latency (ns)</div>
             <div className={styles.infoSpecSub}>{infoLatency}</div>
             <div className={styles.infoSpecSubTitle}>읽기 속도</div>
-            <div className={styles.infoSpecSub}>{infoRead}</div>
+            <div className={styles.infoSpecSub}>{infoRead} (GB/s)</div>
             <div className={styles.infoSpecSubTitle}>쓰기 속도</div>
-            <div className={styles.infoSpecSub}>{infoWrite}</div>
+            <div className={styles.infoSpecSub}>{infoWrite} (GB/s)</div>
             <hr className={styles.hrStyle}/>
         </div>
     );
