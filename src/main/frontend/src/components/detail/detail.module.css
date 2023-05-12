@@ -338,3 +338,6 @@ span + span {
     align-items: center;
     justify-content: center;
 }
+.ul li{
+    line-height: 3;
+}

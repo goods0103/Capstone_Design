@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import styles from "./detail.module.css";
+import { Tab, Tabs } from "react-bootstrap";
 
 
 function GameDetail() {
@@ -34,22 +35,22 @@ function GameDetail() {
             });
     }, []);
 
-    function minimum(count) {
-        if(count===1){
-            setFlag(0);
-        }
-        else{
-            setFlag(1);
-        }
-    }
-    function recommend(count) {
-        if(count===2){
-            setFlag(0);
-        }
-        else{
-            setFlag(2);
-        }
-    }
+    // function minimum(count) {
+    //     if(count===1){
+    //         setFlag(0);
+    //     }
+    //     else{
+    //         setFlag(1);
+    //     }
+    // }
+    // function recommend(count) {
+    //     if(count===2){
+    //         setFlag(0);
+    //     }
+    //     else{
+    //         setFlag(2);
+    //     }
+    // }
     return (
         <>
             <div className={styles.pageTitle}>
@@ -72,59 +73,108 @@ function GameDetail() {
                     />
                 </div>
                 <span>기본 정보</span>
-                <table>
-                    <tr>
-                        <td>제작</td>
-                        <td>{gameOriginInfo.developer}</td>
-                    </tr>
-                    <tr>
-                        <td>배급</td>
-                        <td>{gameOriginInfo.publisher}</td>
-                    </tr>
-                    <tr>
-                        <td>출시</td>
-                        <td>{gameOriginInfo.releaseDate}</td>
-                    </tr>
-                    <tr>
-                        <td>시스템</td>
-                        <td><span onClick={() => minimum(flag)}>최소사양</span></td>
-                        <td><span onClick={() => recommend(flag)}>권장사양</span></td>
-                    </tr>
-                </table>
-                {flag===1 && (<div>
-                        <table>
-                            <tr>
-                                <td>CPU</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameCpu}</td>
-                            </tr>
-                            <tr>
-                                <td>그래픽</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameGpu}</td>
-                            </tr>
-                            <tr>
-                                <td>램</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameRam}</td>
-                            </tr>
-                        </table>
-                    </div>
-                    )}
-                {flag===2 && (<div>
-                        <table className={styles.leftAlign}>
-                            <tr>
-                                <td>CPU</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameCpu}</td>
-                            </tr>
-                            <tr>
-                                <td>그래픽</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameGpu}</td>
-                            </tr>
-                            <tr>
-                                <td>램</td>
-                                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameRam}</td>
-                            </tr>
-                        </table>
-                    </div>
-                )}
+                {/*<table>*/}
+                {/*    <tr>*/}
+                {/*        <td>제작</td>*/}
+                {/*        <td>{gameOriginInfo.developer}</td>*/}
+                {/*    </tr>*/}
+                {/*    <tr>*/}
+                {/*        <td>배급</td>*/}
+                {/*        <td>{gameOriginInfo.publisher}</td>*/}
+                {/*    </tr>*/}
+                {/*    <tr>*/}
+                {/*        <td>출시</td>*/}
+                {/*        <td>{gameOriginInfo.releaseDate}</td>*/}
+                {/*    </tr>*/}
+                {/*    <tr>*/}
+                {/*        <td>시스템</td>*/}
+                {/*        <td><span onClick={() => minimum(flag)}>최소사양</span></td>*/}
+                {/*        <td><span onClick={() => recommend(flag)}>권장사양</span></td>*/}
+                {/*    </tr>*/}
+                {/*</table>*/}
+                {/*{flag===1 && (<div>*/}
+                {/*        <table>*/}
+                {/*            <tr>*/}
+                {/*                <td>CPU</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameCpu}</td>*/}
+                {/*            </tr>*/}
+                {/*            <tr>*/}
+                {/*                <td>그래픽</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameGpu}</td>*/}
+                {/*            </tr>*/}
+                {/*            <tr>*/}
+                {/*                <td>램</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameRam}</td>*/}
+                {/*            </tr>*/}
+                {/*        </table>*/}
+                {/*    </div>*/}
+                {/*    )}*/}
+                {/*{flag===2 && (<div>*/}
+                {/*        <table className={styles.leftAlign}>*/}
+                {/*            <tr>*/}
+                {/*                <td>CPU</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameCpu}</td>*/}
+                {/*            </tr>*/}
+                {/*            <tr>*/}
+                {/*                <td>그래픽</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameGpu}</td>*/}
+                {/*            </tr>*/}
+                {/*            <tr>*/}
+                {/*                <td>램</td>*/}
+                {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameRam}</td>*/}
+                {/*            </tr>*/}
+                {/*        </table>*/}
+                {/*    </div>*/}
+                {/*)}*/}
+                <ul className={styles.ul}>
+                    <li>제작    {gameOriginInfo.developer}</li>
+                    <li>배급    {gameOriginInfo.publisher}</li>
+                    <li>출시    {gameOriginInfo.releaseDate}</li>
+                    <li>
+                        <Tabs activeKey={flag} onSelect={(key) => setFlag(key)}>
+                            <Tab eventKey={1} title="최소사양">
+                                <div>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>CPU</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameCpu}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>그래픽</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameGpu}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>램</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameRam}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Tab>
+                            <Tab eventKey={2} title="권장사양">
+                                <div>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>CPU</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameCpu}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>그래픽</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameGpu}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>램</td>
+                                            <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameRam}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Tab>
+                        </Tabs>
+                    </li>
+                </ul>
             </div>
             <div className={styles.topGame}>
                 <span>Top Games</span>
