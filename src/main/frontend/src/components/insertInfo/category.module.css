@@ -89,7 +89,7 @@ th {
 
 }
 .CircularChart{
-    width: 15%;
+    width: 50%;
     margin-left:50%;
 
 }
@@ -277,7 +277,7 @@ th {
     border-radius: 149px;
 
     position: relative;
-    width: 200px;
+    width: 15%;
     height: 50px;
 
     font-family: 'Roboto';
@@ -296,15 +296,51 @@ th {
 }
 
 .bottleNeckComp {
-    text-align: center;
+    margin-top :25%;
+    position : absolute;
+    display: flex;
+    width : 50%;
+    left  : 25%;
+    padding-left: 0;
+    margin-top:20%;
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
 }
+/* image 43 */
+
+
+
+.bottleNeckComp1 {
+    position : absolute;
+    display: flex;
+    width : 60%;
+    left  : 18%;
+    align-items: center;
+}
+.bottleNeckComp p {
+    text-align: left;
+    width:80%;
+}
+.bottleNeckText{
+    font-size: 1rem;
+}
+.bottleNeckTitle{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+/* Rectangle 68 */
+
+
+
+
 
 /*----Circular ProgressBar----*/
 .circularProgressBar {
     position: relative;
-    top: 1%;
-    margin-left: 1230%;
-    width:100px;
+    width : 30%;
 }
 
 /*--animation---*/
