@@ -96,5 +96,122 @@
     width: 80%;
     height: 30px;
 }
-/*----*/
 
+/*gameDetail*/
+
+.pageTitle::before{
+    content: "";
+    position: absolute;
+    top: 90px;
+    bottom: 60%;
+    opacity: .15;
+    background-image: url('../../../../resources/static/images/game-Image.jpg');
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto calc(100%);
+    left:0;
+    right:0;
+}
+.pageTitle::after {
+    content: "";
+    position: absolute;
+    top: 90px;
+    bottom: 60%;
+    left: 0;
+    right: 0;
+    background-color: #4e54c8!important; /* 배경 색상 설정 */
+    z-index: -1; /* 배경 이미지를 뒤로 보내기 위한 z-index 값 */
+}
+
+.Title{
+    position: absolute;
+    width: 80%;
+    height: 60px;
+    left:10%;
+    top: calc(27px + 30%);
+
+    background: #FFFFFF;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color : #151515;
+}
+.Title span{
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: inline-block;
+}
+.gameInfo{
+    position: absolute;
+    width: 50%;
+    left: 10%;
+    top: 50%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+}
+
+.gameInfo span{
+    font-size: 1.1rem;
+    font-weight: bold;
+
+}
+
+.gameImgInfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.checkImg{
+    width:25%;
+}
+
+.gameImg{
+    width:50%;
+}
+
+.topGame{
+    position: absolute;
+    width :25%;
+    left: 65%;
+    top:50%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+}
+
+.topGame span{
+    font-weight: bold;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.topGame p{
+
+}
+
+.testGame{
+    position: absolute;
+    width :25%;
+    left: 65%;
+    top: 110%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+}
+
+.testGame p{
+
+}
+
+.testGame span{
+    font-weight: bold;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
