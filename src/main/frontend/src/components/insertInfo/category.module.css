@@ -325,7 +325,7 @@ th {
     margin-top :27%;
     position : absolute;
     display: flex;
-    width : 50%;
+    width : 55%;
     left  : 25%;
     padding-left: 0;
     color:#151515;
@@ -348,7 +348,7 @@ th {
     position : absolute;
     display: flex;
     width : 60%;
-    left: 18%;
+    left: 7%;
     align-items: center;
 }
 .bottleNeckComp p {
