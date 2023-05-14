@@ -8,6 +8,8 @@ import {Tab, Tabs} from "react-bootstrap";
 function GameDetail() {
     const [gameOriginInfo, setGameOriginInfo] = useState([]);
     const [compareList, setCompareList] = useState([]);
+    const [topList, setTopList] = useState([]);
+    const [countList, setCountList] = useState([]);
     const [flag, setFlag] = useState(0);
     const path = window.location.href;
     const parts = path.split('/');
@@ -39,6 +41,26 @@ function GameDetail() {
         axios.post('/compare', {lastPart})
             .then(response => {
                 setCompareList(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("/gameTopList")
+            .then(response => {
+                setTopList(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("/gameCountList")
+            .then(response => {
+                setCountList(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -200,30 +222,16 @@ function GameDetail() {
                 <div className={styles.topGame}>
                     <span>Top Games</span>
                     <hr style={{color: 'black'}}/>
-                    <p>Battle Ground</p>
-                    <p>Football_Manager_2023</p>
-                    <p>ELDEN_RING</p>
-                    <p>GrandChase</p>
-                    <p>EA_SPORTS_FIFA_23</p>
-                    <p>Eternal_Return</p>
-                    <p>NBA_2K23</p>
-                    <p>Monster_Hunter_World</p>
-                    <p>MONSTER_HUNTER_RISE</p>
-                    <p>Left_4_Dead_2</p>
+                    {topList.map((top)=>(
+                        <p>{top.gameName}</p>
+                    ))}
                 </div>
                 <div className={styles.testGame}>
                     <span>Most Tested Games</span>
                     <hr style={{color: 'black'}}/>
-                    <p>Battle Ground</p>
-                    <p>Football_Manager_2023</p>
-                    <p>ELDEN_RING</p>
-                    <p>GrandChase</p>
-                    <p>EA_SPORTS_FIFA_23</p>
-                    <p>Eternal_Return</p>
-                    <p>NBA_2K23</p>
-                    <p>Monster_Hunter_World</p>
-                    <p>MONSTER_HUNTER_RISE</p>
-                    <p>Left_4_Dead_2</p>
+                    {countList.map((count)=>(
+                        <p>{count.gameName}</p>
+                    ))}
                 </div>
             </div>
         </>
