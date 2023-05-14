@@ -111,6 +111,9 @@ public class DetailController {
     @PostMapping("/category/game1/detail")
     public GameListOrigin getSelectGameOriginDetail(@RequestBody String game) {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
+        GameList gameList = gameListService.findByName(decodedString);
+        gameList.setTestCount(gameList.getTestCount() + 1);
+        gameListService.save(gameList);
         return gameListOriginService.findByName(decodedString);
     }
 
