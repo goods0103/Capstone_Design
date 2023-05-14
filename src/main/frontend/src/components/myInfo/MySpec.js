@@ -17,6 +17,14 @@ function MySpec() {
     const [bottleNeckInfo, setBottleNeckInfo] = useState([]);
     const [showComponent, setShowComponent] = useState(false);
 
+    useEffect(() => {
+        document.body.style.backgroundColor = '#F0F6F8';
+        document.body.style.color = "black";
+        return () => {
+            document.body.style.backgroundColor = '#151515';
+            document.body.style.color = "white";
+        };
+    }, []);
     function showMyBottleNeck() {
         setShowComponent(true);
     }

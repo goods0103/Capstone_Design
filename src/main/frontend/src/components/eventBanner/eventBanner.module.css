@@ -1,10 +1,15 @@
-.banner {
+.total{
   position: relative;
-  width: 35%;
-  height: 30%;
-  background: #151515;
-  left: 55%;
+  width:100%;
 }
+/*.banner {*/
+/*  position: relative;*/
+/*  width: 35%;*/
+/*  height: 50%;*/
+/*  background: #151515;*/
+/*  top: 50%;*/
+/*  left: 55%;*/
+/*}*/
 
 .right {
   position: absolute;
@@ -279,6 +284,7 @@ line-height: 140%;
   height: 30%;
   background: #151515;
   left: 55%;
+  margin-top : 5%;
   animation-name: slide-in;
   animation-duration: 3.0s;
   animation-fill-mode: both;
