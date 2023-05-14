@@ -299,13 +299,12 @@ th {
 }
 
 .bottleNeckComp {
-    margin-top :25%;
+    margin-top :27%;
     position : absolute;
     display: flex;
     width : 50%;
     left  : 25%;
     padding-left: 0;
-    margin-top:20%;
     color:#151515;
     border : solid 2px #ffffff;
     background: #F8FCFE;
