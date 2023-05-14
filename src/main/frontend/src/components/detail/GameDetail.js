@@ -7,7 +7,7 @@ import { Tab, Tabs } from "react-bootstrap";
 
 function GameDetail() {
     const [gameOriginInfo, setGameOriginInfo] = useState([]);
-    const [gameInfo, setGameInfo] = useState([]);
+    const [compareList,  setCompareList] = useState([]);
     const [flag, setFlag] = useState(0);
     const path = window.location.href;
     const parts = path.split('/');
@@ -25,32 +25,34 @@ function GameDetail() {
             });
     }, []);
 
+    // useEffect(() => {
+    //     axios.post("/category/game1/detail2", lastPart)
+    //         .then(response => {
+    //             setGameInfo(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
+    // }, []);
+
     useEffect(() => {
-        axios.post("/category/game1/detail2", lastPart)
+        axios.post('/compare', { lastPart })
             .then(response => {
-                setGameInfo(response.data);
+                setCompareList(response.data);
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
-
-    // function minimum(count) {
-    //     if(count===1){
-    //         setFlag(0);
-    //     }
-    //     else{
-    //         setFlag(1);
-    //     }
-    // }
-    // function recommend(count) {
-    //     if(count===2){
-    //         setFlag(0);
-    //     }
-    //     else{
-    //         setFlag(2);
-    //     }
-    // }
+    
+    useEffect(() => {
+        document.body.style.backgroundColor = '#F0F6F8';
+        document.body.style.color = "black";
+        return () => {
+            document.body.style.backgroundColor = '#151515';
+            document.body.style.color = "white";
+        };
+    }, []);
     return (
         <>
             <div className={styles.pageTitle}>
@@ -61,6 +63,8 @@ function GameDetail() {
                 <hr style={{ color: 'black' }} />
                 <div className={styles.gameImgInfo}>
                     <img src={gameOriginInfo.img} alt="game_image" className={styles.gameImg}/>
+                    {compareList.recState}
+                    {compareList.minState}
                     <img
                         className={styles.checkImg}
                         src="images/check.png"
