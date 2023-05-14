@@ -7,6 +7,9 @@ import com.hadoop.demo.Model.UserInsertInfo;
 import com.hadoop.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -96,9 +99,12 @@ public class GameListService {
     }
     //선택시에 ipAddress와 이름을 받는다
 //    public GameList CompareCpuUserVsGame3(String gameName, String ipAddress) {
+//
+//        String decodedGameName = URLDecoder.decode(gameName, StandardCharsets.UTF_8).replace("=","");
+//
 //        // userInfo가 없을 경우
 //        if(userInsertInfoRepository.findByIpAddress(ipAddress) == null){
-//            return gameListRepository.findByGameName(gameName);
+//            return gameListRepository.findByGameName(decodedGameName);
 //        }
 //
 //        String recCpu = null;
@@ -107,7 +113,7 @@ public class GameListService {
 //        int recGpuRank = 0;
 //        int recRamSize = 0;
 //
-//        GameList gameList = gameListRepository.findByGameName(gameName);
+//        GameList gameList = gameListRepository.findByGameName(decodedGameName);
 //
 //        UserInsertInfo userInsertInfo = userInsertInfoRepository.findByIpAddress(ipAddress);
 //
