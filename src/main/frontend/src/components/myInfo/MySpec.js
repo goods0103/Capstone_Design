@@ -15,7 +15,6 @@ import {faWineBottle} from "@fortawesome/free-solid-svg-icons";
 import InsertInfoBottleNeck from "../insertInfo/InsertInfoBottleNeck";
 
 function MySpec() {
-
     const [cpuInfo, setCpuInfo] = useState([]);
     const [gpuInfo, setGpuInfo] = useState([]);
     const [ramInfo, setRamInfo] = useState([]);
@@ -116,42 +115,26 @@ function MySpec() {
 
             <div>
                 <div className={styles2.divParent}>
-                    {cpuInfo.map((cpu) => (
-                        cpu.cpuName === mySpec.selectedCpu && (
-                            // <div className={styles2.divChild}>
-                            //     <ShowInsertInfo infoName={cpu.cpuName} infoMark={cpu.cpuMark} infoRank={cpu.cpuRank} infoPrice={cpu.cpuPrice}
-                            //                     infoValue={cpu.cpuValue} infoUrl="/images/product/cpuCategory02.png" infoId={cpu.cpuId}/>
-                            // </div>
-                            <ShowInsertInfo infoName={cpu.cpuName} infoMark={cpu.cpuMark} infoRank={cpu.cpuRank} infoPrice={cpu.cpuPrice}
-                                            infoValue={cpu.cpuValue} infoUrl="/images/product/cpuCategory02.png" infoId={cpu.cpuId}/>
-                        )))}
+                    <ShowInsertInfo infoName={cpuInfo.cpuName} infoMark={cpuInfo.cpuMark} infoRank={cpuInfo.cpuRank} infoPrice={cpuInfo.cpuPrice}
+                                    infoValue={cpuInfo.cpuValue} infoUrl="/images/product/cpuCategory02.png" infoId={cpuInfo.cpuId}/>
+
+
+
                     {/*<ShowInsertInfo infoName={"AMD Ryzen 5 5600X"} infoMark={"40397"} infoRank={"96"} infoPrice={"470388"}*/}
                     {/*                infoValue={"103.06"} infoUrl="/images/product/cpuCategory02.png"  infoId={"cpu"}/>*/}
                     <br/>
                     {/*&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*/}
-                    {gpuInfo.map((gpu) => (
-                        gpu.gpuName === mySpec.selectedGpu && (
-                            // <div className={styles2.divChild}>
-                            //     <ShowInsertInfoGpu infoName={gpu.gpuName} infoMark={gpu.gpuMark} infoRank={gpu.gpuRank} infoPrice={gpu.gpuPrice}
-                            //                     infoValue={gpu.gpuValue} infoUrl="/images/product/gpuCategory02.png" infoId={gpu.gpuId}/>
-                            // </div>
-                            <ShowInsertInfoGpu infoName={gpu.gpuName} infoMark={gpu.gpuMark} infoRank={gpu.gpuRank} infoPrice={gpu.gpuPrice}
-                                               infoValue={gpu.gpuValue} infoUrl="/images/product/gpuCategory02.png" infoId={gpu.gpuId}/>
-                        )))}
+
+                            <ShowInsertInfoGpu infoName={gpuInfo.gpuName} infoMark={gpuInfo.gpuMark} infoRank={gpuInfo.gpuRank} infoPrice={gpuInfo.gpuPrice}
+                                               infoValue={gpuInfo.gpuValue} infoUrl="/images/product/gpuCategory02.png" infoId={gpuInfo.gpuId}/>
+
                     {/*<ShowInsertInfoGpu infoName={"GeForce RTX 3070"} infoMark={"17685"} infoRank={"77"} infoPrice={"694080"}*/}
                     {/*                infoValue={"30.39"} infoUrl="/images/product/gpuCategory02.png" infoId={"gpu"}/>*/}
                     {/*&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;*/}
                     <br/>
-                    {ramInfo.map((ram) => (
-                        // src/main/frontend/public/images/product/ramCategory01.png
-                        ram.ramName === mySpec.selectedRam && (
-                            // <div className={styles2.divChild}>
-                            //     <ShowInsertInfoRam infoName={ram.ramName} infoType={ram.ramType} infoSize={ram.ramSize} infoLatency={ram.ramLatency}
-                            //                     infoRead={ram.ramRead} infoWrite={ram.ramWrite} infoUrl="/images/product/ramCategory01.png" infoId={ram.ramId}/>
-                            // </div>
-                            <ShowInsertInfoRam infoName={ram.ramName} infoType={ram.ramType} infoSize={ram.ramSize} infoLatency={ram.ramLatency}
-                                               infoRead={ram.ramRead} infoWrite={ram.ramWrite} infoUrl="/images/product/ramCategory01.png" infoId={ram.ramId}/>
-                        )))}
+
+                            <ShowInsertInfoRam infoName={ramInfo.ramName} infoType={ramInfo.ramType} infoSize={ramInfo.ramSize} infoLatency={ramInfo.ramLatency}
+                                               infoRead={ramInfo.ramRead} infoWrite={ramInfo.ramWrite} infoUrl="/images/product/ramCategory01.png" infoId={ramInfo.ramId}/>
                     {/*<ShowInsertInfoRam infoName={"Samsung Ram"} infoType={"DDR4"} infoSize={"8GB"} infoLatency={"28"}*/}
                     {/*                   infoRead={"16.9"} infoWrite={"14.8"} infoUrl="/images/product/ramCategory01.png" infoId={"ram"}/>*/}
                     <br/>
