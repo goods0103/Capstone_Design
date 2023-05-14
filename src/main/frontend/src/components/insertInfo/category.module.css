@@ -303,6 +303,7 @@ th {
     position: relative;
     width: 15%;
     height: 50px;
+    margin: 3% auto 0 auto;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -321,13 +322,12 @@ th {
 }
 
 .bottleNeckComp {
-    margin-top :25%;
+    margin-top :27%;
     position : absolute;
     display: flex;
     width : 50%;
     left  : 25%;
     padding-left: 0;
-    margin-top:20%;
     color:#151515;
     border : solid 2px #ffffff;
     background: #F8FCFE;
@@ -348,7 +348,7 @@ th {
     position : absolute;
     display: flex;
     width : 60%;
-    left  : 18%;
+    left: 18%;
     align-items: center;
 }
 .bottleNeckComp p {
