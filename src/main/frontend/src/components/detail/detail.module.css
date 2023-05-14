@@ -361,10 +361,8 @@ span + span {
 }
 
 .topGame{
-    position: absolute;
-    width :25%;
-    left: 65%;
-    top:50%;
+    margin-bottom:3%;
+    width :100%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     padding:1%;
@@ -377,25 +375,22 @@ span + span {
     align-items: center;
     justify-content: center;
 }
-
-.topGame p{
-
+.gameDetailList{
+    position : absolute;
+    left:65%;
+    top :50%;
+    width : 25%;
 }
 
+
 .testGame{
-    position: absolute;
-    width :25%;
-    left: 65%;
-    top: 110%;
+    width :100%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
 }
 
-.testGame p{
-
-}
 
 .testGame span{
     font-weight: bold;
