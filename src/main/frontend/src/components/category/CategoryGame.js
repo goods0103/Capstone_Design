@@ -5,7 +5,13 @@ import CategoryBar from "./CategoryBar";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircleChevronLeft, faCircleChevronRight,
+    faList,
+    faMagnifyingGlass,
+    faSquareCaretLeft,
+    faSquareCaretRight
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Table from "react-bootstrap/Table";
 
@@ -180,10 +186,10 @@ function CategoryGame() {
                 {flag &&
                     <ReactPaginate
                         previousLabel={<span className={styles.paginationIconLeft}>
-                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronLeft} shake size="2xl" style={{color: "#1f71ff",}} />
                                 </span>}
                         nextLabel={<span className={styles.paginationIconRight}>
-                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronRight} shake size="2xl" style={{color: "#1f71ff",}} />
                             </span>}
                         pageCount={Math.ceil(gameList.length / itemsPerPage)}
                         onPageChange={handlePageClick}

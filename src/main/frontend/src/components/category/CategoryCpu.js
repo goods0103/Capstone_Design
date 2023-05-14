@@ -6,7 +6,13 @@ import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import {
+    faChevronLeft,
+    faChevronRight, faCircleChevronLeft,
+    faCircleChevronRight,
+    faList,
+    faMagnifyingGlass
+} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 
@@ -263,10 +269,11 @@ function CategoryCpu() {
           {flag &&
               <ReactPaginate
                   previousLabel={<span className={styles.paginationIconLeft}>
-                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                   <FontAwesomeIcon icon={faCircleChevronLeft} shake size="2xl" style={{color: "#1f71ff",}} />
                                 </span>}
                   nextLabel={<span className={styles.paginationIconRight}>
-                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                                    {/*<FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />*/}
+                                    <FontAwesomeIcon icon={faCircleChevronRight} shake size="2xl" style={{color: "#1f71ff",}} />
                             </span>}
                   pageCount={Math.ceil(cpuList.length / itemsPerPage)}
                   onPageChange={handlePageClick}

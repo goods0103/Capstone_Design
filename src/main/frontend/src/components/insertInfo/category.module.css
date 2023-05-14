@@ -173,6 +173,27 @@ th {
     margin-right: 0;
 }
 
+.divChildCpuAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    /*animation-delay : 1.5s;*/
+}
+
+.divChildGpuAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 0.5s;
+}
+
+.divChildRamAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+}
+
 /*------ShowInsertInfo.jsx-------*/
 
 .urlLabel {
@@ -239,7 +260,7 @@ th {
 .infoSpecTitle {
     font-size: 1.1rem;
     margin-bottom: 1.2rem;
-    height: 2em;
+    height: 3em;
     font-weight: bold;
 }
 
@@ -282,6 +303,7 @@ th {
     position: relative;
     width: 15%;
     height: 50px;
+    margin: 3% auto 0 auto;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -294,7 +316,8 @@ th {
 
     /* 애니메이션 적용. 2개의 애니메이션 */
     animation-name: slide-up;
-    animation-duration: 3.0s;
+    animation-duration: 2.0s;
+    animation-delay: 1.0s;
     animation-fill-mode: backwards;
 }
 
@@ -310,6 +333,12 @@ th {
     background: #F8FCFE;
     box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
     border-radius: 20px;
+
+    animation-name: loadEffect3;
+    animation-duration: 3.0s;
+    /*animation-delay: 1.0s;*/
+    animation-fill-mode: backwards;
+
 }
 /* image 43 */
 
@@ -319,7 +348,7 @@ th {
     position : absolute;
     display: flex;
     width : 60%;
-    left  : 18%;
+    left: 18%;
     align-items: center;
 }
 .bottleNeckComp p {
@@ -355,6 +384,47 @@ th {
     100% {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(150px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes loadEffect3 {
+    0%{
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    65%{
+        opacity: 0.65;
+        transform: scale(1.01);
+    }
+    85%{
+        opacity: 0.85;
+        transform: scale(0.97);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
     }
 }
 

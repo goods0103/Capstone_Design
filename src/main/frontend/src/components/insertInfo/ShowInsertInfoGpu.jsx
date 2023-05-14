@@ -9,7 +9,7 @@ import {faBarsStaggered} from "@fortawesome/free-solid-svg-icons";
 
 export default function ShowInsertInfoGpu({infoName, infoMark, infoRank, infoValue, infoPrice, infoUrl, infoId}) {
     return(
-        <div className={styles.divChild}>
+        <div className={`${styles.divChild} ${styles.divChildGpuAnimation}`}>
             <div className={styles.infoSpecTitle}>GPU</div>
             <img
                 className={styles.image}

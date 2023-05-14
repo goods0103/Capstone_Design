@@ -4,7 +4,13 @@ import axios from 'axios';
 import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
-import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircleChevronLeft, faCircleChevronRight,
+    faList,
+    faMagnifyingGlass,
+    faSquareCaretLeft,
+    faSquareCaretRight
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Table from "react-bootstrap/Table";
 
@@ -266,10 +272,10 @@ function CategoryRam() {
                 {flag &&
                     <ReactPaginate
                         previousLabel={<span className={styles.paginationIconLeft}>
-                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronLeft} shake size="2xl" style={{color: "#1f71ff",}} />
                                 </span>}
                         nextLabel={<span className={styles.paginationIconRight}>
-                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronRight} shake size="2xl" style={{color: "#1f71ff",}} />
                             </span>}
                         pageCount={Math.ceil(ramList.length / itemsPerPage)}
                         onPageChange={handlePageClick}

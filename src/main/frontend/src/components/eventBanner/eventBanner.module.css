@@ -114,7 +114,7 @@
 
 .animationCpu {
   animation-name: fadeIn;
-  animation-duration: 1.0s;
+  animation-duration: 0.5s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
   /*width: 40%;*/
@@ -122,14 +122,14 @@
 
 .animationGpu {
   animation-name: fadeIn;
-  animation-duration: 1.5s;
+  animation-duration: 1.0s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
 }
 
 .animationRam {
   animation-name: fadeIn;
-  animation-duration: 2.0s;
+  animation-duration: 1.5s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
 }
