@@ -154,11 +154,7 @@ th {
 /*    margin-right: 200px;*/
 /*}*/
 
-.divGranpaParent {
-    background-color: #F0F6F8;
-    width: 100%;
-    height: calc(100vh - 90px);
-}
+
 
 .divParent {
     display: flex;

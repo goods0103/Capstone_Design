@@ -26,7 +26,14 @@ function SelectSpec() {
     const [selectRam, setSelectRam] = useState([]);
     const [bottleNeckInfo, setBottleNeckInfo] = useState([]);
     const [showComponent, setShowComponent] = useState(false);
-
+    useEffect(() => {
+        document.body.style.backgroundColor = '#F0F6F8';
+        document.body.style.color = "black";
+        return () => {
+            document.body.style.backgroundColor = '#151515';
+            document.body.style.color = "white";
+        };
+    }, []);
     // hello
     function showMyBottleNeck() {
         setShowComponent(true);
@@ -86,7 +93,7 @@ function SelectSpec() {
 
     return(
         <>
-        <div className={styles2.divGranpaParent} >
+        <div>
             <div className={styles2.divParent}>
                 {cpuInfo.map((cpu) => (
                     cpu.cpuName === selectCpu && (
