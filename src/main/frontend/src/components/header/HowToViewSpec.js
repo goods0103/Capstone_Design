@@ -7,10 +7,9 @@ function HowToViewSpec() {
 
 
     return (
-        <div>
+        <div style={{height:11000}}>
             유용한 정보가 들어있을 예정
         </div>
-
     );
 }
 export default HowToViewSpec;

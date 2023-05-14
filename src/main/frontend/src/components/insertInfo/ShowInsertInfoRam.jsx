@@ -9,7 +9,7 @@ import {faBarsStaggered} from "@fortawesome/free-solid-svg-icons";
 
 export default function ShowInsertInfoRam({infoName, infoType, infoSize, infoLatency, infoRead, infoWrite, infoUrl, infoId}) {
     return(
-        <div className={styles.divChild}>
+        <div className={`${styles.divChild} ${styles.divChildRamAnimation}`}>
             <div className={styles.infoSpecTitle}>RAM</div>
             <img
                 className={styles.image}

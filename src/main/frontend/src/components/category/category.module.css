@@ -33,10 +33,12 @@ th {
     border-collapse: collapse;
     margin: 0 auto;
     width: 70%;
-    /*animation-name: slide-in;*/
-    /*animation-duration: 3.0s;*/
-    /*animation-fill-mode: both;*/
-    animation: 1.5s ease-in-out fadeIn;
+
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+    /*animation: 1.5s ease-in-out 1.5s fadeIn;*/
 }
 
 .cssTableGame {
@@ -47,6 +49,11 @@ th {
     /*width: 70%;*/
     max-width: 80%; /* 적절한 값으로 설정해주세요 */
     margin: 0 auto;
+
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
 }
 
 .cssTableCell {
@@ -85,8 +92,18 @@ th {
     vertical-align: middle;
 }
 
+/*.tableImg {*/
+/*    width:auto;*/
+/*    height:30px;*/
+/*}*/
+
 .tableImg {
-    width:auto;
+    width:100px;
+    height:60px;
+}
+
+.tableImgGpu {
+    width: auto;
     height:30px;
 }
 
@@ -98,6 +115,8 @@ th {
     margin-top: 2%;
     margin-bottom: 2%;
     margin-left : 15%;
+
+    animation: 1.5s ease-in-out fadeIn;
 }
 
 .filterButton {
@@ -185,6 +204,12 @@ th {
     height:35%;
     border-bottom: 1px solid #f0f0f0;
 
+    /*animation: 1.5s ease-in-out fadeIn;*/
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    /*animation-delay : 1.5s;*/
+
 }
 .input{
     position: relative;
@@ -270,7 +295,7 @@ input:focus {
 
 .animationCpu {
     animation-name: fadeIn;
-    animation-duration: 1.0s;
+    animation-duration: 0.5s;
     animation-fill-mode: backwards;
     animation-delay: 1s;
     /*width: 40%;*/
@@ -278,7 +303,7 @@ input:focus {
 
 .animationGpu {
     animation-name: fadeIn;
-    animation-duration: 1.5s;
+    animation-duration: 1.0s;
     animation-fill-mode: backwards;
     animation-delay: 1s;
 }

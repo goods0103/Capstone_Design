@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './topButton.css'
+import {faArrowUp} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const TopButton = () => {
     const [showButton, setShowButton] = useState(false);
@@ -30,7 +32,7 @@ const TopButton = () => {
         {
             showButton &&
             <div className='scroll_container'>
-                <button onClick={scrollToTop}>⬆</button>
+                <button onClick={scrollToTop}><FontAwesomeIcon icon={faArrowUp} beat size="xl" style={{color: "#e5dcdc"}} /></button>
             </div>
         }
         </>

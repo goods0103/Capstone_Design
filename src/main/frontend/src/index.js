@@ -12,6 +12,7 @@ ReactDOM.createRoot(root).render(
         </StateProvider>
     </React.StrictMode>,
 );
+
 document.body.style.backgroundColor = `#151515`;
 document.body.style.color = "white";
 reportWebVitals();
