@@ -47,7 +47,7 @@ function CategoryBottleNeck() {
     return (
         <>
             {/*<CategoryBar></CategoryBar>*/}
-            <form onSubmit={handleSubmit} className={styles.formTag}>
+            <form onSubmit={handleSubmit} className={styles.bottleNeckFormTag}>
                 <h2 className={styles.animationLabel}>BottleNeck</h2>
                 <hr className={styles.hrStyle}/>
                 <br/><br/>
@@ -74,6 +74,10 @@ function CategoryBottleNeck() {
                                 ...provided,
                                 color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
                                 fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                            input: (provided) => ({
+                                ...provided,
+                                color: 'white',
                             }),
                         }}
                     />
@@ -109,6 +113,10 @@ function CategoryBottleNeck() {
                                 ...provided,
                                 color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
                                 fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                            input: (provided) => ({
+                                ...provided,
+                                color: 'white',
                             }),
                         }}
                     />

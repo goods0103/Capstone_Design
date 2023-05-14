@@ -9,43 +9,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight, faList, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
-import SearchBox from "react-search-box";
-
-// import { faSquareRight } from '@fortawesome/free-solid-svg-icons';
-// import { faSquareChevronLeft, faSquareChevronRight } from '@fortawesome/free-solid-svg-icons';
-// import { solid } from '@fortawesome/fontawesome-svg-core';
 
 function CategoryCpu() {
+    // axios를 통해 받아오는 CPU 정보를 담는 useState
   const [cpuList, setCpuList] = useState([]);
-  const [data2, setData2] = useState("AMD Ryzen 5 5600X");
+  const [cpuOriginList, setCpuOriginList] = useState([]);
+  // 검색을 위한 cpu 이름을 위한 useState
   const [cpuOption, setCpuOption] = useState([]);
-
-
+  // 페이지 나눔을 위한 useState
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(100);
-
-  const [selectedCpu, setSelectedCpu] = useState({
-      value : localStorage.getItem('cpuData'),
-      label : localStorage.getItem('cpuData')
-  });
+    //검색 시 뜨는 화면 구분을 위한 useState
   const [flag, setFlag] = useState(true);
-  const [cpu, setCpu] = useState({});
+  // 필터 선택여부를 위한 useState
+  const [selectedFilter, setSelectedFilter] = useState("none");
+  //검색을 위한 useState
+  const [searchValue, setSearchValue] = useState("");
 
-  const handlePageClick = ({ selected }) => {
-      setCurrentPage(selected);
-  };
-
-  const slicedData = cpuList.slice(
-      currentPage * itemsPerPage,
-      (currentPage + 1) * itemsPerPage
-  );
-
+    // CPU 정보
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/category/cpu1');
         setCpuList(response.data);
-        setData2(localStorage.getItem('cpuData'));
+        setCpuOriginList(response.data);
+
       } catch (error) {
         console.log(error);
       }
@@ -54,6 +42,7 @@ function CategoryCpu() {
     fetchData();
   }, []);
 
+    // CPU 이름 정보
     useEffect(() => {
         axios.get('/category/cpu_name')
             .then(response => {
@@ -68,17 +57,21 @@ function CategoryCpu() {
             });
     }, []);
 
+    //페이지 이동
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+    //페이지 분배
+    const slicedData = cpuList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
+    //돈 단위 바꾸기
   const convertPrice = (price) => {
       return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const sortProduct = (type) => {
-      // 이름순 수정
-      // if (type === "name") {
-      //     const newProduct = [...cpuList];
-      //     newProduct.sort((a, b) => a.cpu_name - b.cpu_name);
-      //     setCpuList(newProduct);
-      // }
       if (type === "low") {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => {
@@ -109,31 +102,24 @@ function CategoryCpu() {
       }
     };
 
-    function handleGpuChange(selectedGpu) {
-        setSelectedCpu(selectedGpu);
-    }
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     const searchCpu = (cpu) => {
-        setFlag(false);
-        {cpuList.map((list) => {
-            if(list.cpuName === cpu.value){
-                setCpu(list);
-            }
-        })
+        if(cpu===""){
+            setFlag(true);
+        }
+        else{
+            setFlag(false);
         }
     }
 
     const showTotalList = () => {
         setFlag(true);
-    }
-
-    const [searchValue, setSearchValue] = useState("");
-
-    const handleSearch = (value) => {
-        setSearchValue(value);
+        setSearchValue("");
+        setCpuList(cpuOriginList);
+        setSelectedFilter("");
     }
 
     const filteredProducts = cpuOption.filter((product) =>
@@ -142,33 +128,78 @@ function CategoryCpu() {
 
   return (
     <>
-      {/*<CategoryBar></CategoryBar>*/}
       <div>
-          <div className={styles.filter}>
-              {/*<p onClick={() => sortProduct("name")}>이름순</p>*/}
-              <p onClick={() => sortProduct("low")}>낮은 가격</p>
-              <p onClick={() => sortProduct("high")}>높은 가격</p>
-              <p onClick={() => sortProduct("rankHigh")}>cpu 순위 ⬆️</p>
-              <p onClick={() => sortProduct("rankLow")}>cpu 순위 ⬇️</p>
-          </div>
-
           <form onSubmit={handleSubmit} className={styles.formTag}>
-              <label>원하는 Cpu를 입력하세요 : </label> <br/>
+              <p onClick={() => searchCpu(searchValue)} className={styles.buttonSearch}>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
               <input
+                  className={styles.input}
                   type="text"
-                  placeholder="Search products"
+                  placeholder="원하는 CPU를 입력해주세요."
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          searchCpu(searchValue);
+                      }
+                  }}
               />
-
-              {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
-              {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
-              <button onClick={() => searchCpu(selectedCpu)} className={styles.buttonSearch}>
-                  <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button> &emsp;
-              <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
-              <br/><br/><br/>
-
           </form>
+          <div className={styles.filter}>
+              <button
+                  className={
+                      selectedFilter === "low"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("low");
+                      sortProduct("low");
+                  }}
+              >
+                  낮은 가격
+              </button>
+              <button
+                  className={
+                      selectedFilter === "high"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("high");
+                      sortProduct("high");
+                  }}
+              >
+                  높은 가격
+              </button>
+              <button
+                  className={
+                      selectedFilter === "rankHigh"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("rankHigh");
+                      sortProduct("rankHigh");
+                  }}
+              >
+                  cpu 높은 순️
+              </button>
+              <button
+                  className={
+                      selectedFilter === "rankLow"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("rankLow");
+                      sortProduct("rankLow");
+                  }}
+              >
+                  cpu 낮은 순️
+              </button>
+              <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
+          </div>
           {flag ? (
               <div className={styles.cssTable}>
                   <Table striped bordered hover variant="dark">
@@ -176,29 +207,21 @@ function CategoryCpu() {
                           <tr>
                               <th className={styles.cssTh}>Image</th>
                               <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
                               <th className={styles.cssTh}>Value</th>
                               <th className={styles.cssTh}>Price</th>
-                              {/*<th>Image</th>*/}
-                              {/*<th>Name</th>*/}
-                              {/*<th>Rank</th>*/}
-                              {/*<th>Value</th>*/}
-                              {/*<th>Price</th>*/}
                           </tr>
                       </thead>
                       <tbody>
                           {slicedData.map((cpu) => (
                               <tr>
-                                  {/*<td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>*/}
-                                  {/*<td className={styles.cssTd}><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>*/}
-                                  {/*<td className={styles.cssTd}>{cpu.cpuRank}</td>*/}
-                                  {/*<td className={styles.cssTd}>{cpu.cpuValue}</td>*/}
-                                  {/*<td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}원</td>*/}
                                   <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                  <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                                  <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                  <td>{cpu.cpuMark}</td>
                                   <td>{cpu.cpuRank}</td>
                                   <td>{cpu.cpuValue}</td>
-                                  <td>{convertPrice(cpu.cpuPrice)}원</td>
+                                  <td>{convertPrice(Math.round(cpu.cpuPrice / 100) * 100)}원</td>
                               </tr>
                           ))}
                       </tbody>
@@ -209,23 +232,25 @@ function CategoryCpu() {
                   <Table striped bordered hover variant="dark">
                       <thead>
                           <tr>
-                              <th className={styles.cssTh}>Image</th>
+                              <th className={styles.cssTh}></th>
                               <th className={styles.cssTh}>Name</th>
+                              <th className={styles.cssTh}>Mark</th>
                               <th className={styles.cssTh}>Rank</th>
                               <th className={styles.cssTh}>Value</th>
                               <th className={styles.cssTh}>Price</th>
                           </tr>
                       </thead>
                       <tbody>
-                      {filteredProducts.map((product) => (
-                          cpuList.map((cpu) =>(
+                      {cpuList.map((cpu) =>(
+                          filteredProducts.map((product) => (
                               cpu.cpuName=== product.value &&(
                           <tr>
                               <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                              <td><Link to={`/CpuSpec/${cpu.cpuId}`}>{cpu.cpuName}</Link></td>
+                              <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                              <td>{cpu.cpuMark}</td>
                               <td>{cpu.cpuRank}</td>
                               <td>{cpu.cpuValue}</td>
-                              <td>{convertPrice(cpu.cpuPrice)}원</td>
+                              <td>{convertPrice(Math.round(cpu.cpuPrice / 100) * 100)}원</td>
                           </tr>
                               )))))}
                       </tbody>
@@ -255,8 +280,4 @@ function CategoryCpu() {
     </>
   );
 }
-
 export default CategoryCpu;
-
-// previousLabel={<FontAwesomeIcon icon={faChevronLeft} />}
-// nextLabel={<FontAwesomeIcon icon={faChevronRight} />}

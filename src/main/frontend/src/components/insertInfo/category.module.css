@@ -1,9 +1,8 @@
 .cssTh {
-    /*background-color: #f2f2f2;*/
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
 }
 
 .cssTd {
@@ -15,14 +14,53 @@
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 70%;
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+    animation: 1.5s ease-in-out fadeIn;
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    font-weight: bold;
 }
 
 .tableImg {
-    width:50px;
-    height:30px;
+    width:100px;
+    height:60px;
 }
 
-/*-------*/
+/*tr[data-cpu-name1="selectedInfo"]::before {*/
+/*    content: "✨";*/
+/*    margin-right: 10px;*/
+/*}*/
+
+.mySpecInfo {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #1EDDFF !important;
+    font-size: 1.5rem;
+/*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
+}
+
+.mySpecInfoHover:hover {
+    /*background-color: #61F3EB !important;*/
+    background-color: #008080 !important;
+    transform: scale(1.1) !important;
+}
+
+/*----pointerEvents: 'none' ---*/
 
 .filter {
     display: flex;
@@ -43,11 +81,19 @@
 /*-------*/
 .Chart{
     display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.barChart p{
+
 }
 .CircularChart{
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    margin-left:50%;
+
 }
+
 
 /*---ShowInsertInfo.js----*/
 /*.specCss {*/
@@ -68,8 +114,8 @@
 }
 
 .image {
-    width: 300px;
-    height: 200px;
+    width: 180px;
+    height : 120px;
     border-radius: 10px 0 0 10px;
 }
 
@@ -85,14 +131,251 @@
 }
 
 
+/*.divParent {*/
+/*    display: flex;*/
+/*    justifyContent: center;*/
+/*    alignItems: center;*/
+/*    !*margin: 0 auto;*!*/
+
+/*    !*max-width: 50%; !* 적절한 값으로 설정해주세요 *!*!*/
+/*    !*margin: 5% auto 0 auto;*!*/
+/*    position: absolute;*/
+/*    left: 55%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    !*max-width: 50%;*!*/
+/*    margin: 5% auto 0 auto;*/
+
+/*    !*background-color: white;*!*/
+/*}*/
+
+/*.divChild {*/
+/*    text-align: center;*/
+/*    margin-right: 200px;*/
+/*}*/
+
+.divGranpaParent {
+    background-color: #F0F6F8;
+    width: 100%;
+    height: calc(100vh - 90px);
+}
+
 .divParent {
     display: flex;
-    justifyContent: center;
-    alignItems: center;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    color :#353535;
 }
 
 .divChild {
-    margin-top: 50px;
-    flex: 1;
+    text-align: center;
+    width : 13%;
+    margin: 2% 5% 0 1%;
 }
+
+.divChild:last-child {
+    margin-right: 0;
+}
+
+/*------ShowInsertInfo.jsx-------*/
+
+.urlLabel {
+    /* 더 알아보기 > */
+
+    /*position: absolute;*/
+    /*width: 161px;*/
+    /*height: 32px;*/
+    /*left: 470px;*/
+    /*top: 557px;*/
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    color: #0046CF;
+}
+
+.linkUrl {
+    text-decoration: none;
+}
+
+.link {
+    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+.move{
+    width: 7%;
+    height: 40px;
+    margin-left: 78%;
+    margin-bottom:1%;
+    border-radius: 149px;
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+    font-style: normal;
+    font-size: 13px;
+    color:#ffffff;
+}
+
+.hrStyle {
+    /*animation-name: fadeIn;*/
+    /*animation-duration: 4.0s;*/
+    /*animation-fill-mode: none;*/
+
+    width: 100%; /* 원하는 너비로 설정 */
+    margin: 0 auto 1rem auto; /* 가운데 정렬 */
+}
+
+.selectSpecCss {
+    background-color:white;
+    min-height:100vh;
+}
+
+.infoSpecTitle {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    height: 2em;
+    font-weight: bold;
+}
+
+.infoSpecSubTitle {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.infoSpecSub {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+.buttonSubmit {
+    box-sizing: border-box;
+    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #000000;
+    border-radius: 149px;
+
+    position: relative;
+    left : 23%;
+    width: 10%;
+    height: 50px;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+}
+
+.buttonBottleNeck {
+    box-sizing: border-box;
+    background: linear-gradient(101.93deg, #bddfe8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #3ca4e0c4;
+    border-radius: 20px;
+
+    position: relative;
+    width: 15%;
+    height: 50px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+
+    /* 애니메이션 적용. 2개의 애니메이션 */
+    animation-name: slide-up;
+    animation-duration: 3.0s;
+    animation-fill-mode: backwards;
+}
+
+.bottleNeckComp {
+    margin-top :25%;
+    position : absolute;
+    display: flex;
+    width : 50%;
+    left  : 25%;
+    padding-left: 0;
+    margin-top:20%;
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+}
+/* image 43 */
+
+
+
+.bottleNeckComp1 {
+    position : absolute;
+    display: flex;
+    width : 60%;
+    left  : 18%;
+    align-items: center;
+}
+.bottleNeckComp p {
+    text-align: left;
+    width:80%;
+}
+.bottleNeckText{
+    font-size: 1rem;
+}
+.bottleNeckTitle{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+/* Rectangle 68 */
+
+
+
+
+
+/*----Circular ProgressBar----*/
+.circularProgressBar {
+    position: relative;
+    width : 30%;
+}
+
+/*--animation---*/
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.CircularChart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.CircularChart p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+

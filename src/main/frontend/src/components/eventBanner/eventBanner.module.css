@@ -104,12 +104,12 @@
   /* 애니메이션 적용. 2개의 애니메이션 */
   animation-name: slide-up;
   animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
 }
 
 .animationCpu {
   animation-name: fadeIn;
-  animation-duration: 2.0s;
+  animation-duration: 1.0s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
   /*width: 40%;*/
@@ -117,14 +117,14 @@
 
 .animationGpu {
   animation-name: fadeIn;
-  animation-duration: 3.0s;
+  animation-duration: 1.5s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
 }
 
 .animationRam {
   animation-name: fadeIn;
-  animation-duration: 4.0s;
+  animation-duration: 2.0s;
   animation-fill-mode: backwards;
   animation-delay: 1s;
 }
@@ -175,7 +175,7 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1rem;
   line-height: 140%;
   /* or 28px */
 
@@ -186,7 +186,7 @@
   animation-duration: 2.0s, 1s;
   animation-fill-mode: both, forwards;
   animation-delay: 0s, 2.0s;
-  animation-iteration-count: 1, 3;
+  animation-iteration-count: 1, 2;
 }
 
 
@@ -195,36 +195,40 @@
 
 /* Rectangle 2 */
 
-box-sizing: border-box;
+  box-sizing: border-box;
 
-position: absolute;
-width: 25%;
-height: 70px;
-left: 30%;
-top: 65%;
-background-color: #151515;
-border: 2px solid #30D5C8;
-border-radius: 149px;
+  position: absolute;
+  width: 25%;
+  height: 70px;
+  left: 30%;
+  top: 65%;
+  background-color: #151515;
+  border: 2px solid #30D5C8;
+  border-radius: 149px;
 
 
-/* 스펙 입력하기 */
+  /* 스펙 입력하기 */
 
-position: absolute;
-width: 10%;
-height: 60px;
-left: 30%;
-top: 65%;
+  position: absolute;
+  width: 10%;
+  height: 60px;
+  left: 30%;
+  top: 65%;
 
-font-family: 'Roboto';
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 140%;
-/* or 31px */
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 140%;
+  /* or 31px */
 
-background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation-name: slide-up;
+  animation-duration: 3.0s;
+  animation-fill-mode: backwards;
 
 
 }
