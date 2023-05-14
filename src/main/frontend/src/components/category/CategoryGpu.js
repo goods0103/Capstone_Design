@@ -7,7 +7,13 @@ import Select from "react-select";
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircleChevronLeft, faCircleChevronRight,
+    faList,
+    faMagnifyingGlass,
+    faSquareCaretLeft,
+    faSquareCaretRight
+} from "@fortawesome/free-solid-svg-icons";
 
 // [Mod] for check
 function CategoryGpu() {
@@ -231,7 +237,7 @@ function CategoryGpu() {
                             <tbody>
                                 {slicedData.map((gpu) => (
                                     <tr>
-                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
                                         <td>{gpu.gpuMark}</td>
                                         <td>{gpu.gpuRank}</td>
@@ -260,7 +266,7 @@ function CategoryGpu() {
                                 filteredProducts.map((product) => (
                                     gpu.gpuName=== product.value &&(
                                 <tr>
-                                    <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                    <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                     <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
                                     <td>{gpu.gpuMark}</td>
                                     <td>{gpu.gpuRank}</td>
@@ -278,10 +284,10 @@ function CategoryGpu() {
                 {flag &&
                     <ReactPaginate
                         previousLabel={<span className={styles.paginationIconLeft}>
-                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronLeft} shake size="2xl" style={{color: "#1f71ff",}} />
                                 </span>}
                         nextLabel={<span className={styles.paginationIconRight}>
-                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronRight} shake size="2xl" style={{color: "#1f71ff",}} />
                             </span>}
                         pageCount={Math.ceil(gpuList.length / itemsPerPage)}
                         onPageChange={handlePageClick}

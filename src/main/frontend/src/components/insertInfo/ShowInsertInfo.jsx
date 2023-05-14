@@ -17,7 +17,7 @@ export default function ShowInsertInfo({infoName, infoMark, infoRank, infoValue,
     }
 
     return(
-        <div className={styles.divChild}>
+        <div className={`${styles.divChild} ${styles.divChildCpuAnimation}`}>
             {/*<div className={styles.specCss}>*/}
             {/*    <Card >*/}
             {/*        <Card.Img variant="top" src={infoUrl} style={{height: '30rem'}}/>*/}

@@ -64,7 +64,7 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
 
         return (
             <div>
-                <ProgressBar now={numPercentage} label={`${numPercentage}%`} className={styles.infoProgressBar}/>
+                <ProgressBar now={numPercentage} label={`${numPercentage}%`} className={styles.infoProgressBar} style={{height: '1.5rem'}}/>
             </div>
         );
     }
@@ -224,35 +224,35 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                     <span>
                         <div>
                             <img
-                                className={styles.image}
+                                className={`${styles.image} ${styles.animationImgWithLabel1}`}
                                 src={cpuInfo.cpuUrl}
                                 alt="cpu_image"
                             />
                         </div>
-                        <div className={styles.infoNameLabel}>
+                        <div className={`${styles.infoNameLabel} ${styles.animationImgWithLabel1}`}>
                             {cpuInfo.cpuName}
                         </div>
                     </span>
                     <span>
                         <div>
                             <img
-                                className={styles.image}
+                                className={`${styles.image} ${styles.animationImgWithLabel2}`}
                                 src={selectedCpuInfo.cpuUrl}
                                 alt="cpu_image"
                             />
                         </div>
-                        <div className={styles.infoNameLabel}>
+                        <div className={`${styles.infoNameLabel} ${styles.animationImgWithLabel2}`}>
                             {selectedCpuInfo.cpuName}
                         </div>
                     </span>
                 </div>
-                <hr className={styles.hrStyle}/>
+                <hr className={styles.hrStyleDetail}/>
 
                 <div>
-                    <div className={styles.infoTitleLabel}>
+                    <div className={`${styles.infoTitleLabel} ${styles.animationDetail}`}>
                         Detail
                     </div>
-                    <div className={styles.infoNameFrame}>
+                    <div className={`${styles.infoNameFrame} ${styles.animationDetailInfo}`}>
                         <span>
                             <div className={styles.infoDetailLabel}>
                                 Class type : {cpuInfo2.classType}
@@ -307,42 +307,42 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                         </span>
                     </div>
                 </div>
-                <hr className={styles.hrStyle}/>
+                <hr className={styles.hrStyleDetail}/>
 
                 {(cpuInfoPrice > 0 && selectedCpuInfoPrice > 0 && !isNaN(cpuInfoPrice) && !isNaN(selectedCpuInfoPrice)) &&
-                    <div>
+                    <div className={styles.animationProgressInfo}>
                         <div>
                             <div className={styles.infoTitleLabel}>
                                 Price
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu1*/}
-                                {cpuInfo.cpuName}
-                            </div>
-                        </span>
-                                <span className={styles.infoProgressBarSpan}>
-                            <div>
-                                {SingleProgressBar(cpuInfoPrice, selectedCpuInfoPrice)}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu1*/}
+                                        {cpuInfo.cpuName}
+                                    </div>
+                                </span>
+                                        <span className={styles.infoProgressBarSpan}>
+                                    <div>
+                                        {SingleProgressBar(cpuInfoPrice, selectedCpuInfoPrice)}
+                                    </div>
+                                </span>
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu2*/}
-                                {selectedCpuInfo.cpuName}
-                            </div>
-                        </span>
-                                <span className={styles.infoProgressBarSpan}>
-                            <div>
-                                {SingleProgressBar(selectedCpuInfoPrice, cpuInfoPrice)}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu2*/}
+                                        {selectedCpuInfo.cpuName}
+                                    </div>
+                                </span>
+                                        <span className={styles.infoProgressBarSpan}>
+                                    <div>
+                                        {SingleProgressBar(selectedCpuInfoPrice, cpuInfoPrice)}
+                                    </div>
+                                </span>
                             </div>
                         </div>
-                        <hr className={styles.hrStyle}/>
+                        <hr className={styles.hrStyleDetail}/>
                     </div>
 
                 }
@@ -380,39 +380,39 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                 {/*<hr className={styles.hrStyle}/>*/}
 
                 {(cpuInfoMark > 0 && selectedCpuInfoMark > 0 && !isNaN(cpuInfoMark) && !isNaN(selectedCpuInfoMark)) &&
-                    <div>
+                    <div className={styles.animationProgressInfo}>
                         <div>
                             <div className={styles.infoTitleLabel}>
                                 Cpu Mark Rating
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu1*/}
-                                {cpuInfo.cpuName}
-                            </div>
-                        </span>
-                                <span className={styles.infoProgressBarSpan}>
-                            <div >
-                                {SingleProgressBar(cpuInfoMark, selectedCpuInfoMark)}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu1*/}
+                                        {cpuInfo.cpuName}
+                                    </div>
+                                </span>
+                                        <span className={styles.infoProgressBarSpan}>
+                                    <div >
+                                        {SingleProgressBar(cpuInfoMark, selectedCpuInfoMark)}
+                                    </div>
+                                </span>
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu2*/}
-                                {selectedCpuInfo.cpuName}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu2*/}
+                                        {selectedCpuInfo.cpuName}
+                                    </div>
+                                </span>
                                 <span className={styles.infoProgressBarSpan}>
-                            <div>
-                                {SingleProgressBar(selectedCpuInfoMark, cpuInfoMark)}
-                            </div>
-                        </span>
+                                    <div>
+                                        {SingleProgressBar(selectedCpuInfoMark, cpuInfoMark)}
+                                    </div>
+                                </span>
                             </div>
                         </div>
-                        <hr className={styles.hrStyle}/>
+                        <hr className={styles.hrStyleDetail}/>
                     </div>
                 }
 
@@ -450,39 +450,39 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                 {/*<hr className={styles.hrStyle}/>*/}
 
                 {(cpuInfoValue > 0 && selectedCpuInfoValue > 0 && !isNaN(cpuInfoValue) && !isNaN(selectedCpuInfoValue)) &&
-                    <div>
+                    <div className={styles.animationProgressInfo}>
                         <div>
                             <div className={styles.infoTitleLabel}>
                                 Cpu Value
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu1*/}
-                                {cpuInfo.cpuName}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu1*/}
+                                        {cpuInfo.cpuName}
+                                    </div>
+                                </span>
                                 <span className={styles.infoProgressBarSpan}>
-                            <div>
-                                {SingleProgressBar(cpuInfoValue, selectedCpuInfoValue)}
-                            </div>
-                        </span>
+                                    <div>
+                                        {SingleProgressBar(cpuInfoValue, selectedCpuInfoValue)}
+                                    </div>
+                                </span>
                             </div>
                             <div className={styles.infoNameFrame}>
-                        <span>
-                            <div className={styles.infoProgressBarLabel}>
-                                {/*cpu2*/}
-                                {selectedCpuInfo.cpuName}
-                            </div>
-                        </span>
+                                <span>
+                                    <div className={styles.infoProgressBarLabel}>
+                                        {/*cpu2*/}
+                                        {selectedCpuInfo.cpuName}
+                                    </div>
+                                </span>
                                 <span className={styles.infoProgressBarSpan}>
-                            <div>
-                                {SingleProgressBar(selectedCpuInfoValue, cpuInfoValue)}
-                            </div>
-                        </span>
+                                    <div>
+                                        {SingleProgressBar(selectedCpuInfoValue, cpuInfoValue)}
+                                    </div>
+                                </span>
                             </div>
                         </div>
-                        <hr className={styles.hrStyle}/>
+                        <hr className={styles.hrStyleDetail}/>
                     </div>
                 }
 
@@ -519,7 +519,7 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                 {/*</div>*/}
                 {/*<hr className={styles.hrStyle}/>*/}
 
-                <div>
+                <div className={styles.animationProgressInfo}>
                     <div className={styles.infoTitleLabel}>
                         Single Thread Rating
                     </div>
@@ -549,41 +549,43 @@ function SubmitSelectedCpu({ selectedCpu, cpuInfo, cpuInfo2 }) {
                             </div>
                         </span>
                     </div>
+                    <hr className={styles.hrStyleDetail}/>
                 </div>
-                <hr className={styles.hrStyle}/>
 
-                {/*<div>*/}
-                {/*    <div className={styles.infoTitleLabel}>*/}
-                {/*        Single Thread Rating*/}
-                {/*    </div>*/}
-                {/*    <div className={styles.infoNameFrame}>*/}
-                {/*        <span>*/}
-                {/*            <div className={styles.infoProgressBarLabel}>*/}
-                {/*                /!*cpu1*!/*/}
-                {/*                {"cpuInfo.cpuName"}*/}
-                {/*            </div>*/}
-                {/*        </span>*/}
-                {/*        <span className={styles.infoProgressBarSpan}>*/}
-                {/*            <div>*/}
-                {/*                {SingleProgressBar(36, 74)}*/}
-                {/*            </div>*/}
-                {/*        </span>*/}
-                {/*    </div>*/}
-                {/*    <div className={styles.infoNameFrame}>*/}
-                {/*        <span>*/}
-                {/*            <div className={styles.infoProgressBarLabel}>*/}
-                {/*                /!*cpu2*!/*/}
-                {/*                {"selectedCpuInfo.cpuName"}*/}
-                {/*            </div>*/}
-                {/*        </span>*/}
-                {/*        <span className={styles.infoProgressBarSpan}>*/}
-                {/*            <div>*/}
-                {/*                {SingleProgressBar(74, 36)}*/}
-                {/*            </div>*/}
-                {/*        </span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<hr className={styles.hrStyle}/>*/}
+
+                <div className={styles.animationProgressInfo}>
+                    <div className={styles.infoTitleLabel}>
+                        Single Thread Rating
+                    </div>
+                    <div className={styles.infoNameFrame}>
+                        <span>
+                            <div className={styles.infoProgressBarLabel}>
+                                {/*cpu1*/}
+                                {"cpuInfo.cpuName"}
+                            </div>
+                        </span>
+                        <span className={styles.infoProgressBarSpan}>
+                            <div>
+                                {SingleProgressBar(36, 74)}
+                            </div>
+                        </span>
+                    </div>
+                    <div className={styles.infoNameFrame}>
+                        <span>
+                            <div className={styles.infoProgressBarLabel}>
+                                {/*cpu2*/}
+                                {"selectedCpuInfo.cpuName"}
+                            </div>
+                        </span>
+                        <span className={styles.infoProgressBarSpan}>
+                            <div>
+                                {SingleProgressBar(74, 36)}
+                            </div>
+                        </span>
+                    </div>
+                    <hr className={styles.hrStyleDetail}/>
+                </div>
+
 
 
                 {/*<div>*/}
