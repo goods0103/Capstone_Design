@@ -170,7 +170,7 @@
 
 .infoNameFrame {
     display: flex;
-    text-align: center;
+    text-align: left;
     justify-content: center;
     margin-top: 2rem;
 }
@@ -355,6 +355,10 @@ span + span {
 }
 .checkImg{
     width:25%;
+    margin-left:1%
+}
+.xImg{
+    width:20%;
 }
 
 .gameImg{

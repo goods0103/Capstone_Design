@@ -63,18 +63,34 @@ function GameDetail() {
                 <hr style={{color: 'black'}}/>
                 <div className={styles.gameImgInfo}>
                     <img src={gameOriginInfo.img} alt="game_image" className={styles.gameImg}/>
-                    {compareList.recState}
-                    {compareList.minState}
-                    <img
-                        className={styles.checkImg}
-                        src="images/check.png"
-                        alt="check"
-                    />
-                    <img
-                        className={styles.checkImg}
-                        src="images/check.png"
-                        alt="check"
-                    />
+                    { compareList.minState===1 &&
+                        <img
+                            className={styles.checkImg}
+                            src="images/check.png"
+                            alt="check"
+                        />
+                    }
+                    { compareList.minState===0 &&
+                        <img
+                        className={styles.xImg}
+                        src="images/x.png"
+                        alt="x"
+                        />
+                        }
+                    {compareList.recState ===1 &&
+                        <img
+                            className={styles.checkImg}
+                            src="images/check.png"
+                            alt="check"
+                        />
+                    }
+                    { compareList.recState===0 &&
+                        <img
+                            className={styles.xImg}
+                            src="images/x.png"
+                            alt="x"
+                        />
+                    }
                 </div>
                 <span>기본 정보</span>
                 {/*<table>*/}
