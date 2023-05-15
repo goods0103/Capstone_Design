@@ -133,24 +133,24 @@ function CpuCompare() {
             </div>
             <hr className={styles.hrStyle}/>
 
-            <div className={styles.infoNameFrame}>
-                    <span>
-                        <div>
-                            cpu1
-                        </div>
-                        <div className={styles.infoNameLabel}>
-                            {"cpuInfo.cpuName"}
-                        </div>
-                    </span>
-                <span>
-                        <div>
-                            cpu2
-                        </div>
-                        <div className={styles.infoNameLabel}>
-                            {"selectedCpuInfo.cpuName"}
-                        </div>
-                    </span>
-            </div>
+            {/*<div className={styles.infoNameFrame}>*/}
+            {/*        <span>*/}
+            {/*            <div>*/}
+            {/*                cpu1*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.infoNameLabel}>*/}
+            {/*                {"cpuInfo.cpuName"}*/}
+            {/*            </div>*/}
+            {/*        </span>*/}
+            {/*    <span>*/}
+            {/*            <div>*/}
+            {/*                cpu2*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.infoNameLabel}>*/}
+            {/*                {"selectedCpuInfo.cpuName"}*/}
+            {/*            </div>*/}
+            {/*        </span>*/}
+            {/*</div>*/}
 
             {showComponent &&
                 <SubmitSelectedCpu selectedCpu={selectedCpu}
