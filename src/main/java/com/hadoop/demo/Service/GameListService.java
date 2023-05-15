@@ -37,6 +37,11 @@ public class GameListService {
     public GameList findByName(String name) {
         return gameListRepository.findByGameName(name);
     }
+
+    public List<GameList> orderByGameId2() { return gameListRepository.findByOrderByGameId2(); }
+
+    public List<GameList> orderByTestCount() { return gameListRepository.findByOrderByTestCountDesc(); }
+
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
     public int CompareCpuUserVsGame2(String gameName, String ipAddress){
 
