@@ -72,7 +72,7 @@ public class GameListService {
 
         //최소 cpu, gpu가 모두없을 경우
         if (minCpu == null && minGpu == null) {
-            return 0;
+            return 1;
         }
         //최소 cpu만 있을 경우
         else if (minCpu != null && minGpu == null) {
