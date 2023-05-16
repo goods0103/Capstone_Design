@@ -7,10 +7,8 @@ import {buildStyles, CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./category.module.css"
 import CategoryBar from "../category/CategoryBar";
-import { ResponsiveBar } from '@nivo/bar'
 import ChartBar from "./ChartBar";
 import ChartLine from "./ChartLine";
-import ApexCharts from "apexcharts";
 
 
 function InsertCategoryBottleNeck() {
@@ -22,6 +20,7 @@ function InsertCategoryBottleNeck() {
     const [data, setData] = useState([]);
     const [bottleNeckCpu, setBottleNeckCpu] = useState([]);
     const [bottleNeckGpu, setBottleNeckGpu] = useState([]);
+    const [allBottleNeck, setAllBottleNeck] = useState([]);
     const postData = {
         cpuName: cpu,
         gpuName: gpu
@@ -36,6 +35,7 @@ function InsertCategoryBottleNeck() {
         };
     }, []);
 
+
     useEffect(() => {
         axios.post("/selectedBottleNeck", postData)
             .then(response => {
@@ -49,8 +49,16 @@ function InsertCategoryBottleNeck() {
                     console.log("cpu 100");
                     axios.post("/recommendGpu", response.data.gpuInfo)
                         .then(response => {
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                             setBottleNeckCpu(response.data);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+
+                    axios.post("/bottleneck_info", response.data.gpuInfo)
+                        .then(response => {
+                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                            setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
@@ -61,6 +69,14 @@ function InsertCategoryBottleNeck() {
                         .then(response => {
                             setBottleNeckGpu(response.data)
                             console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                    axios.post("/bottleneck_info2", response.data.cpuInfo)
+                        .then(response => {
+                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                            setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
@@ -166,7 +182,7 @@ function InsertCategoryBottleNeck() {
                             }
                 </div>
                 <div className={styles.lineChart}>
-                    <ChartLine />
+                    <ChartLine data={allBottleNeck} />
                 </div>
             </div>
         </>

@@ -49,8 +49,8 @@ public class BottleNeckService {
     public static class bottleNeckInfo{
         private String cpuName;
         private String gpuName;
-        private int gpuMark;
-        private int gpuBottleNeckValue;
+        private int Mark;
+        private int BottleNeckValue;
     }
 
     @AllArgsConstructor
@@ -60,8 +60,8 @@ public class BottleNeckService {
     public static class bottleNeckInfo2{
         private String gpuName;
         private String cpuName;
-        private int cpuMark;
-        private int cpuBottleNeckValue;
+        private int mark;
+        private int bottleNeckValue;
     }
 
     // 벤치마크점수 + 보틀넥 점수

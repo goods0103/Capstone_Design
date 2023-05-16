@@ -26,7 +26,7 @@ const data = [
         name: 'Page G', bottleneck: 35, benchmark: 23800
     },
 ];
-const ChartLine = () => {
+const ChartLine = ({data}) => {
     return (
         <LineChart
             width={500}
@@ -37,11 +37,11 @@ const ChartLine = () => {
             }}
         >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="benchmark" />
-            <YAxis/>
+            <XAxis dataKey="mark"/>
+            <YAxis dataKey="bottleNeckDiff" />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="bottleneck" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="bottleNeckDiff" stroke="#8884d8"  />
         </LineChart>
     );
 };
