@@ -190,7 +190,7 @@ public class DataController {
     }
 
     @PostMapping("/bottleneck_info")
-    public List<BottleNeckService.bottleNeckInfo2> findBottleNeckInfo(@RequestBody String name) throws IOException {
+    public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo(@RequestBody String name) throws IOException {
         String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return bottleNeckService.gpuMatchingCpuInfo(decodedString);
     }
