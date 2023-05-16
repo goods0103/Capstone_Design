@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -46,23 +47,18 @@ public class BottleNeckService {
     @NoArgsConstructor
     @Getter
     @Setter
-    public static class bottleNeckInfo{
+    public static class bottleNeckInfo implements Comparable<bottleNeckInfo>{
         private String cpuName;
         private String gpuName;
-        private int Mark;
-        private int BottleNeckValue;
+        private int mark;
+        private int bottleNeckDiff;
+
+        @Override
+        public int compareTo(bottleNeckInfo other) {
+            return Integer.compare(this.mark, other.mark);
+        }
     }
 
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    public static class bottleNeckInfo2{
-        private String gpuName;
-        private String cpuName;
-        private int mark;
-        private int bottleNeckValue;
-    }
 
     // 벤치마크점수 + 보틀넥 점수
     public List<bottleNeckInfo> cpuMatchingGpuInfo(String cpuName){
@@ -74,26 +70,32 @@ public class BottleNeckService {
         for(BottleNeck bottleNeck : bottleNecks){
             String gpuName = bottleNeck.getGpuInfo();
             int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
+            int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
+            int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
             int gpuMark = gpuListRepository.findByGpuName(gpuName).getGpuMark();
-            bottleNeckInfos.add(new bottleNeckInfo(cpuName, gpuName, gpuMark, gpuBottleNeckValue));
+            bottleNeckInfos.add(new bottleNeckInfo(cpuName, gpuName, gpuMark, diff));
         }
+        Collections.sort(bottleNeckInfos);
 
         return bottleNeckInfos;
     }
 
     // 벤치마크점수 + 보틀넥 점수
-    public List<bottleNeckInfo2> gpuMatchingCpuInfo(String gpuName){
+    public List<bottleNeckInfo> gpuMatchingCpuInfo(String gpuName){
 
         //60개
         List<BottleNeck> bottleNecks = bottleNeckRepository.findByGpuInfo(gpuName);
-        List<bottleNeckInfo2> bottleNeckInfos = new ArrayList<>();
+        List<bottleNeckInfo> bottleNeckInfos = new ArrayList<>();
 
         for(BottleNeck bottleNeck : bottleNecks){
             String cpuName = bottleNeck.getCpuInfo();
             int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
+            int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
+            int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
             int cpuMark = cpuListRepository.findByCpuName(cpuName).getCpuMark();
-            bottleNeckInfos.add(new bottleNeckInfo2(gpuName, cpuName, cpuMark, cpuBottleNeckValue));
+            bottleNeckInfos.add(new bottleNeckInfo(gpuName, cpuName, cpuMark, diff));
         }
+        Collections.sort(bottleNeckInfos);
 
         return bottleNeckInfos;
     }
