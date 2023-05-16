@@ -12,6 +12,7 @@ import ShowInsertInfoGpu from "./ShowInsertInfoGpu";
 import InsertInfoBottleNeck from "./InsertInfoBottleNeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWineBottle} from "@fortawesome/free-solid-svg-icons";
+
 // import Button from "react-bootstrap/Button";
 
 
