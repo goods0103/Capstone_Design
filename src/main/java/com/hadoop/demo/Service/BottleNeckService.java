@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -46,22 +47,32 @@ public class BottleNeckService {
     @NoArgsConstructor
     @Getter
     @Setter
-    public static class bottleNeckInfo{
+    public static class bottleNeckInfo implements Comparable<bottleNeckInfo>{
         private String cpuName;
         private String gpuName;
-        private int gpuMark;
-        private int gpuBottleNeckValue;
+        private int mark;
+        private int bottleNeckValue;
+
+        @Override
+        public int compareTo(bottleNeckInfo other) {
+            return Integer.compare(this.mark, other.mark);
+        }
     }
 
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
     @Setter
-    public static class bottleNeckInfo2{
+    public static class bottleNeckInfo2 implements Comparable<bottleNeckInfo2>{
         private String gpuName;
         private String cpuName;
-        private int cpuMark;
-        private int cpuBottleNeckValue;
+        private int mark;
+        private int bottleNeckValue;
+
+        @Override
+        public int compareTo(bottleNeckInfo2 other) {
+            return Integer.compare(this.mark, other.mark);
+        }
     }
 
     // 벤치마크점수 + 보틀넥 점수
@@ -77,6 +88,7 @@ public class BottleNeckService {
             int gpuMark = gpuListRepository.findByGpuName(gpuName).getGpuMark();
             bottleNeckInfos.add(new bottleNeckInfo(cpuName, gpuName, gpuMark, gpuBottleNeckValue));
         }
+        Collections.sort(bottleNeckInfos);
 
         return bottleNeckInfos;
     }
@@ -94,6 +106,7 @@ public class BottleNeckService {
             int cpuMark = cpuListRepository.findByCpuName(cpuName).getCpuMark();
             bottleNeckInfos.add(new bottleNeckInfo2(gpuName, cpuName, cpuMark, cpuBottleNeckValue));
         }
+        Collections.sort(bottleNeckInfos);
 
         return bottleNeckInfos;
     }
