@@ -9,7 +9,7 @@ const ChartLine = ({data, name}) => {
     const processedData = data.map((item) => ({
         ...item,
         isLowBottleNeck: item.bottleNeckDiff <= 5,
-        isMatched: item.gpuName === name,
+        isMatched: item.info === name,
     }));
     console.log(name);
     console.log(processedData);
