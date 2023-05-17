@@ -125,7 +125,7 @@ export default class LineChartDetail extends PureComponent {
                 <BarChart
                     width={500}
                     height={300}
-                    data={data}
+                    data={this.props.chartData}
                     // margin={{
                     //     top: 5,
                     //     right: 30,
