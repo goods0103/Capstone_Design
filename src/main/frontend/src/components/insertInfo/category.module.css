@@ -466,7 +466,7 @@ th {
 }
 
 .circular{
-    margin-left : 5%;
+    margin-left : 3%;
     margin-top : 2%;
     width : 20%;
 }
@@ -504,8 +504,8 @@ th {
     box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
     border-radius: 20px;
     margin : 3% 20% 0 20%;
-    text-align : center;
     width:60%;
+    padding :4px;
 }
 
 .lineChart{
@@ -517,6 +517,38 @@ th {
     margin : 3% 20% 0 20%;
     text-align : center;
     padding-left : 2px;
-    padding-top : 2px;
+    padding-top : 4px;
     width:60%;
+}
+.lineChart p{
+    font-size: 1rem;
+}
+.customTooltip{
+    border : solid 1px;
+    background: #F8FCFE;
+    text-align : center;
+    padding : 2px;
+}
+
+.title{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.table{
+    width:80%;
+    margin-left:10%;
+}
+
+.tableTd {
+    text-align: left;
+}
+
+table td strong, table th strong {
+    color: #116B2A;
 }
