@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -187,4 +188,20 @@ public class DataController {
         }
         return recBottleNecks;
     }
+
+    @PostMapping("/bottleneck_info")
+    public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo(@RequestBody String name) throws IOException {
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        return bottleNeckService.gpuMatchingCpuInfo(decodedString);
+    }
+    // ram 이름으로 ramList 반환
+    @PostMapping("/bottleneck_info2")
+    public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo2(@RequestBody String name) throws IOException {
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        return bottleNeckService.cpuMatchingGpuInfo(decodedString);
+    }
+
+
+
+
 }
