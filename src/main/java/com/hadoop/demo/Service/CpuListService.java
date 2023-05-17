@@ -37,4 +37,6 @@ public class CpuListService {
 
     public List<CpuList> orderByCpuRank() { return cpuListRepository.findByOrderByCpuRankAsc();}
 
+    public List<CpuList> orderByCpuRankDesc() { return cpuListRepository.findByOrderByCpuRankDesc();}
+
 }

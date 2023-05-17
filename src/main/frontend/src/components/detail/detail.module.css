@@ -164,6 +164,7 @@ ul li::before {
     flex-direction: row;
     align-items: center;
     text-align: center;
+    justify-content: flex-end;
     margin-top: 5rem;
 
     animation-name: fadeIn;
@@ -173,15 +174,16 @@ ul li::before {
 
 .formContainer {
     display: flex;
-    alignItems: center;
+    align-items: center;
+    justify-content: flex-end;
     /*margin-left: 1rem; !* 선택적으로 여백 추가 *!*/
     /*margin-top: 10%;*/
 
 }
 
 .fromStyle {
-    width: 100%;
-    margin: auto;
+    width: 39%;
+    margin-right: 20%;
 }
 
 .selectTagCompare {
@@ -191,8 +193,8 @@ ul li::before {
 }
 
 .selectSpecLabel {
-    width: 100%;
-    margin-right: 10%;
+    width: 21%;
+    text-align: left;
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -203,7 +205,7 @@ ul li::before {
     animation-fill-mode: backwards;
     animation-delay: 0.5s;
     /*border-color: red;*/
-    width: 80%; /* 원하는 너비로 설정 */
+    width: 60%; /* 원하는 너비로 설정 */
     margin: 2rem auto 0 auto; /* 가운데 정렬 */
     border: 1px solid;
 }
@@ -214,7 +216,7 @@ ul li::before {
     animation-fill-mode: backwards;
     animation-delay: 1.2s;
     /*border-color: red;*/
-    width: 80%; /* 원하는 너비로 설정 */
+    width: 60%; /* 원하는 너비로 설정 */
     margin: 2rem auto 0 auto; /* 가운데 정렬 */
     border: 1px solid;
 }
@@ -248,7 +250,7 @@ span + span {
 
 .infoTitleLabel {
     text-align: left;
-    margin-left:10%;
+    margin-left:20%;
     margin-top: 2rem;
     font-size: 2rem;
 }
@@ -270,7 +272,7 @@ span + span {
 }
 
 .infoProgressBarSpan {
-    width: 50%;
+    width: 30%;
     margin-left: 5%;
 }
 
@@ -286,7 +288,8 @@ span + span {
 }
 
 .infoProgressBarLabel {
-    min-width: 300px;
+    min-width:15em;
+    font-size:15px;
 }
 
 /*------compareAnimation-------*/
@@ -467,4 +470,36 @@ span + span {
 }
 .ul li{
     line-height: 3;
+}
+
+.progressDiv {
+    background-color: rgb(166, 184, 196);
+    border-radius: .5rem;
+}
+
+.progress {
+    background: linear-gradient(90deg, rgba(166, 184, 196, 0.91) 0%, rgba(166, 184, 196, 0.637) 100%);
+    height: 20px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
+}
+.progressDiv2 {
+    background-color: rgb(166, 184, 196);
+    border-radius: .5rem;
+}
+
+.progress2 {
+    background: linear-gradient(90deg, #E9EDF1 0%, rgba(233, 237, 241, 0.56) 100%);
+    height: 20px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
+}
+.progress3 {
+    background: linear-gradient(90deg, #C6D6F7 0%, rgba(71, 131, 255, 0.47) 100%);
+    height: 20px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
 }

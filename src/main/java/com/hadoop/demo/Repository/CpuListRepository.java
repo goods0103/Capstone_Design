@@ -16,6 +16,8 @@ public interface CpuListRepository extends JpaRepository<CpuList, Long> {
 
     List<CpuList> findByOrderByCpuRankAsc();
 
+    List<CpuList> findByOrderByCpuRankDesc();
+
     List<CpuList> findByCpuValueNotOrderByCpuValueAsc(double cpuValue);
 
     @Query("SELECT cpu.cpuName FROM CpuList cpu")

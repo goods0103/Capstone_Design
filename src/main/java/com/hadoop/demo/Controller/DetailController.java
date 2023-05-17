@@ -7,14 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -122,6 +121,42 @@ public class DetailController {
     public GameList getSelectGameDetail(@RequestBody String game) {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
         return gameListService.findByName(decodedString);
+    }
+    public static class RankCount {
+        private final int name;
+        private int pv;
+        private int pv2;
+
+        public RankCount(int name, int pv, int pv2) {
+            this.name = name;
+            this.pv = pv;
+            this.pv2 = pv2;
+        }
+    }
+    @PostMapping("/cpu_mark_chart")
+    public List<RankCount> getMarkRanking(@RequestBody handleRequest id) {
+        CpuList cpuListById;
+        if(id.getId() == null) cpuListById = cpuListService.findById(id.getLastPart());
+        else cpuListById = cpuListService.findById(id.getId());
+        int mark = cpuListById.getCpuMark() / 1000;
+
+        List<CpuList> cpuLists = cpuListService.orderByCpuRankDesc();
+        List<RankCount> rankCounts = new ArrayList<>();
+
+        for(int i=0; i<100; i++ ){
+            int count = 0, count2 = 0;
+            for(CpuList cpuList: cpuLists){
+                if(cpuList.getCpuMark() > 1000*i && cpuList.getCpuMark() <=1000*(i+1)){
+                    count++;
+                }
+                else if(cpuList.getCpuMark() > 1000 * (i+1))
+                    break;
+            }
+            if(mark == i)
+                count2 = count;
+            rankCounts.add(new RankCount(i * 1000, count, count2));
+        }
+        return rankCounts;
     }
 
 }
