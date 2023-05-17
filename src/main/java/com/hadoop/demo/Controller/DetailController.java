@@ -122,16 +122,14 @@ public class DetailController {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
         return gameListService.findByName(decodedString);
     }
-    public static class RankCount {
-        private final int name;
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    static class RankCount {
+        private int name;
         private int pv;
         private int pv2;
-
-        public RankCount(int name, int pv, int pv2) {
-            this.name = name;
-            this.pv = pv;
-            this.pv2 = pv2;
-        }
     }
     @PostMapping("/cpu_mark_chart")
     public List<RankCount> getMarkRanking(@RequestBody handleRequest id) {
@@ -142,6 +140,7 @@ public class DetailController {
 
         List<CpuList> cpuLists = cpuListService.orderByCpuRankDesc();
         List<RankCount> rankCounts = new ArrayList<>();
+
 
         for(int i=0; i<100; i++ ){
             int count = 0, count2 = 0;

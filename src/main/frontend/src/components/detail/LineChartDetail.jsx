@@ -77,7 +77,7 @@ const data = [
     { name: 2000, pv: 90 },
     { name: 2000, pv: 130 },
     { name: 2000, pv: 11 },
-    { name: 2000, pv2: 107 },
+    { name: 2000, pv: 107, pv2: 107 },
     { name: 2000, pv: 926 },
     { name: 2000, pv: 653 },
     { name: 2000, pv: 366 },
@@ -94,7 +94,7 @@ const data = [
     { name: 2000, pv: 322 },
     { name: 2000, pv: 246 },
     { name: '8만', pv: 33},
-    { name: '', pv2: 354 },
+    { name: '', pv: 354 },
     { name: '', pv: 258 },
     { name: '', pv: 359 },
     { name: '', pv: 192 },
@@ -126,6 +126,7 @@ export default class LineChartDetail extends PureComponent {
                     width={500}
                     height={300}
                     data={this.props.chartData}
+                    // data={data}
                     // margin={{
                     //     top: 5,
                     //     right: 30,
@@ -141,7 +142,7 @@ export default class LineChartDetail extends PureComponent {
                     <ReferenceLine y={0} stroke="#000" />
                     <Brush dataKey="name" height={10} stroke="#8884d8" />
                     <Bar dataKey="pv" fill="#8884d8" />
-                    <Bar dataKey="pv2" fill="#82ca9d" />
+                    <Bar dataKey="pv2" fill="#82ca9d" background="#B4B4DC" />
                     {/*<Bar*/}
                     {/*    dataKey="pv"*/}
                     {/*    fill={(entry) => (entry.isMine ? '#82ca9d' : '#8884d8')}*/}

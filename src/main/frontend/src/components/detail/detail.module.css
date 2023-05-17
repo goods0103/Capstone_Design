@@ -33,6 +33,11 @@
     vertical-align: middle;
     font-weight: bold;
     padding: 5px;
+    background-color: #EBFBFF !important;
+}
+
+.cssThProgress {
+    background-color: #EBFBFF !important;
 }
 
 .cssTd {
@@ -67,7 +72,7 @@ ul {
 
 ul li::before {
     content: "•";
-    color: white;
+    color: black;
     margin-right: 5px;
 }
 
@@ -77,6 +82,7 @@ ul li::before {
 
 .tableDetailTh {
     font-size: 1.5rem;
+    background-color: #EBFBFF !important;
 }
 
 .detailMark {
@@ -93,6 +99,8 @@ ul li::before {
     animation-duration: 1.5s;
     animation-fill-mode: backwards;
     animation-delay : 1.0s;
+
+    /*border-radius: 10px;*/
     /*animation: 1.5s ease-in-out 1.5s fadeIn;*/
 }
 

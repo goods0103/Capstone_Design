@@ -7,7 +7,6 @@ import Table from 'react-bootstrap/Table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { ResponsiveBar } from '@nivo/bar'
 import LineChartDetail from "./LineChartDetail"
 import {ResponsiveContainer} from "recharts";
 
@@ -109,6 +108,15 @@ function CpuDetail() {
             });
     }, []);
 
+    useEffect(() => {
+        document.body.style.backgroundColor = '#F0F6F8';
+        document.body.style.color = "black";
+        return () => {
+            document.body.style.backgroundColor = '#151515';
+            document.body.style.color = "white";
+        };
+    }, []);
+
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
@@ -145,8 +153,10 @@ function CpuDetail() {
                         <li>가격 책정 기록 데이터에는 단일 프로세서의 가격이 표시됩니다. 여러 프로세서의 경우 표시된 가격에 CPU 수를 곱하십시오.</li>
                     </ul>
                 </div>
+
                 <div className={styles.cssTable}>
-                    <Table striped bordered hover variant="dark">
+                    <Table  hover variant="light">
+                    {/*<table>*/}
                         <thead>
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{cpuInfo.cpuName}</th>
@@ -198,6 +208,10 @@ function CpuDetail() {
                     </Table>
                 </div>
 
+                <ResponsiveContainer width="70%" height={800} className={styles.lineChartDetail}>
+                    <LineChartDetail chartData={cpuMarkChart}/>
+                </ResponsiveContainer>
+
                 {cpuValue.length > 1 && (
                     <div>
                         <br/><br/>
@@ -206,14 +220,14 @@ function CpuDetail() {
                             <br/>
                         </div>
                         <div className={styles.cssTable}>
-                            <Table striped bordered hover variant="dark">
+                            <Table   hover variant="light">
                                 <thead>
                                     <tr>
                                         <th className={styles.cssTh}>Image</th>
                                         <th className={styles.cssTh}>Name</th>
                                         <th className={styles.cssTh}>Mark</th>
                                         <th className={styles.cssTh}>Value</th>
-                                        <th>Average CPU Mark</th>
+                                        <th className={styles.cssThProgress}>Average CPU Mark</th>
                                     </tr>
                                 </thead>
                                 {cpuValue.map((cpu, index) => (
@@ -255,14 +269,14 @@ function CpuDetail() {
                         <br/>
                     </div>
                     <div className={styles.cssTable}>
-                        <Table striped bordered hover variant="dark">
+                        <Table   hover variant="light">
                             <thead>
                             <tr>
                                 <th className={styles.cssTh}>Image</th>
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
                                 <th className={styles.cssTh}>Price</th>
-                                <th>Average CPU Price</th>
+                                <th className={styles.cssThProgress}>Average CPU Price</th>
                             </tr>
                             </thead>
                             {cpuPopular.map((cpu, index) => (
@@ -296,10 +310,6 @@ function CpuDetail() {
                         </Table>
                     </div>
                 </div>
-
-                <ResponsiveContainer width="70%" height={800} className={styles.lineChartDetail}>
-                    <LineChartDetail chartData={cpuMarkChart}/>
-                </ResponsiveContainer>
 
             </div>
         </>
