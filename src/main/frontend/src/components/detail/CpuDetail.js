@@ -7,6 +7,43 @@ import Table from 'react-bootstrap/Table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import { ResponsiveBar } from '@nivo/bar'
+import LineChartDetail from "./LineChartDetail"
+import {ResponsiveContainer} from "recharts";
+
+function calculatePercentages(values) {
+    // 필요한 값을 추출하여 배열에 저장
+    const extractedValues = values.map(obj => obj.cpuMark);
+
+    // 가장 큰 값을 찾기
+    const max = Math.max(...extractedValues);
+
+    // 비율을 계산하여 저장할 배열을 초기화
+    // const percentages = values.map(value => parseFloat((value / max * 100).toFixed(2)));
+    // console.log(percentages[0] +" "+percentages[1])
+    //
+    // return percentages;
+    const percentages = extractedValues.map(value => parseFloat(((value / max) * 100).toFixed(2)));
+
+    return percentages;
+}
+
+function calculatePercentagesPopular(values) {
+    // 필요한 값을 추출하여 배열에 저장
+    const extractedValues = values.map(obj => obj.cpuPrice);
+
+    // 가장 큰 값을 찾기
+    const max = Math.max(...extractedValues);
+
+    // 비율을 계산하여 저장할 배열을 초기화
+    // const percentages = values.map(value => parseFloat((value / max * 100).toFixed(2)));
+    // console.log(percentages[0] +" "+percentages[1])
+    //
+    // return percentages;
+    const percentages = extractedValues.map(value => parseFloat(((value / max) * 100).toFixed(2)));
+
+    return percentages;
+}
 
 function CpuDetail() {
     const [cpuValue, setCpuValue] = useState([]);
@@ -17,6 +54,10 @@ function CpuDetail() {
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
+
+    const [cpuMark, setCpuMark] = useState([]);
+    const [percentages2, setPercentages2] = useState([]);
+    const [cpuMarkChart, setCpuMarkChart] = useState([]);
 
     useEffect(() => {
         axios.post('/cpuValue', { lastPart })
@@ -58,19 +99,46 @@ function CpuDetail() {
             });
     }, []);
 
+    useEffect(() => {
+        axios.post('/cpu_mark_chart', { lastPart })
+            .then(response => {
+                setCpuMarkChart(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
     const convertPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    const returnMarkProgressBar = (info1) => {
+        return (
+            <div>
+                <ProgressBar now={info1} label={`${info1}%`} className={styles.infoProgressBar} variant="" style={{height: '1.5rem', marginTop: '20px'}} />
+            </div>
+        );
+    }
+
+
+    const percentagesMark = calculatePercentages(cpuValue);
+    const percentagesPrice = calculatePercentagesPopular(cpuPopular);
+
     return(
         <>
+            {/*{*/}
+            {/*    cpuValue.map((cpu) => (*/}
+            {/*        setCpuMark(cpu.cpuMark)*/}
+            {/*    ))*/}
+            {/*}*/}
             <div>
                 <div className={styles.detailHeaderExplain}>
                     <br/><br/>
-                    {/*<h2>{cpuInfo.cpuName}</h2>*/}
-                    {/*<p>{cpuInfo.cpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
-                    <h2>CPU 5600X</h2><br/>
-                    <p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
+                    <h2>{cpuInfo.cpuName}</h2>
+                    <p>{cpuInfo.cpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
+                    {/*<h2>CPU 5600X</h2><br/>*/}
+                    {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
                     <ul>
                         <li>첫 번째 그래프는 PassMark CPU 마크 측면에서 10개의 다른 일반(단일) CPU와 비교한 CPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 CPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
@@ -93,7 +161,7 @@ function CpuDetail() {
                             <td rowSpan={10}>
                                 <div>
                                     <img src={"/images/product/calc1.png"} alt="cpu_image" className={styles.tableDetailImg}/>
-                                    <div className={styles.detailMark}>{cpuInfo.cpuMark}1235</div><br/>
+                                    <div className={styles.detailMark}>{cpuInfo.cpuMark}</div><br/>
                                     <div>Single Thread Rating: {cpuInfoDetail.str}</div>
                                     <Link to={`/cpuCompare/?id=${lastPart}`}>
                                         <button className={styles.buttonCompareDetail}>
@@ -124,7 +192,7 @@ function CpuDetail() {
                             <td colSpan={2} className={styles.tableDetailTd}>CPU Mark/$Price: {cpuInfo.cpuValue}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Overall Rank: {cpuInfoDetail.cpuRank}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}>Overall Rank: {cpuInfo.cpuRank}</td>
                         </tr>
                         </tbody>
                     </Table>
@@ -132,44 +200,44 @@ function CpuDetail() {
 
                 {cpuValue.length > 1 && (
                     <div>
-                        <h2>Similar value</h2>
+                        <br/><br/>
+                        <div className={styles.detailHeaderExplain}>
+                            <h2>Similar value</h2>
+                            <br/>
+                        </div>
                         <div className={styles.cssTable}>
                             <Table striped bordered hover variant="dark">
                                 <thead>
                                     <tr>
-                                        <th className={styles.tableDetailTh}>Image</th>
-                                        <th className={styles.tableDetailTh}>Name</th>
-                                        <th className={styles.tableDetailTh}>Mark</th>
-                                        <th className={styles.tableDetailTh}>Value</th>
+                                        <th className={styles.cssTh}>Image</th>
+                                        <th className={styles.cssTh}>Name</th>
+                                        <th className={styles.cssTh}>Mark</th>
+                                        <th className={styles.cssTh}>Value</th>
                                         <th>Average CPU Mark</th>
                                     </tr>
                                 </thead>
-                                {cpuValue.map((cpu) => (
+                                {cpuValue.map((cpu, index) => (
                                     cpu.cpuId === lastPart ? (
                                         <tbody>
                                             <tr>
-                                                <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td className={styles.redBorder}>{cpu.cpuName}</td>
-                                                <td className={styles.redBorder}>{cpu.cpuMark}</td>
-                                                <td className={styles.redBorder}>{cpu.cpuValue}</td>
+                                                <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                                <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                                <td className={styles.pointMySpec}>{cpu.cpuMark}</td>
+                                                <td className={styles.pointMySpec}>{cpu.cpuValue}</td>
                                                 <td>
-                                                    <div>
-                                                        <ProgressBar now={11} label={`${11}%`} className={styles.infoProgressBar} variant="" style={{height: '1.5rem'}} />
-                                                    </div>
+                                                    {returnMarkProgressBar(percentagesMark[index])}
                                                 </td>
                                             </tr>
                                         </tbody>
                                     ) : (
                                         <tbody>
                                             <tr>
-                                                <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td className={styles.cssTd}>{cpu.cpuName}</td>
-                                                <td className={styles.cssTd}>{cpu.cpuMark}</td>
-                                                <td className={styles.cssTd}>{cpu.cpuValue}</td>
+                                                <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                                <td>{cpu.cpuName}</td>
+                                                <td>{cpu.cpuMark}</td>
+                                                <td>{cpu.cpuValue}</td>
                                                 <td>
-                                                    <div>
-                                                        <ProgressBar now={11} label={`${11}%`} className={styles.infoProgressBar} variant="" style={{height: '1.5rem'}} />
-                                                    </div>
+                                                    {returnMarkProgressBar(percentagesMark[index])}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -179,8 +247,13 @@ function CpuDetail() {
                         </div>
                     </div>
                 )}
+
                 <div>
-                    <h2>Popular</h2>
+                    <br/><br/>
+                    <div className={styles.detailHeaderExplain}>
+                        <h2>Popular</h2>
+                        <br/>
+                    </div>
                     <div className={styles.cssTable}>
                         <Table striped bordered hover variant="dark">
                             <thead>
@@ -189,37 +262,33 @@ function CpuDetail() {
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
                                 <th className={styles.cssTh}>Price</th>
-                                <th>Average CPU Mark</th>
+                                <th>Average CPU Price</th>
                             </tr>
                             </thead>
-                            {cpuPopular.map((cpu) => (
+                            {cpuPopular.map((cpu, index) => (
                                 cpu.cpuId === lastPart  &&(
                                     <thead>
                                     <tr>
-                                        <td className={styles.redBorder}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.redBorder}>{cpu.cpuName}</td>
-                                        <td className={styles.redBorder}>{cpu.cpuRank}</td>
-                                        <td className={styles.redBorder}>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                        <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                        <td className={styles.pointMySpec}>{cpu.cpuRank}</td>
+                                        <td className={styles.pointMySpec}>{convertPrice(cpu.cpuPrice)}</td>
                                         <td>
-                                            <div>
-                                                <ProgressBar now={11} label={`${11}%`} className={styles.infoProgressBar} variant="" style={{height: '1.5rem'}} />
-                                            </div>
+                                            {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
                                     </thead>
                                 )))}
-                            {cpuPopular.map((cpu) => (
+                            {cpuPopular.map((cpu, index) => (
                                 cpu.cpuId !== lastPart  &&(
                                     <thead>
                                     <tr>
-                                        <td className={styles.cssTd}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.cssTd}>{cpu.cpuName}</td>
-                                        <td className={styles.cssTd}>{cpu.cpuRank}</td>
-                                        <td className={styles.cssTd}>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
+                                        <td>{cpu.cpuName}</td>
+                                        <td>{cpu.cpuRank}</td>
+                                        <td>{convertPrice(cpu.cpuPrice)}</td>
                                         <td>
-                                            <div>
-
-                                            </div>
+                                            {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
                                     </thead>
@@ -227,6 +296,11 @@ function CpuDetail() {
                         </Table>
                     </div>
                 </div>
+
+                <ResponsiveContainer width="70%" height={800} className={styles.lineChartDetail}>
+                    <LineChartDetail chartData={cpuMarkChart}/>
+                </ResponsiveContainer>
+
             </div>
         </>
     );

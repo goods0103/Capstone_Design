@@ -110,7 +110,16 @@ ul li::before {
 }
 
 .pointMySpec {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #1EDDFF !important;
+    font-size: 1.5rem;
+}
 
+.lineChartDetail {
+    margin: 0 auto;
 }
 
 /*--------*/
