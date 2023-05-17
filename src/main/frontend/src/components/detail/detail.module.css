@@ -29,23 +29,21 @@
 /*-------*/
 
 .cssTh {
-    background-color: #f2f2f2;
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #EBFBFF !important;
+}
+
+.cssThProgress {
+    background-color: #EBFBFF !important;
 }
 
 .cssTd {
     text-align: center;
     border: 1px solid #ddd;
     padding: 8px;
-}
-
-.cssTable {
-    border-collapse: collapse;
-    margin: 0 auto;
-    width:50%;
 }
 
 .redBorder {
@@ -56,8 +54,80 @@
 }
 
 .tableImg {
-    width:50px;
-    height:30px;
+    width:100px;
+    height:60px;
+    border-radius: 10px;
+}
+
+/*------cpuDetail-----*/
+
+.detailHeaderExplain {
+    margin: 0 auto;
+    width: 70%;
+}
+
+ul {
+    /*list-style-type: circle;*/
+}
+
+ul li::before {
+    content: "•";
+    color: black;
+    margin-right: 5px;
+}
+
+.tableDetailTd {
+    text-align: left;
+}
+
+.tableDetailTh {
+    font-size: 1.5rem;
+    background-color: #EBFBFF !important;
+}
+
+.detailMark {
+    font-size: 2rem;
+    color: orange;
+}
+
+.cssTable {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 70%;
+
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+
+    /*border-radius: 10px;*/
+    /*animation: 1.5s ease-in-out 1.5s fadeIn;*/
+}
+
+.tableDetailImg {
+    width:150px;
+    height:100px;
+}
+
+.buttonCompareDetail {
+    background-color: dodgerblue;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-top: 1rem;
+}
+
+.pointMySpec {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #1EDDFF !important;
+    font-size: 1.5rem;
+}
+
+.lineChartDetail {
+    margin: 0 auto;
 }
 
 /*--------*/
