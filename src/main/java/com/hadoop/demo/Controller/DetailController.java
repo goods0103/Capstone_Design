@@ -123,4 +123,5 @@ public class DetailController {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
         return gameListService.findByName(decodedString);
     }
+
 }
