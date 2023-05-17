@@ -18,6 +18,7 @@ function InsertCategoryBottleNeck() {
     const gpu = searchParams.get('gpu');
     const cpu = searchParams.get('cpu');
     const [data, setData] = useState([]);
+    const [name, setName] = useState("");
     const [bottleNeckCpu, setBottleNeckCpu] = useState([]);
     const [bottleNeckGpu, setBottleNeckGpu] = useState([]);
     const [allBottleNeck, setAllBottleNeck] = useState([]);
@@ -47,6 +48,7 @@ function InsertCategoryBottleNeck() {
                 setData(newData);
                 if (response.data.cpuBottleNeckValue > response.data.gpuBottleNeckValue) {
                     console.log("cpu 100");
+                    setName(response.data.cpuInfo);
                     axios.post("/recommendGpu", response.data.gpuInfo)
                         .then(response => {
                             setBottleNeckCpu(response.data);
@@ -64,7 +66,7 @@ function InsertCategoryBottleNeck() {
                             console.log(error);
                         });
                 } else if (response.data.cpuBottleNeckValue < response.data.gpuBottleNeckValue) {
-                    console.log("gpu 100");
+                    setName(response.data.gpuInfo);
                     axios.post("/recommendCpu", response.data.cpuInfo)
                         .then(response => {
                             setBottleNeckGpu(response.data)
@@ -182,7 +184,7 @@ function InsertCategoryBottleNeck() {
                             }
                 </div>
                 <div className={styles.lineChart}>
-                    <ChartLine data={allBottleNeck} />
+                    <ChartLine data={allBottleNeck} name={name} />
                 </div>
             </div>
         </>
