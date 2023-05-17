@@ -43,15 +43,19 @@ public class BottleNeckService {
 
     public BottleNeck searchByCpuInfoAndGpuInfo(String cpuInfo, String gpuInfo) { return bottleNeckRepository.findByCpuInfoAndGpuInfo(cpuInfo, gpuInfo);}
 
-    @AllArgsConstructor
     @NoArgsConstructor
     @Getter
     @Setter
     public static class bottleNeckInfo implements Comparable<bottleNeckInfo>{
-        private String cpuName;
-        private String gpuName;
+        private String info;
         private int mark;
         private int bottleNeckDiff;
+
+        public bottleNeckInfo(String gpuName, int gpuMark, int diff) {
+            this.info = gpuName;
+            this.mark = gpuMark;
+            this.bottleNeckDiff = diff;
+        }
 
         @Override
         public int compareTo(bottleNeckInfo other) {
@@ -73,7 +77,7 @@ public class BottleNeckService {
             int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
             int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
             int gpuMark = gpuListRepository.findByGpuName(gpuName).getGpuMark();
-            bottleNeckInfos.add(new bottleNeckInfo(cpuName, gpuName, gpuMark, diff));
+            bottleNeckInfos.add(new bottleNeckInfo(gpuName, gpuMark, diff));
         }
         Collections.sort(bottleNeckInfos);
 
@@ -93,7 +97,7 @@ public class BottleNeckService {
             int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
             int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
             int cpuMark = cpuListRepository.findByCpuName(cpuName).getCpuMark();
-            bottleNeckInfos.add(new bottleNeckInfo(gpuName, cpuName, cpuMark, diff));
+            bottleNeckInfos.add(new bottleNeckInfo(cpuName, cpuMark, diff));
         }
         Collections.sort(bottleNeckInfos);
 
