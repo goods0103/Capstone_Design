@@ -158,12 +158,6 @@
 .buttonSpec{
   box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
-
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
   border-radius: 149px;
@@ -175,7 +169,6 @@
   width: 10%;
   height: 60px;
   left: 15%;
-  top: 65%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -202,12 +195,6 @@
 
   box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 70px;
-  left: 30%;
-  top: 65%;
-  background-color: #151515;
   border: 2px solid #30D5C8;
   border-radius: 149px;
 
@@ -218,7 +205,6 @@
   width: 10%;
   height: 60px;
   left: 30%;
-  top: 65%;
 
   font-family: 'Roboto', sans-serif;
   font-style: normal;
