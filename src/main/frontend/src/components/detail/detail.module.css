@@ -64,6 +64,10 @@
 .detailHeaderExplain {
     margin: 0 auto;
     width: 70%;
+
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
 }
 
 ul {
@@ -96,7 +100,7 @@ ul li::before {
     width: 70%;
 
     animation-name: fadeIn;
-    animation-duration: 1.5s;
+    animation-duration: 1.0s;
     animation-fill-mode: backwards;
     animation-delay : 1.0s;
 
@@ -128,7 +132,26 @@ ul li::before {
 
 .lineChartDetail {
     margin: 0 auto;
+
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.5s;
 }
+
+.detailPopularValue {
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.8s;
+}
+
+/*.detailValue {*/
+/*    animation-name: fadeIn;*/
+/*    animation-duration: 1.0s;*/
+/*    animation-fill-mode: backwards;*/
+/*    animation-delay : 1.5s;*/
+/*}*/
 
 /*--------*/
 

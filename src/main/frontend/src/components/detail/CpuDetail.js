@@ -135,11 +135,6 @@ function CpuDetail() {
 
     return(
         <>
-            {/*{*/}
-            {/*    cpuValue.map((cpu) => (*/}
-            {/*        setCpuMark(cpu.cpuMark)*/}
-            {/*    ))*/}
-            {/*}*/}
             <div>
                 <div className={styles.detailHeaderExplain}>
                     <br/><br/>
@@ -215,7 +210,7 @@ function CpuDetail() {
                 {cpuValue.length > 1 && (
                     <div>
                         <br/><br/>
-                        <div className={styles.detailHeaderExplain}>
+                        <div className={`${styles.detailHeaderExplain} ${styles.detailPopularValue}`}>
                             <h2>Similar value</h2>
                             <br/>
                         </div>
@@ -264,7 +259,7 @@ function CpuDetail() {
 
                 <div>
                     <br/><br/>
-                    <div className={styles.detailHeaderExplain}>
+                    <div className={`${styles.detailHeaderExplain} ${styles.detailPopularValue}`}>
                         <h2>Popular</h2>
                         <br/>
                     </div>
