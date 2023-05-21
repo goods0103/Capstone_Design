@@ -142,7 +142,7 @@ export default class LineChartDetail extends PureComponent {
                     <ReferenceLine y={0} stroke="#000" />
                     <Brush dataKey="name" height={10} stroke="#8884d8" />
                     <Bar dataKey="pv" fill="#8884d8" />
-                    <Bar dataKey="pv2" fill="#82ca9d" background="#B4B4DC" />
+                    <Bar dataKey="pv2" fill="#82ca9d" />
                     {/*<Bar*/}
                     {/*    dataKey="pv"*/}
                     {/*    fill={(entry) => (entry.isMine ? '#82ca9d' : '#8884d8')}*/}
