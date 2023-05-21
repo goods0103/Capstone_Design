@@ -1,3 +1,8 @@
+.bigFrame {
+    width: 1280px;
+    margin: 0 auto;
+}
+
 .cssTh {
     text-align: center;
     vertical-align: middle;
@@ -14,7 +19,7 @@
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
-    width: 70%;
+    width: 100%;
     /*animation-name: slide-in;*/
     /*animation-duration: 3.0s;*/
     /*animation-fill-mode: both;*/
@@ -171,7 +176,7 @@ th {
 
 .divChild {
     text-align: center;
-    width : 13%;
+    width : 30%;
     margin: 2% 5% 0 1%;
 }
 
@@ -237,11 +242,11 @@ th {
     text-decoration: none !important; /* 밑줄 제거 */
 }
 .move{
-    width: 7%;
+    width: 160px;
     height: 40px;
-    margin-left: 78%;
-    margin-bottom:1%;
-    border-radius: 149px;
+    margin-left: 87%;
+    margin-bottom: 1%;
+    border-radius: 10px;
     background-color: #151515;
     border: 2px solid #30D5C8;
     font-style: normal;

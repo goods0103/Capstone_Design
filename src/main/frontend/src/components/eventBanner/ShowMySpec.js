@@ -49,13 +49,11 @@ function ShowMySpec() {
       }, [count]);
 
     return (
-        <div>
-
-
+        <div className={styles.mySpecTotal}>
             <p className={styles.waring}>
             &emsp;{waring}
             </p>
-                <button className={styles.button} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <button className={styles.button} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; Download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                 <Link to="/MySpec">
                     <button onClick={handleClick}>develop button</button>
                 </Link>
