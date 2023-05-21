@@ -152,6 +152,26 @@
   }
 }
 
+/*----HowToViewSpec.js-----*/
+.introduceSite {
+  margin: 3rem auto 0 auto;
+  width: 70%;
+
+  animation-name: fadeIn;
+  animation-duration: 2.5s;
+  animation-fill-mode: backwards;
+}
 
 
+/*-------animation---------*/
+@keyframes fadeIn {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 

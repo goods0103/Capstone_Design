@@ -129,8 +129,8 @@ public class DetailController {
     @Setter
     static class RankCount {
         private int name;
-        private int pv;
-        private int pv2;
+        private int benchMark;
+        private int myBenchMark;
     }
     @PostMapping("/cpu_mark_chart")
     public List<RankCount> getCpuMarkRanking(@RequestBody handleRequest id) {
@@ -163,7 +163,7 @@ public class DetailController {
         GpuList gpuListById;
         if(id.getId() == null) gpuListById = gpuListService.findById(id.getLastPart());
         else gpuListById = gpuListService.findById(id.getId());
-        int mark = gpuListById.getGpuMark() / 1000;
+        int mark = gpuListById.getGpuMark() / 400;
 
         List<GpuList> gpuLists = gpuListService.orderByGpuRankDesc();
         List<RankCount> rankCounts = new ArrayList<>();
@@ -171,15 +171,15 @@ public class DetailController {
         for(int i=0; i<100; i++ ){
             int count = 0, count2 = 0;
             for(GpuList gpuList: gpuLists){
-                if(gpuList.getGpuMark() > 1000*i && gpuList.getGpuMark() <=1000*(i+1)){
+                if(gpuList.getGpuMark() > 400*i && gpuList.getGpuMark() <=400*(i+1)){
                     count++;
                 }
-                else if(gpuList.getGpuMark() > 1000 * (i+1))
+                else if(gpuList.getGpuMark() > 400 * (i+1))
                     break;
             }
             if(mark == i)
                 count2 = count;
-            rankCounts.add(new RankCount(i * 1000, count, count2));
+            rankCounts.add(new RankCount(i * 400, count, count2));
         }
         return rankCounts;
     }
