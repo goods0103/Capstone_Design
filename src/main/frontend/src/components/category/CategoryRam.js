@@ -141,7 +141,7 @@ function CategoryRam() {
 
     return (
         <>
-            <div>
+            <div className={styles.bigFrame}>
             <form onSubmit={handleSubmit} className={styles.formTag}>
                 <p onClick={() => searchRam(searchValue)} className={styles.buttonSearch}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;

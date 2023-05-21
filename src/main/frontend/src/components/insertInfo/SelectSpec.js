@@ -94,7 +94,7 @@ function SelectSpec() {
 
     return(
         <>
-            <div>
+            <div className={styles2.bigFrame}>
                 <div className={styles2.divParent}>
                     {cpuInfo.map((cpu) => (
                         cpu.cpuName === selectCpu && (
