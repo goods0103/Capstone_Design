@@ -104,7 +104,7 @@ function InsertCategoryGpu() {
                         {gpuList.map((gpu) => (
                             data2 === gpu.gpuName ? (
                                     <tr className={styles.mySpecInfoHover} data-gpu-name={gpu.gpuName}>
-                                        <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.myLink}>{gpu.gpuName}</Link></td>
                                         <td className={styles.mySpecInfo}>{gpu.gpuMark}</td>
                                         <td className={styles.mySpecInfo}>{gpu.gpuRank}</td>
@@ -113,7 +113,7 @@ function InsertCategoryGpu() {
                                     </tr>
                                 ) : (
                                     <tr>
-                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
                                         <td>{gpu.gpuMark}</td>
                                         <td>{gpu.gpuRank}</td>
