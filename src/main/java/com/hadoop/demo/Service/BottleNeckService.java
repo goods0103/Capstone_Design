@@ -51,11 +51,13 @@ public class BottleNeckService {
         private int mark;
         private int bottleNeckDiff;
 
-        public bottleNeckInfo(String gpuName, int gpuMark, int diff) {
-            this.info = gpuName;
-            this.mark = gpuMark;
+        public bottleNeckInfo(String cpuName, int cpuMark, int diff) {
+            this.info = cpuName;
+            this.mark = cpuMark;
             this.bottleNeckDiff = diff;
         }
+
+
 
         @Override
         public int compareTo(bottleNeckInfo other) {
@@ -93,10 +95,13 @@ public class BottleNeckService {
 
         for(BottleNeck bottleNeck : bottleNecks){
             String cpuName = bottleNeck.getCpuInfo();
+            System.out.println(cpuName);
             int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
             int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
             int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
             int cpuMark = cpuListRepository.findByCpuName(cpuName).getCpuMark();
+            System.out.println(diff);
+            System.out.println(cpuMark);
             bottleNeckInfos.add(new bottleNeckInfo(cpuName, cpuMark, diff));
         }
         Collections.sort(bottleNeckInfos);

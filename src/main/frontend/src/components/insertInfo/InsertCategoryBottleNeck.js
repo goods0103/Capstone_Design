@@ -70,6 +70,7 @@ function InsertCategoryBottleNeck() {
                             console.log(error);
                         });
                 } else if (response.data.cpuBottleNeckValue < response.data.gpuBottleNeckValue) {
+                    console.log("gpu 100");
                     setName(response.data.gpuInfo);
                     setOtherName(response.data.cpuInfo);
                     axios.post("/recommendCpu", response.data.cpuInfo)
@@ -219,7 +220,7 @@ function InsertCategoryBottleNeck() {
                         </div>
                     ) :
                     <div className={styles.lineChart}>
-                        <p className={styles.title}>><strong>{otherName}</strong>와 가장 잘 작동하는 프로세서</p>
+                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 프로세서</p>
                         <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 그래픽 카드의 병목 현상 계산에서 프로세서 벤치
                             마크 점수에 대한 의존성을 보여줍니다.</p>
                         <ChartLine data={allBottleNeck} name={name}/>

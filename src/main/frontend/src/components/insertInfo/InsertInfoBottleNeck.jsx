@@ -8,6 +8,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import { easeQuadInOut } from "d3-ease";
 import AnimatedProgressProvider from "./AnimatedProgressProvider";
 import ChangingProgressProvider from "./ChangingProgressProvider";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBarsStaggered} from "@fortawesome/free-solid-svg-icons";
 
 
 function InsertInfoBottleNeck() {
@@ -65,19 +67,6 @@ function InsertInfoBottleNeck() {
                         <p>이 구성에서는 {Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
                 </div>
                 <div className={styles.CircularChart}>
-                    {/*<CircularProgressbar*/}
-                    {/*    value={Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}*/}
-                    {/*    text={`${Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%`}*/}
-                    {/*    background*/}
-                    {/*    backgroundPadding={6}*/}
-                    {/*    styles={buildStyles({*/}
-                    {/*        backgroundColor: "#3e98c7",*/}
-                    {/*        textColor: "#fff",*/}
-                    {/*        pathColor: "#fff",*/}
-                    {/*        trailColor: "transparent"*/}
-                    {/*    })}*/}
-                    {/*    className={styles.circularProgressBar}*/}
-                    {/*/>*/}
                             <CircularProgressbar
                                 value={Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}
                                 text={`${Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%`}
@@ -89,8 +78,8 @@ function InsertInfoBottleNeck() {
                                     trailColor: "#eee"
                                 })}
                             />
+                    <div className={styles.urlLabel}><Link to={`/InsertCategoryBottleNeck?gpu=${bottleNeck.gpuInfo}&cpu=${bottleNeck.cpuInfo}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>
                 </div>
-
             </div>
 
         </>

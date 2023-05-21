@@ -170,7 +170,7 @@ function CategoryRam() {
                             sortProduct("sizeHigh");
                         }}
                     >
-                        크기 순
+                        사이즈
                     </button>
                     <button
                         className={
@@ -183,7 +183,7 @@ function CategoryRam() {
                             sortProduct("latencyLow");
                         }}
                     >
-                        지연도 순
+                        지연도
                     </button>
                     <button
                         className={
@@ -196,7 +196,7 @@ function CategoryRam() {
                             sortProduct("readLow");
                         }}
                     >
-                        읽기속도 순
+                        읽기속도
                     </button>
                     <button
                         className={
@@ -209,7 +209,7 @@ function CategoryRam() {
                             sortProduct("writeLow");
                         }}
                     >
-                        쓰기속도 순
+                        쓰기속도
                     </button>
                     <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
                 </div>
