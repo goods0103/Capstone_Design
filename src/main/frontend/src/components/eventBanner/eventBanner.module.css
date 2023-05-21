@@ -1,6 +1,18 @@
+div {
+  display: block;
+}
+
 .total{
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 90px);
   position: relative;
-  width:100%;
+    
+    padding-bottom: 60px;
+}
+.mySpecTotal {
+  width: 1280px;
+  margin: 0 auto;
 }
 /*.banner {*/
 /*  position: relative;*/
@@ -10,6 +22,21 @@
 /*  top: 50%;*/
 /*  left: 55%;*/
 /*}*/
+
+.left2 {    
+    margin-top: 14%;
+    float: left;
+    width: 640px;
+}
+.right2 {
+  float: right;
+    width: 640px;
+    margin-top: 10%;
+
+}
+.bottom2 {
+  height: 50px;
+}
 
 .right {
   position: absolute;
@@ -54,7 +81,7 @@
 /*--- InsertSpec.js ---*/
 
 .selectTag {
-  width: 30%;
+  width: 45%;
   height: 20%;
   background-color: #3c3c3c;
   display: inline-block;
@@ -76,13 +103,8 @@
 }
 
 .formTag {
-  /*margin-top: 5%;*/
-  /*margin-left: 40%;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
-  /*height: 70vh;*/
+  width: 1280px;
+  margin: 0 auto;
   text-align:center;
   margin-top: 5%;
 }
@@ -165,16 +187,13 @@
 
   /* 스펙 불러오기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 15%;
+  width: 30%;
+  height: 100%;
 
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
   font-size: 1rem;
-  line-height: 140%;
   /* or 28px */
 
   color: #FFFFFF;
@@ -201,16 +220,14 @@
 
   /* 스펙 입력하기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 30%;
+  width: 30%;
+  height: 100%;
+  margin-left : 30%;
 
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 1rem;
-  line-height: 140%;
   /* or 31px */
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
@@ -225,16 +242,10 @@
 }
 
 .title{
-  position: absolute;
-width: 35%;
-height: 50px;
-left: 15%;
-top: 30%;
+  height: 400px;
 
-font-family: 'Roboto';
-font-style: normal;
-font-size: 50px;
-line-height: 140%;
+  font-family: 'Roboto';
+  font-style: normal;
 }
 
 .main{
@@ -245,10 +256,12 @@ line-height: 140%;
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-fill-mode: both;
+  font-size: 3em;
+  height: auto;
 }
 .sub{
-  font-size: 30px;
-  height: 30px;
+  font-size: 2em;
+  height: auto;
   color : white;
   animation-name: fadeIn;
   animation-duration: 2.0s;
@@ -256,8 +269,8 @@ line-height: 140%;
 }
 
 .trd {
-  height: 15px;
-  font-size : 15px;
+  height: auto;
+  font-size: 1em;
   color : gray;
   animation-name: fadeIn;
   animation-duration: 2.5s;
@@ -265,12 +278,8 @@ line-height: 140%;
 }
 
 .banner {
-  position: relative;
-  width: 35%;
-  height: 30%;
+  width: 110%;
   background: #151515;
-  left: 55%;
-  margin-top : 5%;
   animation-name: slide-in;
   animation-duration: 3.0s;
   animation-fill-mode: both;
@@ -280,9 +289,7 @@ line-height: 140%;
 
 .button{
   box-sizing: border-box;
-  /*position: absolute;*/
-  /*width: 25%;*/
-  /*height: 60px;*/
+
   background-color: #151515;
   border: 2px solid #30D5C8;
   border-radius: 149px;
@@ -292,15 +299,9 @@ line-height: 140%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-
-
-
-
-  position: absolute;
-  width: 10%;
+  width: 200px;
   height: 60px;
-  top: 17%;
-  left : 15%;
+
 
   font-family: 'Roboto';
   font-style: normal;
@@ -311,6 +312,8 @@ line-height: 140%;
 
   /*color: #FFFFFF;*/
 
+  margin-top: 5%;
+  margin-left: 1%;
 }
 .link{
   box-sizing: border-box;
@@ -370,8 +373,7 @@ line-height: 140%;
   transform: translate(-50%, -50%);
 }
 .waring{
-  position: absolute;
-  left:14%;
+  margin-top : 5%;
 }
 
 @keyframes fadeIn {

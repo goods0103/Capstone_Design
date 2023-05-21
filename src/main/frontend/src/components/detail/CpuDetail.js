@@ -135,11 +135,6 @@ function CpuDetail() {
 
     return(
         <>
-            {/*{*/}
-            {/*    cpuValue.map((cpu) => (*/}
-            {/*        setCpuMark(cpu.cpuMark)*/}
-            {/*    ))*/}
-            {/*}*/}
             <div>
                 <div className={styles.detailHeaderExplain}>
                     <br/><br/>
@@ -147,7 +142,7 @@ function CpuDetail() {
                     <p>{cpuInfo.cpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
                     {/*<h2>CPU 5600X</h2><br/>*/}
                     {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
-                    <ul>
+                    <ul className={styles.ulCss}>
                         <li>첫 번째 그래프는 PassMark CPU 마크 측면에서 10개의 다른 일반(단일) CPU와 비교한 CPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 CPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
                         <li>가격 책정 기록 데이터에는 단일 프로세서의 가격이 표시됩니다. 여러 프로세서의 경우 표시된 가격에 CPU 수를 곱하십시오.</li>
@@ -215,7 +210,7 @@ function CpuDetail() {
                 {cpuValue.length > 1 && (
                     <div>
                         <br/><br/>
-                        <div className={styles.detailHeaderExplain}>
+                        <div className={`${styles.detailHeaderExplain} ${styles.detailPopularValue}`}>
                             <h2>Similar value</h2>
                             <br/>
                         </div>
@@ -264,7 +259,7 @@ function CpuDetail() {
 
                 <div>
                     <br/><br/>
-                    <div className={styles.detailHeaderExplain}>
+                    <div className={`${styles.detailHeaderExplain} ${styles.detailPopularValue}`}>
                         <h2>Popular</h2>
                         <br/>
                     </div>

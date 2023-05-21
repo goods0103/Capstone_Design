@@ -29,6 +29,7 @@ export const TopNavigationBar = ({ cart }) => {
 
 
   return (
+    <div className={styles.color}>
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link to="/">
@@ -97,5 +98,6 @@ export const TopNavigationBar = ({ cart }) => {
       </div>
       }
     </header>
+    </div>
   );
 };

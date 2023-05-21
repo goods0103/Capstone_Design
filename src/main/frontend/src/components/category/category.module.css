@@ -1,3 +1,7 @@
+.bigFrame {
+    width: 1280px;
+    margin: 0 auto;
+}
 /*---Table 관련 Css----*/
 .cssTh {
     text-align: center;
@@ -32,7 +36,7 @@ th {
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
-    width: 70%;
+    width: 100%;
 
     animation-name: fadeIn;
     animation-duration: 1.5s;
@@ -112,10 +116,10 @@ th {
 
 .filter {
     display: flex;
-    width: 85%;
+    flex-direction: row;
+    width: 100%;
     margin-top: 2%;
     margin-bottom: 2%;
-    margin-left : 15%;
 
     animation: 1.5s ease-in-out fadeIn;
 }
@@ -165,7 +169,7 @@ th {
 /*--- Category.BottleNeck.js ---*/
 
 .selectTag {
-    width: 30%;
+    width: 45%;
     height: 20%;
     display: inline-block;
     vertical-align: middle;
@@ -190,8 +194,10 @@ th {
     /*animation-fill-mode: both;*/
 }
 .bottleNeckFormTag{
-    text-align: center;
-    margin-top: 5%;
+    width: 1280px;
+  margin: 0 auto;
+  text-align:center;
+  margin-top: 5%;
 }
 .formTag {
     /*margin-top: 1rem;*/
@@ -199,8 +205,7 @@ th {
     /*animation-name: slide-in;*/
     /*animation-duration: 3.0s;*/
     /*animation-fill-mode: both;*/
-    margin-left: 15%; /* 왼쪽 여백을 15%로 조정합니다. */
-    margin-right: 15%; /* 오른쪽 여백을 15%로 조정합니다. */
+
     margin-bottom: 2%; /* 오른쪽 여백을 15%로 조정합니다. */
     height:35%;
     border-bottom: 1px solid #f0f0f0;
@@ -270,17 +275,16 @@ input:focus {
 }
 
 .buttonTotalList {
-    position: absolute;
+
     width: 7%;
     height: 40px;
-    right: 15%;
+
     border-radius: 149px;
 
     background-color: #151515;
     border: 2px solid #30D5C8;
 
-
-
+    margin-left: 45%;
 
     font-style: normal;
 

@@ -127,7 +127,7 @@ function CpuCompare() {
                                 }),
                             }}
                         />
-                        <button type="submit" onClick={handleClick}>비교하기&emsp;<FontAwesomeIcon icon={faRotate} spin size="xl" /></button>
+                        <button type="submit" onClick={handleClick} className={styles.buttonCompare}>비교하기&emsp;<FontAwesomeIcon icon={faRotate} spin size="xl" /></button>
                     </div>
                 </form>
             </div>
