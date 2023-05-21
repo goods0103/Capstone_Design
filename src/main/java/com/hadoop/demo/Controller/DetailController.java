@@ -122,6 +122,7 @@ public class DetailController {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
         return gameListService.findByName(decodedString);
     }
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
@@ -140,7 +141,6 @@ public class DetailController {
 
         List<CpuList> cpuLists = cpuListService.orderByCpuRankDesc();
         List<RankCount> rankCounts = new ArrayList<>();
-
 
         for(int i=0; i<100; i++ ){
             int count = 0, count2 = 0;
