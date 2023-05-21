@@ -113,7 +113,7 @@ function MySpec() {
             {localStorage.setItem('ramData', ramInfo.ramName)}
 
 
-            <div>
+            <div className={styles2.bigFrame}>
                 <div className={styles2.divParent}>
                     <ShowInsertInfo infoName={cpuInfo.cpuName} infoMark={cpuInfo.cpuMark} infoRank={cpuInfo.cpuRank} infoPrice={cpuInfo.cpuPrice}
                                     infoValue={cpuInfo.cpuValue} infoUrl="/images/product/cpuCategory02.png" infoId={cpuInfo.cpuId}/>

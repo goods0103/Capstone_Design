@@ -1,3 +1,8 @@
+.bigFrame {
+    width: 1280px;
+    margin: 0 auto;
+}
+
 .cssTh {
     /*background-color: #f2f2f2;*/
     font-weight: bold;
@@ -14,7 +19,7 @@
 
 .cssTable {
     border-collapse: collapse;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -51,11 +56,11 @@
 }
 
 .move{
-    width: 7%;
+    width: 160px;
     height: 40px;
-    margin-left: 78%;
-    margin-bottom:1%;
-    border-radius: 149px;
+    margin-left: 87%;
+    margin-bottom: 1%;
+    border-radius: 10px;
     background-color: #151515;
     border: 2px solid #30D5C8;
     font-style: normal;
