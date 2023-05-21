@@ -138,7 +138,7 @@ export default class LineChartDetail extends PureComponent {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip contentStyle={{ width: '300px', height: '100px' }}/>
+                    <Tooltip contentStyle={{ width: '250px', height: '100px' }}/>
                     <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
                     <ReferenceLine y={0} stroke="#000" />
                     <Brush dataKey="name" height={10} stroke="#8884d8" />
