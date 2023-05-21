@@ -31,7 +31,6 @@ function CategoryCpu() {
   const [selectedFilter, setSelectedFilter] = useState("none");
   //검색을 위한 useState
   const [searchValue, setSearchValue] = useState("");
-    const [sortOrder, setSortOrder] = useState("high");
     // CPU 정보
   useEffect(() => {
     const fetchData = async () => {
@@ -104,7 +103,10 @@ function CategoryCpu() {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => a.cpuRank - b.cpuRank);
           setCpuList(newProduct);
-
+      } else if (type === "cpuValue") {
+          const newProduct = [...cpuList];
+          newProduct.sort((a, b) => b.cpuValue - a.cpuValue);
+          setCpuList(newProduct);
       }
     };
 
@@ -131,17 +133,7 @@ function CategoryCpu() {
     const filteredProducts = cpuOption.filter((product) =>
         product.value.toLowerCase().includes(searchValue.toLowerCase())
     );
-    const handleClick = () => {
-        if (sortOrder === "high") {
-            setSortOrder("low"); // 높은 가격순에서 낮은 가격순으로 변경
-            setSelectedFilter("low");
-            sortProduct("low");
-        } else {
-            setSortOrder("high"); // 낮은 가격순에서 높은 가격순으로 변경
-            setSelectedFilter("high");
-            sortProduct("high");
-        }
-    };
+
   return (
     <>
       <div className={styles.bigFrame}>
@@ -164,40 +156,30 @@ function CategoryCpu() {
           <div className={styles.filter}>
               <button
                   className={
-                      sortOrder === "low"
+                      selectedFilter === "low"
                           ? `${styles.filterButton} ${styles.filterButtonSelected}`
                           : styles.filterButton
                   }
-                  onClick={handleClick}
+                  onClick={() => {
+                      setSelectedFilter("low");
+                      sortProduct("low");
+                  }}
               >
-                  {sortOrder === "low" ? "낮은 가격순" : "높은 가격순"}
+                  가격 ▽
               </button>
-              {/*<button*/}
-              {/*    className={*/}
-              {/*        selectedFilter === "low"*/}
-              {/*            ? `${styles.filterButton} ${styles.filterButtonSelected}`*/}
-              {/*            : styles.filterButton*/}
-              {/*    }*/}
-              {/*    onClick={() => {*/}
-              {/*        setSelectedFilter("low");*/}
-              {/*        sortProduct("low");*/}
-              {/*    }}*/}
-              {/*>*/}
-              {/*    낮은 가격순*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    className={*/}
-              {/*        selectedFilter === "high"*/}
-              {/*            ? `${styles.filterButton} ${styles.filterButtonSelected}`*/}
-              {/*            : styles.filterButton*/}
-              {/*    }*/}
-              {/*    onClick={() => {*/}
-              {/*        setSelectedFilter("high");*/}
-              {/*        sortProduct("high");*/}
-              {/*    }}*/}
-              {/*>*/}
-              {/*    높은 가격순*/}
-              {/*</button>*/}
+              <button
+                  className={
+                      selectedFilter === "high"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("high");
+                      sortProduct("high");
+                  }}
+              >
+                  가격 △
+              </button>
               <button
                   className={
                       selectedFilter === "rankHigh"
@@ -209,20 +191,20 @@ function CategoryCpu() {
                       sortProduct("rankHigh");
                   }}
               >
-                  높은 성능순
+                  성능
               </button>
               <button
                   className={
-                      selectedFilter === "rankLow"
+                      selectedFilter === "cpuValue"
                           ? `${styles.filterButton} ${styles.filterButtonSelected}`
                           : styles.filterButton
                   }
                   onClick={() => {
-                      setSelectedFilter("rankLow");
-                      sortProduct("rankLow");
+                      setSelectedFilter("cpuValue");
+                      sortProduct("cpuValue");
                   }}
               >
-                  낮은 성능순
+                  가성비
               </button>
               <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
           </div>
