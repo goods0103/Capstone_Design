@@ -73,7 +73,7 @@ th {
     /*max-width: 800px;*/
     /*max-height: 500px;*/
     width: 70%;
-    /*height: 95%;*/
+    height: 75%;
     /*image-rendering: -webkit-optimize-contrast;*/
     image-rendering: pixelated;
     object-fit: contain;

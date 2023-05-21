@@ -172,7 +172,7 @@ function CategoryGame() {
                             filteredProducts.map((product) => (
                                 game.gameName === product.value && (
                                     <div className={styles.cssTableCell}>
-                                        <Link to={`/GameSpec/${game.gameName}`}><img src={game.gameImg} alt="game_image" /></Link>
+                                        <Link to={`/GameSpec/${game.gameName}`}><img src={game.gameImg} className={styles.gameImage} alt="game_image" /></Link>
                                         <div className={styles.cssTableCaption}>
                                             {game.gameName}
                                         </div>

@@ -165,7 +165,7 @@ function CategoryGpu() {
                             sortProduct("low");
                         }}
                     >
-                        가격순
+                        낮은 가격순
                     </button>
                     <button
                         className={
@@ -178,7 +178,7 @@ function CategoryGpu() {
                             sortProduct("high");
                         }}
                     >
-                        가격순
+                        높은 가격순
                     </button>
                     <button
                         className={
@@ -191,7 +191,7 @@ function CategoryGpu() {
                             sortProduct("rankHigh");
                         }}
                     >
-                        Rank순
+                        높은 성능순
                     </button>
                     <button
                         className={
@@ -204,7 +204,7 @@ function CategoryGpu() {
                             sortProduct("rankLow");
                         }}
                     >
-                        Rank순️
+                        낮은 성능순
                     </button>
                     <button
                         className={
@@ -217,7 +217,7 @@ function CategoryGpu() {
                             sortProduct("gpuValue");
                         }}
                     >
-                        Value순️
+                        가성비순️
                     </button>
                     <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
                 </div>

@@ -29,7 +29,7 @@ export const Main = ({ convertPrice, products, setProducts }) => {
   // }, [setProducts]);
   return (
     <>
-        <div className={styles.main}>
+        {/*<div className={styles.main}>*/}
       {/*<CategoryBar></CategoryBar>*/}
       <EventBanner />
       {/*<div className={styles.filter}>*/}
@@ -49,7 +49,7 @@ export const Main = ({ convertPrice, products, setProducts }) => {
       {/*    );*/}
       {/*  })}*/}
       {/*</main>*/}
-        </div>
+      {/*  </div>*/}
     </>
   );
 };
