@@ -12,7 +12,7 @@ import {ResponsiveContainer} from "recharts";
 
 function calculatePercentages(values) {
     // 필요한 값을 추출하여 배열에 저장
-    const extractedValues = values.map(obj => obj.cpuMark);
+    const extractedValues = values.map(obj => obj.gpuMark);
 
     // 가장 큰 값을 찾기
     const max = Math.max(...extractedValues);
@@ -29,7 +29,7 @@ function calculatePercentages(values) {
 
 function calculatePercentagesPopular(values) {
     // 필요한 값을 추출하여 배열에 저장
-    const extractedValues = values.map(obj => obj.cpuPrice);
+    const extractedValues = values.map(obj => obj.gpuPrice);
 
     // 가장 큰 값을 찾기
     const max = Math.max(...extractedValues);
@@ -139,7 +139,7 @@ function GpuDetail() {
                     <p>{gpuInfo.gpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
                     {/*<h2>CPU 5600X</h2><br/>*/}
                     {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
-                    <ul>
+                    <ul className={styles.ulCss}>
                         <li>첫 번째 그래프는 PassMark GPU 마크 측면에서 10개의 다른 일반(단일) GPU와 비교한 GPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 GPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
                         <li>가격 책정 기록 데이터에는 단일 프로세서의 가격이 표시됩니다. 여러 프로세서의 경우 표시된 가격에 GPU 수를 곱하십시오.</li>
@@ -179,7 +179,7 @@ function GpuDetail() {
                         </tr>
                         <tr>
                             <td className={styles.tableDetailTd}>Typical TDP: {gpuInfoDetail.tdp}</td>
-                            <td className={styles.tableDetailTd}>Cores: </td>
+                            <td className={styles.tableDetailTd}></td>
                         </tr>
                         {/*<tr>*/}
                         {/*    <td colSpan={2} className={styles.tableDetailTd}>Cache Size: {gpuInfoDetail.cache}</td>*/}
@@ -226,7 +226,7 @@ function GpuDetail() {
                                     gpu.gpuId === lastPart ? (
                                         <tbody>
                                         <tr>
-                                            <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                            <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                             <td className={styles.pointMySpec}>{gpu.gpuName}</td>
                                             <td className={styles.pointMySpec}>{gpu.gpuMark}</td>
                                             <td className={styles.pointMySpec}>{gpu.gpuValue}</td>
@@ -238,7 +238,7 @@ function GpuDetail() {
                                     ) : (
                                         <tbody>
                                         <tr>
-                                            <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                            <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                             <td>{gpu.gpuName}</td>
                                             <td>{gpu.gpuMark}</td>
                                             <td>{gpu.gpuValue}</td>
@@ -275,7 +275,7 @@ function GpuDetail() {
                                 gpu.gpuId === lastPart  &&(
                                     <thead>
                                     <tr>
-                                        <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td className={styles.pointMySpec}>{gpu.gpuName}</td>
                                         <td className={styles.pointMySpec}>{gpu.gpuRank}</td>
                                         <td className={styles.pointMySpec}>{convertPrice(gpu.gpuPrice)}</td>
@@ -289,7 +289,7 @@ function GpuDetail() {
                                 gpu.gpuId !== lastPart  &&(
                                     <thead>
                                     <tr>
-                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImg}/></td>
+                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td>{gpu.gpuName}</td>
                                         <td>{gpu.gpuRank}</td>
                                         <td>{convertPrice(gpu.gpuPrice)}</td>

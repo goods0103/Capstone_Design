@@ -59,6 +59,14 @@
     border-radius: 10px;
 }
 
+.tableImgGpu {
+    width:100px;
+    height:60px;
+
+    background-color: #4d5154 !important;
+    border-radius: 10px;
+}
+
 /*------cpuDetail-----*/
 
 .detailHeaderExplain {
@@ -74,7 +82,13 @@ ul {
     /*list-style-type: circle;*/
 }
 
-ul li::before {
+/*ol li::before {*/
+/*    content: "•";*/
+/*    color: black;*/
+/*    margin-right: 5px;*/
+/*}*/
+
+.ulCss li::before {
     content: "•";
     color: black;
     margin-right: 5px;
@@ -119,7 +133,15 @@ ul li::before {
     border-radius: 10px;
     padding: 0.5rem;
     margin-top: 1rem;
-}가
+}
+
+.buttonCompare {
+    background-color: dodgerblue;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 0.3rem;
+
+}
 
 .pointMySpec {
     text-align: center;
