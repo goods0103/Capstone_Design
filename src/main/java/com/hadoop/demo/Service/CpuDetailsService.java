@@ -23,4 +23,7 @@ public class CpuDetailsService {
         return cpuDetailsRepository.findByCpuName(name);
     }
 
+    public CpuDetails findByOtherName(String otherName) {
+        return cpuDetailsRepository.findByOtherName(otherName);
+    }
 }

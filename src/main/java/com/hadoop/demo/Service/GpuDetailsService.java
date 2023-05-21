@@ -23,4 +23,8 @@ public class GpuDetailsService {
         return gpuDetailsRepository.findByGpuName(name);
     }
 
+    public GpuDetails findByOtherName(String otherName) {
+        return gpuDetailsRepository.findByOtherName(otherName);
+    }
+
 }
