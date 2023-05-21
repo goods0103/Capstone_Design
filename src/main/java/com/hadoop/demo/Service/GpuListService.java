@@ -34,4 +34,6 @@ public class GpuListService {
     public GpuList findById(int id) { return gpuListRepository.findByGpuId(id); }
 
     public List<GpuList> orderByGpuRank() { return gpuListRepository.findByOrderByGpuRankAsc();}
+
+    public List<GpuList> orderByGpuRankDesc() { return gpuListRepository.findByOrderByGpuRankDesc();}
 }
