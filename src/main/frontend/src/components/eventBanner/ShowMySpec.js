@@ -15,7 +15,7 @@ function ShowMySpec() {
         setFlag(true);
         setWaring("시스템 정보를 불러오기 위한 파일을 다운로드 중입니다.!!!");
         const response = await axios({
-            url: 'https://cb30-2001-2d8-ed10-5c8b-fe-494c-7de0-cdd3.ngrok-free.app/ShowMySpec',
+            url: 'https://72d8-58-123-242-57.ngrok-free.app/ShowMySpec',
             method: 'GET',
             responseType: 'blob', // 파일 다운로드를 위한 설정
         });
@@ -53,10 +53,9 @@ function ShowMySpec() {
             <p className={styles.waring}>
             &emsp;{waring}
             </p>
+            <div className={styles.showMySpec}>
                 <button className={styles.button} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; Download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <Link to="/MySpec">
-                    <button onClick={handleClick}>develop button</button>
-                </Link>
+
               
             
             {data.map((item, index) => (
@@ -64,6 +63,7 @@ function ShowMySpec() {
                       <Link to="/MySpec"><button className={styles.link}>ShowMySpec</button></Link>
                 </div>
                 ))}
+            </div>
                 {flag && (
             <div className={styles.arrow}>Click!</div>
             )}

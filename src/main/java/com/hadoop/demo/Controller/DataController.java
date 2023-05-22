@@ -2,6 +2,7 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.*;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -71,7 +73,8 @@ public class DataController {
     @Transactional
     @GetMapping("/mySpec")
     public UserInsertInfo getMySpec(HttpServletRequest request) {
-        String ipAddress = request.getHeader("X-Forwarded-For");
+        String ipAddress = request.getRemoteAddr();
+        System.out.println("ipAddress : " + ipAddress);;
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
@@ -89,6 +92,7 @@ public class DataController {
     // cpu gpu rank순으로 위아래 50개 보내기
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
+        System.out.println(URLDecoder.decode(cpu, StandardCharsets.UTF_8));
         List<CpuList> cpuList = new ArrayList<>();
         cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         int rank = cpuListService.findByName(cpu).getCpuRank();
@@ -107,6 +111,7 @@ public class DataController {
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
+        System.out.println(gpu);
         gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         int rank = gpuListService.findByName(gpu).getGpuRank();
         if(rank <= 25)
@@ -192,6 +197,7 @@ public class DataController {
     @PostMapping("/bottleneck_info")
     public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo(@RequestBody String name) throws IOException {
         String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        System.out.println("name"+decodedString);
         return bottleNeckService.gpuMatchingCpuInfo(decodedString);
     }
     // ram 이름으로 ramList 반환

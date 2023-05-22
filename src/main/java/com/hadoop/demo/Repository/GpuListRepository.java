@@ -14,6 +14,9 @@ public interface GpuListRepository extends JpaRepository<GpuList, Long> {
 
     GpuList findByGpuName(String gpuName);
 
+    @Query("SELECT g FROM GpuList g WHERE g.gpuMark = :gpuMark")
+    List<GpuList> findByGpuMark(int gpuMark);
+
     GpuList findByGpuRank(int gpuRank);
 
     GpuList findByGpuId(int gpuId);

@@ -24,15 +24,15 @@ import static java.lang.Integer.parseInt;
 public class CrawlingController {
 
 
-    @Autowired
-    private CpuListService insertCpuList;
-    @Autowired
-    private CpuDetailsService cpuDetailsService;
-
-    @Autowired
-    private GpuListService insertGpuList;
-    @Autowired
-    private GpuDetailsService gpuDetailsService;
+//    @Autowired
+//    private CpuListService insertCpuList;
+//    @Autowired
+//    private CpuDetailsService cpuDetailsService;
+//
+//    @Autowired
+//    private GpuListService insertGpuList;
+//    @Autowired
+//    private GpuDetailsService gpuDetailsService;
 //
 //    @Autowired
 //    private RamListService insertRamList;
@@ -44,198 +44,198 @@ public class CrawlingController {
 //    private GameFindExceptionService gameFindExceptionService;
 
 
-    @GetMapping("/cpu_info")
-    public String insertCpuInfoDB() throws IOException {
-        List<CpuList> cpuListAll = insertCpuList.findAll();
-        for(CpuList cpu : cpuListAll) {
-            if(cpuDetailsService.findByName(cpu.getCpuName()) != null)
-                continue;
-            String name = cpu.getCpuName().replace(" ", "+");
-            System.out.println(name);
-            String url = "https://www.cpubenchmark.net/cpu.php?cpu=" + name;
-            Document document = Jsoup.connect(url).get();
-
-            String classType = "", socket = "", clock = "", turbo = "", tdp = "", cache = "", otherName = "";
-            int core = 0, str = 0;
-            // 데이터 추출
-            Elements row = document.select("div.left-desc-cpu > p");
-            for (Element select : row) {
-                String s = select.text();
-                String[] split = s.split(": ");
-                if(split.length == 1)
-                    continue;
-                switch (split[0]) {
-                    case "Class":
-                        classType = split[1];
-                        break;
-                    case "Socket":
-                        socket = split[1];
-                        break;
-                    case "Clockspeed":
-                        clock = split[1];
-                        break;
-                    case "Turbo Speed":
-                        turbo = split[1];
-                        break;
-                    case "Cores":
-                    case "Total Cores":
-                        core = Integer.parseInt(split[1].split(" ")[0]);
-                        break;
-                    case "Typical TDP":
-                        tdp = split[1];
-                        break;
-                    case "Cache Size":
-                        cache = s.split("Size:")[1].trim();
-                        break;
-                    case "Other names":
-                        otherName = split[1];
-                        break;
-                }
-            }
-
-            Elements row2 = document.select("div.desc-foot > p");
-            for (Element select : row2) {
-                String s = select.text();
-                String[] split = s.split(": ");
-                if(split.length == 1)
-                    continue;
-                switch (split[0]) {
-                    case "Class":
-                        classType = split[1];
-                        break;
-                    case "Socket":
-                        socket = split[1];
-                        break;
-                    case "Clockspeed":
-                        clock = split[1];
-                        break;
-                    case "Turbo Speed":
-                        turbo = split[1];
-                        break;
-                    case "Cores":
-                    case "Total Cores":
-                        core = Integer.parseInt(split[1].split(" ")[0]);
-                        break;
-                    case "Typical TDP":
-                        tdp = split[1];
-                        break;
-                    case "Cache Size":
-                        cache = s.split("Size:")[1].trim();
-                        break;
-                    case "Other names":
-                        otherName = split[1];
-                        break;
-                }
-            }
-
-            Element row4 = document.select("div.right-desc").first();
-            str = Integer.parseInt(row4.text().split("Rating: ")[1].split(" Samples:")[0]);
-
-            // CpuDetails 모델 객체 생성
-            CpuDetails cpuDetails = CpuDetails.builder()
-                    .cpuName(cpu.getCpuName())
-                    .classType(classType)
-                    .socket(socket)
-                    .clock(clock)
-                    .turbo(turbo)
-                    .core(core)
-                    .tdp(tdp)
-                    .cache(cache)
-                    .otherName(otherName)
-                    .str(str)
-                    .build();
-            cpuDetailsService.save(cpuDetails);
-        }
-        return "success!!";
-
-    }
-
-    @GetMapping("/gpu_info")
-    public String insertGpuInfoDB() throws IOException {
-        List<GpuList> gpuListAll = insertGpuList.findAll();
-        for(GpuList gpu : gpuListAll) {
-            if(gpuDetailsService.findByName(gpu.getGpuName()) != null)
-                continue;
-            String name = gpu.getGpuName().replace(" ", "+");
-            int id = gpu.getGpuId();
-            System.out.println(name + "&id=" + id);
-            String url = "https://www.videocardbenchmark.net/gpu.php?gpu=" + name + "&id=" + id;
-            Document document = Jsoup.connect(url).get();
-
-            String memorySize = "", coreClock = "", memoryClock = "", category = "", tdp = "", otherName = "";
-
-            // 데이터 추출
-            Elements row = document.select("div.desc-body > em > p");
-            for (Element select : row) {
-                String s = select.text();
-                String[] split = s.split(": ");
-                if(split.length == 1)
-                    continue;
-                switch (split[0]) {
-                    case "Max Memory Size":
-                        memorySize = split[1];
-                        break;
-                    case "Core Clock(s)":
-                        coreClock = split[1];
-                        break;
-                    case "Memory Clock(s)":
-                        memoryClock = split[1];
-                        break;
-                    case "Videocard Category":
-                        category = split[1];
-                        break;
-                    case "Max TDP":
-                        tdp = split[1];
-                        break;
-                    case "Other names":
-                        otherName = split[1];
-                        break;
-                }
-            }
-
-            Elements row2 = document.select("div.desc-foot > p");
-            for (Element select : row2) {
-                String s = select.text();
-                String[] split = s.split(": ");
-                if(split.length == 1)
-                    continue;
-                switch (split[0]) {
-                    case "Max Memory Size":
-                        memorySize = split[1];
-                        break;
-                    case "Core Clock(s)":
-                        coreClock = split[1];
-                        break;
-                    case "Memory Clock(s)":
-                        memoryClock = split[1];
-                        break;
-                    case "Videocard Category":
-                        category = split[1];
-                        break;
-                    case "Max TDP":
-                        tdp = split[1];
-                        break;
-                    case "Other names":
-                        otherName = split[1];
-                        break;
-                }
-            }
-
-            // CpuDetails 모델 객체 생성
-            GpuDetails gpuDetails = GpuDetails.builder()
-                    .gpuName(gpu.getGpuName())
-                    .memoryClock(memorySize)
-                    .coreClock(coreClock)
-                    .memorySize(memoryClock)
-                    .category(category)
-                    .tdp(tdp)
-                    .otherName(otherName)
-                    .build();
-            gpuDetailsService.save(gpuDetails);
-        }
-        return "success!!";
-
-    }
+//    @GetMapping("/cpu_info")
+//    public String insertCpuInfoDB() throws IOException {
+//        List<CpuList> cpuListAll = insertCpuList.findAll();
+//        for(CpuList cpu : cpuListAll) {
+//            if(cpuDetailsService.findByName(cpu.getCpuName()) != null)
+//                continue;
+//            String name = cpu.getCpuName().replace(" ", "+");
+//            System.out.println(name);
+//            String url = "https://www.cpubenchmark.net/cpu.php?cpu=" + name;
+//            Document document = Jsoup.connect(url).get();
+//
+//            String classType = "", socket = "", clock = "", turbo = "", tdp = "", cache = "", otherName = "";
+//            int core = 0, str = 0;
+//            // 데이터 추출
+//            Elements row = document.select("div.left-desc-cpu > p");
+//            for (Element select : row) {
+//                String s = select.text();
+//                String[] split = s.split(": ");
+//                if(split.length == 1)
+//                    continue;
+//                switch (split[0]) {
+//                    case "Class":
+//                        classType = split[1];
+//                        break;
+//                    case "Socket":
+//                        socket = split[1];
+//                        break;
+//                    case "Clockspeed":
+//                        clock = split[1];
+//                        break;
+//                    case "Turbo Speed":
+//                        turbo = split[1];
+//                        break;
+//                    case "Cores":
+//                    case "Total Cores":
+//                        core = Integer.parseInt(split[1].split(" ")[0]);
+//                        break;
+//                    case "Typical TDP":
+//                        tdp = split[1];
+//                        break;
+//                    case "Cache Size":
+//                        cache = s.split("Size:")[1].trim();
+//                        break;
+//                    case "Other names":
+//                        otherName = split[1];
+//                        break;
+//                }
+//            }
+//
+//            Elements row2 = document.select("div.desc-foot > p");
+//            for (Element select : row2) {
+//                String s = select.text();
+//                String[] split = s.split(": ");
+//                if(split.length == 1)
+//                    continue;
+//                switch (split[0]) {
+//                    case "Class":
+//                        classType = split[1];
+//                        break;
+//                    case "Socket":
+//                        socket = split[1];
+//                        break;
+//                    case "Clockspeed":
+//                        clock = split[1];
+//                        break;
+//                    case "Turbo Speed":
+//                        turbo = split[1];
+//                        break;
+//                    case "Cores":
+//                    case "Total Cores":
+//                        core = Integer.parseInt(split[1].split(" ")[0]);
+//                        break;
+//                    case "Typical TDP":
+//                        tdp = split[1];
+//                        break;
+//                    case "Cache Size":
+//                        cache = s.split("Size:")[1].trim();
+//                        break;
+//                    case "Other names":
+//                        otherName = split[1];
+//                        break;
+//                }
+//            }
+//
+//            Element row4 = document.select("div.right-desc").first();
+//            str = Integer.parseInt(row4.text().split("Rating: ")[1].split(" Samples:")[0]);
+//
+//            // CpuDetails 모델 객체 생성
+//            CpuDetails cpuDetails = CpuDetails.builder()
+//                    .cpuName(cpu.getCpuName())
+//                    .classType(classType)
+//                    .socket(socket)
+//                    .clock(clock)
+//                    .turbo(turbo)
+//                    .core(core)
+//                    .tdp(tdp)
+//                    .cache(cache)
+//                    .otherName(otherName)
+//                    .str(str)
+//                    .build();
+//            cpuDetailsService.save(cpuDetails);
+//        }
+//        return "success!!";
+//
+//    }
+//
+//    @GetMapping("/gpu_info")
+//    public String insertGpuInfoDB() throws IOException {
+//        List<GpuList> gpuListAll = insertGpuList.findAll();
+//        for(GpuList gpu : gpuListAll) {
+//            if(gpuDetailsService.findByName(gpu.getGpuName()) != null)
+//                continue;
+//            String name = gpu.getGpuName().replace(" ", "+");
+//            int id = gpu.getGpuId();
+//            System.out.println(name + "&id=" + id);
+//            String url = "https://www.videocardbenchmark.net/gpu.php?gpu=" + name + "&id=" + id;
+//            Document document = Jsoup.connect(url).get();
+//
+//            String memorySize = "", coreClock = "", memoryClock = "", category = "", tdp = "", otherName = "";
+//
+//            // 데이터 추출
+//            Elements row = document.select("div.desc-body > em > p");
+//            for (Element select : row) {
+//                String s = select.text();
+//                String[] split = s.split(": ");
+//                if(split.length == 1)
+//                    continue;
+//                switch (split[0]) {
+//                    case "Max Memory Size":
+//                        memorySize = split[1];
+//                        break;
+//                    case "Core Clock(s)":
+//                        coreClock = split[1];
+//                        break;
+//                    case "Memory Clock(s)":
+//                        memoryClock = split[1];
+//                        break;
+//                    case "Videocard Category":
+//                        category = split[1];
+//                        break;
+//                    case "Max TDP":
+//                        tdp = split[1];
+//                        break;
+//                    case "Other names":
+//                        otherName = split[1];
+//                        break;
+//                }
+//            }
+//
+//            Elements row2 = document.select("div.desc-foot > p");
+//            for (Element select : row2) {
+//                String s = select.text();
+//                String[] split = s.split(": ");
+//                if(split.length == 1)
+//                    continue;
+//                switch (split[0]) {
+//                    case "Max Memory Size":
+//                        memorySize = split[1];
+//                        break;
+//                    case "Core Clock(s)":
+//                        coreClock = split[1];
+//                        break;
+//                    case "Memory Clock(s)":
+//                        memoryClock = split[1];
+//                        break;
+//                    case "Videocard Category":
+//                        category = split[1];
+//                        break;
+//                    case "Max TDP":
+//                        tdp = split[1];
+//                        break;
+//                    case "Other names":
+//                        otherName = split[1];
+//                        break;
+//                }
+//            }
+//
+//            // CpuDetails 모델 객체 생성
+//            GpuDetails gpuDetails = GpuDetails.builder()
+//                    .gpuName(gpu.getGpuName())
+//                    .memoryClock(memorySize)
+//                    .coreClock(coreClock)
+//                    .memorySize(memoryClock)
+//                    .category(category)
+//                    .tdp(tdp)
+//                    .otherName(otherName)
+//                    .build();
+//            gpuDetailsService.save(gpuDetails);
+//        }
+//        return "success!!";
+//
+//    }
 
 //    @GetMapping("/game_info")
 //    public void getGameInfo() throws IOException {  //게임 리스트와 id, img 크롤링
