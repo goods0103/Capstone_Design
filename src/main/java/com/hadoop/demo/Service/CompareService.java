@@ -69,10 +69,28 @@ public class CompareService {
             }
         }
 
-        System.out.println("mostSimilar :" + mostSimilar);
+        //System.out.println("mostSimilar :" + mostSimilar);
         //System.out.println("finalCPu :" + cpu1.getCpuName());
         if(flag>0){ mostSimilar = cpu1.getOtherName();}
-            return cpuDetailsService.findByOtherName(mostSimilar);
+
+        List<CpuDetails> filteredCpu = cpuDetailsService.findByOtherName(mostSimilar);
+        List<String> cpu2 = new ArrayList<>();
+        for(CpuDetails c : filteredCpu){
+            cpu2.add(c.getCpuName());
+        }
+
+        String[] cpuArray2 = cpu2.toArray(new String[cpu2.size()]);
+        String mostSimilar2 = "";
+        int maxSimilarity2 = 100;
+
+        for (String findCpuArray : cpuArray2) {
+            int similarity2 = StringUtils.getLevenshteinDistance(findUserCpu, findCpuArray);
+            if (similarity2 < maxSimilarity2) {
+                maxSimilarity2 = similarity2;
+                mostSimilar2 = findCpuArray;
+            }
+        }
+            return cpuDetailsService.findByName(mostSimilar2);
     }
 
     public GpuDetails getMatchingGpu(String ipAddress){
@@ -124,7 +142,25 @@ public class CompareService {
         System.out.println("mostSimilar :" + mostSimilar);
 
         if(flag>0){ mostSimilar = gpu1.getOtherName();}
-        return gpuDetailsService.findByOtherName(mostSimilar);
+
+        List<GpuDetails> filteredGpu = gpuDetailsService.findByOtherName(mostSimilar);
+        List<String> gpu2 = new ArrayList<>();
+        for(GpuDetails g : filteredGpu){
+            gpu2.add(g.getGpuName());
+        }
+
+        String[] gpuArray2 = gpu2.toArray(new String[gpu2.size()]);
+        String mostSimilar2 = "";
+        int maxSimilarity2 = 100;
+
+        for (String findGpuArray : gpuArray2) {
+            int similarity2 = StringUtils.getLevenshteinDistance(findUserGpu, findGpuArray);
+            if (similarity2 < maxSimilarity2) {
+                maxSimilarity2 = similarity2;
+                mostSimilar2 = findGpuArray;
+            }
+        }
+        return gpuDetailsService.findByName(mostSimilar2);
     }
 
 
