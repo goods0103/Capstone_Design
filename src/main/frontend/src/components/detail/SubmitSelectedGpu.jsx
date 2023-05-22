@@ -165,7 +165,13 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
         const fetchData = async () => {
             try {
                 if (selectedGpu) {
-                    const nameResponse = await axios.post('/find_gpu_name', `${selectedGpu.label}`);
+                    const encodedData = encodeURIComponent(selectedGpu.label);
+                    const nameResponse = await axios.post('/find_gpu_name', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setSelectedGpuInfo(nameResponse.data);
                     if (selectedGpuInfo) {
                         changeSelectedGpuInfoToInt(nameResponse.data);
@@ -185,7 +191,13 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
                 }
 
                 if (selectedGpu) {
-                    const detailResponse = await axios.post('/find_gpu_detail_name', `${selectedGpu.label}`);
+                    const encodedData = encodeURIComponent(selectedGpu.label);
+                    const detailResponse = await axios.post('/find_gpu_detail_name', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setSelectedGpuInfoDetail(detailResponse.data);
                     if (selectedGpuInfoDetail) {
                         changeSelectedGpuInfoDetailToInt(detailResponse.data);
