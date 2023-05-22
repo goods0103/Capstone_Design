@@ -69,7 +69,7 @@ function InsertInfoBottleNeck() {
                                 style={{color: "#116B2A"}}>잘 작동합니다</strong>.</p>
                         )}
                         <p>이 구성에서는 {Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
-                    <div className={styles.urlLabel}><Link to={`/InsertCategoryBottleNeck?gpu=${bottleNeck.gpuInfo}&cpu=${bottleNeck.cpuInfo}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>
+                    <div className={styles.urlLabel2}><Link to={`/InsertCategoryBottleNeck?gpu=${bottleNeck.gpuInfo}&cpu=${bottleNeck.cpuInfo}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>
 
                 </div>
                 <div className={styles.CircularChart}>
