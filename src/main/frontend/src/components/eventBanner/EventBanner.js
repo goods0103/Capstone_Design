@@ -28,13 +28,13 @@ export const EventBanner = () => {
 
         <div className={styles.bottom2}>
           <Link to={"/showMySpec"}>
-          <button className={styles.buttonSpec}>
+          <button className={styles.btnHover}>
             <FontAwesomeIcon icon={faFileArrowDown} bounce size="xl" />&emsp;Get My Spec
           </button>
           </Link>
            
           <Link to={"/insertSpec"}>
-          <button className={styles.buttonInsert}>
+          <button className={styles.btnInsertHover}>
              Insert Spec
           </button>
           </Link>

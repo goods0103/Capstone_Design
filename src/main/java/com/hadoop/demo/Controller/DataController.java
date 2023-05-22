@@ -78,11 +78,16 @@ public class DataController {
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
+        String ramList = compareService.getMatchingRam(ipAddress).getRamName();
+        if( ramList == null) {
+            ramList = "Samsung M471A1K43BB1-CTD";
+        }
+
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
                 .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
                 .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
-                .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
+                .selectedRam(ramList)
                 .build();
 
         userInsertInfoService.save(userInsertInfo);
@@ -92,10 +97,9 @@ public class DataController {
     // cpu gpu rank순으로 위아래 50개 보내기
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
-        System.out.println(URLDecoder.decode(cpu, StandardCharsets.UTF_8));
         List<CpuList> cpuList = new ArrayList<>();
-        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
-        int rank = cpuListService.findByName(cpu).getCpuRank();
+        String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
+        int rank = cpuListService.findByName(decodedCpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1468)
@@ -111,9 +115,8 @@ public class DataController {
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
-        System.out.println(gpu);
-        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
-        int rank = gpuListService.findByName(gpu).getGpuRank();
+        String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
+        int rank = gpuListService.findByName(decodedGpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1471)
@@ -206,8 +209,5 @@ public class DataController {
         String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return bottleNeckService.cpuMatchingGpuInfo(decodedString);
     }
-
-
-
 
 }

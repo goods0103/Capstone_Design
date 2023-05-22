@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {
     BarChart,
     Bar,
@@ -12,6 +12,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import {Background} from "victory";
+import styles from "../insertInfo/category.module.css";
 
 // const data = [
 //     { name: 0, pv: 456, pv2: 456 },
@@ -116,8 +117,33 @@ import {Background} from "victory";
 //     { name: '10만', pv: 124 },
 //
 // ];
-
+// const CustomTooltip = (props) => {
+//     const { active, payload, label, chartData } = props;
+//
+//     if (active && payload && payload.length) {
+//         if (payload[0].payload.name - chartData[1].name === 1000) {
+//             const max = payload[0].payload.name + 999;
+//             return (
+//                 <div className={styles.customTooltip}>
+//                     <p> {`Bench Mark : ${payload[0].payload.name} ~ ${max}`}</p>
+//                     <p> {`Count :  ${payload[0].value}EA`}</p>
+//                 </div>
+//             );
+//         } else {
+//             const max = payload[0].payload.name + 399;
+//             return (
+//                 <div className={styles.customTooltip}>
+//                     <p> {`Bench Mark : ${payload[0].payload.name} ~ ${max}`}</p>
+//                     <p> {`Count :  ${payload[0].value}EA`}</p>
+//                 </div>
+//             );
+//         }
+//     }
+//
+//     return null;
+// };
 export default class LineChartDetail extends PureComponent {
+
     static demoUrl = 'https://codesandbox.io/s/bar-chart-with-brush-ghsz3';
 
     render() {
@@ -135,13 +161,13 @@ export default class LineChartDetail extends PureComponent {
                     //     bottom: 5,
                     // }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip contentStyle={{ width: '250px', height: '100px' }}/>
-                    <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-                    <ReferenceLine y={0} stroke="#000" />
-                    <Brush dataKey="name" height={10} stroke="#8884d8" />
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis dataKey="name"/>
+                    <YAxis/>
+                    <Tooltip contentStyle={{width: '250px', height: '100px'}}/>
+                    <Legend verticalAlign="top" wrapperStyle={{lineHeight: '40px'}}/>
+                    <ReferenceLine y={0} stroke="#000"/>
+                    <Brush dataKey="name" height={10} stroke="#8884d8"/>
                     <Bar dataKey="benchMark" fill="#8884d8" shape={(props) => (
                         <rect
                             {...props}

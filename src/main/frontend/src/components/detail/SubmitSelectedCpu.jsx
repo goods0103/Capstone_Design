@@ -165,7 +165,13 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
         const fetchData = async () => {
             try {
                 if (selectedCpu) {
-                    const nameResponse = await axios.post('/find_cpu_name', `${selectedCpu.label}`);
+                    const encodedData = encodeURIComponent(selectedCpu.label);
+                    const nameResponse = await axios.post('/find_cpu_name', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setSelectedCpuInfo(nameResponse.data);
                     if (selectedCpuInfo) {
                         changeSelectedCpuInfoToInt(nameResponse.data);
@@ -185,7 +191,13 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
                 }
 
                 if (selectedCpu) {
-                    const detailResponse = await axios.post('/find_cpu_detail_name', `${selectedCpu.label}`);
+                    const encodedData = encodeURIComponent(selectedCpu.label);
+                    const detailResponse = await axios.post('/find_cpu_detail_name', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setSelectedCpuInfoDetail(detailResponse.data);
                     if (selectedCpuInfoDetail) {
                         changeSelectedCpuInfoDetailToInt(detailResponse.data);
@@ -349,7 +361,7 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
                         Detail
                     </div>
                     <div className={`${styles.infoNameFrame} ${styles.animationDetailInfo}`}>
-                        <span style={{marginRight: '-6%', marginLeft: '6%'}}>
+                        <span style={{marginLeft: '6%', width: '40%', marginRight: '-15%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Class type : {cpuInfo2.classType}
                             </div>
@@ -375,7 +387,7 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
                                 Single Thread Rating : {cpuInfo2.str}
                             </div>
                         </span>
-                        <span>
+                        <span style={{width: '40%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Class type : {selectedCpuInfoDetail.classType}
                             </div>
