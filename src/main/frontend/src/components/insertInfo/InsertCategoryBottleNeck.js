@@ -44,8 +44,8 @@ function InsertCategoryBottleNeck() {
             .then(response => {
                 setBottleNeck(response.data);
                 const newData = [
-                    {type: 'CPU', name: response.data.cpuInfo, bottleneck: response.data.cpuBottleNeckValue},
                     {type: 'GPU', name: response.data.gpuInfo, bottleneck: response.data.gpuBottleNeckValue},
+                    {type: 'CPU', name: response.data.cpuInfo, bottleneck: response.data.cpuBottleNeckValue},
                 ];
                 setData(newData);
                 if (response.data.cpuBottleNeckValue > response.data.gpuBottleNeckValue) {

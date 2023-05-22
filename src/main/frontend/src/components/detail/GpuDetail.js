@@ -227,7 +227,7 @@ function GpuDetail() {
                                 </tr>
                                 </thead>
                                 {gpuValue.map((gpu, index) => (
-                                    gpu.gpuId === lastPart ? (
+                                    gpu.gpuId === parseInt(lastPart, 10) ? (
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -276,7 +276,7 @@ function GpuDetail() {
                             </tr>
                             </thead>
                             {gpuPopular.map((gpu, index) => (
-                                gpu.gpuId === lastPart  &&(
+                                gpu.gpuId === parseInt(lastPart, 10) ? (
                                     <thead>
                                     <tr>
                                         <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -288,9 +288,7 @@ function GpuDetail() {
                                         </td>
                                     </tr>
                                     </thead>
-                                )))}
-                            {gpuPopular.map((gpu, index) => (
-                                gpu.gpuId !== lastPart  &&(
+                                ) : (
                                     <thead>
                                     <tr>
                                         <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -302,7 +300,8 @@ function GpuDetail() {
                                         </td>
                                     </tr>
                                     </thead>
-                                )))}
+                                )
+                            ))}
                         </Table>
                     </div>
                 </div>

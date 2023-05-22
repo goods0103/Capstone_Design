@@ -15,10 +15,15 @@ function MyCategoryGpu() {
 
     useEffect(() => {
         if (data2) {
+            const encodedData = encodeURIComponent(data2);
             const fetchData = async () => {
-                console.log(data2);
                 try {
-                    const response = await axios.post('/myGpuRanking', `${data2}`);
+                    const response = await axios.post('/myGpuRanking', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setGpuList(response.data);
                 } catch (error) {
                     console.log(error);
