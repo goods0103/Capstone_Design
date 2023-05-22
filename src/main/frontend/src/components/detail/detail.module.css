@@ -5,6 +5,18 @@
     padding-bottom: 100px;
 }
 
+.gameFrame {
+    width: 1140px;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 100px;
+    display: flex;
+}
+.pDetail {
+    margin-bottom: 2px;
+}
+
+
 .selectTag {
     width: 30%;
     height: 20%;
@@ -516,7 +528,7 @@ span + span {
     content: "";
     position: absolute;
     top: 90px;
-    bottom: 60%;
+    height: 300px;
     opacity: .15;
     background-image: url('../../../../resources/static/images/game-Image.jpg');
     background-repeat: repeat-x;
@@ -529,7 +541,7 @@ span + span {
     content: "";
     position: absolute;
     top: 90px;
-    bottom: 60%;
+    height: 300px;
     left: 0;
     right: 0;
     background-color: #4e54c8!important; /* 배경 색상 설정 */
@@ -537,11 +549,10 @@ span + span {
 }
 
 .Title{
-    position: absolute;
-    width: 80%;
+    width: 1140px;
     height: 60px;
-    left:10%;
-    top: calc(27px + 30%);
+    margin: 0 auto;
+    margin-top: 240px;
 
     background: #FFFFFF;
     border-radius: 10px 10px 0 0;
@@ -556,14 +567,12 @@ span + span {
     display: inline-block;
 }
 .gameInfo{
-    position: absolute;
-    width: 50%;
-    left: 10%;
-    top: 50%;
+    width: 60%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    margin-top: 60px;
 }
 
 .gameInfo span{
@@ -576,10 +585,12 @@ span + span {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
 }
 .checkImg{
-    width:25%;
-    margin-left:1%
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 20%;
 }
 .xImg{
     width:20%;
@@ -587,6 +598,7 @@ span + span {
 
 .gameImg{
     width:50%;
+    margin-right: 2%;
 }
 
 .topGame{
@@ -596,6 +608,7 @@ span + span {
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    padding-left: 10px;
 }
 
 .topGame span{
@@ -605,10 +618,9 @@ span + span {
     justify-content: center;
 }
 .gameDetailList{
-    position : absolute;
-    left:65%;
-    top :50%;
-    width : 25%;
+    width : 40%;
+    margin-left: 100px;
+    margin-top: 60px;
 }
 
 
@@ -618,6 +630,7 @@ span + span {
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    padding-left: 10px;
 }
 
 

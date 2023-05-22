@@ -100,24 +100,24 @@ function InsertCategoryBottleNeck() {
 
     return (
         <>
-            <div>
+            <div className={styles.bigFrame}>
                 <div className={styles.bottleNeckResult}>
-                    <div>
+                    <div className={styles.bottleNeckResultDiv}>
                         <p className={styles.bottleNeckTitle}>CALCULATOR RESULT</p>
                         {bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue > 5 && (
-                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 {bottleNeck.gpuInfo}에 비해 <strong
+                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 {bottleNeck.gpuInfo}에 비해 <br/><strong
                                 style={{color: "red"}}>약합니다</strong>.</p>
                         )}
                         {bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue > 5 && (
-                            <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 {bottleNeck.cpuInfo}에 비해 <strong
+                            <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 {bottleNeck.cpuInfo}에 비해 <br/><strong
                                 style={{color: "red"}}>약합니다</strong>.</p>
                         )}
                         {Math.abs(bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue) <= 5 && (
-                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo} 및 {bottleNeck.gpuInfo}는 <strong
+                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo} 및 {bottleNeck.gpuInfo}는 <br/><strong
                                 style={{color: "#116B2A"}}>잘 작동합니다</strong>.</p>
                         )}
-                        <p style={{marginBottom: 0}}>이
-                            구성에서는 <strong
+                        <p style={{marginBottom: 0}}>
+                            이 구성에서는 <strong
                                 style={{color: "#116B2A"}}>{Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}%</strong>의 프로세스 병목
                             현상이 있습니다.</p>
                         <p>5% 미만의 병목 현상은 고려하지 않아도 됩니다.</p>
@@ -153,16 +153,17 @@ function InsertCategoryBottleNeck() {
                     {bottleNeck.cpuBottleNeckValue < bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
                         <div className={styles.bottleNeckTable}>
                             <p className={styles.title}>Solution</p>
-                            <p>프로세서를 다운그레이드하거나 그래픽 카드를 업그레이드하여 이 문제를 해결할 수 있습니다.<br/>
-                                프로세서를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 프로세서를 컴퓨터에 그대로 두는 것이 좋습니다.</p>
+                            <p className={styles.semiTitle}>프로세서를 다운그레이드하거나 그래픽 카드를 업그레이드하여 이 문제를 해결할 수 있습니다.<br/>
+                                프로세서를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 프로세서를 컴퓨터에 그대로 두는 것이 좋습니다.<br/>
+                                다음은 {bottleNeck.cpuInfo}와 5%미만의 병목률을 보여주는 GPU 중 인기있는 제품들입니다</p>
                             <hr/>
                             <div className="table-container">
                                 <table className={styles.table}>
                                     <tr>
                                         <td className={styles.tableTd}>
-                                            <strong>&emsp;추천 gpu</strong>
+                                            <strong>추천 GPU</strong>
                                         </td>
-                                        <td>
+                                        <td className={styles.tableTd2}>
                                             <strong>병목률</strong>
                                         </td>
                                     </tr>
@@ -171,7 +172,7 @@ function InsertCategoryBottleNeck() {
                                             <td className={styles.tableTd}>
                                                 {gpu.gpuInfo}
                                             </td>
-                                            <td>
+                                            <td className={styles.tableTd2}>
                                                 {Math.abs(gpu.cpuBottleNeckValue - gpu.gpuBottleNeckValue)}%
                                             </td>
                                         </tr>
@@ -184,16 +185,17 @@ function InsertCategoryBottleNeck() {
                     {bottleNeck.cpuBottleNeckValue > bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
                         <div className={styles.bottleNeckTable}>
                             <p className={styles.title}>Solution</p>
-                            <p>프로세서를 업그레이드하거나 그래픽 카드를 다운그레이드하여 이 문제를 해결할 수 있습니다.<br/>
-                                그래픽 카드를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 그래픽 카드를 컴퓨터에 그대로 두는 것이 좋습니다.</p>
+                            <p className={styles.semiTitle}>프로세서를 업그레이드하거나 그래픽 카드를 다운그레이드하여 이 문제를 해결할 수 있습니다.<br/>
+                                그래픽 카드를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 그래픽 카드를 컴퓨터에 그대로 두는 것이 좋습니다.<br/>
+                                다음은 {bottleNeck.gpuInfo}와 5%미만의 병목률을 보여주는 CPU 중 인기있는 제품들입니다</p>
                             <hr/>
                             <div className="table-container">
                         <table className={styles.table}>
                             <tr>
                                 <td className={styles.tableTd}>
-                                    <strong>&emsp;추천 cpu</strong>
+                                    <strong>&emsp;추천 CPU</strong>
                                 </td>
-                                <td className={styles.tableTd}>
+                                <td className={styles.tableTd2}>
                                     <strong>병목률</strong>
                                 </td>
                             </tr>
@@ -202,7 +204,7 @@ function InsertCategoryBottleNeck() {
                                     <td className={styles.tableTd}>
                                         {cpu.cpuInfo}
                                     </td>
-                                    <td>
+                                    <td className={styles.tableTd2}>
                                         {Math.abs(cpu.cpuBottleNeckValue - cpu.gpuBottleNeckValue)}%
                                     </td>
                                 </tr>

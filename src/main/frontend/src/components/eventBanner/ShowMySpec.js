@@ -54,15 +54,13 @@ function ShowMySpec() {
             &emsp;{waring}
             </p>
             <div className={styles.showMySpec}>
-                <button className={styles.buttonHover} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; Download</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-
-              
+                <button className={styles.buttonHover} onClick={downloadFile}><FontAwesomeIcon icon={faDownload} bounce size="xl" style={{color: "#b8f7ff",}} />&emsp; Download</button>
             
-            {data.map((item, index) => (
-                <div key={index} onClick={handleClick}>
-                      <Link to="/MySpec"><button className={styles.link}>ShowMySpec</button></Link>
-                </div>
-                ))}
+                {data.map((item, index) => (
+                    <div key={index} onClick={handleClick}>
+                        <Link to="/MySpec"><button className={styles.link}>ShowMySpec</button></Link>
+                    </div>
+                    ))}
             </div>
                 {flag && (
             <div className={styles.arrow}>Click!</div>

@@ -77,11 +77,16 @@ public class DataController {
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
+        String ramList = compareService.getMatchingRam(ipAddress).getRamName();
+        if( ramList == null) {
+            ramList = "Samsung M471A1K43BB1-CTD";
+        }
+
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
                 .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
                 .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
-                .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
+                .selectedRam(ramList)
                 .build();
 
         userInsertInfoService.save(userInsertInfo);
@@ -205,8 +210,5 @@ public class DataController {
         String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
         return bottleNeckService.cpuMatchingGpuInfo(decodedString);
     }
-
-
-
 
 }

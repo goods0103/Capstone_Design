@@ -48,7 +48,7 @@ function CategoryBottleNeck() {
         <>
             {/*<CategoryBar></CategoryBar>*/}
             <form onSubmit={handleSubmit} className={styles.bottleNeckFormTag}>
-                <h2 className={styles.animationLabel}>BottleNeck</h2>
+                <h2 className={styles.animationLabel}>BOTTLENECK</h2>
                 <hr className={styles.hrStyle}/>
                 <br/><br/>
                 <div className={styles.animationCpu}>
@@ -124,7 +124,7 @@ function CategoryBottleNeck() {
                     {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
-                <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.buttonSubmit}>Submit</button></Link>
+                <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.btnSubmitHover}>Result</button></Link>
             </form>
         </>
     );
