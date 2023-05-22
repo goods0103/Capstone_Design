@@ -79,11 +79,8 @@
 }
 
 .tableImgGpu {
-    width:100px;
-    height:60px;
-
-    background-color: #4d5154 !important;
-    border-radius: 10px;
+    height: 30px;
+    width: auto;
 }
 
 /*------cpuDetail-----*/
@@ -259,8 +256,21 @@ ul {
     padding: 10px;
     vertical-align: middle;
     /*background-color: #008080 !important;*/
-    color: #1EDDFF !important;
+    color: #46da81 !important;
     font-size: 1.5rem;
+    font-weight: bold;
+}
+.pointMySpecGpu {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #46da81 !important;
+    font-size: 1.5rem;
+}
+.pointMySpecGpuTd {
+    width: 200px;
+    background-color: #4d5154!important;
 }
 
 .lineChartDetail {

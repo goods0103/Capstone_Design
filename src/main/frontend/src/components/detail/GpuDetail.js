@@ -230,10 +230,10 @@ function GpuDetail() {
                                     gpu.gpuId === parseInt(lastPart, 10) ? (
                                         <tbody>
                                         <tr>
-                                            <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                            <td className={styles.pointMySpec}>{gpu.gpuName}</td>
-                                            <td className={styles.pointMySpec}>{gpu.gpuMark}</td>
-                                            <td className={styles.pointMySpec}>{gpu.gpuValue}</td>
+                                            <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
+                                            <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                            <td className={styles.pointMySpecGpu}>{gpu.gpuMark}</td>
+                                            <td className={styles.pointMySpecGpu}>{gpu.gpuValue}</td>
                                             <td>
                                                 {returnMarkProgressBar(percentagesMark[index])}
                                             </td>
@@ -242,7 +242,7 @@ function GpuDetail() {
                                     ) : (
                                         <tbody>
                                         <tr>
-                                            <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
+                                            <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                             <td>{gpu.gpuName}</td>
                                             <td>{gpu.gpuMark}</td>
                                             <td>{gpu.gpuValue}</td>
@@ -279,10 +279,10 @@ function GpuDetail() {
                                 gpu.gpuId === parseInt(lastPart, 10) ? (
                                     <thead>
                                     <tr>
-                                        <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                        <td className={styles.pointMySpec}>{gpu.gpuName}</td>
-                                        <td className={styles.pointMySpec}>{gpu.gpuRank}</td>
-                                        <td className={styles.pointMySpec}>{convertPrice(gpu.gpuPrice)}</td>
+                                        <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
+                                        <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                        <td className={styles.pointMySpecGpu}>{gpu.gpuRank}</td>
+                                        <td className={styles.pointMySpecGpu}>{convertPrice(gpu.gpuPrice)}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
@@ -291,7 +291,7 @@ function GpuDetail() {
                                 ) : (
                                     <thead>
                                     <tr>
-                                        <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
+                                        <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
                                         <td>{gpu.gpuName}</td>
                                         <td>{gpu.gpuRank}</td>
                                         <td>{convertPrice(gpu.gpuPrice)}</td>
