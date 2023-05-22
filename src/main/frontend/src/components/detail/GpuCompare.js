@@ -87,6 +87,7 @@ function GpuCompare() {
 
     return(
         <>
+        <div className={styles.bigFrame}>
             <div className={styles.selectContainer}>
                 <label className={styles.selectSpecLabel}>{gpuInfo.gpuName}</label>
                 {/*<label className={styles.selectSpecLabel}>{"cpu 5600X"}</label>*/}
@@ -122,7 +123,7 @@ function GpuCompare() {
                                 }),
                             }}
                         />
-                        <button type="submit" onClick={handleClick} className={styles.buttonCompare}>비교하기&emsp;<FontAwesomeIcon icon={faRotate} spin size="xl" /></button>
+                        <button type="submit" onClick={handleClick} className={styles.customBtn}><span>비교하기&emsp;<FontAwesomeIcon icon={faRotate} spin size="xl" /></span></button>
                     </div>
                 </form>
             </div>
@@ -152,6 +153,7 @@ function GpuCompare() {
                                    gpuInfo={gpuInfo}
                                    gpuInfo2={gpuInfo2}/>
             }
+        </div>
         </>
     );
 }

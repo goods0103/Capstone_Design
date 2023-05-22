@@ -205,6 +205,27 @@ th {
 /*------ShowInsertInfo.jsx-------*/
 
 .urlLabel {
+    /* 더 알아보기 > /
+
+    /position: absolute;/
+    /width: 161px;/
+    /height: 32px;/
+    /left: 470px;/
+    /top: 557px;*/
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    color: #0046CF;
+}
+
+.urlLabel2 {
     /* 더 알아보기 > */
 
     font-family: 'Inter';
@@ -213,7 +234,7 @@ th {
     font-size: 20px;
     line-height: 22px;
     text-align: center;
-    margin-top: 120px;
+    margin-top: 80px;
 
     color: #0046CF;
 }

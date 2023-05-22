@@ -317,24 +317,24 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
         <>
             <div className={styles.detailCompareContainer}>
                 <div className={styles.infoNameFrame}>
-                    <span>
-                        <div style={{textAlign : 'center'}}>
+                    <span style={{textAlign : 'center'}}>
+                        <div style={{width: '250px', height: '150px', alignItems: 'center', display: 'flex'}}>
                             <img
                                 className={`${styles.image} ${styles.animationImgWithLabel1}`}
                                 src={gpuInfo.gpuUrl}
-                                alt="gpu_image"
+                                alt="gpu_image" style={{width: '250px', height: 'auto'}}
                             />
                         </div>
                         <div className={`${styles.infoNameLabel} ${styles.animationImgWithLabel1}`}>
                             {gpuInfo.gpuName}
                         </div>
                     </span>
-                    <span>
-                        <div style={{textAlign : 'center'}}>
+                    <span style={{textAlign : 'center'}}>
+                        <div style={{width: '250px', height: '150px', alignItems: 'center', display: 'flex'}}>
                             <img
                                 className={`${styles.image} ${styles.animationImgWithLabel2}`}
                                 src={selectedGpuInfo.gpuUrl}
-                                alt="gpu_image"
+                                alt="gpu_image" style={{width: '250px', height: 'auto'}}
                             />
                         </div>
                         <div className={`${styles.infoNameLabel} ${styles.animationImgWithLabel2}`}>
@@ -349,7 +349,7 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
                         Detail
                     </div>
                     <div className={`${styles.infoNameFrame} ${styles.animationDetailInfo}`}>
-                        <span style={{marginRight: '-6%', marginLeft: '6%'}}>
+                        <span style={{marginLeft: '6%', width: '40%', marginRight: '-15%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Memory Size : {gpuInfo2.memorySize}
                             </div>
@@ -366,7 +366,7 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
                                 Tdp : {gpuInfo2.tdp}
                             </div>
                         </span>
-                        <span>
+                        <span style={{width: '40%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Memory Size : {selectedGpuInfoDetail.memorySize}
                             </div>
