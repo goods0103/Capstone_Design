@@ -20,7 +20,7 @@ function InsertCategoryBottleNeck() {
     const [data, setData] = useState([]);
     const [name, setName] = useState("");
     const [otherName, setOtherName] = useState("");
-    const [flag, setFlag] = useState(true);
+    const [flag, setFlag] = useState(1);
     const [bottleNeckCpu, setBottleNeckCpu] = useState([]);
     const [bottleNeckGpu, setBottleNeckGpu] = useState([]);
     const [allBottleNeck, setAllBottleNeck] = useState([]);
@@ -52,7 +52,7 @@ function InsertCategoryBottleNeck() {
                     console.log("cpu 100");
                     setName(response.data.cpuInfo);
                     setOtherName(response.data.gpuInfo);
-                    setFlag(false);
+                    setFlag(2);
                     axios.post("/recommendGpu", response.data.gpuInfo)
                         .then(response => {
                             setBottleNeckCpu(response.data);
@@ -91,6 +91,7 @@ function InsertCategoryBottleNeck() {
                         });
                 } else {
                     console.log("same");
+                    setFlag(3);
                 }
             })
             .catch(error => {
@@ -213,21 +214,22 @@ function InsertCategoryBottleNeck() {
                             </div>
                         </div>
                     }
-                {flag ? (
-                        <div className={styles.lineChart}>
-                            <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 그래픽카드</p>
-                            <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 프로세서의 병목 현상 계산에서 그래픽카드 벤치
-                                마크 점수에 대한 의존성을 보여줍니다. </p>
-                            <ChartLine data={allBottleNeck} name={name}/>
-                        </div>
-                    ) :
+
+                {flag === 1 && (
                     <div className={styles.lineChart}>
-                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 프로세서</p>
-                        <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 그래픽 카드의 병목 현상 계산에서 프로세서 벤치
-                            마크 점수에 대한 의존성을 보여줍니다.</p>
+                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 그래픽카드</p>
+                        <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 프로세서의 병목 현상 계산에서 그래픽카드 벤치 마크 점수에 대한 의존성을 보여줍니다.</p>
                         <ChartLine data={allBottleNeck} name={name}/>
                     </div>
-                }
+                )}
+
+                {flag === 2 && (
+                    <div className={styles.lineChart}>
+                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 프로세서</p>
+                        <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 그래픽 카드의 병목 현상 계산에서 프로세서 벤치 마크 점수에 대한 의존성을 보여줍니다.</p>
+                        <ChartLine data={allBottleNeck} name={name}/>
+                    </div>
+                )}
             </div>
         </>
     );
