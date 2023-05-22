@@ -5,7 +5,13 @@ import CategoryBar from "./CategoryBar";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {faList, faMagnifyingGlass, faSquareCaretLeft, faSquareCaretRight} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCircleChevronLeft, faCircleChevronRight,
+    faList,
+    faMagnifyingGlass,
+    faSquareCaretLeft,
+    faSquareCaretRight
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Table from "react-bootstrap/Table";
 
@@ -16,26 +22,24 @@ function CategoryGame() {
     });
     const [gameList, setGameList] = useState([]);
     const [gameOption, setGameOption] = useState([]); // cpu 에 대한 배열
-    const [minimumList, setMinimumList] = useState([]);
-    const [recommendedList, setRecommendedList] = useState([]);
+
+
 
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(100);
     const [flag, setFlag] = useState(true);
     const [game, setGame] = useState({});
-    const handlePageClick = ({ selected }) => {
-        setCurrentPage(selected);
-    };
+    // 필터 선택여부를 위한 useState
+    const [selectedFilter, setSelectedFilter] = useState("none");
+    //검색을 위한 useState
+    const [searchValue, setSearchValue] = useState("");
 
-    const slicedData = gameList.slice(
-        currentPage * itemsPerPage,
-        (currentPage + 1) * itemsPerPage
-    );
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/category/game2');
+                setGameList(response.data); // 게임 이름과 이미지 출력하기 위해
                 const cpus = response.data.map(cpus => ({
                     value: cpus.gameName,
                     label: cpus.gameName
@@ -50,19 +54,21 @@ function CategoryGame() {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const fetchMinimumList = async () => {
-            try {
-                const response = await axios.get('/compare');
-                // setMinimumList(response.data);
-                setGameList(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
 
-        fetchMinimumList();
-    }, []);
+
+    // useEffect(() => {
+    //     const fetchMinimumList = async () => {
+    //         try {
+    //             const response = await axios.get('/compare');
+    //             // setMinimumList(response.data);
+    //             setGameList(response.data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //
+    //     fetchMinimumList();
+    // }, []);
 
     // useEffect(() => {
     //     axios.get('/compare2')
@@ -74,6 +80,14 @@ function CategoryGame() {
     //         });
     // }, []);
 
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const slicedData = gameList.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
 
     function handleGameChange(selectedGame) {
         setSelectedGame(selectedGame);
@@ -84,91 +98,98 @@ function CategoryGame() {
 
     const searchGame = (game) => {
         setFlag(false);
-        {gameList.map((list) => {
-            if(list.gameName === game.value){
-                setGame(list);
-            }
-        })
-        }
     }
     const showTotalList = () => {
         setFlag(true);
+        setSearchValue("");
     }
+
+    const filteredProducts = gameOption.filter((product) =>
+        product.value.toLowerCase().includes(searchValue.toLowerCase())
+    );
     return (
         <>
             {/*<CategoryBar></CategoryBar>*/}
-            <div>
+            <div className={styles.bigFrame}>
                 <form onSubmit={handleSubmit} className={styles.formTag}>
-                    <label>원하는 Game을 입력하세요 : </label> <br/>
-                    <Select
-                        value={selectedGame}
-                        onChange={handleGameChange}
-                        options={gameOption}
-                        placeholder="Choose an option"
-                        isSearchable={true}
-                        className={styles.selectTag}
+                    <p onClick={() => searchGame(selectedGame)} className={styles.buttonSearch}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} size="2xl" style={{color: "#ffffff",backgroundColor:"#151515"}} /></p> &emsp;
+                    <input
+                        className={styles.input}
+                        type="text"
+                        placeholder="원하는 GAME을 입력해주세요."
+                        value={searchValue}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                searchGame(selectedGame);
+                            }
+                        }}
                     />
-                    {/*<label htmlFor="gameSelect">Selected Game : &nbsp;</label>*/}
-                    {/*<input name = "gameSelect" className={styles.selectTagShow} value={selectedGame ? selectedGame.label : ''} />*/}
-                    <button onClick={() => searchGame(selectedGame)} className={styles.buttonSearch}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} beat size="2xl" style={{color: "#ffffff",}} /></button>  &emsp;
-                    <button onClick={() => showTotalList()} className={styles.buttonTotalList}><FontAwesomeIcon icon={faList} size="2xl" style={{color: "#ffffff",}} /></button>
-                    <br/><br/><br/>
+                    {/*<button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>*/}
                 </form>
                 {flag ? (
-                    <div className={styles.cssTable}>
-                        <Table striped bordered hover variant="dark">
-                            <thead>
-                                <tr>
-                                    <th className={styles.cssTh}>game_image</th>
-                                    <th className={styles.cssTh}>game_name</th>
-                                    <th className={styles.cssTh}>game_min</th>
-                                    <th className={styles.cssTh}>game_rec</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {slicedData.map((game) => {
-                                    return (
-                                        <tr data-game-name={game.gameName}>
-                                            <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                                            <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
-                                            <td>{game.minState}</td>
-                                            <td>{game.recState}</td>
-
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </Table>
+                    // <div className={styles.cssTable}>
+                    //     <Table striped bordered hover variant="dark">
+                    //         <thead>
+                    //             <tr>
+                    //                 <th className={styles.cssTh}>game_image</th>
+                    //                 <th className={styles.cssTh}>game_name</th>
+                    //                 <th className={styles.cssTh}>game_min</th>
+                    //                 <th className={styles.cssTh}>game_rec</th>
+                    //             </tr>
+                    //         </thead>
+                    //         <tbody>
+                    //             {slicedData.map((game) => {
+                    //                 return (
+                    //                     <tr data-game-name={game.gameName}>
+                    //                         <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
+                    //                         <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
+                    //                         <td>{game.minState}</td>
+                    //                         <td>{game.recState}</td>
+                    //
+                    //                     </tr>
+                    //                 );
+                    //             })}
+                    //         </tbody>
+                    //     </Table>
+                    // </div>
+                        <div className={styles.cssTableGame}>
+                            {slicedData.map((game) => {
+                                return (
+                                    <div className={styles.cssTableCell}>
+                                        <Link to={`/GameSpec/${game.gameName}`}><img src={game.gameImg} alt="game_image" /></Link>
+                                        <div className={styles.cssTableCaption}>
+                                            {game.gameName}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                    <div className={styles.cssTableGame}>
+                        {gameList.map((game) => (
+                            filteredProducts.map((product) => (
+                                game.gameName === product.value && (
+                                    <div className={styles.cssTableCell}>
+                                        <Link to={`/GameSpec/${game.gameName}`}><img src={game.gameImg} className={styles.gameImage} alt="game_image" /></Link>
+                                        <div className={styles.cssTableCaption}>
+                                            {game.gameName}
+                                        </div>
+                                    </div>
+                                )
+                            ))
+                        ))}
                     </div>
-                    ) :
-                    <div className={styles.cssTable}>
-                        <Table striped bordered hover variant="dark">
-                            <thead>
-                                <tr>
-                                    <th className={styles.cssTh}>game_image</th>
-                                    <th className={styles.cssTh}>game_name</th>
-                                    <th className={styles.cssTh}>game</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                                    <td><Link to={`/GameSpec/${game.gameId}`}>{game.gameName}</Link></td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                }
-            </div>
+                    )}
             <div className={styles.page}>
                 {flag &&
                     <ReactPaginate
                         previousLabel={<span className={styles.paginationIconLeft}>
-                                    <FontAwesomeIcon icon={faSquareCaretLeft} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronLeft} shake size="2xl" style={{color: "#1f71ff",}} />
                                 </span>}
                         nextLabel={<span className={styles.paginationIconRight}>
-                                    <FontAwesomeIcon icon={faSquareCaretRight} beat size="2xl" />
+                                    <FontAwesomeIcon icon={faCircleChevronRight} shake size="2xl" style={{color: "#1f71ff",}} />
                             </span>}
                         pageCount={Math.ceil(gameList.length / itemsPerPage)}
                         onPageChange={handlePageClick}
@@ -178,6 +199,7 @@ function CategoryGame() {
                         pageLinkClassName={"page-link spaced"}
                     />
                 }
+            </div>
             </div>
         </>
     );

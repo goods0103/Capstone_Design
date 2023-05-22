@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useLocation} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {buildStyles, CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./category.module.css"
 import CategoryBar from "../category/CategoryBar";
+import ChartBar from "./ChartBar";
+import ChartLine from "./ChartLine";
+
 
 function InsertCategoryBottleNeck() {
     const [bottleNeck, setBottleNeck] = useState([]);
@@ -15,44 +18,80 @@ function InsertCategoryBottleNeck() {
     const gpu = searchParams.get('gpu');
     const cpu = searchParams.get('cpu');
     const [data, setData] = useState([]);
+    const [name, setName] = useState("");
+    const [otherName, setOtherName] = useState("");
+    const [flag, setFlag] = useState(1);
     const [bottleNeckCpu, setBottleNeckCpu] = useState([]);
     const [bottleNeckGpu, setBottleNeckGpu] = useState([]);
+    const [allBottleNeck, setAllBottleNeck] = useState([]);
     const postData = {
         cpuName: cpu,
         gpuName: gpu
     };
 
     useEffect(() => {
+        document.body.style.backgroundColor = '#F0F6F8';
+        document.body.style.color = "black";
+        return () => {
+            document.body.style.backgroundColor = '#151515';
+            document.body.style.color = "white";
+        };
+    }, []);
+
+
+    useEffect(() => {
         axios.post("/selectedBottleNeck", postData)
             .then(response => {
                 setBottleNeck(response.data);
                 const newData = [
-                    { name: response.data.cpuInfo, bottleneck: response.data.cpuBottleNeckValue },
-                    { name: response.data.gpuInfo, bottleneck: response.data.gpuBottleNeckValue },
+                    {type: 'GPU', name: response.data.gpuInfo, bottleneck: response.data.gpuBottleNeckValue},
+                    {type: 'CPU', name: response.data.cpuInfo, bottleneck: response.data.cpuBottleNeckValue},
                 ];
                 setData(newData);
-                if (response.data.cpuBottleNeckValue >  response.data.gpuBottleNeckValue){
+                if (response.data.cpuBottleNeckValue > response.data.gpuBottleNeckValue) {
                     console.log("cpu 100");
-                        axios.post("/recommendCpu",  response.data.cpuInfo )
-                            .then(response => {
-                                console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
-                                setBottleNeckGpu(response.data);
-                            })
-                            .catch(error => {
-                                console.log(error);
-                            });
-                } else if (response.data.cpuBottleNeckValue <  response.data.gpuBottleNeckValue) {
-                    console.log("gpu 100");
-                    axios.post("/recommendGpu",  response.data.gpuInfo )
+                    setName(response.data.cpuInfo);
+                    setOtherName(response.data.gpuInfo);
+                    setFlag(2);
+                    axios.post("/recommendGpu", response.data.gpuInfo)
                         .then(response => {
-                            setBottleNeckCpu(response.data)
+                            setBottleNeckCpu(response.data);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+
+                    axios.post("/bottleneck_info", response.data.gpuInfo)
+                        .then(response => {
                             console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                            setAllBottleNeck(response.data);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                } else if (response.data.cpuBottleNeckValue < response.data.gpuBottleNeckValue) {
+                    console.log("gpu 100");
+                    setName(response.data.gpuInfo);
+                    setOtherName(response.data.cpuInfo);
+                    axios.post("/recommendCpu", response.data.cpuInfo)
+                        .then(response => {
+                            setBottleNeckGpu(response.data)
+                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                    axios.post("/bottleneck_info2", response.data.cpuInfo)
+                        .then(response => {
+                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                            setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                 } else {
                     console.log("same");
+                    setFlag(3);
                 }
             })
             .catch(error => {
@@ -60,85 +99,137 @@ function InsertCategoryBottleNeck() {
             });
     }, []);
 
-    return(
+    return (
         <>
-            <CategoryBar></CategoryBar>
-            <div className={styles.Chart}>
-            <div className={styles.barChart}>
-                <p> 프로세서 {bottleNeck.cpuInfo}가 {bottleNeck.cpuBottleNeckValue}% 활용되고 그래픽 카드 {bottleNeck.gpuInfo}가 {bottleNeck.gpuBottleNeckValue}% 활용됩니다. </p>
-              <BarChart width={500} height={700} data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="bottleneck" fill="#8884d8" />
-            </BarChart>
-            </div>
-            <div className={styles.CircularChart}>
-                <CircularProgressbar value={Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)} text={`${Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%`} />
-                <p>{Math.abs(bottleNeck.cpuBottleNeckValue-bottleNeck.gpuBottleNeckValue)}%의 병목 현상이 있습니다.</p>
-            </div>
-                <div>
-                        {bottleNeck.cpuBottleNeckValue > bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
-                            <table>
-                                <tr>
-                                    cpu를 100% 활용하기 위해선 그래픽카드를 업그레이드를 해야합니다
-                                </tr>
-                                <tr>
-                                    <td>
-                                        추천 gpu
-                                    </td>
-                                    <td>
-                                        병목 현상 퍼센트
-                                    </td>
-                                </tr>
-                                {(bottleNeckGpu.map((gpu)=> (
-                                <tr>
-                                    <td>
-                                        {gpu.gpuInfo}
-                                    </td>
-                                    <td>
-                                        {Math.abs(gpu.cpuBottleNeckValue-gpu.gpuBottleNeckValue)}%
-                                    </td>
-                                </tr>
-                                )))}
-                            </table>
-                            }
+            <div className={styles.bigFrame}>
+                <div className={styles.bottleNeckResult}>
+                    <div className={styles.bottleNeckResultDiv}>
+                        <p className={styles.bottleNeckTitle}>CALCULATOR RESULT</p>
+                        {bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue > 5 && (
+                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 {bottleNeck.gpuInfo}에 비해 <br/><strong
+                                style={{color: "red"}}>약합니다</strong>.</p>
+                        )}
+                        {bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue > 5 && (
+                            <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 {bottleNeck.cpuInfo}에 비해 <br/><strong
+                                style={{color: "red"}}>약합니다</strong>.</p>
+                        )}
+                        {Math.abs(bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue) <= 5 && (
+                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo} 및 {bottleNeck.gpuInfo}는 <br/><strong
+                                style={{color: "#116B2A"}}>잘 작동합니다</strong>.</p>
+                        )}
+                        <p style={{marginBottom: 0}}>
+                            이 구성에서는 <strong
+                                style={{color: "#116B2A"}}>{Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}%</strong>의 프로세스 병목
+                            현상이 있습니다.</p>
+                        <p>5% 미만의 병목 현상은 고려하지 않아도 됩니다.</p>
+                    </div>
+                    <div className={styles.circular}>
+
+                        <CircularProgressbar
+                            value={Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}
+                            text={`${Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}%`}
+                            circleRatio={0.5}
+                            arcSweepAngle={180}
+                            styles={buildStyles({
+                                rotation: 1 / 2 + 1 / 4,
+                                strokeLinecap: "butt",
+                                trailColor: "#eee"
+                            })}
+                        />
+                    </div>
+                </div>
+                <div className={styles.chart}>
+                    <p className={styles.chartTitle}>{bottleNeck.cpuInfo} & {bottleNeck.gpuInfo} Bottleneck</p>
+                    <ChartBar data={data}/>
+                    <p className={styles.chartResult}>작업을 실행할 때 <strong
+                        style={{color: "red"}}>{bottleNeck.cpuInfo}</strong>는 <strong
+                        style={{color: "#116B2A"}}>{bottleNeck.cpuBottleNeckValue}%</strong>로
+                        활용되고 <strong
+                            style={{color: "red"}}>{bottleNeck.gpuInfo}</strong>는 <strong
+                            style={{color: "#116B2A"}}>{bottleNeck.gpuBottleNeckValue}%</strong>로
+                        활용됩니다.</p>
+                </div>
+
 
                     {bottleNeck.cpuBottleNeckValue < bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
-                        <table>
+                        <div className={styles.bottleNeckTable}>
+                            <p className={styles.title}>Solution</p>
+                            <p className={styles.semiTitle}>프로세서를 다운그레이드하거나 그래픽 카드를 업그레이드하여 이 문제를 해결할 수 있습니다.<br/>
+                                프로세서를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 프로세서를 컴퓨터에 그대로 두는 것이 좋습니다.<br/>
+                                다음은 {bottleNeck.cpuInfo}와 5%미만의 병목률을 보여주는 GPU 중 인기있는 제품들입니다</p>
+                            <hr/>
+                            <div className="table-container">
+                                <table className={styles.table}>
+                                    <tr>
+                                        <td className={styles.tableTd}>
+                                            <strong>추천 GPU</strong>
+                                        </td>
+                                        <td className={styles.tableTd2}>
+                                            <strong>병목률</strong>
+                                        </td>
+                                    </tr>
+                                    {(bottleNeckGpu.map((gpu) => (
+                                        <tr>
+                                            <td className={styles.tableTd}>
+                                                {gpu.gpuInfo}
+                                            </td>
+                                            <td className={styles.tableTd2}>
+                                                {Math.abs(gpu.cpuBottleNeckValue - gpu.gpuBottleNeckValue)}%
+                                            </td>
+                                        </tr>
+                                    )))}
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                    {bottleNeck.cpuBottleNeckValue > bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
+                        <div className={styles.bottleNeckTable}>
+                            <p className={styles.title}>Solution</p>
+                            <p className={styles.semiTitle}>프로세서를 업그레이드하거나 그래픽 카드를 다운그레이드하여 이 문제를 해결할 수 있습니다.<br/>
+                                그래픽 카드를 다운그레이드하는 것은 별 의미가 없으며 이 경우 현재 그래픽 카드를 컴퓨터에 그대로 두는 것이 좋습니다.<br/>
+                                다음은 {bottleNeck.gpuInfo}와 5%미만의 병목률을 보여주는 CPU 중 인기있는 제품들입니다</p>
+                            <hr/>
+                            <div className="table-container">
+                        <table className={styles.table}>
                             <tr>
-                                그래픽 카드를 100% 활용하기 위해선 cpu를 업그레이드를 해야합니다
-                            </tr>
-                            <tr>
-                                <td>
-                                    추천 cpu
+                                <td className={styles.tableTd}>
+                                    <strong>&emsp;추천 CPU</strong>
                                 </td>
-                                <td>
-                                    병목 현상 퍼센트
+                                <td className={styles.tableTd2}>
+                                    <strong>병목률</strong>
                                 </td>
                             </tr>
-                            {(bottleNeckGpu.map((cpu)=> (
+                            {(bottleNeckCpu.map((cpu) => (
                                 <tr>
-                                    <td>
+                                    <td className={styles.tableTd}>
                                         {cpu.cpuInfo}
                                     </td>
-                                    <td>
-                                        {Math.abs(cpu.cpuBottleNeckValue-cpu.gpuBottleNeckValue)}%
+                                    <td className={styles.tableTd2}>
+                                        {Math.abs(cpu.cpuBottleNeckValue - cpu.gpuBottleNeckValue)}%
                                     </td>
                                 </tr>
                             )))}
                         </table>
+                            </div>
+                        </div>
                     }
-                    { Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) <= 5 &&
-                        <table>
-                            <tr>
-                                5 % 이하의 병목률은 병목 현상을 크게 신경 쓰지 않아도 됩니다.
-                            </tr>
-                        </table>
-                    }
-                </div>
+
+                {flag === 1 && (
+                    <div className={styles.lineChart}>
+                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 그래픽카드</p>
+                        <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 프로세서의 병목 현상 계산에서 그래픽카드 벤치 마크 점수에 대한 의존성을 보여줍니다.</p>
+                        <ChartLine data={allBottleNeck} name={name}/>
+                    </div>
+                )}
+
+                {flag === 2 && (
+                    <div className={styles.lineChart}>
+                        <p className={styles.title}><strong>{otherName}</strong>와 가장 잘 작동하는 프로세서</p>
+                        <p>아래 차트는 작업을 위한 <strong style={{color: "red"}}>{otherName}</strong> 그래픽 카드의 병목 현상 계산에서 프로세서 벤치 마크 점수에 대한 의존성을 보여줍니다.</p>
+                        <ChartLine data={allBottleNeck} name={name}/>
+                    </div>
+                )}
             </div>
         </>
     );

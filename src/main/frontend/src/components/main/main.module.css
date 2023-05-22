@@ -1,3 +1,7 @@
+.main {
+  min-width: 1340px;
+}
+
 .filter {
   display: flex;
   width: 85%;

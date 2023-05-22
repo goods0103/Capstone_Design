@@ -23,6 +23,26 @@ public class BottleNeckController {
 //    @Autowired
 //    private BottleNeckService bottleNeckService;
 //
+//
+//    @GetMapping("/setPopularList")
+//    public void setPopularList() {
+//        List<PopularList> popularLists = popularListService.findAll();
+//        int value = 100;
+//        for(PopularList popularList : popularLists) {
+//            String gpu = popularList.getGpuName();
+//            gpu = gpu.trim();
+//            popularList.setGpuName(gpu);
+//
+////                BottleNeck bottleNeck = BottleNeck.builder()
+////                        .cpuInfo(bottleNeck1.getCpuInfo())
+////                        .gpuInfo(bottleNeck1.getGpuInfo())
+////                        .cpuBottleNeckValue(value)
+////                        .gpuBottleNeckValue(value)
+////                        .build();
+//            popularListService.save(popularList);
+//
+//        }
+//    }
 
 //    @GetMapping("/setBottleNeck")
 //    public void setBottleNeckList() {

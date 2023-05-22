@@ -1,3 +1,42 @@
+div {
+  display: block;
+}
+
+.total{
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 90px);
+  position: relative;
+    
+    padding-bottom: 60px;
+}
+.mySpecTotal {
+  width: 1280px;
+  margin: 0 auto;
+}
+/*.banner {*/
+/*  position: relative;*/
+/*  width: 35%;*/
+/*  height: 50%;*/
+/*  background: #151515;*/
+/*  top: 50%;*/
+/*  left: 55%;*/
+/*}*/
+
+.left2 {    
+    margin-top: 100px;
+    float: left;
+    width: 640px;
+}
+.right2 {
+  float: right;
+    width: 640px;
+    margin-top: 100px;
+
+}
+.bottom2 {
+  height: 50px;
+}
 
 .right {
   position: absolute;
@@ -42,13 +81,15 @@
 /*--- InsertSpec.js ---*/
 
 .selectTag {
-  width: 30%;
+  width: 45%;
   height: 20%;
-  background-color: none;
+  background-color: #3c3c3c;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 30px;
-  margin-bottom: 50px;
+  /*margin-right: 30px;*/
+  /*margin-bottom: 50px;*/
+  color: white;
+  /*border: 2px solid white;*/
 }
 
 .selectTagShow {
@@ -62,30 +103,21 @@
 }
 
 .formTag {
-  margin-top: 1rem;
-  margin-left: 4rem;
+  width: 1280px;
+  margin: 0 auto;
+  text-align:center;
+  margin-top: 5%;
 }
 
 .buttonSubmit {
   box-sizing: border-box;
-
-  position: absolute;
-  width: 25%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
-
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
   border-radius: 149px;
 
-
-  /* 스펙 불러오기 */
-
   position: relative;
-  width: 100px;
+  width: 200px;
   height: 50px;
-  margin-left: 11%;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -99,36 +131,89 @@
   /* 애니메이션 적용. 2개의 애니메이션 */
   animation-name: slide-up;
   animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
 }
+.btnSubmitHover {
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  font-family: Helvetica, sans-serif;
+
+  border-radius: 50px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+  background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+
+  /* 애니메이션 적용. 2개의 애니메이션 */
+  animation-name: slide-up;
+  animation-duration: 3.0s;
+  animation-fill-mode: backwards;
+}
+.btnSubmitHover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+.btnSubmitHover:focus {
+  outline: none;
+}
+
 
 .animationCpu {
   animation-name: fadeIn;
-  animation-duration: 2.0s;
-  animation-fill-mode: both;
+  animation-duration: 0.5s;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+  /*width: 40%;*/
 }
 
 .animationGpu {
   animation-name: fadeIn;
-  animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-duration: 1.0s;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
 }
 
 .animationRam {
   animation-name: fadeIn;
+  animation-duration: 1.5s;
+  animation-fill-mode: backwards;
+  animation-delay: 1s;
+}
+
+.animationLabel {
+  animation-name: fadeIn;
   animation-duration: 4.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: none;
+}
+
+.hrStyle {
+  animation-name: fadeIn;
+  animation-duration: 4.0s;
+  animation-fill-mode: none;
+  /*border-color: red;*/
+  width: 10%; /* 원하는 너비로 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.labelStyle {
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 /* Rectangle 1 */
 .buttonSpec{
   box-sizing: border-box;
-
-  position: absolute;
-  width: 25%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
@@ -137,17 +222,13 @@
 
   /* 스펙 불러오기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 15%;
-  top: 65%;
+  width: 30%;
+  height: 100%;
 
   font-family: 'Roboto';
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
-  line-height: 140%;
+  font-size: 1rem;
   /* or 28px */
 
   color: #FFFFFF;
@@ -157,40 +238,69 @@
   animation-duration: 2.0s, 1s;
   animation-fill-mode: both, forwards;
   animation-delay: 0s, 2.0s;
-  animation-iteration-count: 1, infinite;
+  animation-iteration-count: 1, 2;
+}
+
+.btnHover {
+  width: 30%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  font-family: Helvetica, sans-serif;
+
+  border-radius: 50px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+  background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+
+  /* 애니메이션 적용. 2개의 애니메이션 */
+  animation-name: slide-up, bounce;
+  animation-duration: 2.0s, 1s;
+  animation-fill-mode: both, forwards;
+  animation-delay: 0s, 2.0s;
+  animation-iteration-count: 1, 2;
+}
+
+.btnHover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.btnHover:focus {
+  outline: none;
 }
 
 
-
 .buttonInsert{
-
-  /* Rectangle 2 */
+/* Rectangle 2 */
 
   box-sizing: border-box;
 
-  position: absolute;
-  width: 25%;
-  height: 70px;
-  left: 30%;
-  top: 65%;
-  background-color: #151515;
   border: 2px solid #30D5C8;
   border-radius: 149px;
 
 
   /* 스펙 입력하기 */
 
-  position: absolute;
-  width: 10%;
-  height: 60px;
-  left: 30%;
-  top: 65%;
+  width: 30%;
+  height: 100%;
+  margin-left : 30%;
 
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
-  line-height: 140%;
+  font-size: 1rem;
   /* or 31px */
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
@@ -199,20 +309,51 @@
 
   animation-name: slide-up;
   animation-duration: 3.0s;
-  animation-fill-mode: both;
+  animation-fill-mode: backwards;
+}
+
+.btnInsertHover {
+  width: 30%;
+  height: 100%;
+  margin-left : 30%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align:center;
+  border: 2px solid #30D5C8;
+  background-size: 300% 100%;
+  font-family: Helvetica, sans-serif;
+
+  border-radius: 50px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+  background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation-name: slide-up;
+  animation-duration: 2.0s;
+  animation-fill-mode: backwards;
+}
+
+.btnInsertHover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.btnInsertHover:focus {
+  outline: none;
 }
 
 .title{
-  position: absolute;
-  width: 35%;
-  height: 50px;
-  left: 15%;
-  top: 30%;
+  height: 400px;
 
   font-family: 'Roboto';
   font-style: normal;
-  font-size: 50px;
-  line-height: 140%;
 }
 
 .main{
@@ -223,10 +364,12 @@
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-fill-mode: both;
+  font-size: 3em;
+  height: auto;
 }
 .sub{
-  font-size: 30px;
-  height: 30px;
+  font-size: 2em;
+  height: auto;
   color : white;
   animation-name: fadeIn;
   animation-duration: 2.0s;
@@ -234,8 +377,8 @@
 }
 
 .trd {
-  height: 15px;
-  font-size : 15px;
+  height: auto;
+  font-size: 1em;
   color : gray;
   animation-name: fadeIn;
   animation-duration: 2.5s;
@@ -243,11 +386,8 @@
 }
 
 .banner {
-  position: relative;
-  width: 35%;
-  height: 30%;
+  width: 110%;
   background: #151515;
-  left: 55%;
   animation-name: slide-in;
   animation-duration: 3.0s;
   animation-fill-mode: both;
@@ -257,22 +397,19 @@
 
 .button{
   box-sizing: border-box;
-  /*position: absolute;*/
-  /*width: 25%;*/
-  /*height: 60px;*/
 
-
-  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
-  border: 1px solid #000000;
+  background-color: #151515;
+  border: 2px solid #30D5C8;
   border-radius: 149px;
 
 
+  background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  position: absolute;
-  width: 10%;
+  width: 200px;
   height: 60px;
-  top: 50%;
-  left : 10%;
+
 
   font-family: 'Roboto';
   font-style: normal;
@@ -281,25 +418,56 @@
   line-height: 140%;
   /* or 28px */
 
-  color: #FFFFFF;
+  /*color: #FFFFFF;*/
 
+  margin-top: 50px;
+  margin-left: 1%;
 }
+.buttonHover {
+  margin-top: 100px;
+  margin-left: 1%;
+  width: 200px;
+  height: 60px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align:center;
+  border: 2px solid #30D5C8;
+  background-size: 300% 100%;
+  font-family: Helvetica, sans-serif;
+
+  border-radius: 50px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+  background-image: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.buttonHover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+.buttonHover:focus {
+  outline: none;
+}
+
 .link{
   box-sizing: border-box;
-  /*position: absolute;*/
-  /* width: 25%;
-  height: 60px; */
 
   background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   border: 1px solid #000000;
   border-radius: 149px;
-
+  margin-top: 100px;
 
   position: absolute;
-  width: 10%;
+  width: 200px;
   height: 60px;
-  top: 50%;
-  left : 30%;
+
+  margin-left: 100px;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -309,7 +477,37 @@
   /* or 28px */
 
   color: #FFFFFF;
+}
+.linkHover {
+  position: absolute;
+  width: 200px;
+  height: 60px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 120px;
+  margin-top: 100px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  font-family: Helvetica, sans-serif;
 
+  border-radius: 50px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+  box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+}
+.linkHover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+.linkHover:focus {
+  outline: none;
 }
 
 
@@ -334,6 +532,20 @@
   }
 }
 
+.loading{
+  background: #151515;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.waring{
+  margin-top : 5%;
+}
+.showMySpec{
+  display: flex;
+  margin-top : 20px;
+}
 @keyframes fadeIn {
   0% {
     transform: translateY(-50px);
@@ -396,3 +608,4 @@
 /*  animation-duration: 1s;*/
 /*  animation-fill-mode: both;*/
 /*}*/
+

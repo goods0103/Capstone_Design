@@ -43,11 +43,23 @@ public class GameListOrigin {
     @Column(name = "recommended_game_ram")
     private String recommendedGameRam;
 
+    @Column(name = "developer")
+    private String developer;
+
+    @Column(name = "publisher")
+    private String publisher;
+
+    @Column(name = "release_date")
+    private String releaseDate;
+
+    @Column(name = "img")
+    private String img;
 
     @Builder
     public GameListOrigin(int gameOriginId, String gameName, int gameId, String minimumGameCpu, String minimumGameGpu,
                           String recommendedGameCpu, String recommendedGameGpu,
-                          String minimumGameRam, String recommendedGameRam) {
+                          String minimumGameRam, String recommendedGameRam,
+                          String developer, String publisher, String releaseDate, String img) {
         this.gameOriginId = gameOriginId;
         this.gameName = gameName;
         this.gameId = gameId;
@@ -57,6 +69,10 @@ public class GameListOrigin {
         this.recommendedGameGpu = recommendedGameGpu;
         this.minimumGameRam = minimumGameRam;
         this.recommendedGameRam = recommendedGameRam;
+        this.developer = developer;
+        this.publisher = publisher;
+        this.releaseDate = releaseDate;
+        this.img = img;
     }
 
 }

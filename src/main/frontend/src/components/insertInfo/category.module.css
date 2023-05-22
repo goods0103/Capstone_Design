@@ -1,9 +1,14 @@
+.bigFrame {
+    width: 1280px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
 .cssTh {
-    /*background-color: #f2f2f2;*/
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
 }
 
 .cssTd {
@@ -15,14 +20,59 @@
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
+    width: 100%;
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+    animation: 1.5s ease-in-out fadeIn;
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    font-weight: bold;
 }
 
 .tableImg {
-    width:50px;
+    width:100px;
+    height:60px;
+    border-radius: 10px;
+}
+
+.tableImgGpu {
+    width: auto;
     height:30px;
 }
 
-/*-------*/
+/*tr[data-cpu-name1="selectedInfo"]::before {*/
+/*    content: "✨";*/
+/*    margin-right: 10px;*/
+/*}*/
+
+.mySpecInfo {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #1EDDFF !important;
+    font-size: 1.5rem;
+/*linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%)*/
+}
+
+.mySpecInfoHover:hover {
+    /*background-color: #61F3EB !important;*/
+    background-color: #008080 !important;
+    transform: scale(1.1) !important;
+}
+
+/*----pointerEvents: 'none' ---*/
 
 .filter {
     display: flex;
@@ -43,11 +93,15 @@
 /*-------*/
 .Chart{
     display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
-.CircularChart{
-    width: 100px;
-    height: 100px;
+.barChart p{
+
 }
+
+
 
 /*---ShowInsertInfo.js----*/
 /*.specCss {*/
@@ -68,8 +122,8 @@
 }
 
 .image {
-    width: 300px;
-    height: 200px;
+    width: 180px;
+    height : 120px;
     border-radius: 10px 0 0 10px;
 }
 
@@ -85,14 +139,450 @@
 }
 
 
+/*.divParent {*/
+/*    display: flex;*/
+/*    justifyContent: center;*/
+/*    alignItems: center;*/
+/*    !*margin: 0 auto;*!*/
+
+/*    !*max-width: 50%; !* 적절한 값으로 설정해주세요 *!*!*/
+/*    !*margin: 5% auto 0 auto;*!*/
+/*    position: absolute;*/
+/*    left: 55%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    !*max-width: 50%;*!*/
+/*    margin: 5% auto 0 auto;*/
+
+/*    !*background-color: white;*!*/
+/*}*/
+
+/*.divChild {*/
+/*    text-align: center;*/
+/*    margin-right: 200px;*/
+/*}*/
+
+
+
 .divParent {
     display: flex;
-    justifyContent: center;
-    alignItems: center;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    color :#353535;
 }
 
 .divChild {
-    margin-top: 50px;
-    flex: 1;
+    text-align: center;
+    width : 30%;
+    margin: 2% 5% 0 1%;
+}
+
+.divChild:last-child {
+    margin-right: 0;
+}
+
+.divChildCpuAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    /*animation-delay : 1.5s;*/
+}
+
+.divChildGpuAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 0.5s;
+}
+
+.divChildRamAnimation {
+    animation-name: slide-in;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+}
+
+/*------ShowInsertInfo.jsx-------*/
+
+.urlLabel {
+    /* 더 알아보기 > /
+
+    /position: absolute;/
+    /width: 161px;/
+    /height: 32px;/
+    /left: 470px;/
+    /top: 557px;*/
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    color: #0046CF;
+}
+
+.urlLabel2 {
+    /* 더 알아보기 > */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+    margin-top: 80px;
+
+    color: #0046CF;
+}
+
+.linkUrl {
+    text-decoration: none;
+}
+
+.link {
+    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+.move{
+    width: 160px;
+    height: 40px;
+    margin-left: 87%;
+    margin-bottom: 1%;
+    border-radius: 10px;
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+    font-style: normal;
+    font-size: 13px;
+    color:#ffffff;
+}
+
+.hrStyle {
+    /*animation-name: fadeIn;*/
+    /*animation-duration: 4.0s;*/
+    /*animation-fill-mode: none;*/
+
+    width: 100%; /* 원하는 너비로 설정 */
+    margin: 0 auto 1rem auto; /* 가운데 정렬 */
+}
+
+.selectSpecCss {
+    background-color:white;
+    min-height:100vh;
+}
+
+.infoSpecTitle {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    height: 3em;
+    font-weight: bold;
+}
+
+.infoSpecSubTitle {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.infoSpecSub {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+.buttonSubmit {
+    box-sizing: border-box;
+    background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #000000;
+    border-radius: 149px;
+
+    position: relative;
+    left : 23%;
+    width: 10%;
+    height: 50px;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+}
+
+.buttonBottleNeck {
+    box-sizing: border-box;
+    background: linear-gradient(101.93deg, #bddfe8 -19.74%, #2997C7 112.85%);
+    border: 1px solid #3ca4e0c4;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+
+    position: relative;
+    width: 20%;
+    height: 50px;
+    margin: 3% auto 0 auto;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 140%;
+    /* or 28px */
+
+    color: #FFFFFF;
+
+    /* 애니메이션 적용. 2개의 애니메이션 */
+    animation-name: slide-up;
+    animation-duration: 2.0s;
+    animation-delay: 1.0s;
+    animation-fill-mode: backwards;
+}
+
+.bottleNeckComp {
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    height: 300px;
+    padding-left: 0;
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+
+    animation-name: loadEffect3;
+    animation-duration: 3.0s;
+    /*animation-delay: 1.0s;*/
+    animation-fill-mode: backwards;
+
+}
+/* image 43 */
+
+
+
+.bottleNeckComp1 {
+    width : 62%;
+    margin-bottom: 3%;
+}
+.bottleNeckComp p {
+    text-align: left;
+    width:80%;
+}
+.bottleNeckText{
+    font-size: 1rem;
+    width: 50%;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+.bottleNeckTitle{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+/* Rectangle 68 */
+
+
+
+
+
+/*----Circular ProgressBar----*/
+.circularProgressBar {
+    width : 50%;
+    vertical-align: middle;
+}
+
+/*--animation---*/
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(150px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes loadEffect3 {
+    0%{
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    65%{
+        opacity: 0.65;
+        transform: scale(1.01);
+    }
+    85%{
+        opacity: 0.85;
+        transform: scale(0.97);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.CircularChart {
+    text-align: center;
+    width: 50%;
+    padding-top: 3%;
+}
+
+.CircularChart p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+/*----bottleNeck----*/
+
+.bottleNeckResult{
+    display: flex;
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+    margin : 3% 10% 0 10%;
+    text-align : center;
+    padding-left : 2px;
+    padding-top : 2px;
+    width:80%;
+    height:200px;
+}
+.bottleNeckResult p{
+    font-size :1.3rem;
+
+}
+
+.bottleNeckResultDiv {
+    width: 70%;
+    text-align: start;
+    margin: 5px 0px 5px 10px;
+}
+
+.circular{
+    margin-top : 2%;
+    width : 25%;
+}
+
+.chart{
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+    margin : 3% 10% 0 10%;
+    text-align : center;
+    padding-left : 2px;
+    padding-top : 2px;
+    width:80%;
+
+}
+.chartTitle{
+    text-align : center;
+    margin-top : 2%;
+    width:100%;
+    font-size :1.3rem;
+    margin-bottom : -8%;
+}
+.chartResult{
+    text-align : center;
+    width:100%;
+    font-size :1.2rem;
+}
+
+.bottleNeckTable{
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+    margin : 3% 10% 0 10%;
+    width:80%;
+    padding :4px;
+}
+
+.lineChart{
+    color:#151515;
+    border : solid 2px #ffffff;
+    background: #F8FCFE;
+    box-shadow: 0 0 4px 2px rgba(177, 203, 255, 0.4);
+    border-radius: 20px;
+    margin : 3% 10% 0 10%;
+    text-align : center;
+    padding-left : 2px;
+    padding-top : 4px;
+    width:80%;
+}
+.lineChart p{
+    font-size: 1rem;
+}
+.customTooltip{
+    border : solid 1px;
+    background: #F8FCFE;
+    text-align : center;
+    padding : 2px;
+}
+
+.title{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.semiTitle {
+    margin-left: 10px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.table{
+    width:80%;
+    margin-left:10%;
+}
+
+.tableTd {
+    text-align: left;
+    width: 80%;
+}
+.tableTd2 {
+    width: 20%;
+}
+
+
+table td strong, table th strong {
+    color: #116B2A;
 }

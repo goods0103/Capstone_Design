@@ -1,3 +1,7 @@
+.bigFrame {
+    width: 1280px;
+    margin: 0 auto;
+}
 /*---Table 관련 Css----*/
 .cssTh {
     text-align: center;
@@ -32,45 +36,145 @@ th {
 .cssTable {
     border-collapse: collapse;
     margin: 0 auto;
-    width: 70%;
-    /*animation-name: slide-in;*/
-    /*animation-duration: 3.0s;*/
-    /*animation-fill-mode: both;*/
-    animation: 1.5s ease-in-out fadeIn;
+    width: 100%;
+
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+    /*animation: 1.5s ease-in-out 1.5s fadeIn;*/
 }
+
+.cssTableGame {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    /*width: 70%;*/
+    max-width: 100%; /* 적절한 값으로 설정해주세요 */
+    margin: 0 auto;
+
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+}
+
+.cssTableCell {
+    width: 25%;
+    margin-bottom: 1rem;
+    /*margin-right: 20px;*/
+}
+
+.cssTableCaption {
+    /*background-color: #333;*/
+    color: white;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+.cssTableGame img {
+    /*max-width: 800px;*/
+    /*max-height: 500px;*/
+    width: 70%;
+    height: 75%;
+    /*image-rendering: -webkit-optimize-contrast;*/
+    image-rendering: pixelated;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+}
+
+.cssTableGame img:hover {
+    transform: scale(1.05);
+}
+
+.cssTable td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*.tableImg {*/
+/*    width:auto;*/
+/*    height:30px;*/
+/*}*/
 
 .tableImg {
     width:100px;
     height:60px;
+    border-radius: 10px;
+}
+
+.tableImgGpu {
+    width: auto;
+    height:30px;
 }
 
 /*-------*/
 
 .filter {
     display: flex;
-    width: 85%;
-    margin: 0 auto;
-    justify-content: flex-end;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+    animation: 1.5s ease-in-out fadeIn;
 }
 
-.filter > p:not(:last-child)::after {
-    content: "|";
-    padding: 10px;
-}
+.filterButton {
+    /* Group 1 */
 
-.filter p {
+    width:200px;
+    height: 40px;
+    margin-right :2%;
+
+    backdrop-filter: blur(2px);
+
+    box-sizing: border-box;
+
+
+
+    background: #151515;
+    border: 2px solid #4C4B4B;
+    border-radius: 11px;
+
+
+    /* CPU 높은순 */
+
+    font-style: normal;
+    font-size: 15px;
+    /* or 28px */
+
+    color: #A2A2A2;
+
+    display: flex; /* 추가 */
+    justify-content: center; /* 추가 */
+    align-items: center; /* 추가 */
     cursor: pointer;
 }
+.filterButtonSelected {
+    background-color: #ffffff;
+    color: #151515;
+
+}
 
 
+.link {
+    color: white !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
 /*--- Category.BottleNeck.js ---*/
 
 .selectTag {
-    width: 30%;
+    width: 45%;
     height: 20%;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 30px;
+    /*margin-bottom: 50px;*/
+    background-color: #3c3c3c;
     /*margin-bottom: 50px;*/
     /*animation-name: slide-in;*/
     /*animation-duration: 3.0s;*/
@@ -89,35 +193,64 @@ th {
     /*animation-duration: 3.0s;*/
     /*animation-fill-mode: both;*/
 }
-
+.bottleNeckFormTag{
+    width: 1280px;
+  margin: 0 auto;
+  text-align:center;
+  margin-top: 5%;
+}
 .formTag {
-    margin-top: 1rem;
-    margin-left: 2rem;
-    animation-name: slide-in;
-    animation-duration: 3.0s;
-    animation-fill-mode: both;
+    /*margin-top: 1rem;*/
+    /*margin-left: 2rem;*/
+    /*animation-name: slide-in;*/
+    /*animation-duration: 3.0s;*/
+    /*animation-fill-mode: both;*/
+
+    margin-bottom: 2%; /* 오른쪽 여백을 15%로 조정합니다. */
+    height:35%;
+    border-bottom: 1px solid #f0f0f0;
+
+    /*animation: 1.5s ease-in-out fadeIn;*/
+    animation-name: fadeIn;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    /*animation-delay : 1.5s;*/
+
+}
+.input{
+    position: relative;
+    margin-left:3%;
+    margin-bottom:1%;
+    width: 80%;
+    height :3%;
+    top: 15%;
+    background-color : #151515;
+    border : none;
+
+    box-sizing: border-box;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 140%;
+    /* or 28px */
+    color: #FFFFFF;
+
+}
+input:focus {
+    outline: none;
 }
 
 .buttonSubmit {
     box-sizing: border-box;
-
-    position: absolute;
-    width: 25%;
-    height: 60px;
-    left: 15%;
-    top: 65%;
-
     background: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
     border: 1px solid #000000;
     border-radius: 149px;
 
-
-    /* 스펙 불러오기 */
-
     position: relative;
-    width: 100px;
+    width: 200px;
     height: 50px;
-    margin-left: 11%;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -128,39 +261,121 @@ th {
 
     color: #FFFFFF;
 
+    /* 애니메이션 적용. 2개의 애니메이션 */
     animation-name: slide-up;
     animation-duration: 3.0s;
     animation-fill-mode: both;
 }
+.btnSubmitHover {
+    position: relative;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    font-family: Helvetica, sans-serif;
+  
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+  
+    /* 애니메이션 적용. 2개의 애니메이션 */
+    animation-name: slide-up;
+    animation-duration: 3.0s;
+    animation-fill-mode: both;
+  }
+  .btnSubmitHover:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  .btnSubmitHover:focus {
+    outline: none;
+  }
 
 .buttonSearch {
     background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
+    position: relative;
+    top:35px;
+
 }
 
 .buttonTotalList {
-    background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
+
+    width: 200px;
+    height: 40px;
+
+    border-radius: 11px;
+
+    background-color: #151515;
+    border: 2px solid #30D5C8;
+
+    margin-left: 60%;
+
+    font-style: normal;
+
+    font-size: 15px;
+
+    /* or 31px */
+
+    color:#A2A2A2;
+
 }
+
+
 
 .animationCpu {
     animation-name: fadeIn;
-    animation-duration: 2.0s;
-    animation-fill-mode: both;
+    animation-duration: 0.5s;
+    animation-fill-mode: backwards;
+    animation-delay: 1s;
+    /*width: 40%;*/
 }
 
 .animationGpu {
     animation-name: fadeIn;
-    animation-duration: 3.0s;
-    animation-fill-mode: both;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay: 1s;
+}
+
+
+.animationLabel {
+    animation-name: fadeIn;
+    animation-duration: 4.0s;
+    animation-fill-mode: none;
+    font-family: Helvetica, sans-serif;
+}
+
+.hrStyle {
+
+    animation-name: fadeIn;
+    animation-duration: 4.0s;
+    animation-fill-mode: none;
+    /*border-color: red;*/
+    width: 10%; /* 원하는 너비로 설정 */
+    margin: 0 auto; /* 가운데 정렬 */
+
+}
+
+.labelStyle {
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 /*---페이지 관련 Css---*/
 .page{
     display: flex;
     justify-content: center;
+    /*text-align: center;*/
 }
 .pagination {
     display: flex;
@@ -238,6 +453,17 @@ th {
 @keyframes fadeIn {
     0% {
         transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(150px);
         opacity: 0;
     }
     100% {

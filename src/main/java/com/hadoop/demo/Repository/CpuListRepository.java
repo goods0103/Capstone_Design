@@ -14,10 +14,17 @@ public interface CpuListRepository extends JpaRepository<CpuList, Long> {
 
     CpuList findByCpuId(int Id);
 
+    @Query("SELECT c FROM CpuList c WHERE c.cpuMark = :cpuMark")
+    List<CpuList> findByCpuMark(int cpuMark);
+
     List<CpuList> findByOrderByCpuRankAsc();
+
+    List<CpuList> findByOrderByCpuRankDesc();
 
     List<CpuList> findByCpuValueNotOrderByCpuValueAsc(double cpuValue);
 
     @Query("SELECT cpu.cpuName FROM CpuList cpu")
     List<String> findAllCpuName(); // findAll + 컬럼명의 형태로 메서드 이름을 작성
+
+
 }

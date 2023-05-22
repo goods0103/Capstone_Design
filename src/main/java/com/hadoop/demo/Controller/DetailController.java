@@ -7,14 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -111,6 +110,9 @@ public class DetailController {
     @PostMapping("/category/game1/detail")
     public GameListOrigin getSelectGameOriginDetail(@RequestBody String game) {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
+        GameList gameList = gameListService.findByName(decodedString);
+        gameList.setTestCount(gameList.getTestCount() + 1);
+        gameListService.save(gameList);
         return gameListOriginService.findByName(decodedString);
     }
 
@@ -120,4 +122,66 @@ public class DetailController {
         String decodedString = URLDecoder.decode(game, StandardCharsets.UTF_8).replace("=", "");
         return gameListService.findByName(decodedString);
     }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    static class RankCount {
+        private int name;
+        private int benchMark;
+        private int myBenchMark;
+    }
+    @PostMapping("/cpu_mark_chart")
+    public List<RankCount> getCpuMarkRanking(@RequestBody handleRequest id) {
+        CpuList cpuListById;
+        if(id.getId() == null) cpuListById = cpuListService.findById(id.getLastPart());
+        else cpuListById = cpuListService.findById(id.getId());
+        int mark = cpuListById.getCpuMark() / 1000;
+
+        List<CpuList> cpuLists = cpuListService.orderByCpuRankDesc();
+        List<RankCount> rankCounts = new ArrayList<>();
+
+        for(int i=0; i<100; i++ ){
+            int count = 0, count2 = 0;
+            for(CpuList cpuList: cpuLists){
+                if(cpuList.getCpuMark() > 1000*i && cpuList.getCpuMark() <=1000*(i+1)){
+                    count++;
+                }
+                else if(cpuList.getCpuMark() > 1000 * (i+1))
+                    break;
+            }
+            if(mark == i)
+                count2 = count;
+            rankCounts.add(new RankCount(i * 1000, count, count2));
+        }
+        return rankCounts;
+    }
+
+    @PostMapping("/gpu_mark_chart")
+    public List<RankCount> getGpuMarkRanking(@RequestBody handleRequest id) {
+        GpuList gpuListById;
+        if(id.getId() == null) gpuListById = gpuListService.findById(id.getLastPart());
+        else gpuListById = gpuListService.findById(id.getId());
+        int mark = gpuListById.getGpuMark() / 400;
+
+        List<GpuList> gpuLists = gpuListService.orderByGpuRankDesc();
+        List<RankCount> rankCounts = new ArrayList<>();
+
+        for(int i=0; i<100; i++ ){
+            int count = 0, count2 = 0;
+            for(GpuList gpuList: gpuLists){
+                if(gpuList.getGpuMark() > 400*i && gpuList.getGpuMark() <=400*(i+1)){
+                    count++;
+                }
+                else if(gpuList.getGpuMark() > 400 * (i+1))
+                    break;
+            }
+            if(mark == i)
+                count2 = count;
+            rankCounts.add(new RankCount(i * 400, count, count2));
+        }
+        return rankCounts;
+    }
+
 }

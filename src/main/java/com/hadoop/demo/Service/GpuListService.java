@@ -1,8 +1,6 @@
 package com.hadoop.demo.Service;
 
-import com.hadoop.demo.Model.CpuList;
 import com.hadoop.demo.Model.GpuList;
-import com.hadoop.demo.Repository.CpuListRepository;
 import com.hadoop.demo.Repository.GpuListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,4 +30,8 @@ public class GpuListService {
     }
 
     public GpuList findById(int id) { return gpuListRepository.findByGpuId(id); }
+
+    public List<GpuList> orderByGpuRank() { return gpuListRepository.findByOrderByGpuRankAsc();}
+
+    public List<GpuList> orderByGpuRankDesc() { return gpuListRepository.findByOrderByGpuRankDesc();}
 }

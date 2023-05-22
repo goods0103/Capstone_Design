@@ -1,3 +1,22 @@
+.bigFrame {
+    width: 1140px;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 100px;
+}
+
+.gameFrame {
+    width: 1140px;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 100px;
+    display: flex;
+}
+.pDetail {
+    margin-bottom: 2px;
+}
+
+
 .selectTag {
     width: 30%;
     height: 20%;
@@ -29,23 +48,21 @@
 /*-------*/
 
 .cssTh {
-    background-color: #f2f2f2;
-    font-weight: bold;
     text-align: center;
-    border: 1px solid #ddd;
-    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #E2EDF4 !important;
+}
+
+.cssThProgress {
+    background-color: #E2EDF4 !important;
 }
 
 .cssTd {
     text-align: center;
     border: 1px solid #ddd;
     padding: 8px;
-}
-
-.cssTable {
-    border-collapse: collapse;
-    margin: 0 auto;
-    width:50%;
 }
 
 .redBorder {
@@ -56,9 +73,238 @@
 }
 
 .tableImg {
-    width:50px;
-    height:30px;
+    width:100px;
+    height:60px;
+    border-radius: 10px;
 }
+
+.tableImgGpu {
+    height: 30px;
+    width: auto;
+}
+
+/*------cpuDetail-----*/
+
+.detailHeaderExplain {
+    padding-right: 30%;
+
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+}
+
+ul {
+    /*list-style-type: circle;*/
+}
+
+/*ol li::before {*/
+/*    content: "•";*/
+/*    color: black;*/
+/*    margin-right: 5px;*/
+/*}*/
+
+.ulCss li::before {
+    content: "•";
+    color: black;
+    margin-right: 5px;
+}
+
+.tableDetailTd {
+    text-align: left;
+    border-bottom: solid 2px #E2EDF4 !important;
+    border-right: solid 2px #E2EDF4 !important;
+    border-top: solid 2px #E2EDF4 !important;
+}
+
+.tableDetailTh {
+    width: 60%;
+    font-size: 1.5rem;
+    background-color: #E2EDF4 !important;
+    border-right: solid 3px #FFFFFF;
+}
+.tableDetailTh2 {
+    width: 40%;
+    font-size: 1.5rem;
+    background-color: #E2EDF4 !important;
+}
+
+.detailMark {
+    font-size: 2rem;
+    color: #F48A18;
+    font-weight: bold;
+}
+
+.cssTable {
+    border-collapse: collapse;
+
+
+
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+
+    /*border-radius: 10px;*/
+    /*animation: 1.5s ease-in-out 1.5s fadeIn;*/
+}
+
+.tableDetailImg {
+    width:150px;
+    height:100px;
+}
+
+.buttonCompareDetail {
+    background-color: #246EB9;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    width: 200px;
+    font-weight: bold;
+}
+
+/* .buttonCompare {
+    background-color: #246EB9;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 0.3rem;
+    font-family: 'Open Sans', sans-serif;
+} */
+.customBtn {
+    width: 120px;
+    height: 40px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+
+    background: #4d6782 ;
+   color: #fff;
+   line-height: 42px;
+   padding: 0 !important;
+   border: none !important;
+   
+  }
+ .customBtn span {
+   position: relative;
+   display: block;
+   width: 100%;
+   height: 100%;
+ }
+ .customBtn:before,
+ .customBtn:after {
+   position: absolute;
+   content: "";
+   height: 0%;
+   width: 2px;
+   background: #4d6782;
+ }
+ .customBtn:before {
+   right: 0;
+   top: 0;
+   transition: all 500ms ease;
+ }
+ .customBtn:after {
+   left: 0;
+   bottom: 0;
+   transition: all 500ms ease;
+ }
+ .customBtn:hover{
+   color: #fff;
+   background: transparent;
+ }
+ .customBtn:hover:before {
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .customBtn:hover:after {
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .customBtn span:before,
+ .customBtn span:after {
+   position: absolute;
+   content: "";
+   background: #4d6782;
+ }
+ .customBtn span:before {
+   left: 0;
+   top: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+ }
+ .customBtn span:after {
+   right: 0;
+   bottom: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+ }
+ .customBtn span:hover:before {
+   width: 100%;
+ }
+ .customBtn span:hover:after {
+   width: 100%;
+ }
+
+.pointMySpec {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #46da81 !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.pointMySpecGpu {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    /*background-color: #008080 !important;*/
+    color: #46da81 !important;
+    font-size: 1.5rem;
+}
+.pointMySpecGpuTd {
+    width: 200px;
+    background-color: #4d5154!important;
+}
+
+.lineChartDetail {
+    margin: 0 auto;
+
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.5s;
+}
+
+.detailPopularValue {
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.8s;
+}
+
+.link {
+    color: black !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+/*.detailValue {*/
+/*    animation-name: fadeIn;*/
+/*    animation-duration: 1.0s;*/
+/*    animation-fill-mode: backwards;*/
+/*    animation-delay : 1.5s;*/
+/*}*/
 
 /*--------*/
 
@@ -96,5 +342,364 @@
     width: 80%;
     height: 30px;
 }
-/*----*/
+/*----cpuCompare.js-----*/
+.selectContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-end;
+    margin-top: 5rem;
 
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /*margin-left: 1rem; !* 선택적으로 여백 추가 *!*/
+    /*margin-top: 10%;*/
+
+}
+
+.fromStyle {
+    width: 600px;
+    margin-right: 10%;
+}
+
+.selectTagCompare {
+    width: 50%;
+    height: 10%;
+    margin-right: 1rem;
+}
+
+.selectSpecLabel {
+    width: 300px;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.hrStyle {
+    animation-name: fadeIn2;
+    animation-duration: 1.5s;
+    animation-fill-mode: backwards;
+    animation-delay: 0.5s;
+    /*border-color: red;*/
+    width: 900px; /* 원하는 너비로 설정 */
+    margin: 2rem auto 0 auto; /* 가운데 정렬 */
+    border: 1px solid;
+}
+
+.hrStyleDetail {
+    animation-name: fadeIn2;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay: 1.2s;
+    /*border-color: red;*/
+    width: 900px; /* 원하는 너비로 설정 */
+    margin: 2rem auto 0 auto; /* 가운데 정렬 */
+    border: 1px solid;
+}
+
+/*------SubmitSelectedCpu.jsx-------*/
+.detailCompareContainer {
+    text-align: center;
+}
+
+.image {
+    width: 180px;
+    height : 120px;
+    border-radius: 20px;
+}
+
+.infoNameFrame {
+    display: flex;
+    text-align: left;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.infoNameLabel {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+span + span {
+    margin-left: 15%;
+}
+
+.infoTitleLabel {
+    text-align: left;
+    margin-left:12%;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.infoDetailLabel {
+    margin-bottom: 1rem;
+    font-size: 20px;
+    /* font-family: 'Arial', sans-serif; */
+}
+
+.infoProgressBar {
+    margin-bottom: 1.5rem;
+    height: 1.5rem;
+
+    /*background: #151515;*/
+    background: linear-gradient(90deg, #C6D6F7 0%, rgba(71, 131, 255, 0.47) 100%);
+    /*background: linear-gradient(90deg, #151515 0%, #151515 100%);*/
+    border-radius: 10px;
+    /*min-width: 30%;*/
+    /*width: 100px;*/
+}
+
+.infoProgressBarSpan {
+    width: 40%;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+}
+
+.infoProgressBarFrame {
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    /*min-height: 50px;*/
+    /*min-width: 500px;*/
+    /*width: 100%; !* 예시 값 *!*/
+    /*margin: 0 auto; !* 가운데 정렬 *!*/
+}
+
+.infoProgressBarLabel {
+    min-width:17em;
+    font-size:22px;
+}
+
+/*------compareAnimation-------*/
+.animationImgWithLabel1 {
+    animation-name: fadeIn2;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+}
+
+.animationImgWithLabel2 {
+    animation-name: fadeIn2;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 0.5s;
+}
+
+.animationDetail {
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.0s;
+}
+
+.animationDetailInfo {
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.2s;
+}
+
+.animationProgressInfo {
+    animation-name: fadeIn;
+    animation-duration: 1.0s;
+    animation-fill-mode: backwards;
+    animation-delay : 1.4s;
+
+    /* font-family: 'Arial', sans-serif; */
+}
+
+
+
+/*------animation------*/
+
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn2 {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+/*gameDetail*/
+
+.pageTitle::before{
+    content: "";
+    position: absolute;
+    top: 90px;
+    height: 300px;
+    opacity: .15;
+    background-image: url('../../../../resources/static/images/game-Image.jpg');
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: auto calc(100%);
+    left:0;
+    right:0;
+}
+.pageTitle::after {
+    content: "";
+    position: absolute;
+    top: 90px;
+    height: 300px;
+    left: 0;
+    right: 0;
+    background-color: #4e54c8!important; /* 배경 색상 설정 */
+    z-index: -1; /* 배경 이미지를 뒤로 보내기 위한 z-index 값 */
+}
+
+.Title{
+    width: 1140px;
+    height: 60px;
+    margin: 0 auto;
+    margin-top: 240px;
+
+    background: #FFFFFF;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color : #151515;
+}
+.Title span{
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: inline-block;
+}
+.gameInfo{
+    width: 60%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.gameInfo span{
+    font-size: 1.1rem;
+    font-weight: bold;
+
+}
+
+.gameImgInfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.checkImg{
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 20%;
+}
+.xImg{
+    width:20%;
+}
+
+.gameImg{
+    width:50%;
+    margin-right: 2%;
+}
+
+.topGame{
+    margin-bottom:3%;
+    width :100%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+    padding-left: 10px;
+}
+
+.topGame span{
+    font-weight: bold;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+.gameDetailList{
+    width : 40%;
+    margin-left: 100px;
+    margin-top: 60px;
+}
+
+
+.testGame{
+    width :100%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding:1%;
+    color:#151515;
+    padding-left: 10px;
+}
+
+
+.testGame span{
+    font-weight: bold;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+.ul li{
+    line-height: 3;
+}
+
+.progressDiv {
+    background-color: rgb(166, 184, 196);
+    border-radius: .5rem;
+}
+
+.progress {
+    background: linear-gradient(90deg, rgba(166, 184, 196, 0.91) 0%, rgba(166, 184, 196, 0.637) 100%);
+    height: 26px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
+}
+
+.progress2 {
+    background: linear-gradient(90deg, #E9EDF1 0%, rgba(233, 237, 241, 0.56) 100%);
+    height: 26px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
+}
+.progress3 {
+    background: linear-gradient(90deg, #C6D6F7 0%, rgba(71, 131, 255, 0.47) 100%);
+    height: 26px;
+    border-radius: 1rem;
+    transition: 1s ease;
+    transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
+}
+.progressSpan {
+    font-size: 22px;
+    margin-left: 15px;
+    color: #363636;
+}

@@ -48,6 +48,9 @@ public class GameList {
     @Column(name = "rec_state")
     private int recState;
 
+    @Column(name = "test_count")
+    private int testCount;
+
     @Builder
 
     public GameList(int gameId2, String gameName, int gameId, String minimumGameCpu, String minimumGameGpu, String recommendedGameCpu, String recommendedGameGpu, Integer minimumGameRam, Integer recommendedGameRam, String gameImg, int minState, int recState) {

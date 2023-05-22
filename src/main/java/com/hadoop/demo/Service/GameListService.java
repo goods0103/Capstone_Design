@@ -7,6 +7,9 @@ import com.hadoop.demo.Model.UserInsertInfo;
 import com.hadoop.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -34,6 +37,11 @@ public class GameListService {
     public GameList findByName(String name) {
         return gameListRepository.findByGameName(name);
     }
+
+    public List<GameList> orderByGameId2() { return gameListRepository.findByOrderByGameId2(); }
+
+    public List<GameList> orderByTestCount() { return gameListRepository.findByOrderByTestCountDesc(); }
+
     //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
     public int CompareCpuUserVsGame2(String gameName, String ipAddress){
 
@@ -64,7 +72,7 @@ public class GameListService {
 
         //최소 cpu, gpu가 모두없을 경우
         if (minCpu == null && minGpu == null) {
-            return 0;
+            return 1;
         }
         //최소 cpu만 있을 경우
         else if (minCpu != null && minGpu == null) {
@@ -94,19 +102,23 @@ public class GameListService {
         return minState;
 
     }
-    //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
-    public List<GameList> CompareCpuUserVsGame(String ipAddress) {
+    //선택시에 ipAddress와 이름을 받는다
+    public GameList CompareCpuUserVsGame3(String gameName, String ipAddress) {
+
+        String decodedGameName = URLDecoder.decode(gameName, StandardCharsets.UTF_8).replace("=","");
 
         // userInfo가 없을 경우
         if(userInsertInfoRepository.findByIpAddress(ipAddress) == null){
-            return gameListRepository.findAll();
+            return gameListRepository.findByGameName(decodedGameName);
         }
-
-        List<GameList> gameLists = gameListRepository.findAll();
 
         String recCpu = null;
         String recGpu = null;
+        int recCpuRank = 0;
+        int recGpuRank = 0;
         int recRamSize = 0;
+
+        GameList gameList = gameListRepository.findByGameName(decodedGameName);
 
         UserInsertInfo userInsertInfo = userInsertInfoRepository.findByIpAddress(ipAddress);
 
@@ -115,65 +127,142 @@ public class GameListService {
         int userGpuRank = gpuListRepository.findByGpuName(userInsertInfo.getSelectedGpu()).getGpuRank();
         int userRamSize = ramListRepository.findByRamName(userInsertInfo.getSelectedRam()).getRamSize()*2;
 
-        //gamelist에서 추출한 <gamename, mincpu> list
-        for (GameList gameList : gameLists) {
-            int recCpuRank = 0;
-            int recGpuRank = 0;
+        if(!gameList.getRecommendedGameCpu().equals("")){
+            recCpu = gameList.getRecommendedGameCpu();
+            recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
+        }
+        else{
+            recCpu=null;
+        }
+        if(!gameList.getRecommendedGameGpu().equals("")){
+            recGpu = gameList.getRecommendedGameGpu();
+            recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
+        }
+        else{
+            recGpu=null;
+        }
+        recRamSize = gameList.getRecommendedGameRam();
 
-            if(!gameList.getRecommendedGameCpu().equals("")){
-                recCpu = gameList.getRecommendedGameCpu();
-                recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
-            }
-            else{
-                recCpu=null;
-            }
-            if(!gameList.getRecommendedGameGpu().equals("")){
-                recGpu = gameList.getRecommendedGameGpu();
-                recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
-            }
-            else{
-                recGpu=null;
-            }
-            recRamSize = gameList.getRecommendedGameRam();
-
-            //권장 cpu, gpu가 모두없을 경우
-            if (recCpu == null && recGpu == null) {
+        //권장 cpu, gpu가 모두없을 경우
+        if (recCpu == null && recGpu == null) {
+            gameList.setRecState(1);
+            gameList.setMinState(1);
+        }
+        // 권장 cpu만 있을 경우
+        else if (recCpu != null && recGpu == null) {
+            if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) {
                 gameList.setRecState(1);
                 gameList.setMinState(1);
+            } else {
+                gameList.setRecState(0);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }
-            // 권장 cpu만 있을 경우
-            else if (recCpu != null && recGpu == null) {
-                if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) {
-                    gameList.setRecState(1);
-                    gameList.setMinState(1);
-                } else {
-                    gameList.setRecState(0);
-                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
-                }
+        }
+        // 권장 gpu만 있을 경우
+        else if (recCpu == null) {
+            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) {
+                gameList.setRecState(1);
+                gameList.setMinState(1);
+            } else {
+                gameList.setRecState(0);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }
-            // 권장 gpu만 있을 경우
-            else if (recCpu == null) {
-                if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) {
-                    gameList.setRecState(1);
-                    gameList.setMinState(1);
-                } else {
-                    gameList.setRecState(0);
-                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
-                }
-            }
-            // 권장 cpu, gpu가 모두 있을경우
-            else {
-                if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) {
-                    gameList.setRecState(1);
-                    gameList.setMinState(1);
-                } else {
-                    gameList.setRecState(0);
-                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
-                }
+        }
+        // 권장 cpu, gpu가 모두 있을경우
+        else {
+            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) {
+                gameList.setRecState(1);
+                gameList.setMinState(1);
+            } else {
+                gameList.setRecState(0);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }
         }
 
-        return gameLists;
+        return gameList;
     }
+
+
+    //gamelist의 cpu를 하나선택후 cpulist에서 유시한것 찾기
+//    public List<GameList> CompareCpuUserVsGame(String ipAddress) {
+//
+//        // userInfo가 없을 경우
+//        if(userInsertInfoRepository.findByIpAddress(ipAddress) == null){
+//            return gameListRepository.findAll();
+//        }
+//
+//        List<GameList> gameLists = gameListRepository.findAll();
+//
+//        String recCpu = null;
+//        String recGpu = null;
+//        int recRamSize = 0;
+//
+//        UserInsertInfo userInsertInfo = userInsertInfoRepository.findByIpAddress(ipAddress);
+//
+//        //userinfo 에 있는 cpu rank ramSize 반환
+//        int userCpuRank = cpuListRepository.findByCpuName(userInsertInfo.getSelectedCpu()).getCpuRank();
+//        int userGpuRank = gpuListRepository.findByGpuName(userInsertInfo.getSelectedGpu()).getGpuRank();
+//        int userRamSize = ramListRepository.findByRamName(userInsertInfo.getSelectedRam()).getRamSize()*2;
+//
+//        //gamelist에서 추출한 <gamename, mincpu> list
+//        for (GameList gameList : gameLists) {
+//            int recCpuRank = 0;
+//            int recGpuRank = 0;
+//
+//            if(!gameList.getRecommendedGameCpu().equals("")){
+//                recCpu = gameList.getRecommendedGameCpu();
+//                recCpuRank = cpuListRepository.findByCpuName(gameList.getRecommendedGameCpu()).getCpuRank();
+//            }
+//            else{
+//                recCpu=null;
+//            }
+//            if(!gameList.getRecommendedGameGpu().equals("")){
+//                recGpu = gameList.getRecommendedGameGpu();
+//                recGpuRank = gpuListRepository.findByGpuName(gameList.getRecommendedGameGpu()).getGpuRank();
+//            }
+//            else{
+//                recGpu=null;
+//            }
+//            recRamSize = gameList.getRecommendedGameRam();
+//
+//            //권장 cpu, gpu가 모두없을 경우
+//            if (recCpu == null && recGpu == null) {
+//                gameList.setRecState(1);
+//                gameList.setMinState(1);
+//            }
+//            // 권장 cpu만 있을 경우
+//            else if (recCpu != null && recGpu == null) {
+//                if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) {
+//                    gameList.setRecState(1);
+//                    gameList.setMinState(1);
+//                } else {
+//                    gameList.setRecState(0);
+//                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+//                }
+//            }
+//            // 권장 gpu만 있을 경우
+//            else if (recCpu == null) {
+//                if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) {
+//                    gameList.setRecState(1);
+//                    gameList.setMinState(1);
+//                } else {
+//                    gameList.setRecState(0);
+//                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+//                }
+//            }
+//            // 권장 cpu, gpu가 모두 있을경우
+//            else {
+//                if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) {
+//                    gameList.setRecState(1);
+//                    gameList.setMinState(1);
+//                } else {
+//                    gameList.setRecState(0);
+//                    gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+//                }
+//            }
+//        }
+//
+//        return gameLists;
+//    }
 }
 

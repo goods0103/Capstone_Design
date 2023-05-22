@@ -2,15 +2,18 @@ package com.hadoop.demo.Controller;
 
 import com.hadoop.demo.Model.*;
 import com.hadoop.demo.Service.*;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -39,7 +42,7 @@ public class DataController {
     // cpu gpu ram 전체 리스트 요청 시
     @GetMapping("/category/cpu1")
     public List<CpuList> getAllCpuList() {
-        return cpuListService.findAll();
+        return cpuListService.orderByCpuRank();
     }
 
     @GetMapping("/category/ram1")
@@ -49,7 +52,7 @@ public class DataController {
 
     @GetMapping("/category/gpu1")
     public List<GpuList> getAllGpuList() {
-        return gpuListService.findAll();
+        return gpuListService.orderByGpuRank();
     }
 
     // cpu gpu ram 전체 리스트 중 이름만 요청 시
@@ -71,14 +74,20 @@ public class DataController {
     @GetMapping("/mySpec")
     public UserInsertInfo getMySpec(HttpServletRequest request) {
         String ipAddress = request.getRemoteAddr();
+        System.out.println("ipAddress : " + ipAddress);;
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
+
+        String ramList = compareService.getMatchingRam(ipAddress).getRamName();
+        if( ramList == null) {
+            ramList = "Samsung M471A1K43BB1-CTD";
+        }
 
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
                 .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
                 .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
-                .selectedRam(compareService.getMatchingRam(ipAddress).getRamName())
+                .selectedRam(ramList)
                 .build();
 
         userInsertInfoService.save(userInsertInfo);
@@ -89,8 +98,8 @@ public class DataController {
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
-        cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
-        int rank = cpuListService.findByName(cpu).getCpuRank();
+        String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
+        int rank = cpuListService.findByName(decodedCpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1468)
@@ -106,8 +115,8 @@ public class DataController {
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
-        gpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
-        int rank = gpuListService.findByName(gpu).getGpuRank();
+        String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
+        int rank = gpuListService.findByName(decodedGpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
         else if (rank >= 1471)
@@ -187,4 +196,18 @@ public class DataController {
         }
         return recBottleNecks;
     }
+
+    @PostMapping("/bottleneck_info")
+    public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo(@RequestBody String name) throws IOException {
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        System.out.println("name"+decodedString);
+        return bottleNeckService.gpuMatchingCpuInfo(decodedString);
+    }
+    // ram 이름으로 ramList 반환
+    @PostMapping("/bottleneck_info2")
+    public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo2(@RequestBody String name) throws IOException {
+        String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        return bottleNeckService.cpuMatchingGpuInfo(decodedString);
+    }
+
 }

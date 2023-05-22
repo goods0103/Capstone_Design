@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import MyBottleNeck from "../myInfo/MyBottleNeck";
 import SubmitSelectedCpu from "./SubmitSelectedCpu";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCodeCompare, faRotate} from "@fortawesome/free-solid-svg-icons";
 
 function CpuCompare() {
     const location = useLocation();
@@ -90,51 +92,73 @@ function CpuCompare() {
 
     return(
         <>
-            {/*<Container>*/}
-            {/*    <Row>*/}
-            {/*        <Col>1 of 2</Col>*/}
-            {/*        <Col>2 of 2</Col>*/}
-            {/*    </Row>*/}
-            {/*    <Row>*/}
-            {/*        <Col>1 of 3</Col>*/}
-            {/*        <Col>2 of 3</Col>*/}
-            {/*        <Col>3 of 3</Col>*/}
-            {/*    </Row>*/}
-            {/*</Container>*/}
-            <div className={styles.container1}>
-                <div className={styles.itemLabel}>선택된 스펙이름</div><br/>
-                <label>{cpuInfo.cpuName}</label>
-                <form onSubmit={handleSubmit} className={styles.itemForm} >
-                    <label>원하는 Cpu를 입력하세요 : </label>
-                    <Select
-                        value={selectedCpu}
-                        onChange={handleCpuChange}
-                        options={cpuOption}
-                        placeholder="Choose an option"
-                        isSearchable={true}
-                        className={styles.selectTag}
-                    />
-                    <label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>
-                    <input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />
-                    <br/>
-                    <button type="submit" onClick={handleClick} className={styles.buttonSubmit}>비교하기</button>
+        <div className={styles.bigFrame}>
+            <div className={styles.selectContainer}>
+                <label className={styles.selectSpecLabel}>{cpuInfo.cpuName}</label>
+                {/*<label className={styles.selectSpecLabel}>{"cpu 5600X"}</label>*/}
+                <form onSubmit={handleSubmit} className={styles.fromStyle} >
+                    <div className={styles.formContainer}>
+                        <label style={{paddingTop:'10px'}}>비교할 제품 선택 </label>&emsp;
+                        <Select
+                            value={selectedCpu}
+                            onChange={handleCpuChange}
+                            options={cpuOption}
+                            placeholder="Choose an option"
+                            isSearchable={true}
+                            className={styles.selectTagCompare}
+                            styles={{
+                                option: (provided, state) => ({
+                                    ...provided,
+                                    color: 'black',
+                                }),
+                                control: (provided, state) => ({
+                                    ...provided,
+                                    // width: '800px', // 원하는 너비로 조정
+                                    backgroundColor: '#3c3c3c',
+                                    border: state.isFocused ? '3px solid white' : 'solid',
+                                }),
+                                singleValue: (provided) => ({
+                                    ...provided,
+                                    color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                    fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                                }),
+                                input: (provided) => ({
+                                    ...provided,
+                                    color: 'white',
+                                }),
+                            }}
+                        />
+                        <button type="submit" onClick={handleClick} className={styles.customBtn}><span>비교하기&emsp;<FontAwesomeIcon icon={faRotate} spin size="xl" /></span></button>
+                    </div>
                 </form>
             </div>
-            <div className={styles.container2}>
-                <div className={styles.itemLabel}>선택된 스펙 정보 출력</div>
-                <div className={styles.itemLabel}>선택할 스펙 정보 출력</div>
-            </div>
+            <hr className={styles.hrStyle}/>
 
-            {/*<SubmitSelectedCpu selectedCpu={selectedCpu}*/}
-            {/*                   cpuInfo={cpuInfo}*/}
-            {/*                   cpuInfo2={cpuInfo2}/>*/}
+            {/*<div className={styles.infoNameFrame}>*/}
+            {/*        <span>*/}
+            {/*            <div>*/}
+            {/*                cpu1*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.infoNameLabel}>*/}
+            {/*                {"cpuInfo.cpuName"}*/}
+            {/*            </div>*/}
+            {/*        </span>*/}
+            {/*    <span>*/}
+            {/*            <div>*/}
+            {/*                cpu2*/}
+            {/*            </div>*/}
+            {/*            <div className={styles.infoNameLabel}>*/}
+            {/*                {"selectedCpuInfo.cpuName"}*/}
+            {/*            </div>*/}
+            {/*        </span>*/}
+            {/*</div>*/}
 
             {showComponent &&
                 <SubmitSelectedCpu selectedCpu={selectedCpu}
                                    cpuInfo={cpuInfo}
                                    cpuInfo2={cpuInfo2}/>
             }
-
+            </div>
         </>
     );
 }

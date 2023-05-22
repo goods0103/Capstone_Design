@@ -3,9 +3,10 @@ import axios from "axios";
 import Select from "react-select";
 import styles from "./eventBanner.module.css"
 import {Link} from "react-router-dom";
+import {useStateValue} from "../reducer/StateProvider";
 
 function InsertSpec() {
-
+    const [{count}, dispatch]= useStateValue();
     const [cpuOption, setCpuOption] = useState([]); // cpu 에 대한 배열
     // 나중에 스프링에서 데이터를 받아오면 let -> const 로 변환
     const [gpuOption, setGpuOption] = useState([]); // gpu 에 대한 배열
@@ -90,14 +91,24 @@ function InsertSpec() {
             .catch(error => {
                 console.log(error);
             });
+        dispatch({
+            type:'3',
+        });
 
     }
+    useEffect(() => {
+        localStorage.setItem("state", JSON.stringify(count));
+        console.log(count);
+      }, [count]);
 
     return (
         <>
             <form onSubmit={handleSubmit} className={styles.formTag}>
+                <h2 className={styles.animationLabel}>Insert Spec</h2>
+                <hr className={styles.hrStyle}/>
+                <br/><br/>
                 <div className={styles.animationCpu}>
-                    <label>원하는 Cpu를 입력하세요 : </label> <br/>
+                    <label className={styles.labelStyle}>원하는 Cpu를 입력하세요</label> <br/>
                     <Select
                         value={selectedCpu}
                         onChange={handleCpuChange}
@@ -110,15 +121,30 @@ function InsertSpec() {
                                 ...provided,
                                 color: 'black',
                             }),
+                            control: (provided, state) => ({
+                                ...provided,
+                                // width: '800px', // 원하는 너비로 조정
+                                backgroundColor: '#3c3c3c',
+                                border: state.isFocused ? '3px solid white' : 'solid',
+                            }),
+                            singleValue: (provided) => ({
+                                ...provided,
+                                color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                            input: (provided) => ({
+                                ...provided,
+                                color: 'white',
+                            }),
                         }}
                     />
                     {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
                     {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
                 </div>
-                <br/>
+                <br/><br/><br/>
 
                 <div className={styles.animationGpu}>
-                    <label>원하는 Gpu를 입력하세요 : </label> <br/>
+                    <label className={styles.labelStyle}>원하는 Gpu를 입력하세요</label> <br/>
                     <Select
                         value={selectedGpu}
                         onChange={handleGpuChange}
@@ -131,15 +157,29 @@ function InsertSpec() {
                                 ...provided,
                                 color: 'black',
                             }),
+                            control: (provided, state) => ({
+                                ...provided,
+                                backgroundColor: '#3c3c3c',
+                                border: state.isFocused ? '3px solid white' : 'solid',
+                            }),
+                            singleValue: (provided) => ({
+                                ...provided,
+                                color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                            input: (provided) => ({
+                                ...provided,
+                                color: 'white',
+                            }),
                         }}
                     />
                     {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
                     {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
                 </div>
-                <br/>
+                <br/><br/><br/>
 
                 <div className={styles.animationRam}>
-                    <label>원하는 Ram를 입력하세요 : </label> <br/>
+                    <label className={styles.labelStyle}>원하는 Ram를 입력하세요</label> <br/>
                     <Select
                         value={selectedRam}
                         onChange={handleRamChange}
@@ -152,14 +192,29 @@ function InsertSpec() {
                                 ...provided,
                                 color: 'black',
                             }),
+
+                            control: (provided, state) => ({
+                                ...provided,
+                                backgroundColor: '#3c3c3c',
+                                border: state.isFocused ? '3px solid white' : 'solid',
+                            }),
+                            singleValue: (provided) => ({
+                                ...provided,
+                                color: 'white', // 선택된 값의 글자색을 하얀색으로 설정
+                                fontSize: '1rem', // 선택된 값의 폰트 크기를 원하는 크기로 조정
+                            }),
+                            input: (provided) => ({
+                                ...provided,
+                                color: 'white',
+                            }),
                         }}
                     />
                     {/*<label htmlFor="ramSelect">Selected Ram : &nbsp;</label>*/}
                     {/*<input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />*/}
                 </div>
-                <br/>
+                <br/><br/><br/>
 
-                <Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.buttonSubmit}>Submit</button></Link>
+                <Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.btnSubmitHover}>RESULT</button></Link>
             </form>
         </>
     );
