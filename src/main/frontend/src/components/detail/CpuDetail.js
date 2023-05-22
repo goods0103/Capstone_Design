@@ -58,6 +58,10 @@ function CpuDetail() {
     const [percentages2, setPercentages2] = useState([]);
     const [cpuMarkChart, setCpuMarkChart] = useState([]);
 
+    const handlePageNavigation = (path) => {
+        window.location.href = path;
+    };
+
     useEffect(() => {
         axios.post('/cpuValue', { lastPart })
             .then(response => {
@@ -151,7 +155,6 @@ function CpuDetail() {
 
                 <div className={styles.cssTable}>
                     <Table  hover variant="light">
-                    {/*<table>*/}
                         <thead>
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{cpuInfo.cpuName}</th>
@@ -226,7 +229,7 @@ function CpuDetail() {
                                     </tr>
                                 </thead>
                                 {cpuValue.map((cpu, index) => (
-                                    cpu.cpuId === lastPart ? (
+                                    cpu.cpuId === parseInt(lastPart, 10) ? (
                                         <tbody>
                                             <tr>
                                                 <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
@@ -275,8 +278,9 @@ function CpuDetail() {
                             </tr>
                             </thead>
                             {cpuPopular.map((cpu, index) => (
-                                cpu.cpuId === lastPart  &&(
-                                    <thead>
+                                cpu.cpuId === parseInt(lastPart, 10) ? (
+                                // cpu.cpuName === cpuInfo.cpuName ? (
+                                    <tbody>
                                     <tr>
                                         <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                                         <td className={styles.pointMySpec}>{cpu.cpuName}</td>
@@ -286,22 +290,21 @@ function CpuDetail() {
                                             {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
-                                    </thead>
-                                )))}
-                            {cpuPopular.map((cpu, index) => (
-                                cpu.cpuId !== lastPart  &&(
-                                    <thead>
+                                    </tbody>
+                                ) : (
+                                    <tbody>
                                     <tr>
                                         <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td>{cpu.cpuName}</td>
+                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
                                         <td>{cpu.cpuRank}</td>
                                         <td>{convertPrice(cpu.cpuPrice)}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
-                                    </thead>
-                                )))}
+                                    </tbody>
+                                    )
+                            ))}
                         </Table>
                     </div>
                 </div>

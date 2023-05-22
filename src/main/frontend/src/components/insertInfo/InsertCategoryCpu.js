@@ -101,7 +101,6 @@ function InsertCategoryCpu() {
                         {cpuList.map((cpu) => (
                             data2 === cpu.cpuName ? (
                                 <tr className={styles.mySpecInfoHover} data-cpu-name={cpu.cpuName}>
-                                    {/*<td>🟢</td>*/}
                                     <td className={styles.mySpecInfo}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
                                     <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.myLink}>{cpu.cpuName}</Link></td>
                                     <td className={styles.mySpecInfo}>{cpu.cpuMark}</td>
