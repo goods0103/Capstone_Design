@@ -80,6 +80,7 @@ function GameDetail() {
             <div className={styles.pageTitle}>
                 <div className={styles.Title}><span>{gameOriginInfo.gameName}</span></div>
             </div>
+            <div className={styles.gameFrame}>
             <div className={styles.gameInfo}>
                 <span>{gameOriginInfo.gameName}</span>
                 <hr style={{color: 'black'}}/>
@@ -223,16 +224,17 @@ function GameDetail() {
                     <span>Top Games</span>
                     <hr style={{color: 'black'}}/>
                     {topList.map((top)=>(
-                        <p>{top.gameName}</p>
+                        <p className={styles.pDetail}>{top.gameName}</p>
                     ))}
                 </div>
                 <div className={styles.testGame}>
                     <span>Most Tested Games</span>
                     <hr style={{color: 'black'}}/>
                     {countList.map((count)=>(
-                        <p>{count.gameName}</p>
+                        <p className={styles.pDetail}>{count.gameName}</p>
                     ))}
                 </div>
+            </div>
             </div>
         </>
     );

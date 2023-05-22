@@ -1,3 +1,22 @@
+.bigFrame {
+    width: 1140px;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 100px;
+}
+
+.gameFrame {
+    width: 1140px;
+    margin: 0 auto;
+    font-family: 'Open Sans', sans-serif;
+    padding-bottom: 100px;
+    display: flex;
+}
+.pDetail {
+    margin-bottom: 2px;
+}
+
+
 .selectTag {
     width: 30%;
     height: 20%;
@@ -33,11 +52,11 @@
     vertical-align: middle;
     font-weight: bold;
     padding: 5px;
-    background-color: #EBFBFF !important;
+    background-color: #E2EDF4 !important;
 }
 
 .cssThProgress {
-    background-color: #EBFBFF !important;
+    background-color: #E2EDF4 !important;
 }
 
 .cssTd {
@@ -70,8 +89,7 @@
 /*------cpuDetail-----*/
 
 .detailHeaderExplain {
-    margin: 0 auto;
-    width: 70%;
+    padding-right: 30%;
 
     animation-name: fadeIn;
     animation-duration: 1.0s;
@@ -96,22 +114,33 @@ ul {
 
 .tableDetailTd {
     text-align: left;
+    border-bottom: solid 2px #E2EDF4 !important;
+    border-right: solid 2px #E2EDF4 !important;
+    border-top: solid 2px #E2EDF4 !important;
 }
 
 .tableDetailTh {
+    width: 60%;
     font-size: 1.5rem;
-    background-color: #EBFBFF !important;
+    background-color: #E2EDF4 !important;
+    border-right: solid 3px #FFFFFF;
+}
+.tableDetailTh2 {
+    width: 40%;
+    font-size: 1.5rem;
+    background-color: #E2EDF4 !important;
 }
 
 .detailMark {
     font-size: 2rem;
-    color: orange;
+    color: #F48A18;
+    font-weight: bold;
 }
 
 .cssTable {
     border-collapse: collapse;
-    margin: 0 auto;
-    width: 70%;
+
+
 
     animation-name: fadeIn;
     animation-duration: 1.0s;
@@ -128,20 +157,102 @@ ul {
 }
 
 .buttonCompareDetail {
-    background-color: dodgerblue;
+    background-color: #246EB9;
     color: #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.5rem;
     margin-top: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    width: 200px;
+    font-weight: bold;
 }
 
-.buttonCompare {
-    background-color: dodgerblue;
+/* .buttonCompare {
+    background-color: #246EB9;
     color: #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.3rem;
+    font-family: 'Open Sans', sans-serif;
+} */
+.customBtn {
+    width: 120px;
+    height: 40px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
 
-}
+    background: #4d6782 ;
+   color: #fff;
+   line-height: 42px;
+   padding: 0 !important;
+   border: none !important;
+   
+  }
+ .customBtn span {
+   position: relative;
+   display: block;
+   width: 100%;
+   height: 100%;
+ }
+ .customBtn:before,
+ .customBtn:after {
+   position: absolute;
+   content: "";
+   height: 0%;
+   width: 2px;
+   background: #4d6782;
+ }
+ .customBtn:before {
+   right: 0;
+   top: 0;
+   transition: all 500ms ease;
+ }
+ .customBtn:after {
+   left: 0;
+   bottom: 0;
+   transition: all 500ms ease;
+ }
+ .customBtn:hover{
+   color: #fff;
+   background: transparent;
+ }
+ .customBtn:hover:before {
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .customBtn:hover:after {
+   transition: all 500ms ease;
+   height: 100%;
+ }
+ .customBtn span:before,
+ .customBtn span:after {
+   position: absolute;
+   content: "";
+   background: #4d6782;
+ }
+ .customBtn span:before {
+   left: 0;
+   top: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+ }
+ .customBtn span:after {
+   right: 0;
+   bottom: 0;
+   width: 0%;
+   height: 2px;
+   transition: all 500ms ease;
+ }
+ .customBtn span:hover:before {
+   width: 100%;
+ }
+ .customBtn span:hover:after {
+   width: 100%;
+ }
 
 .pointMySpec {
     text-align: center;
@@ -166,6 +277,16 @@ ul {
     animation-duration: 1.0s;
     animation-fill-mode: backwards;
     animation-delay : 1.8s;
+}
+
+.link {
+    color: black !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
 }
 
 /*.detailValue {*/
@@ -235,8 +356,8 @@ ul {
 }
 
 .fromStyle {
-    width: 39%;
-    margin-right: 20%;
+    width: 600px;
+    margin-right: 10%;
 }
 
 .selectTagCompare {
@@ -246,7 +367,7 @@ ul {
 }
 
 .selectSpecLabel {
-    width: 21%;
+    width: 300px;
     text-align: left;
     font-size: 1.5rem;
     font-weight: bold;
@@ -258,7 +379,7 @@ ul {
     animation-fill-mode: backwards;
     animation-delay: 0.5s;
     /*border-color: red;*/
-    width: 60%; /* 원하는 너비로 설정 */
+    width: 900px; /* 원하는 너비로 설정 */
     margin: 2rem auto 0 auto; /* 가운데 정렬 */
     border: 1px solid;
 }
@@ -269,7 +390,7 @@ ul {
     animation-fill-mode: backwards;
     animation-delay: 1.2s;
     /*border-color: red;*/
-    width: 60%; /* 원하는 너비로 설정 */
+    width: 900px; /* 원하는 너비로 설정 */
     margin: 2rem auto 0 auto; /* 가운데 정렬 */
     border: 1px solid;
 }
@@ -298,20 +419,21 @@ ul {
 }
 
 span + span {
-    margin-left: 10%;
+    margin-left: 15%;
 }
 
 .infoTitleLabel {
     text-align: left;
-    margin-left:20%;
+    margin-left:12%;
     margin-top: 2rem;
     font-size: 2rem;
+    font-weight: bold;
 }
 
 .infoDetailLabel {
     margin-bottom: 1rem;
     font-size: 20px;
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
 }
 
 .infoProgressBar {
@@ -327,8 +449,10 @@ span + span {
 }
 
 .infoProgressBarSpan {
-    width: 30%;
+    width: 40%;
     margin-left: 0;
+    display: flex;
+    align-items: center;
 }
 
 .infoProgressBarFrame {
@@ -343,7 +467,7 @@ span + span {
 }
 
 .infoProgressBarLabel {
-    min-width:15em;
+    min-width:17em;
     font-size:22px;
 }
 
@@ -381,7 +505,7 @@ span + span {
     animation-fill-mode: backwards;
     animation-delay : 1.4s;
 
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
 }
 
 
@@ -414,7 +538,7 @@ span + span {
     content: "";
     position: absolute;
     top: 90px;
-    bottom: 60%;
+    height: 300px;
     opacity: .15;
     background-image: url('../../../../resources/static/images/game-Image.jpg');
     background-repeat: repeat-x;
@@ -427,7 +551,7 @@ span + span {
     content: "";
     position: absolute;
     top: 90px;
-    bottom: 60%;
+    height: 300px;
     left: 0;
     right: 0;
     background-color: #4e54c8!important; /* 배경 색상 설정 */
@@ -435,11 +559,10 @@ span + span {
 }
 
 .Title{
-    position: absolute;
-    width: 80%;
+    width: 1140px;
     height: 60px;
-    left:10%;
-    top: calc(27px + 30%);
+    margin: 0 auto;
+    margin-top: 240px;
 
     background: #FFFFFF;
     border-radius: 10px 10px 0 0;
@@ -454,14 +577,12 @@ span + span {
     display: inline-block;
 }
 .gameInfo{
-    position: absolute;
-    width: 50%;
-    left: 10%;
-    top: 50%;
+    width: 60%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    margin-top: 60px;
 }
 
 .gameInfo span{
@@ -474,10 +595,12 @@ span + span {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
 }
 .checkImg{
-    width:25%;
-    margin-left:1%
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 20%;
 }
 .xImg{
     width:20%;
@@ -485,6 +608,7 @@ span + span {
 
 .gameImg{
     width:50%;
+    margin-right: 2%;
 }
 
 .topGame{
@@ -494,6 +618,7 @@ span + span {
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    padding-left: 10px;
 }
 
 .topGame span{
@@ -503,10 +628,9 @@ span + span {
     justify-content: center;
 }
 .gameDetailList{
-    position : absolute;
-    left:65%;
-    top :50%;
-    width : 25%;
+    width : 40%;
+    margin-left: 100px;
+    margin-top: 60px;
 }
 
 
@@ -516,6 +640,7 @@ span + span {
     border-radius: 10px 10px 10px 10px;
     padding:1%;
     color:#151515;
+    padding-left: 10px;
 }
 
 
@@ -540,6 +665,8 @@ span + span {
     border-radius: 1rem;
     transition: 1s ease;
     transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
 }
 
 .progress2 {
@@ -548,6 +675,8 @@ span + span {
     border-radius: 1rem;
     transition: 1s ease;
     transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
 }
 .progress3 {
     background: linear-gradient(90deg, #C6D6F7 0%, rgba(71, 131, 255, 0.47) 100%);
@@ -555,6 +684,8 @@ span + span {
     border-radius: 1rem;
     transition: 1s ease;
     transition-delay: 0.5s;
+    display: flex;
+    align-items: center;
 }
 .progressSpan {
     font-size: 22px;

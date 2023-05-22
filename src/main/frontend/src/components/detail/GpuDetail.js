@@ -136,7 +136,7 @@ function GpuDetail() {
 
     return(
         <>
-            <div>
+            <div className={styles.bigFrame}>
                 <div className={styles.detailHeaderExplain}>
                     <br/><br/>
                     <h2>{gpuInfo.gpuName}</h2>
@@ -157,13 +157,13 @@ function GpuDetail() {
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{gpuInfo.gpuName}</th>
                             {/*<th colSpan={2}>AMD Ryzen 5 5600X</th>*/}
-                            <th style={{textAlign: 'center'}} className={styles.tableDetailTh}>Average GPU Mark</th>
+                            <th style={{textAlign: 'center'}} className={styles.tableDetailTh2}>Average GPU Mark</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td className={styles.tableDetailTd}>Category: {gpuInfoDetail.category}</td>
-                            <td className={styles.tableDetailTd}>Memory Size: {gpuInfoDetail.memorySize}</td>
+                            <td className={styles.tableDetailTd}><strong>Category:</strong> {gpuInfoDetail.category}</td>
+                            <td className={styles.tableDetailTd}><strong>Memory Size:</strong> {gpuInfoDetail.memorySize}</td>
                             <td rowSpan={9}>
                                 <div>
                                     <img src={"https://www.cpubenchmark.net/images/speedicon.svg"} alt="cpu_image" className={styles.tableDetailImg}/>
@@ -178,11 +178,11 @@ function GpuDetail() {
                             </td>
                         </tr>
                         <tr>
-                            <td className={styles.tableDetailTd}>Core Clock: {gpuInfoDetail.coreClock}</td>
-                            <td className={styles.tableDetailTd}>Memory Clock: {gpuInfoDetail.memoryClock}</td>
+                            <td className={styles.tableDetailTd}><strong>Core Clock:</strong> {gpuInfoDetail.coreClock}</td>
+                            <td className={styles.tableDetailTd}><strong>Memory Clock:</strong> {gpuInfoDetail.memoryClock}</td>
                         </tr>
                         <tr>
-                            <td className={styles.tableDetailTd}>Typical TDP: {gpuInfoDetail.tdp}</td>
+                            <td className={styles.tableDetailTd}><strong>Typical TDP:</strong> {gpuInfoDetail.tdp}</td>
                             <td className={styles.tableDetailTd}></td>
                         </tr>
                         {/*<tr>*/}
@@ -192,19 +192,19 @@ function GpuDetail() {
                             <td colSpan={2} style={{height: '2.5rem'}}></td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Other names: {gpuInfoDetail.otherName}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>Other names:</strong> {gpuInfoDetail.otherName}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>GPU Mark/$Price: {gpuInfo.gpuValue}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>GPU Mark/$Price:</strong> {gpuInfo.gpuValue}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Overall Rank: {gpuInfo.gpuRank}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>Overall Rank:</strong> {gpuInfo.gpuRank}</td>
                         </tr>
                         </tbody>
                     </Table>
                 </div>
 
-                <ResponsiveContainer width="70%" height={800} className={styles.lineChartDetail}>
+                <ResponsiveContainer width="100%" height={800} className={styles.lineChartDetail}>
                     <LineChartDetail chartData={gpuMarkChart}/>
                 </ResponsiveContainer>
 
@@ -227,7 +227,7 @@ function GpuDetail() {
                                 </tr>
                                 </thead>
                                 {gpuValue.map((gpu, index) => (
-                                    gpu.gpuId === lastPart ? (
+                                    gpu.gpuId === parseInt(lastPart, 10) ? (
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -276,7 +276,7 @@ function GpuDetail() {
                             </tr>
                             </thead>
                             {gpuPopular.map((gpu, index) => (
-                                gpu.gpuId === lastPart  &&(
+                                gpu.gpuId === parseInt(lastPart, 10) ? (
                                     <thead>
                                     <tr>
                                         <td className={styles.pointMySpec}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -288,9 +288,7 @@ function GpuDetail() {
                                         </td>
                                     </tr>
                                     </thead>
-                                )))}
-                            {gpuPopular.map((gpu, index) => (
-                                gpu.gpuId !== lastPart  &&(
+                                ) : (
                                     <thead>
                                     <tr>
                                         <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
@@ -302,7 +300,8 @@ function GpuDetail() {
                                         </td>
                                     </tr>
                                     </thead>
-                                )))}
+                                )
+                            ))}
                         </Table>
                     </div>
                 </div>

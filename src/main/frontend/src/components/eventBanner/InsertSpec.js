@@ -214,7 +214,7 @@ function InsertSpec() {
                 </div>
                 <br/><br/><br/>
 
-                <Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.buttonSubmit}>Submit</button></Link>
+                <Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.btnSubmitHover}>RESULT</button></Link>
             </form>
         </>
     );
