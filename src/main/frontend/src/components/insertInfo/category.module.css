@@ -99,11 +99,7 @@ th {
 .barChart p{
 
 }
-.CircularChart{
-    width: 50%;
-    margin-left:50%;
 
-}
 
 
 /*---ShowInsertInfo.js----*/
@@ -210,12 +206,6 @@ th {
 .urlLabel {
     /* 더 알아보기 > */
 
-    /*position: absolute;*/
-    /*width: 161px;*/
-    /*height: 32px;*/
-    /*left: 470px;*/
-    /*top: 557px;*/
-
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -310,9 +300,10 @@ th {
     background: linear-gradient(101.93deg, #bddfe8 -19.74%, #2997C7 112.85%);
     border: 1px solid #3ca4e0c4;
     border-radius: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 
     position: relative;
-    width: 15%;
+    width: 20%;
     height: 50px;
     margin: 3% auto 0 auto;
 
@@ -333,11 +324,10 @@ th {
 }
 
 .bottleNeckComp {
-    margin-top :27%;
-    position : absolute;
     display: flex;
-    width : 55%;
-    left  : 25%;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    height: 300px;
     padding-left: 0;
     color:#151515;
     border : solid 2px #ffffff;
@@ -356,11 +346,8 @@ th {
 
 
 .bottleNeckComp1 {
-    position : absolute;
-    display: flex;
-    width : 60%;
-    left: 7%;
-    align-items: center;
+    width : 62%;
+    margin-bottom: 3%;
 }
 .bottleNeckComp p {
     text-align: left;
@@ -368,6 +355,9 @@ th {
 }
 .bottleNeckText{
     font-size: 1rem;
+    width: 50%;
+    margin-left: 2%;
+    margin-top: 1%;
 }
 .bottleNeckTitle{
     font-weight: bold;
@@ -381,8 +371,8 @@ th {
 
 /*----Circular ProgressBar----*/
 .circularProgressBar {
-    position: relative;
-    width : 30%;
+    width : 50%;
+    vertical-align: middle;
 }
 
 /*--animation---*/
@@ -440,11 +430,9 @@ th {
 }
 
 .CircularChart {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+    text-align: center;
+    width: 50%;
+    padding-top: 3%;
 }
 
 .CircularChart p {

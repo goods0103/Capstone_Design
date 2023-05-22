@@ -135,7 +135,7 @@ function CpuDetail() {
 
     return(
         <>
-            <div>
+            <div className={styles.bigFrame}>
                 <div className={styles.detailHeaderExplain}>
                     <br/><br/>
                     <h2>{cpuInfo.cpuName}</h2>
@@ -156,18 +156,18 @@ function CpuDetail() {
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{cpuInfo.cpuName}</th>
                             {/*<th colSpan={2}>AMD Ryzen 5 5600X</th>*/}
-                            <th style={{textAlign: 'center'}} className={styles.tableDetailTh}>Average CPU Mark</th>
+                            <th style={{textAlign: 'center'}} className={styles.tableDetailTh2}>Average CPU Mark</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td className={styles.tableDetailTd}>Class: {cpuInfoDetail.classType}</td>
-                            <td className={styles.tableDetailTd}>Socket: {cpuInfoDetail.socket}</td>
+                            <td className={styles.tableDetailTd}><strong>Class:</strong> {cpuInfoDetail.classType}</td>
+                            <td className={styles.tableDetailTd}><strong>Socket:</strong> {cpuInfoDetail.socket}</td>
                             <td rowSpan={10}>
                                 <div>
                                     <img src={"/images/product/calc1.png"} alt="cpu_image" className={styles.tableDetailImg}/>
                                     <div className={styles.detailMark}>{cpuInfo.cpuMark}</div><br/>
-                                    <div>Single Thread Rating: {cpuInfoDetail.str}</div>
+                                    <div style={{fontWeight : "bold"}}><strong>Single Thread Rating:</strong> {cpuInfoDetail.str}</div>
                                     <Link to={`/cpuCompare/?id=${lastPart}`}>
                                         <button className={styles.buttonCompareDetail}>
                                             <FontAwesomeIcon icon={faPlus} shake size="xl" style={{color: "#ffffff",}} />&nbsp;COMPARE
@@ -177,33 +177,33 @@ function CpuDetail() {
                             </td>
                         </tr>
                         <tr>
-                            <td className={styles.tableDetailTd}>Clock Speed: {cpuInfoDetail.clock}</td>
-                            <td className={styles.tableDetailTd}>Turbo Speed: {cpuInfoDetail.turbo}</td>
+                            <td className={styles.tableDetailTd}><strong>Clock Speed:</strong> {cpuInfoDetail.clock}</td>
+                            <td className={styles.tableDetailTd}><strong>Turbo Speed:</strong> {cpuInfoDetail.turbo}</td>
                         </tr>
                         <tr>
-                            <td className={styles.tableDetailTd}>Cores: {cpuInfoDetail.core}</td>
-                            <td className={styles.tableDetailTd}>Typical TDP: {cpuInfoDetail.tdp}</td>
+                            <td className={styles.tableDetailTd}><strong>Cores:</strong> {cpuInfoDetail.core}</td>
+                            <td className={styles.tableDetailTd}><strong>Typical TDP:</strong> {cpuInfoDetail.tdp}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Cache Size: {cpuInfoDetail.cache}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>Cache Size:</strong> {cpuInfoDetail.cache}</td>
                         </tr>
                         <tr>
                             <td colSpan={2} style={{height: '2.5rem'}}></td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Other names: {cpuInfoDetail.otherName}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>Other names:</strong> {cpuInfoDetail.otherName}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>CPU Mark/$Price: {cpuInfo.cpuValue}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>CPU Mark/$Price:</strong> {cpuInfo.cpuValue}</td>
                         </tr>
                         <tr>
-                            <td colSpan={2} className={styles.tableDetailTd}>Overall Rank: {cpuInfo.cpuRank}</td>
+                            <td colSpan={2} className={styles.tableDetailTd}><strong>Overall Rank:</strong> {cpuInfo.cpuRank}</td>
                         </tr>
                         </tbody>
                     </Table>
                 </div>
 
-                <ResponsiveContainer width="70%" height={800} className={styles.lineChartDetail}>
+                <ResponsiveContainer width="100%" height={800} className={styles.lineChartDetail}>
                     <LineChartDetail chartData={cpuMarkChart}/>
                 </ResponsiveContainer>
 
