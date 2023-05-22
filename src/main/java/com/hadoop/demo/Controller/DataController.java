@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin
 @RestController
@@ -193,6 +194,7 @@ public class DataController {
     @PostMapping("/bottleneck_info")
     public List<BottleNeckService.bottleNeckInfo> findBottleNeckInfo(@RequestBody String name) throws IOException {
         String decodedString = URLDecoder.decode(name, StandardCharsets.UTF_8).replace("=","");
+        System.out.println("name"+decodedString);
         return bottleNeckService.gpuMatchingCpuInfo(decodedString);
     }
     // ram 이름으로 ramList 반환

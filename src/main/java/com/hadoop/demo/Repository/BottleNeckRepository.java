@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface BottleNeckRepository extends JpaRepository<BottleNeck, BottleNeckCompositeKey> {
 
-    List<BottleNeck> findByCpuInfo(String cpuName);
+    List<BottleNeck> findByCpuInfo(String cpuInfo);
 
-    List<BottleNeck> findByGpuInfo(String gpuName);
+    List<BottleNeck> findByGpuInfo(String gpuInfo);
 
     BottleNeck findByCpuInfoAndGpuInfo(String cpuInfo, String gpuInfo);
 

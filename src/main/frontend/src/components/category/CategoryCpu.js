@@ -31,7 +31,6 @@ function CategoryCpu() {
   const [selectedFilter, setSelectedFilter] = useState("none");
   //검색을 위한 useState
   const [searchValue, setSearchValue] = useState("");
-
     // CPU 정보
   useEffect(() => {
     const fetchData = async () => {
@@ -104,7 +103,10 @@ function CategoryCpu() {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => a.cpuRank - b.cpuRank);
           setCpuList(newProduct);
-
+      } else if (type === "cpuValue") {
+          const newProduct = [...cpuList];
+          newProduct.sort((a, b) => b.cpuValue - a.cpuValue);
+          setCpuList(newProduct);
       }
     };
 
@@ -163,7 +165,7 @@ function CategoryCpu() {
                       sortProduct("low");
                   }}
               >
-                  낮은 가격
+                  가격 ▽
               </button>
               <button
                   className={
@@ -176,7 +178,7 @@ function CategoryCpu() {
                       sortProduct("high");
                   }}
               >
-                  높은 가격
+                  가격 △
               </button>
               <button
                   className={
@@ -189,20 +191,20 @@ function CategoryCpu() {
                       sortProduct("rankHigh");
                   }}
               >
-                  cpu 높은 순️
+                  성능
               </button>
               <button
                   className={
-                      selectedFilter === "rankLow"
+                      selectedFilter === "cpuValue"
                           ? `${styles.filterButton} ${styles.filterButtonSelected}`
                           : styles.filterButton
                   }
                   onClick={() => {
-                      setSelectedFilter("rankLow");
-                      sortProduct("rankLow");
+                      setSelectedFilter("cpuValue");
+                      sortProduct("cpuValue");
                   }}
               >
-                  cpu 낮은 순️
+                  가성비
               </button>
               <button className={styles.buttonTotalList} onClick={() => showTotalList()}>초기화</button>
           </div>
