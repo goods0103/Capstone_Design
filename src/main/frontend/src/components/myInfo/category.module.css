@@ -26,6 +26,12 @@
 .tableImg {
     width:100px;
     height:60px;
+    border-radius: 10px;
+}
+
+.tableImgGpu {
+    width: auto;
+    height:30px;
 }
 
 
