@@ -13,10 +13,15 @@ function InsertCategoryCpu() {
 
     useEffect(() => {
         if (data2) {
+            const encodedData = encodeURIComponent(data2);
             const fetchData = async () => {
-                console.log(data2);
                 try {
-                    const response = await axios.post('/myCpuRanking', `${data2}`);
+                    const response = await axios.post('/myCpuRanking', encodedData, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        transformRequest: [(data) => data],
+                    });
                     setCpuList(response.data);
                 } catch (error) {
                     console.log(error);

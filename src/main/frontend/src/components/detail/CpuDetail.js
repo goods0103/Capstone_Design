@@ -105,6 +105,7 @@ function CpuDetail() {
     useEffect(() => {
         axios.post('/cpu_mark_chart', { lastPart })
             .then(response => {
+                console.log(response.data);
                 setCpuMarkChart(response.data);
             })
             .catch(error => {
