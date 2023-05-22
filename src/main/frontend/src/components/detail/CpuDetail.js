@@ -59,6 +59,10 @@ function CpuDetail() {
     const [cpuMarkChart, setCpuMarkChart] = useState([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0); // 화면 맨 위로 스크롤
+    }, []);
+
+    useEffect(() => {
         axios.post('/cpuValue', { lastPart })
             .then(response => {
                 setCpuValue(response.data);
@@ -165,7 +169,7 @@ function CpuDetail() {
                             <td className={styles.tableDetailTd}>Socket: {cpuInfoDetail.socket}</td>
                             <td rowSpan={10}>
                                 <div>
-                                    <img src={"/images/product/calc1.png"} alt="cpu_image" className={styles.tableDetailImg}/>
+                                    <img src={"https://www.cpubenchmark.net/images/speedicon.svg"} alt="cpu_image" className={styles.tableDetailImg}/>
                                     <div className={styles.detailMark}>{cpuInfo.cpuMark}</div><br/>
                                     <div>Single Thread Rating: {cpuInfoDetail.str}</div>
                                     <Link to={`/cpuCompare/?id=${lastPart}`}>

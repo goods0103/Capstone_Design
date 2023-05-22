@@ -312,7 +312,7 @@ div {
 
   /*color: #FFFFFF;*/
 
-  margin-top: 5%;
+  margin-top: 50px;
   margin-left: 1%;
 }
 .link{
@@ -327,10 +327,10 @@ div {
 
 
   position: absolute;
-  width: 10%;
+  width: 200px;
   height: 60px;
-  top: 17%;
-  left : 30%;
+
+  margin-left: 100px;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -375,7 +375,10 @@ div {
 .waring{
   margin-top : 5%;
 }
-
+.showMySpec{
+  display: flex;
+  margin-top : 20px;
+}
 @keyframes fadeIn {
   0% {
     transform: translateY(-50px);

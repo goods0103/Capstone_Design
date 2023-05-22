@@ -56,6 +56,10 @@ function GpuDetail() {
     const [gpuMarkChart, setGpuMarkChart] = useState([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0); // 화면 맨 위로 스크롤
+    }, []);
+
+    useEffect(() => {
         axios.post('/gpuValue', { lastPart })
             .then(response => {
                 setGpuValue(response.data);
@@ -162,7 +166,7 @@ function GpuDetail() {
                             <td className={styles.tableDetailTd}>Memory Size: {gpuInfoDetail.memorySize}</td>
                             <td rowSpan={9}>
                                 <div>
-                                    <img src={"/images/product/calc1.png"} alt="cpu_image" className={styles.tableDetailImg}/>
+                                    <img src={"https://www.cpubenchmark.net/images/speedicon.svg"} alt="cpu_image" className={styles.tableDetailImg}/>
                                     <div className={styles.detailMark}>{gpuInfo.gpuMark}</div><br/>
                                     {/*<div>Single Thread Rating: {gpuInfoDetail.str}</div>*/}
                                     <Link to={`/gpuCompare/?id=${lastPart}`}>
