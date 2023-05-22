@@ -51,7 +51,7 @@ function InsertInfoBottleNeck() {
             };
             fetchData();
         }
-    }, [postData]);
+    },[] );
 
     return (
         <>
