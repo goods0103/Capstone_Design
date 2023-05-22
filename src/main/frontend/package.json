@@ -21,7 +21,7 @@
     "react-move": "^6.5.0",
     "react-paginate": "^8.2.0",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-search-box": "^3.0.0",
     "react-select": "^5.7.3",

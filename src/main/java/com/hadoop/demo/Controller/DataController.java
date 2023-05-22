@@ -73,7 +73,8 @@ public class DataController {
     @Transactional
     @GetMapping("/mySpec")
     public UserInsertInfo getMySpec(HttpServletRequest request) {
-        String ipAddress = request.getHeader("X-Forwarded-For");
+        String ipAddress = request.getRemoteAddr();
+        System.out.println("ipAddress : " + ipAddress);;
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 

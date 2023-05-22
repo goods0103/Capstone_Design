@@ -168,6 +168,16 @@ ul {
     animation-delay : 1.8s;
 }
 
+.link {
+    color: black !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
+.myLink {
+    color: #1EDDFF !important; /* 링크 글자 색을 흰색으로 지정 */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+
 /*.detailValue {*/
 /*    animation-name: fadeIn;*/
 /*    animation-duration: 1.0s;*/
