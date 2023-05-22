@@ -14,7 +14,8 @@ function MyCategoryCpu() {
         if (data2) {
             const fetchData = async () => {
                 try {
-                    const response = await axios.post('/myCpuRanking', `${data2}`);
+                    const encodedData = encodeURIComponent(data2);
+                    const response = await axios.post('/myCpuRanking', encodedData);
                     setCpuList(response.data);
                 } catch (error) {
                     console.log(error);
