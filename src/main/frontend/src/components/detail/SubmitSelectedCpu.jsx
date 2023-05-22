@@ -361,7 +361,7 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
                         Detail
                     </div>
                     <div className={`${styles.infoNameFrame} ${styles.animationDetailInfo}`}>
-                        <span style={{marginRight: '-6%', marginLeft: '6%'}}>
+                        <span style={{marginLeft: '6%', width: '40%', marginRight: '-15%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Class type : {cpuInfo2.classType}
                             </div>
@@ -387,7 +387,7 @@ function SubmitSelectedCpu({selectedCpu, cpuInfo, cpuInfo2}) {
                                 Single Thread Rating : {cpuInfo2.str}
                             </div>
                         </span>
-                        <span>
+                        <span style={{width: '40%'}}>
                             <div className={styles.infoDetailLabel}>
                                 Class type : {selectedCpuInfoDetail.classType}
                             </div>
