@@ -260,7 +260,7 @@ div {
   -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
-  background-image: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%); 
+  background-image: linear-gradient(101.93deg, #3EE4A8 -19.74%, #2997C7 112.85%);
   box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
   background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
 
@@ -351,7 +351,6 @@ div {
   outline: none;
 }
 
-
 .title{
   height: 400px;
 
@@ -423,7 +422,7 @@ div {
 
   /*color: #FFFFFF;*/
 
-  margin-top: 5%;
+  margin-top: 50px;
   margin-left: 1%;
 }
 .buttonHover {
@@ -468,10 +467,10 @@ div {
 
 
   position: absolute;
-  margin-top: 5%;
-  margin-left: 1%;
   width: 200px;
   height: 60px;
+
+  margin-left: 100px;
 
   font-family: 'Roboto';
   font-style: normal;
@@ -516,7 +515,10 @@ div {
 .waring{
   margin-top : 5%;
 }
-
+.showMySpec{
+  display: flex;
+  margin-top : 20px;
+}
 @keyframes fadeIn {
   0% {
     transform: translateY(-50px);
