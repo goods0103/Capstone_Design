@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./detail.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import Table from 'react-bootstrap/Table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -54,6 +54,14 @@ function GpuDetail() {
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
     const [gpuMarkChart, setGpuMarkChart] = useState([]);
+
+    const navigate = useNavigate();
+
+    const handlePageNavigation2 = (path) => {
+        navigate(path);
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         window.scrollTo(0, 0); // 화면 맨 위로 스크롤
@@ -231,7 +239,9 @@ function GpuDetail() {
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                            <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                            <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                                {gpu.gpuName}
+                                            </td>
                                             <td className={styles.pointMySpecGpu}>{gpu.gpuMark}</td>
                                             <td className={styles.pointMySpecGpu}>{gpu.gpuValue}</td>
                                             <td>
@@ -243,7 +253,9 @@ function GpuDetail() {
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                            <td>{gpu.gpuName}</td>
+                                            <td onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                                {gpu.gpuName}
+                                            </td>
                                             <td>{gpu.gpuMark}</td>
                                             <td>{gpu.gpuValue}</td>
                                             <td>
@@ -277,29 +289,33 @@ function GpuDetail() {
                             </thead>
                             {gpuPopular.map((gpu, index) => (
                                 gpu.gpuId === parseInt(lastPart, 10) ? (
-                                    <thead>
+                                    <tbody>
                                     <tr>
                                         <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                        <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                        <td className={styles.pointMySpecGpu} onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {gpu.gpuName}
+                                        </td>
                                         <td className={styles.pointMySpecGpu}>{gpu.gpuRank}</td>
                                         <td className={styles.pointMySpecGpu}>{convertPrice(gpu.gpuPrice)}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
-                                    </thead>
+                                    </tbody>
                                 ) : (
-                                    <thead>
+                                    <tbody>
                                     <tr>
                                         <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                        <td>{gpu.gpuName}</td>
+                                        <td onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {gpu.gpuName}
+                                        </td>
                                         <td>{gpu.gpuRank}</td>
                                         <td>{convertPrice(gpu.gpuPrice)}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesPrice[index])}
                                         </td>
                                     </tr>
-                                    </thead>
+                                    </tbody>
                                 )
                             ))}
                         </Table>
