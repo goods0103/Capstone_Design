@@ -12,7 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBarsStaggered} from "@fortawesome/free-solid-svg-icons";
 
 
-function InsertInfoBottleNeck() {
+function InsertInfoBottleNeck(props) {
     const [postData, setPostData] = useState({
         cpuName: '',
         gpuName: ''
@@ -21,6 +21,7 @@ function InsertInfoBottleNeck() {
     const path = window.location.href;
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
+    const [bottleFlag, setBottleFlag] = useState(false);
 
     const percentage = 66;
 
@@ -30,12 +31,16 @@ function InsertInfoBottleNeck() {
             const cpuData = localStorage.getItem('cpuData');
             const gpuData = localStorage.getItem('gpuData');
             setPostData({ cpuName: cpuData, gpuName: gpuData });
+            setBottleFlag(props.info);
         }
         else if(lastPart === "SelectSpec"){
             console.log("hi2");
             const cpuData = localStorage.getItem('selectCpuData');
             const gpuData = localStorage.getItem('selectGpuData');
+            console.log(cpuData);
+            console.log(gpuData);
             setPostData({ cpuName: cpuData, gpuName: gpuData });
+            setBottleFlag(props.info);
         }
     }, []);
 
@@ -52,6 +57,18 @@ function InsertInfoBottleNeck() {
             fetchData();
         }
     },[postData] );
+
+    // useEffect(() => {
+    //     if (postData.cpuName && postData.gpuName) {
+    //         axios.post('/selectedBottleNeck', postData)
+    //             .then(response => {
+    //                 setBottleNeck(response.data);
+    //             })
+    //             .catch(error => {
+    //                 console.log(postData);
+    //                 console.log(error);
+    //             });
+    //     }}, [postData]);
 
     return (
         <>

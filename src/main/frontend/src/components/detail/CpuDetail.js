@@ -9,6 +9,8 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LineChartDetail from "./LineChartDetail"
 import {ResponsiveContainer} from "recharts";
+import { useNavigate } from 'react-router-dom';
+
 
 function calculatePercentages(values) {
     // 필요한 값을 추출하여 배열에 저장
@@ -61,6 +63,14 @@ function CpuDetail() {
     const handlePageNavigation = (path) => {
         window.location.href = path;
     };
+
+    const navigate = useNavigate();
+
+    const handlePageNavigation2 = (path) => {
+        navigate(path);
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         window.scrollTo(0, 0); // 화면 맨 위로 스크롤
@@ -238,7 +248,9 @@ function CpuDetail() {
                                         <tbody>
                                             <tr>
                                                 <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                                <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                                    {cpu.cpuName}
+                                                </td>
                                                 <td className={styles.pointMySpec}>{cpu.cpuMark}</td>
                                                 <td className={styles.pointMySpec}>{cpu.cpuValue}</td>
                                                 <td>
@@ -250,7 +262,9 @@ function CpuDetail() {
                                         <tbody>
                                             <tr>
                                                 <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td>{cpu.cpuName}</td>
+                                                <td onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                                    {cpu.cpuName}
+                                                </td>
                                                 <td>{cpu.cpuMark}</td>
                                                 <td>{cpu.cpuValue}</td>
                                                 <td>
@@ -288,7 +302,9 @@ function CpuDetail() {
                                     <tbody>
                                     <tr>
                                         <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                        <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {cpu.cpuName}
+                                        </td>
                                         <td className={styles.pointMySpec}>{cpu.cpuRank}</td>
                                         <td className={styles.pointMySpec}>{convertPrice(cpu.cpuPrice)}</td>
                                         <td>
@@ -300,7 +316,9 @@ function CpuDetail() {
                                     <tbody>
                                     <tr>
                                         <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {cpu.cpuName}
+                                        </td>
                                         <td>{cpu.cpuRank}</td>
                                         <td>{convertPrice(cpu.cpuPrice)}</td>
                                         <td>
