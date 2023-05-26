@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload, faFileArrowDown} from "@fortawesome/free-solid-svg-icons";
 
 
-export const EventBanner = () => {
+export const MainPage = () => {
   const [{count}, dispatch]= useStateValue();
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(count));

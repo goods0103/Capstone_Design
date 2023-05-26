@@ -15,8 +15,8 @@ import CategoryGpu from './components/category/CategoryGpu';
 import CategoryRam from './components/category/CategoryRam';
 import CategoryGame from './components/category/CategoryGame';
 import CategoryBottleNeck from "./components/category/CategoryBottleNeck"
-import ShowMySpec from "./components/eventBanner/ShowMySpec";
-import InsertSpec from "./components/eventBanner/InsertSpec";
+import ShowMySpec from "./components/mainPage/ShowMySpec";
+import InsertSpec from "./components/mainPage/InsertSpec";
 import MySpec from "./components/myInfo/MySpec";
 import MyCategoryCpu from "./components/myInfo/MyCategoryCpu";
 import MyCategoryGpu from "./components/myInfo/MyCategoryGpu";

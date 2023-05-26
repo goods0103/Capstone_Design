@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import styles from "../eventBanner/eventBanner.module.css"
+import styles from "../mainPage/eventBanner.module.css"
 import CategoryBar2 from "./CategoryBar2";
 import CategoryBar from "../category/CategoryBar";
 import {Link} from "react-router-dom";
