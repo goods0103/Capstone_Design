@@ -93,180 +93,182 @@ function GameDetail() {
                     <div className={styles.gameImgInfo}>
                         <img src={gameOriginInfo.img} alt="game_image" className={styles.gameImg}/>
                         {compareList.minState === 0 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu gpu ram 모두 부족합니다</p>
+                                <p>모두 부족</p>
                             </div>
                         }
                         {compareList.minState === 1 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.checkImg}
                                     src="images/check.png"
                                     alt="check"
                                 />
+                                <p>모두 만족</p>
                             </div>
 
                         }
                         {compareList.minState === 3 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu 성능이 부족합니다</p>
+                                <p>CPU 성능 부족</p>
                             </div>
                         }
                         {compareList.minState === 4 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>gpu 성능이 부족합니다</p>
+                                <p>GPU 성능 부족</p>
                             </div>
                         }
                         {compareList.minState === 5 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>ram 성능이 부족합니다</p>
+                                <p>RAM 성능 부족</p>
                             </div>
                         }
                         {compareList.minState === 6 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu gpu 성능이 부족합니다</p>
+                                <p>CPU, GPU 성능 부족</p>
                             </div>
                         }
                         {compareList.minState === 7 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu ram 성능이 부족합니다</p>
+                                <p>CPU, RAM 성능 부족</p>
                             </div>
                         }
                         {compareList.minState === 8 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>최소사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>gpu ram 성능이 부족합니다</p>
+                                <p>GPU, RAM 성능 부족</p>
                             </div>
                         }
 
                         {compareList.recState === 0 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu gpu ram 모두 부족합니다</p>
+                                <p>모두 부족</p>
                             </div>
                         }
 
                         {compareList.recState === 1 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                             <p>권장사양</p>
                             <img
                                 className={styles.checkImg}
                                 src="images/check.png"
                                 alt="check"
                             />
+                                <p>모두 만족</p>
                             </div>
                         }
                         {compareList.recState === 3 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu 성능이 부족합니다</p>
+                                <p>CPU 성능 부족</p>
                             </div>
                         }
                         {compareList.recState === 4 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>gpu 성능이 부족합니다</p>
+                                <p>GPU 성능 부족</p>
                             </div>
                         }
                         {compareList.recState === 5 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>ram 성능이 부족합니다</p>
+                                <p>RAM 성능 부족</p>
                             </div>
                         }
                         {compareList.recState === 6 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu gpu 성능이 부족합니다</p>
+                                <p>CPU, GPU 성능 부족</p>
                             </div>
                         }
                         {compareList.recState === 7 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>cpu ram 성능이 부족합니다</p>
+                                <p>CPU, RAM 성능 부족</p>
                             </div>
                         }
                         {compareList.recState === 8 &&
-                            <div>
+                            <div style={{textAlign:"center"}}>
                                 <p>권장사양</p>
                                 <img
                                     className={styles.xImg}
                                     src="images/x.png"
                                     alt="x"
                                 />
-                                <p>gpu ram 성능이 부족합니다</p>
+                                <p>GPU, RAM 성능 부족</p>
                             </div>
                         }
 
