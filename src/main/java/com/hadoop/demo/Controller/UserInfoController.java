@@ -18,13 +18,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @CrossOrigin
 @RestController
@@ -85,6 +89,7 @@ public class UserInfoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    private Map<String, SseEmitter> sseEmitters = new ConcurrentHashMap<>();
 
     @Transactional
     @PostMapping("/api/spring")
@@ -142,15 +147,50 @@ public class UserInfoController {
                     .build();
             save(userInfo);
 
+            HttpSession session = request.getSession();
+            System.out.println(session.getId());
+            String sessionId = session.getId();
+            // SseEmitter 객체 생성
+            SseEmitter sseEmitter = new SseEmitter();
+
             // SSE에 데이터를 담아서 객체 만들고 sink에 저장
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
+
+            // 해당 클라이언트의 세션 ID를 저장
+            sseEmitters.put(sessionId, sseEmitter);
+
             gpu = null;
             return ResponseEntity.ok(data);
         }
         return null;
         //return ResponseEntity.ok(data);
     }
+
+    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter streamData(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sessionId = session.getId();
+
+        // 클라이언트의 세션 ID를 확인하여 응답을 보낼지 말지 결정
+        if (!sseEmitters.containsKey(sessionId)) {
+            return null; // 클라이언트의 세션 ID가 없으면 null 반환
+        }
+
+        SseEmitter sseEmitter = sseEmitters.get(sessionId);
+
+        // 클라이언트와의 연결이 종료되면 해당 세션 ID의 SseEmitter를 제거
+        sseEmitter.onCompletion(() -> sseEmitters.remove(sessionId));
+        sseEmitter.onError((ex) -> sseEmitters.remove(sessionId));
+
+        return sseEmitter;
+    }
+
+//    // Scoop.exe 실행시 자동으로 알림 보내기
+//    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+//    public Flux<ServerSentEvent<String>> streamData() {
+//        return sink.asFlux();
+//    }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
         return new ResponseEntity<>(userInfoService.save(data), HttpStatus.CREATED);
@@ -159,12 +199,6 @@ public class UserInfoController {
     @GetMapping("/api/userInfoList")
     public ResponseEntity<List<UserInfo>> findAll() {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
-    }
-
-    // Scoop.exe 실행시 자동으로 알림 보내기
-    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> streamData() {
-        return sink.asFlux();
     }
 
     // 직접 기입해서 보낸 cpu gpu ram userinserinfo 테이블에 저장
