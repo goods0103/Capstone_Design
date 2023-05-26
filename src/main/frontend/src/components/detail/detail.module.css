@@ -240,7 +240,7 @@ ul {
  .customBtn span:after {
    right: 0;
    bottom: 0;
-   width: 0%;
+   width: 0;
    height: 2px;
    transition: all 500ms ease;
  }

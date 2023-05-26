@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styles from "./detail.module.css";
 import {Tab, Tabs} from "react-bootstrap";
 
@@ -15,6 +15,12 @@ function GameDetail() {
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
 
+    const navigate = useNavigate();
+
+    const handlePageNavigation2 = (path) => {
+        navigate(path);
+        window.location.reload();
+    };
 
     useEffect(() => {
         axios.post("/category/game1/detail", lastPart)
@@ -224,14 +230,14 @@ function GameDetail() {
                     <span>Top Games</span>
                     <hr style={{color: 'black'}}/>
                     {topList.map((top)=>(
-                        <p className={styles.pDetail}>{top.gameName}</p>
+                        <p className={styles.pDetail} onClick={() => handlePageNavigation2(`/GameSpec/${top.gameName}`)} style={{ cursor: 'pointer' }}>{top.gameName}</p>
                     ))}
                 </div>
                 <div className={styles.testGame}>
                     <span>Most Tested Games</span>
                     <hr style={{color: 'black'}}/>
                     {countList.map((count)=>(
-                        <p className={styles.pDetail}>{count.gameName}</p>
+                        <p className={styles.pDetail} onClick={() => handlePageNavigation2(`/GameSpec/${count.gameName}`)} style={{ cursor: 'pointer' }}>{count.gameName}</p>
                     ))}
                 </div>
             </div>
