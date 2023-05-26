@@ -23,7 +23,7 @@ function InsertInfoBottleNeck(props) {
     const lastPart = parts[parts.length - 1];
     const [bottleFlag, setBottleFlag] = useState(false);
 
-    const percentage = 66;
+    console.log(lastPart);
 
     useEffect(() => {
         if(lastPart === "MySpec"){

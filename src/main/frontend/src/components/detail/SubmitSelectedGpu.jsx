@@ -34,23 +34,31 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
     const [loading, setLoading] = useState(true);
 
     const Gpu1Compare = (info1, info2) => {
-        let a, b;
+        let a, b, flag;
         a = info1 >= info2 ? info1 : info2;
         if (a === info1) {
             a = 100;
             b = info2 * 100 / info1;
+            flag = 1;
         } else {
             b = 100;
             a = info1 * 100 / info2;
+            flag = 2;
         }
 
         return (
             <div>
                 <div className={styles.infoNameFrame}>
                     <span>
-                        <div className={styles.infoProgressBarLabel}>
-                            {gpuInfo.gpuName}
-                        </div>
+                         {flag === 1 ?
+                             <div style={{fontWeight:"bold",color:"lightgreen"}} className={styles.infoProgressBarLabel}>
+                                 {gpuInfo.gpuName}
+                             </div>
+                             :
+                             <div className={styles.infoProgressBarLabel}>
+                                 {gpuInfo.gpuName}
+                             </div>
+                         }
                     </span>
                     <span className={styles.infoProgressBarSpan}>
                                     <div style={{width: '100%'}}>
@@ -65,6 +73,15 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
                         <div className={styles.infoProgressBarLabel}>
                             {selectedGpuInfo.gpuName}
                         </div>
+                        {flag === 2 ?
+                            <div style={{fontWeight:"bold",color:"lightgreen"}} className={styles.infoProgressBarLabel}>
+                                {selectedGpuInfo.gpuName}
+                            </div>
+                            :
+                            <div className={styles.infoProgressBarLabel}>
+                                {selectedGpuInfo.gpuName}
+                            </div>
+                        }
                     </span>
                     <span className={styles.infoProgressBarSpan}>
                                     <div style={{width: '100%'}}>
@@ -79,23 +96,31 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
     }
 
     const Gpu2Compare = (info1, info2) => {
-        let a, b;
+        let a, b, flag;
         a = info1 >= info2 ? info1 : info2;
         if (a === info1) {
             a = 100;
             b = info2 * 100 / info1;
+            flag = 1;
         } else {
             b = 100;
             a = info1 * 100 / info2;
+            flag = 2;
         }
 
         return (
             <div>
                 <div className={styles.infoNameFrame}>
                     <span>
-                        <div className={styles.infoProgressBarLabel}>
-                            {gpuInfo.gpuName}
-                        </div>
+                                 {flag === 1 ?
+                                     <div style={{fontWeight:"bold",color:"lightgreen"}} className={styles.infoProgressBarLabel}>
+                                         {gpuInfo.gpuName}
+                                     </div>
+                                     :
+                                     <div className={styles.infoProgressBarLabel}>
+                                         {gpuInfo.gpuName}
+                                     </div>
+                                 }
                     </span>
                     <span className={styles.infoProgressBarSpan}>
                                     <div style={{width: '100%'}}>
@@ -107,9 +132,15 @@ function SubmitSelectedGpu({selectedGpu, gpuInfo, gpuInfo2}) {
                 </div>
                 <div className={styles.infoNameFrame}>
                     <span>
-                        <div className={styles.infoProgressBarLabel}>
-                            {selectedGpuInfo.gpuName}
-                        </div>
+                                 {flag === 2 ?
+                                     <div style={{fontWeight:"bold",color:"lightgreen"}} className={styles.infoProgressBarLabel}>
+                                         {selectedGpuInfo.gpuName}
+                                     </div>
+                                     :
+                                     <div className={styles.infoProgressBarLabel}>
+                                         {selectedGpuInfo.gpuName}
+                                     </div>
+                                 }
                     </span>
                     <span className={styles.infoProgressBarSpan}>
                                     <div style={{width: '100%'}}>
