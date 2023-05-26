@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import styles from "./eventBanner.module.css"
+import styles from "./mainPage.module.css"
 import {Link} from "react-router-dom";
 import {useStateValue} from "../reducer/StateProvider";
 

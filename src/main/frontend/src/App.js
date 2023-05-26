@@ -5,11 +5,8 @@ import { useState, useEffect } from "react";
 import { TopNavigationBar } from "./components/header/TopNavigationBar";
 import HowToViewSpec from "./components/header/HowToViewSpec";
 import Home from "./pages/home";
-import Product from "./pages/product";
-import Basket from "./pages/basket";
 import TopButton from "./components/topButton/topButton";
 import CategoryBar from "./components/category/CategoryBar";
-import { OrderComplete } from "./components/cart/orderComplete";
 import CategoryCpu from './components/category/CategoryCpu';
 import CategoryGpu from './components/category/CategoryGpu';
 import CategoryRam from './components/category/CategoryRam';
@@ -66,28 +63,6 @@ function App() {
               setProducts={setProducts}
 
             />
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={
-            <Product
-              convertPrice={convertPrice}
-              cart={cart}
-              setCart={setCart}
-            />
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <Basket cart={cart} setCart={setCart} convertPrice={convertPrice} />
-          }
-        />
-        <Route
-          path="/cart/orderComplete"
-          element={
-            <OrderComplete />
           }
         />
         {/* <Route
