@@ -1,6 +1,6 @@
 import styles from "./main.module.css";
 import { useEffect } from "react";
-import { EventBanner } from "../eventBanner/EventBanner";
+import { MainPage } from "../mainPage/MainPage";
 import { Product } from "../products/product";
 import { getProducts } from "../../service/fetcher";
 import CategoryBar from "../category/CategoryBar";
@@ -31,7 +31,7 @@ export const Main = ({ convertPrice, products, setProducts }) => {
     <>
       <div className={styles.main}>
       {/*<CategoryBar></CategoryBar>*/}
-      <EventBanner />
+      <MainPage />
       {/*<div className={styles.filter}>*/}
       {/*  <p onClick={() => sortProduct("recent")}>최신순</p>*/}
       {/*  <p onClick={() => sortProduct("row")}>낮은 가격</p>*/}

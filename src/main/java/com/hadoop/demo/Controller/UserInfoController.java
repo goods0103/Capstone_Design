@@ -85,7 +85,6 @@ public class UserInfoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     @Transactional
     @PostMapping("/api/spring")
     public ResponseEntity<String> sendString(@RequestBody String data, HttpServletRequest request) {
@@ -142,14 +141,26 @@ public class UserInfoController {
                     .build();
             save(userInfo);
 
+
             // SSE에 데이터를 담아서 객체 만들고 sink에 저장
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
+
             gpu = null;
             return ResponseEntity.ok(data);
         }
         return null;
         //return ResponseEntity.ok(data);
+    }
+
+    // Scoop.exe 실행시 자동으로 알림 보내기
+    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> streamData(HttpServletRequest request) {
+        String ipAddress = request.getRemoteAddr();
+        if(userInfoService.findByIpAddress(ipAddress) == null) {
+            return null;
+        }
+        return sink.asFlux();
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
@@ -159,12 +170,6 @@ public class UserInfoController {
     @GetMapping("/api/userInfoList")
     public ResponseEntity<List<UserInfo>> findAll() {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
-    }
-
-    // Scoop.exe 실행시 자동으로 알림 보내기
-    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> streamData() {
-        return sink.asFlux();
     }
 
     // 직접 기입해서 보낸 cpu gpu ram userinserinfo 테이블에 저장

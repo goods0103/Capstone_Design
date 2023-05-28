@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import styles from "../eventBanner/eventBanner.module.css"
+import styles from "../mainPage/mainPage.module.css"
 import CategoryBar3 from "./CategoryBar3";
 import CategoryBar from "../category/CategoryBar";
 import MyBottleNeck from "../myInfo/MyBottleNeck";
@@ -27,6 +27,7 @@ function SelectSpec() {
     const [selectRam, setSelectRam] = useState([]);
     const [bottleNeckInfo, setBottleNeckInfo] = useState([]);
     const [showComponent, setShowComponent] = useState(false);
+
     useEffect(() => {
         document.body.style.backgroundColor = '#F0F6F8';
         document.body.style.color = "black";
@@ -143,7 +144,7 @@ function SelectSpec() {
                 {/*</div>*/}
                 <div className={styles2.bottleNeckComp1}>
                     {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
-                    {showComponent && <InsertInfoBottleNeck/>}
+                    {showComponent && <InsertInfoBottleNeck info={showComponent}/>}
                 </div>
             </div>
         </>

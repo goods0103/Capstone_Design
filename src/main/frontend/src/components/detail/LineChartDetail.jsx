@@ -177,9 +177,9 @@ export default class LineChartDetail extends PureComponent {
                     <Bar dataKey="myBenchMark" fill="#ff0000" shape={(props) => (
                         <rect
                             {...props}
-                            width={10}
+                            width={8}
                             fill="#151515" // 바의 색상을 빨간색으로 변경
-                            x={props.x - 10} // X축으로 10만큼 이동
+                            x={props.x - 8} // X축으로 10만큼 이동
                             // y={props.y - 100}
                             stroke="#ff0000"
                             strokeWidth={3}
