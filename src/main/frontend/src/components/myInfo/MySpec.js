@@ -155,7 +155,7 @@ function MySpec() {
                 {/*    {showComponent && <MyBottleNeck/>}*/}
                 {/*</div>*/}
                 <div className={styles2.bottleNeckComp1}>
-                    {!showComponent && mySpec.cpuName && mySpec.gpuName && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
+                    {!showComponent && mySpec.selectedCpu && mySpec.selectedGpu && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
                     {showComponent && <InsertInfoBottleNeck/>}
                 </div>
             </div>
