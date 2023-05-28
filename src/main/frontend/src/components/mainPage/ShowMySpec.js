@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import styles from "./eventBanner.module.css";
+import styles from "./mainPage.module.css";
 import {useStateValue} from "../reducer/StateProvider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload} from "@fortawesome/free-solid-svg-icons";
