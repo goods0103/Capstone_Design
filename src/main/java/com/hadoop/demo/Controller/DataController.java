@@ -81,7 +81,7 @@ public class DataController {
         String cpuList = compareService.getMatchingCpu(ipAddress);
         String gpuList = compareService.getMatchingGpu(ipAddress);
         String ramList = compareService.getMatchingRam(ipAddress);
-
+        System.out.println("mySPec"+ ramList);
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
                 .selectedCpu(cpuList)

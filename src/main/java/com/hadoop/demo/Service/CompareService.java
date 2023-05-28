@@ -33,7 +33,7 @@ public class CompareService {
         CpuDetails cpu1 = null;
         int flag=0;
 
-        //System.out.println("finduserCPu : " + findUserCpu);
+        System.out.println("finduserCPu : " + findUserCpu);
         for(CpuDetails cpu : cpulist){
             if((cpu.getOtherName().contains(findUserCpu) || findUserCpu.contains(cpu.getOtherName()))){
                 if(cpu.getOtherName().contains(",")){
@@ -58,9 +58,9 @@ public class CompareService {
         String mostSimilar = "";
         int maxSimilarity = 100;
 
-//        for(int i=0; i<cpuArray.length;i++){
-//            System.out.println("cpuArray : " + cpuArray[i]);
-//        }
+        for(int i=0; i<cpuArray.length;i++){
+            System.out.println("cpuArray : " + cpuArray[i]);
+        }
 
         for (String findCpuArray : cpuArray) {
             int similarity = StringUtils.getLevenshteinDistance(findUserCpu, findCpuArray);
@@ -70,8 +70,8 @@ public class CompareService {
             }
         }
 
-        //System.out.println("mostSimilar :" + mostSimilar);
-        //System.out.println("finalCPu :" + cpu1.getCpuName());
+        System.out.println("mostSimilar :" + mostSimilar);
+        System.out.println("finalCPu :" + cpu1.getCpuName());
         if(flag>0){ mostSimilar = cpu1.getOtherName();}
 
         List<CpuDetails> filteredCpu = cpuDetailsService.findByOtherName(mostSimilar);
@@ -106,7 +106,7 @@ public class CompareService {
         GpuDetails gpu1 = null;
         int flag=0;
 
-        //System.out.println("finduserGPu : " + findUserGpu);
+        System.out.println("finduserGPu : " + findUserGpu);
         for(GpuDetails gpu : gpulist){
             if((gpu.getOtherName().contains(findUserGpu) || findUserGpu.contains(gpu.getOtherName()))){
                 if(gpu.getOtherName().contains(",")){
@@ -131,9 +131,9 @@ public class CompareService {
         String mostSimilar = "";
         int maxSimilarity = 100;
 
-//        for(int i=0; i<gpuArray.length;i++){
-//            System.out.println("gpuArray : " + gpuArray[i]);
-//        }
+        for(int i=0; i<gpuArray.length;i++){
+            System.out.println("gpuArray : " + gpuArray[i]);
+        }
 
         for (String findGpuArray : gpuArray) {
             int similarity = StringUtils.getLevenshteinDistance(findUserGpu, findGpuArray);
@@ -142,7 +142,7 @@ public class CompareService {
                 mostSimilar = findGpuArray;
             }
         }
-        //System.out.println("mostSimilar :" + mostSimilar);
+        System.out.println("mostSimilar :" + mostSimilar);
 
         if(flag>0){ mostSimilar = gpu1.getOtherName();}
 
@@ -202,7 +202,7 @@ public class CompareService {
             }
         }
 
-        //System.out.println("Most similar RAM: " + mostSimilar);
+        System.out.println("Most similar RAM: " + mostSimilar);
 
         return ramListRepository.findByRamName(mostSimilar).getRamName();
     }
