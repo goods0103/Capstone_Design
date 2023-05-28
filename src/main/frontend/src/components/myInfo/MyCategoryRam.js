@@ -8,7 +8,7 @@ import Table from 'react-bootstrap/Table';
 
 function MyCategoryRam() {
     const [ramList, setRamList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("");
 
     useEffect(() => {
         if (data2) {
@@ -37,7 +37,9 @@ function MyCategoryRam() {
     return (
         <>
             <div className={styles.bigFrame}>
-                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                {data2 !== "none" &&
+                    < button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                }
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>

@@ -107,6 +107,14 @@ function CategoryCpu() {
           const newProduct = [...cpuList];
           newProduct.sort((a, b) => b.cpuValue - a.cpuValue);
           setCpuList(newProduct);
+      } else if (type === "nameHigh") {
+          const newProduct = [...cpuList];
+          newProduct.sort((a, b) => {
+              if (a.cpuName < b.cpuName) return -1;
+              if (a.cpuName > b.cpuName) return 1;
+              return 0;
+          });
+          setCpuList(newProduct);
       }
     };
 
@@ -154,6 +162,19 @@ function CategoryCpu() {
               />
           </form>
           <div className={styles.filter}>
+              <button
+                  className={
+                      selectedFilter === "nameHigh"
+                          ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                          : styles.filterButton
+                  }
+                  onClick={() => {
+                      setSelectedFilter("nameHigh");
+                      sortProduct("nameHigh");
+                  }}
+              >
+                  이름
+              </button>
               <button
                   className={
                       selectedFilter === "low"

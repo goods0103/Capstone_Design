@@ -78,15 +78,17 @@ public class DataController {
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
+        String cpuList = compareService.getMatchingCpu(ipAddress).getCpuName();
+        String gpuList = compareService.getMatchingGpu(ipAddress).getGpuName();
         String ramList = compareService.getMatchingRam(ipAddress).getRamName();
-        if( ramList == null) {
-            ramList = "Samsung M471A1K43BB1-CTD";
-        }
+        if (cpuList == null) cpuList = "none";
+        if (gpuList == null) gpuList = "none";
+        if( ramList == null) ramList = "none";
 
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
-                .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
-                .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
+                .selectedCpu(cpuList)
+                .selectedGpu(gpuList)
                 .selectedRam(ramList)
                 .build();
 
@@ -99,6 +101,12 @@ public class DataController {
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
         String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
+        if(decodedCpu.equals("none")) { // 없으면 100위까지만 보내주기
+            cpuList = cpuListService.orderByCpuRankDesc();
+            cpuList.subList(100, cpuList.size()).clear();
+            return cpuList;
+        }
+
         int rank = cpuListService.findByName(decodedCpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
@@ -116,6 +124,12 @@ public class DataController {
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
         String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
+        if(decodedGpu.equals("none")) { // 없으면 100위까지만 보내주기
+            gpuList = gpuListService.orderByGpuRankDesc();
+            gpuList.subList(100, gpuList.size()).clear();
+            return gpuList;
+        }
+
         int rank = gpuListService.findByName(decodedGpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
@@ -134,6 +148,12 @@ public class DataController {
     public List<RamList> getMyRamRank(@RequestBody String ram) {
         List<RamList> ramList = new ArrayList<>();
         ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
+        if(ram.equals("none")) { // 없으면 100위까지만 보내주기
+            ramList = ramListService.findAll();
+            ramList.subList(100, ramList.size()).clear();
+            return ramList;
+        }
+
         int latency = ramListService.findByName(ram).getRamLatency();
 
         for(int i = latency - 1; i <= latency + 1; i++)

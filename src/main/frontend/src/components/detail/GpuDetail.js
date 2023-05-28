@@ -29,7 +29,7 @@ function calculatePercentages(values) {
 
 function calculatePercentagesPopular(values) {
     // 필요한 값을 추출하여 배열에 저장
-    const extractedValues = values.map(obj => obj.gpuPrice);
+    const extractedValues = values.map(obj => obj.gpuMark);
 
     // 가장 큰 값을 찾기
     const max = Math.max(...extractedValues);
@@ -140,7 +140,7 @@ function GpuDetail() {
 
 
     const percentagesMark = calculatePercentages(gpuValue);
-    const percentagesPrice = calculatePercentagesPopular(gpuPopular);
+    const percentagesMark2 = calculatePercentagesPopular(gpuPopular);
 
     return(
         <>
@@ -284,7 +284,7 @@ function GpuDetail() {
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
                                 <th className={styles.cssTh}>Price</th>
-                                <th className={styles.cssThProgress}>Average GPU Price</th>
+                                <th className={styles.cssThProgress}>Average GPU Mark</th>
                             </tr>
                             </thead>
                             {gpuPopular.map((gpu, index) => (
@@ -298,7 +298,7 @@ function GpuDetail() {
                                         <td className={styles.pointMySpecGpu}>{gpu.gpuRank}</td>
                                         <td className={styles.pointMySpecGpu}>{convertPrice(gpu.gpuPrice)}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -312,7 +312,7 @@ function GpuDetail() {
                                         <td>{gpu.gpuRank}</td>
                                         <td>{convertPrice(gpu.gpuPrice)}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
                                     </tbody>
