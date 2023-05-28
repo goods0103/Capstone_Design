@@ -39,7 +39,7 @@ function MySpec() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if(mySpec){
+                if(mySpec && (mySpec.selectedCpu !== "none")){
                     const response = await axios.post('/find_cpu_name', `${mySpec.selectedCpu}`);
                     setCpuInfo(response.data);
                 }
@@ -53,7 +53,7 @@ function MySpec() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if(mySpec){
+                if(mySpec && (mySpec.selectedGpu !== "none")){
                     const response = await axios.post('/find_gpu_name', `${mySpec.selectedGpu}`);
                     setGpuInfo(response.data);
                 }
@@ -67,8 +67,10 @@ function MySpec() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if(mySpec){
+                if(mySpec && (mySpec.selectedRam !== "none")){
+                    // const ramValue = mySpec.selectedRam !== null ? mySpec.selectedRam : "ramNull";
                     const response = await axios.post('/find_ram_name', `${mySpec.selectedRam}`);
+                    // const response = await axios.post('/find_ram_name', ramValue);
                     setRamInfo(response.data);
                 }
             } catch (error) {
@@ -108,9 +110,9 @@ function MySpec() {
 
     return(
         <>
-            {localStorage.setItem('cpuData', cpuInfo.cpuName)}
-            {localStorage.setItem('gpuData', gpuInfo.gpuName)}
-            {localStorage.setItem('ramData', ramInfo.ramName)}
+            {localStorage.setItem('cpuData', mySpec.cpuName)}
+            {localStorage.setItem('gpuData', mySpec.gpuName)}
+            {localStorage.setItem('ramData', mySpec.ramName)}
 
 
             <div className={styles2.bigFrame}>
@@ -145,7 +147,7 @@ function MySpec() {
                 {/*    {showComponent && <MyBottleNeck/>}*/}
                 {/*</div>*/}
                 <div className={styles2.bottleNeckComp1}>
-                    {!showComponent && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
+                    {!showComponent && mySpec.cpuName && mySpec.gpuName && <button type="submit"  onClick={showMyBottleNeck} className={styles2.buttonBottleNeck}><FontAwesomeIcon icon={faWineBottle} shake size="xl" />&emsp;BottleNeck</button>}
                     {showComponent && <InsertInfoBottleNeck/>}
                 </div>
             </div>
