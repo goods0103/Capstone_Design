@@ -26,6 +26,8 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 @CrossOrigin
 @RestController
 public class UserInfoController {
@@ -127,6 +129,10 @@ public class UserInfoController {
                 System.out.println("find");
                 userInfoService.deleteByIpAddress(ipAddress);
             }
+            if(cpu == null)
+                cpu = "none";
+            if(rPartNum == null)
+                rPartNum = "none";
 
             UserInfo userInfo = UserInfo.builder()
                     .ipAddress(ipAddress)
@@ -155,12 +161,14 @@ public class UserInfoController {
 
     // Scoop.exe 실행시 자동으로 알림 보내기
     @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> streamData(HttpServletRequest request) {
+    public Flux<ServerSentEvent<String>> streamData(HttpServletRequest request) throws InterruptedException {
         String ipAddress = request.getRemoteAddr();
-        if(userInfoService.findByIpAddress(ipAddress) == null) {
-            return null;
+        while(true) {
+            if(userInfoService.findByIpAddress(ipAddress) != null) {
+                return sink.asFlux();
+            }
+            sleep(1000);
         }
-        return sink.asFlux();
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
