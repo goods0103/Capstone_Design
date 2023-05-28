@@ -21,11 +21,12 @@ public class CompareService {
     private UserInfoRepository userInfoRepository;
 
 
-    public CpuDetails getMatchingCpu(String ipAddress){
+    public String getMatchingCpu(String ipAddress){
         List<String> matchingCpu = new ArrayList<>();
 
         UserInfo userCpu = userInfoRepository.findByIpAddress(ipAddress);
-        System.out.println("userCPu : " + userCpu);
+        if(userCpu.getCpuInfo().equals("none"))
+            return "none";
         List<CpuDetails> cpulist = cpuDetailsService.findAll();
 
         String findUserCpu = userCpu.getCpuInfo();
@@ -90,13 +91,15 @@ public class CompareService {
                 mostSimilar2 = findCpuArray;
             }
         }
-            return cpuDetailsService.findByName(mostSimilar2);
+            return cpuDetailsService.findByName(mostSimilar2).getCpuName();
     }
 
-    public GpuDetails getMatchingGpu(String ipAddress){
+    public String getMatchingGpu(String ipAddress){
         List<String> matchingGpu = new ArrayList<>();
 
         UserInfo userGpu = userInfoRepository.findByIpAddress(ipAddress);
+        if(userGpu.getGpuInfo().equals("none"))
+            return "none";
         List<GpuDetails> gpulist = gpuDetailsService.findAll();
 
         String findUserGpu = userGpu.getGpuInfo();
@@ -160,14 +163,18 @@ public class CompareService {
                 mostSimilar2 = findGpuArray;
             }
         }
-        return gpuDetailsService.findByName(mostSimilar2);
+        return gpuDetailsService.findByName(mostSimilar2).getGpuName();
     }
 
 
-    public RamList getMatchingRam(String ipAddress){
+    public String getMatchingRam(String ipAddress){
         List<String> matchingRam = new ArrayList<>();
 
         UserInfo userRam = userInfoRepository.findByIpAddress(ipAddress);
+        if(userRam.getRamPartNum().equals("none")){
+            System.out.println("none");
+            return "none";
+        }
         List<RamList> ramList = ramListRepository.findAll();
 
         String lastData = userRam.getRamPartNum().replaceAll("\\(R\\)|\\(TM\\)|[™®]|(RAM)|", "");
@@ -175,6 +182,11 @@ public class CompareService {
         for(RamList ram : ramList){
             if(ram.getRamName().contains(lastData) || lastData.contains(ram.getRamName()))
                 matchingRam.add(ram.getRamName());
+        }
+
+        if(matchingRam.size() == 0) {
+            System.out.println("No matched Ram");
+            return "none";
         }
 
         String[] ramArray = matchingRam.toArray(new String[matchingRam.size()]);
@@ -192,7 +204,7 @@ public class CompareService {
 
         //System.out.println("Most similar RAM: " + mostSimilar);
 
-        return ramListRepository.findByRamName(mostSimilar);
+        return ramListRepository.findByRamName(mostSimilar).getRamName();
     }
 
 }
