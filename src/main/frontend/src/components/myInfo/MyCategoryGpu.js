@@ -15,6 +15,7 @@ function MyCategoryGpu() {
 
     useEffect(() => {
         if (data2) {
+            console.log(data2);
             const encodedData = encodeURIComponent(data2);
             const fetchData = async () => {
                 try {

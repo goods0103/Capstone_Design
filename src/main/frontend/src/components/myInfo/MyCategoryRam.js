@@ -12,6 +12,7 @@ function MyCategoryRam() {
 
     useEffect(() => {
         if (data2) {
+            console.log(data2);
             const fetchData = async () => {
                 try {
                     const response = await axios.post('/myRamRanking', `${data2}`);
