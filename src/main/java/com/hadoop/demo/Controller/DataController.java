@@ -158,7 +158,6 @@ public class DataController {
 
         for(int i = latency - 1; i <= latency + 1; i++)
             ramList.addAll(ramListService.findByRamLatency(i));
-
         return ramList;
     }
 

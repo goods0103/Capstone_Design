@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
-import styles from "../mainPage/mainPage.module.css"
+import styles from "../mainPage/eventBanner.module.css"
 import CategoryBar3 from "./CategoryBar3";
 import CategoryBar from "../category/CategoryBar";
 import MyBottleNeck from "../myInfo/MyBottleNeck";
