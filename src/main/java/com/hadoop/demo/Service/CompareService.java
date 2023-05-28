@@ -141,10 +141,6 @@ public class CompareService {
         String mostSimilar = "";
         int maxSimilarity = 100;
 
-//        for(int i=0; i<gpuArray.length;i++){
-//            System.out.println("gpuArray : " + gpuArray[i]);
-//        }
-
         for (String findGpuArray : gpuArray) {
             int similarity = StringUtils.getLevenshteinDistance(findUserGpu, findGpuArray);
             if (similarity < maxSimilarity) {
