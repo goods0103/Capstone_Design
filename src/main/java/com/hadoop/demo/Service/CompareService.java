@@ -71,7 +71,8 @@ public class CompareService {
         }
 
         System.out.println("mostSimilar :" + mostSimilar);
-        System.out.println("finalCPu :" + cpu1.getCpuName());
+        System.out.println("finalCPu :");
+        System.out.println("hyun su");
         if(flag>0){ mostSimilar = cpu1.getOtherName();}
 
         List<CpuDetails> filteredCpu = cpuDetailsService.findByOtherName(mostSimilar);
@@ -108,7 +109,7 @@ public class CompareService {
 
         System.out.println("finduserGPu : " + findUserGpu);
         for(GpuDetails gpu : gpulist){
-            if((gpu.getOtherName().contains(findUserGpu) || findUserGpu.contains(gpu.getOtherName()))){
+            if(gpu.getOtherName().contains(findUserGpu) || findUserGpu.contains(gpu.getOtherName())){
                 if(gpu.getOtherName().contains(",")){
                     String [] gpuNames = gpu.getOtherName().split(",");
                     for(int i=0; i<gpuNames.length; i++){
