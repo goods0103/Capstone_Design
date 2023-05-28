@@ -96,10 +96,11 @@ public class DataController {
     // cpu gpu rank순으로 위아래 50개 보내기
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
+        System.out.println(cpu);
         List<CpuList> cpuList = new ArrayList<>();
         String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
         if(decodedCpu.equals("none")) { // 없으면 100위까지만 보내주기
-            cpuList = cpuListService.orderByCpuRankDesc();
+            cpuList = cpuListService.orderByCpuRank();
             cpuList.subList(100, cpuList.size()).clear();
             return cpuList;
         }
@@ -119,10 +120,11 @@ public class DataController {
 
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
+        System.out.println(gpu);
         List<GpuList> gpuList = new ArrayList<>();
         String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
         if(decodedGpu.equals("none")) { // 없으면 100위까지만 보내주기
-            gpuList = gpuListService.orderByGpuRankDesc();
+            gpuList = gpuListService.orderByGpuRank();
             gpuList.subList(100, gpuList.size()).clear();
             return gpuList;
         }
@@ -143,6 +145,7 @@ public class DataController {
     // ram latency기준으로 +-1값인 객체 전송
     @PostMapping("/myRamRanking")
     public List<RamList> getMyRamRank(@RequestBody String ram) {
+        System.out.println(ram);
         List<RamList> ramList = new ArrayList<>();
         ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
         if(ram.equals("none")) { // 없으면 100위까지만 보내주기
