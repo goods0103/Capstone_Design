@@ -292,7 +292,7 @@ function CpuDetail() {
                                 <th className={styles.cssTh}>Image</th>
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
-                                <th className={styles.cssTh}>Price</th>
+                                <th className={styles.cssTh}>Mark</th>
                                 <th className={styles.cssThProgress}>Average CPU Mark</th>
                             </tr>
                             </thead>
@@ -306,7 +306,7 @@ function CpuDetail() {
                                             {cpu.cpuName}
                                         </td>
                                         <td className={styles.pointMySpec}>{cpu.cpuRank}</td>
-                                        <td className={styles.pointMySpec}>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td className={styles.pointMySpec}>{cpu.cpuMark}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
@@ -320,7 +320,7 @@ function CpuDetail() {
                                             {cpu.cpuName}
                                         </td>
                                         <td>{cpu.cpuRank}</td>
-                                        <td>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td>{cpu.cpuMark}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
