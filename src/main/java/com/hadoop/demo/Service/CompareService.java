@@ -54,6 +54,11 @@ public class CompareService {
             }
         }
 
+        if(matchingCpu.size() == 0) {
+            System.out.println("No matched CPU");
+            return "none";
+        }
+
         String[] cpuArray = matchingCpu.toArray(new String[matchingCpu.size()]);
         String mostSimilar = "";
         int maxSimilarity = 100;
@@ -125,6 +130,11 @@ public class CompareService {
                 }
                 break;
             }
+        }
+
+        if(matchingGpu.size() == 0) {
+            System.out.println("No matched GPU");
+            return "none";
         }
 
         String[] gpuArray = matchingGpu.toArray(new String[matchingGpu.size()]);

@@ -98,6 +98,7 @@ public class DataController {
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
         List<CpuList> cpuList = new ArrayList<>();
         String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(decodedCpu);
         if(decodedCpu.equals("none")) { // 없으면 100위까지만 보내주기
             cpuList = cpuListService.orderByCpuRankDesc();
             cpuList.subList(100, cpuList.size()).clear();
@@ -121,6 +122,7 @@ public class DataController {
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
         List<GpuList> gpuList = new ArrayList<>();
         String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(decodedGpu);
         if(decodedGpu.equals("none")) { // 없으면 100위까지만 보내주기
             gpuList = gpuListService.orderByGpuRankDesc();
             gpuList.subList(100, gpuList.size()).clear();
@@ -144,7 +146,9 @@ public class DataController {
     @PostMapping("/myRamRanking")
     public List<RamList> getMyRamRank(@RequestBody String ram) {
         List<RamList> ramList = new ArrayList<>();
+        System.out.println(ram);
         ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(ram);
         if(ram.equals("none")) { // 없으면 100위까지만 보내주기
             ramList = ramListService.findAll();
             ramList.subList(100, ramList.size()).clear();
