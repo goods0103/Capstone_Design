@@ -8,7 +8,7 @@ import Table from 'react-bootstrap/Table';
 
 function MyCategoryCpu() {
     const [cpuList, setCpuList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("");
     // hello
     useEffect(() => {
         if (data2) {
@@ -49,7 +49,9 @@ function MyCategoryCpu() {
     return (
         <>
             <div className={styles.bigFrame}>
-                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                {data2 !== "none" &&
+                    <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                }
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -66,8 +68,11 @@ function MyCategoryCpu() {
                         {cpuList.map((cpu) => (
                             data2 === cpu.cpuName ? (
                                     <tr className={styles.mySpecInfoHover} data-cpu-name={cpu.cpuName}>
-                                        <td className={styles.mySpecInfo}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.myLink}>{cpu.cpuName}</Link></td>
+                                        <td className={styles.mySpecInfo}><img src={cpu.cpuUrl} alt="cpu_image"
+                                                                               className={styles.tableImg}/></td>
+                                        <td className={styles.mySpecInfo}><Link to={`/CpuSpec/${cpu.cpuId}`}
+                                                                                className={styles.myLink}>{cpu.cpuName}</Link>
+                                        </td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuMark}</td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuRank}</td>
                                         <td className={styles.mySpecInfo}>{cpu.cpuValue}</td>
@@ -77,7 +82,8 @@ function MyCategoryCpu() {
                                 (
                                     <tr>
                                         <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`}
+                                                  className={styles.link}>{cpu.cpuName}</Link></td>
                                         <td>{cpu.cpuMark}</td>
                                         <td>{cpu.cpuRank}</td>
                                         <td>{cpu.cpuValue}</td>

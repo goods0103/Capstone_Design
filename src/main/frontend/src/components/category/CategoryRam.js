@@ -119,6 +119,14 @@ function CategoryRam() {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => b.ramWrite - a.ramWrite);
             setRamList(newProduct);
+        } else if (type === "nameHigh") {
+            const newProduct = [...ramList];
+            newProduct.sort((a, b) => {
+                if (a.ramName < b.ramName) return -1;
+                if (a.ramName > b.ramName) return 1;
+                return 0;
+            });
+            setRamList(newProduct);
         }
     };
     const handleSubmit = (e) => {
@@ -159,6 +167,19 @@ function CategoryRam() {
                 />
             </form>
                 <div className={styles.filter}>
+                    <button
+                        className={
+                            selectedFilter === "nameHigh"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("nameHigh");
+                            sortProduct("nameHigh");
+                        }}
+                    >
+                        이름
+                    </button>
                     <button
                         className={
                             selectedFilter === "sizeHigh"
