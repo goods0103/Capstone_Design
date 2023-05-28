@@ -283,7 +283,7 @@ function GpuDetail() {
                                 <th className={styles.cssTh}>Image</th>
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
-                                <th className={styles.cssTh}>Price</th>
+                                <th className={styles.cssTh}>Mark</th>
                                 <th className={styles.cssThProgress}>Average GPU Mark</th>
                             </tr>
                             </thead>
@@ -296,7 +296,7 @@ function GpuDetail() {
                                             {gpu.gpuName}
                                         </td>
                                         <td className={styles.pointMySpecGpu}>{gpu.gpuRank}</td>
-                                        <td className={styles.pointMySpecGpu}>{convertPrice(gpu.gpuPrice)}</td>
+                                        <td className={styles.pointMySpecGpu}>{gpu.gpuMark}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
@@ -310,7 +310,7 @@ function GpuDetail() {
                                             {gpu.gpuName}
                                         </td>
                                         <td>{gpu.gpuRank}</td>
-                                        <td>{convertPrice(gpu.gpuPrice)}</td>
+                                        <td>{gpu.gpuMark}</td>
                                         <td>
                                             {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>

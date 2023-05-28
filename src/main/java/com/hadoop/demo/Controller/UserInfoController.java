@@ -26,7 +26,6 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 
 @CrossOrigin
 @RestController
@@ -163,12 +162,7 @@ public class UserInfoController {
     @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> streamData(HttpServletRequest request) throws InterruptedException {
         String ipAddress = request.getRemoteAddr();
-        while(true) {
-            if(userInfoService.findByIpAddress(ipAddress) != null) {
-                return sink.asFlux();
-            }
-            sleep(1000);
-        }
+        return sink.asFlux();
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {

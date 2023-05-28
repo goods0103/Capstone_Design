@@ -78,12 +78,9 @@ public class DataController {
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
-        String cpuList = compareService.getMatchingCpu(ipAddress).getCpuName();
-        String gpuList = compareService.getMatchingGpu(ipAddress).getGpuName();
-        String ramList = compareService.getMatchingRam(ipAddress).getRamName();
-        if (cpuList == null) cpuList = "none";
-        if (gpuList == null) gpuList = "none";
-        if( ramList == null) ramList = "none";
+        String cpuList = compareService.getMatchingCpu(ipAddress);
+        String gpuList = compareService.getMatchingGpu(ipAddress);
+        String ramList = compareService.getMatchingRam(ipAddress);
 
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
