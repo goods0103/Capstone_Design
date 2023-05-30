@@ -103,19 +103,19 @@ function CategoryRam() {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => b.ramLatency - a.ramLatency);
             setRamList(newProduct);
-        } else if (type === "readLow") {
+        } else if (type === "readHigh") {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => a.ramRead - b.ramRead);
             setRamList(newProduct);
-        } else if (type === "readHigh") {
+        } else if (type === "readLow") {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => b.ramRead - a.ramRead);
             setRamList(newProduct);
-        } else if (type === "writeLow") {
+        } else if (type === "writeHigh") {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => a.ramWrite - b.ramWrite);
             setRamList(newProduct);
-        } else if (type === "writeHigh") {
+        } else if (type === "writeLow") {
             const newProduct = [...ramList];
             newProduct.sort((a, b) => b.ramWrite - a.ramWrite);
             setRamList(newProduct);
