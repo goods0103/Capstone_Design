@@ -31,7 +31,7 @@ public class CompareService {
 
         String findUserCpu = userCpu.getCpuInfo();
 
-        System.out.println("finduserCPu : " + findUserCpu);
+        //System.out.println("finduserCPu : " + findUserCpu);
         for(CpuDetails cpu : cpulist){
 //            if(cpu.getOtherName().equals(findUserCpu)){
 //                matchingCpu.add(cpu.getOtherName());
@@ -108,7 +108,7 @@ public class CompareService {
 
         String findUserGpu = userGpu.getGpuInfo();
 
-        System.out.println("finduserGPu : " + findUserGpu);
+        //System.out.println("finduserGPu : " + findUserGpu);
         for(GpuDetails gpu : gpulist){
 //            if(gpu.getOtherName().equals(findUserGpu)){
 //                matchingGpu.add(gpu.getOtherName());
@@ -209,7 +209,7 @@ public class CompareService {
             }
         }
 
-        System.out.println("Most similar RAM: " + mostSimilar);
+        //System.out.println("Most similar RAM: " + mostSimilar);
 
         return ramListRepository.findByRamName(mostSimilar).getRamName();
     }
