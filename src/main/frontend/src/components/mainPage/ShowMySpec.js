@@ -87,11 +87,13 @@ function ShowMySpec() {
             <div className={styles.arrow}>Click!</div>
             )}
             {flag && (
-            <img
-                className={styles.loading}
-                src="images/loading.gif"
-                alt="First slide"
-            />
+                <div style={{textAlign : "center"}}>
+                    <img
+                        className={styles.loading}
+                        src="images/loading.gif"
+                        alt="First slide"
+                    />
+                </div>
             )}
         </div>
 
