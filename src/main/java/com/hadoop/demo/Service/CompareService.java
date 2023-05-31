@@ -30,27 +30,25 @@ public class CompareService {
         List<CpuDetails> cpulist = cpuDetailsService.findAll();
 
         String findUserCpu = userCpu.getCpuInfo();
-        CpuDetails cpu1 = null;
-        int flag=0;
 
         //System.out.println("finduserCPu : " + findUserCpu);
         for(CpuDetails cpu : cpulist){
+//            if(cpu.getOtherName().equals(findUserCpu)){
+//                matchingCpu.add(cpu.getOtherName());
+//                return cpuDetailsService.findByOtherName(cpu.getOtherName()).get(0).getCpuName();
+//            }
             if((cpu.getOtherName().contains(findUserCpu) || findUserCpu.contains(cpu.getOtherName()))){
                 if(cpu.getOtherName().contains(",")){
                     String [] cpuNames = cpu.getOtherName().split(",");
                     for(int i=0; i<cpuNames.length; i++){
                         if(cpuNames[i].contains(findUserCpu) || findUserCpu.contains(cpuNames[i])){
                             matchingCpu.add(cpuNames[i]);
-                            cpu1 = cpu;
-                            flag++;
-                            break;
                         }
                     }
                 }
                 else{
                     matchingCpu.add(cpu.getOtherName());
                 }
-                break;
             }
         }
 
@@ -75,9 +73,8 @@ public class CompareService {
             }
         }
 
-        //System.out.println("mostSimilar :" + mostSimilar);
-        //System.out.println("finalCPu :" + cpu1.getCpuName());
-        if(flag>0){ mostSimilar = cpu1.getOtherName();}
+//        System.out.println("mostSimilar :" + mostSimilar);
+//        System.out.println("finalCPu :");
 
         List<CpuDetails> filteredCpu = cpuDetailsService.findByOtherName(mostSimilar);
         List<String> cpu2 = new ArrayList<>();
@@ -96,7 +93,9 @@ public class CompareService {
                 mostSimilar2 = findCpuArray;
             }
         }
-            return cpuDetailsService.findByName(mostSimilar2).getCpuName();
+        //System.out.println("mostSimilar2 :" + mostSimilar2);
+
+        return cpuDetailsService.findByName(mostSimilar2).getCpuName();
     }
 
     public String getMatchingGpu(String ipAddress){
@@ -108,27 +107,26 @@ public class CompareService {
         List<GpuDetails> gpulist = gpuDetailsService.findAll();
 
         String findUserGpu = userGpu.getGpuInfo();
-        GpuDetails gpu1 = null;
-        int flag=0;
 
         //System.out.println("finduserGPu : " + findUserGpu);
         for(GpuDetails gpu : gpulist){
-            if((gpu.getOtherName().contains(findUserGpu) || findUserGpu.contains(gpu.getOtherName()))){
+//            if(gpu.getOtherName().equals(findUserGpu)){
+//                matchingGpu.add(gpu.getOtherName());
+//                System.out.println("je yeong gpu");
+//                return gpuDetailsService.findByOtherName(gpu.getOtherName()).get(0).getGpuName();
+//            }
+            if(gpu.getOtherName().contains(findUserGpu) || findUserGpu.contains(gpu.getOtherName())){
                 if(gpu.getOtherName().contains(",")){
                     String [] gpuNames = gpu.getOtherName().split(",");
                     for(int i=0; i<gpuNames.length; i++){
                         if(gpuNames[i].contains(findUserGpu) || findUserGpu.contains(gpuNames[i])){
                             matchingGpu.add(gpuNames[i]);
-                            gpu1 = gpu;
-                            flag++;
-                            break;
                         }
                     }
                 }
                 else{
                     matchingGpu.add(gpu.getOtherName());
                 }
-                break;
             }
         }
 
@@ -148,9 +146,9 @@ public class CompareService {
                 mostSimilar = findGpuArray;
             }
         }
+
         //System.out.println("mostSimilar :" + mostSimilar);
 
-        if(flag>0){ mostSimilar = gpu1.getOtherName();}
 
         List<GpuDetails> filteredGpu = gpuDetailsService.findByOtherName(mostSimilar);
         List<String> gpu2 = new ArrayList<>();
@@ -169,6 +167,9 @@ public class CompareService {
                 mostSimilar2 = findGpuArray;
             }
         }
+
+        //System.out.println("mostSimilar2 :" + mostSimilar2);
+
         return gpuDetailsService.findByName(mostSimilar2).getGpuName();
     }
 
