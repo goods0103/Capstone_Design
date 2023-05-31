@@ -78,26 +78,47 @@ public class GameListService {
         else if (minCpu != null && minGpu == null) {
             minCpuRank = cpuListRepository.findByCpuName(minCpu).getCpuRank();
             minRamSize = gameList.getMinimumGameRam();
-            if (userRamSize >= minRamSize && userCpuRank <= minCpuRank) {
+            if (userRamSize >= minRamSize && userCpuRank <= minCpuRank)  // cpu ram 모두 넘을 때
                 minState = 1;
-            }
+            else if (userRamSize >= minRamSize)  // ram 넘는데 cpu 못넘을 때
+                minState = 3;
+            else if (userCpuRank <= minCpuRank)  // cpu 넘는데 ram 못넘을 때
+                minState = 5;
+            else    // cpu ram 모두 못넘을 때
+                minState = 7;
         }
         // 권장 gpu만 있을 경우
         else if (minCpu == null) {
             minGpuRank = gpuListRepository.findByGpuName(minGpu).getGpuRank();
             minRamSize = gameList.getMinimumGameRam();
-            if (userRamSize >= minRamSize && userGpuRank <= minGpuRank) {
+            if (userRamSize >= minRamSize && userGpuRank <= minGpuRank)  // gpu ram 모두 넘을 때
                 minState = 1;
-            }
+            else if (userRamSize >= minRamSize)  // ram 넘는데 gpu 못넘을 때
+                minState = 4;
+             else if (userCpuRank <= minCpuRank)  // gpu 넘는데 ram 못넘을 때
+                minState = 5;
+             else   // gpu ram 모두 못넘을 때
+                minState = 8;
         }
         // 권장 cpu, gpu가 모두 있을경우
         else {
             minCpuRank = cpuListRepository.findByCpuName(minCpu).getCpuRank();
             minGpuRank = gpuListRepository.findByGpuName(minGpu).getGpuRank();
             minRamSize = gameList.getMinimumGameRam();
-            if (userRamSize >= minRamSize && userGpuRank <= minGpuRank && userCpuRank <= minCpuRank) {
+            if (userRamSize >= minRamSize && userGpuRank <= minGpuRank && userCpuRank <= minCpuRank)
                 minState = 1;
-            }
+            else if (userRamSize >= minRamSize && userGpuRank <= minGpuRank)  // ram,gpu 넘는데 cpu 못넘을 때
+                minState = 3;
+            else if (userRamSize >= minRamSize && userCpuRank <= minCpuRank)  // ram,cpu 넘는데 gpu 못넘을 때
+                minState = 4;
+            else if (userGpuRank <= minRamSize && userCpuRank <= minCpuRank)  // cpu,gpu 넘는데 ram 못넘을 때
+                minState = 5;
+            else if (userRamSize >= minRamSize)  // ram 넘는데 cpu,gpu 못넘을 때
+                minState = 6;
+            else if (userGpuRank <= minGpuRank)  // gpu 넘는데 cpu,ram 못넘을 때
+                minState = 7;
+            else if (userCpuRank <= minCpuRank)  // cpu는 넘는데 gpu,ram은 못넘을 때
+                minState = 8;
         }
         return minState;
 
@@ -150,30 +171,67 @@ public class GameListService {
         }
         // 권장 cpu만 있을 경우
         else if (recCpu != null && recGpu == null) {
-            if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) {
+            if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) { // cpu ram 모두 가능
                 gameList.setRecState(1);
                 gameList.setMinState(1);
-            } else {
-                gameList.setRecState(0);
+            }
+            else if (userRamSize >= recRamSize) { // ram 넘는데 cpu 못넘을 때
+                gameList.setRecState(3);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else if (userCpuRank <= recCpuRank) { // cpu 넘는데 ram 못넘을 때
+                gameList.setRecState(5);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else {    // cpu ram 모두 못넘을 때
+                gameList.setRecState(7);
                 gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }
         }
         // 권장 gpu만 있을 경우
         else if (recCpu == null) {
-            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) {
+            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) { // gpu와 ram 모두 가능
                 gameList.setRecState(1);
                 gameList.setMinState(1);
-            } else {
-                gameList.setRecState(0);
+            }
+            else if (userRamSize >= recRamSize) { // ram은 넘는데 gpu는 못넘을 때
+                gameList.setRecState(4);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else if (userCpuRank <= recCpuRank) { // gpu는 넘는데 ram은 못넘을 때
+                gameList.setRecState(5);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else {    // gpu ram 모두 못넘을 때
+                gameList.setRecState(8);
                 gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }
         }
         // 권장 cpu, gpu가 모두 있을경우
         else {
-            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) {
+            if (userRamSize >= recRamSize && userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) { // cpu gpu ram 모두 넘을 때
                 gameList.setRecState(1);
                 gameList.setMinState(1);
-            } else {
+            }
+            else if (userRamSize >= recRamSize && userGpuRank <= recGpuRank) { // ram,gpu 넘는데 cpu 못넘을 때
+                gameList.setRecState(3);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            }
+            else if (userRamSize >= recRamSize && userCpuRank <= recCpuRank) { // ram,cpu 넘는데 gpu 못넘을 때
+                gameList.setRecState(4);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            }
+            else if (userGpuRank <= recGpuRank && userCpuRank <= recCpuRank) { // cpu,gpu 넘는데 ram 못넘을 때
+                gameList.setRecState(5);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            }
+            else if (userRamSize >= recRamSize) { // ram 넘는데 cpu,gpu 못넘을 때
+                gameList.setRecState(6);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            }
+            else if (userGpuRank <= recGpuRank) { // gpu 넘는데 cpu,ram 못넘을 때
+                gameList.setRecState(7);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else if (userCpuRank <= recCpuRank) { // cpu는 넘는데 gpu,ram은 못넘을 때
+                gameList.setRecState(8);
+                gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
+            } else {    // 모두 못넘을 때
                 gameList.setRecState(0);
                 gameList.setMinState(CompareCpuUserVsGame2(gameList.getGameName(), ipAddress));
             }

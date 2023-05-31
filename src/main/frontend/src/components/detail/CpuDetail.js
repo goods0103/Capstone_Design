@@ -9,6 +9,8 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import LineChartDetail from "./LineChartDetail"
 import {ResponsiveContainer} from "recharts";
+import { useNavigate } from 'react-router-dom';
+
 
 function calculatePercentages(values) {
     // 필요한 값을 추출하여 배열에 저장
@@ -29,7 +31,7 @@ function calculatePercentages(values) {
 
 function calculatePercentagesPopular(values) {
     // 필요한 값을 추출하여 배열에 저장
-    const extractedValues = values.map(obj => obj.cpuPrice);
+    const extractedValues = values.map(obj => obj.cpuMark);
 
     // 가장 큰 값을 찾기
     const max = Math.max(...extractedValues);
@@ -61,6 +63,14 @@ function CpuDetail() {
     const handlePageNavigation = (path) => {
         window.location.href = path;
     };
+
+    const navigate = useNavigate();
+
+    const handlePageNavigation2 = (path) => {
+        navigate(path);
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         window.scrollTo(0, 0); // 화면 맨 위로 스크롤
@@ -140,7 +150,7 @@ function CpuDetail() {
 
 
     const percentagesMark = calculatePercentages(cpuValue);
-    const percentagesPrice = calculatePercentagesPopular(cpuPopular);
+    const percentagesMark2 = calculatePercentagesPopular(cpuPopular);
 
     return(
         <>
@@ -149,8 +159,6 @@ function CpuDetail() {
                     <br/><br/>
                     <h2>{cpuInfo.cpuName}</h2>
                     <p>{cpuInfo.cpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
-                    {/*<h2>CPU 5600X</h2><br/>*/}
-                    {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
                     <ul className={styles.ulCss}>
                         <li>첫 번째 그래프는 PassMark CPU 마크 측면에서 10개의 다른 일반(단일) CPU와 비교한 CPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 CPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
@@ -163,7 +171,6 @@ function CpuDetail() {
                         <thead>
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{cpuInfo.cpuName}</th>
-                            {/*<th colSpan={2}>AMD Ryzen 5 5600X</th>*/}
                             <th style={{textAlign: 'center'}} className={styles.tableDetailTh2}>Average CPU Mark</th>
                         </tr>
                         </thead>
@@ -238,7 +245,9 @@ function CpuDetail() {
                                         <tbody>
                                             <tr>
                                                 <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                                <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                                    {cpu.cpuName}
+                                                </td>
                                                 <td className={styles.pointMySpec}>{cpu.cpuMark}</td>
                                                 <td className={styles.pointMySpec}>{cpu.cpuValue}</td>
                                                 <td>
@@ -250,7 +259,9 @@ function CpuDetail() {
                                         <tbody>
                                             <tr>
                                                 <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                                <td>{cpu.cpuName}</td>
+                                                <td onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                                    {cpu.cpuName}
+                                                </td>
                                                 <td>{cpu.cpuMark}</td>
                                                 <td>{cpu.cpuValue}</td>
                                                 <td>
@@ -278,21 +289,22 @@ function CpuDetail() {
                                 <th className={styles.cssTh}>Image</th>
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
-                                <th className={styles.cssTh}>Price</th>
-                                <th className={styles.cssThProgress}>Average CPU Price</th>
+                                <th className={styles.cssTh}>Mark</th>
+                                <th className={styles.cssThProgress}>Average CPU Mark</th>
                             </tr>
                             </thead>
                             {cpuPopular.map((cpu, index) => (
                                 cpu.cpuId === parseInt(lastPart, 10) ? (
-                                // cpu.cpuName === cpuInfo.cpuName ? (
                                     <tbody>
                                     <tr>
                                         <td className={styles.pointMySpec}><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td className={styles.pointMySpec}>{cpu.cpuName}</td>
+                                        <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {cpu.cpuName}
+                                        </td>
                                         <td className={styles.pointMySpec}>{cpu.cpuRank}</td>
-                                        <td className={styles.pointMySpec}>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td className={styles.pointMySpec}>{cpu.cpuMark}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -300,11 +312,13 @@ function CpuDetail() {
                                     <tbody>
                                     <tr>
                                         <td><img src={cpu.cpuUrl} alt="cpu_image" className={styles.tableImg}/></td>
-                                        <td><Link to={`/CpuSpec/${cpu.cpuId}`} className={styles.link}>{cpu.cpuName}</Link></td>
+                                        <td onClick={() => handlePageNavigation2(`/CpuSpec/${cpu.cpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {cpu.cpuName}
+                                        </td>
                                         <td>{cpu.cpuRank}</td>
-                                        <td>{convertPrice(cpu.cpuPrice)}</td>
+                                        <td>{cpu.cpuMark}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
                                     </tbody>

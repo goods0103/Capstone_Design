@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./detail.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import Table from 'react-bootstrap/Table';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -29,7 +29,7 @@ function calculatePercentages(values) {
 
 function calculatePercentagesPopular(values) {
     // 필요한 값을 추출하여 배열에 저장
-    const extractedValues = values.map(obj => obj.gpuPrice);
+    const extractedValues = values.map(obj => obj.gpuMark);
 
     // 가장 큰 값을 찾기
     const max = Math.max(...extractedValues);
@@ -54,6 +54,14 @@ function GpuDetail() {
     const parts = path.split('/');
     const lastPart = parts[parts.length - 1];
     const [gpuMarkChart, setGpuMarkChart] = useState([]);
+
+    const navigate = useNavigate();
+
+    const handlePageNavigation2 = (path) => {
+        navigate(path);
+        window.location.reload();
+    };
+
 
     useEffect(() => {
         window.scrollTo(0, 0); // 화면 맨 위로 스크롤
@@ -132,7 +140,7 @@ function GpuDetail() {
 
 
     const percentagesMark = calculatePercentages(gpuValue);
-    const percentagesPrice = calculatePercentagesPopular(gpuPopular);
+    const percentagesMark2 = calculatePercentagesPopular(gpuPopular);
 
     return(
         <>
@@ -141,8 +149,6 @@ function GpuDetail() {
                     <br/><br/>
                     <h2>{gpuInfo.gpuName}</h2>
                     <p>{gpuInfo.gpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
-                    {/*<h2>CPU 5600X</h2><br/>*/}
-                    {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
                     <ul className={styles.ulCss}>
                         <li>첫 번째 그래프는 PassMark GPU 마크 측면에서 10개의 다른 일반(단일) GPU와 비교한 GPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 GPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
@@ -156,7 +162,6 @@ function GpuDetail() {
                         <thead>
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{gpuInfo.gpuName}</th>
-                            {/*<th colSpan={2}>AMD Ryzen 5 5600X</th>*/}
                             <th style={{textAlign: 'center'}} className={styles.tableDetailTh2}>Average GPU Mark</th>
                         </tr>
                         </thead>
@@ -168,7 +173,6 @@ function GpuDetail() {
                                 <div>
                                     <img src={"https://www.cpubenchmark.net/images/speedicon.svg"} alt="cpu_image" className={styles.tableDetailImg}/>
                                     <div className={styles.detailMark}>{gpuInfo.gpuMark}</div><br/>
-                                    {/*<div>Single Thread Rating: {gpuInfoDetail.str}</div>*/}
                                     <Link to={`/gpuCompare/?id=${lastPart}`}>
                                         <button className={styles.buttonCompareDetail}>
                                             <FontAwesomeIcon icon={faPlus} shake size="xl" style={{color: "#ffffff",}} />&nbsp;COMPARE
@@ -185,9 +189,6 @@ function GpuDetail() {
                             <td className={styles.tableDetailTd}><strong>Typical TDP:</strong> {gpuInfoDetail.tdp}</td>
                             <td className={styles.tableDetailTd}></td>
                         </tr>
-                        {/*<tr>*/}
-                        {/*    <td colSpan={2} className={styles.tableDetailTd}>Cache Size: {gpuInfoDetail.cache}</td>*/}
-                        {/*</tr>*/}
                         <tr>
                             <td colSpan={2} style={{height: '2.5rem'}}></td>
                         </tr>
@@ -231,7 +232,9 @@ function GpuDetail() {
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                            <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                            <td className={styles.pointMySpec} onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                                {gpu.gpuName}
+                                            </td>
                                             <td className={styles.pointMySpecGpu}>{gpu.gpuMark}</td>
                                             <td className={styles.pointMySpecGpu}>{gpu.gpuValue}</td>
                                             <td>
@@ -243,7 +246,9 @@ function GpuDetail() {
                                         <tbody>
                                         <tr>
                                             <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                            <td>{gpu.gpuName}</td>
+                                            <td onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                                {gpu.gpuName}
+                                            </td>
                                             <td>{gpu.gpuMark}</td>
                                             <td>{gpu.gpuValue}</td>
                                             <td>
@@ -271,35 +276,39 @@ function GpuDetail() {
                                 <th className={styles.cssTh}>Image</th>
                                 <th className={styles.cssTh}>Name</th>
                                 <th className={styles.cssTh}>Rank</th>
-                                <th className={styles.cssTh}>Price</th>
-                                <th className={styles.cssThProgress}>Average GPU Price</th>
+                                <th className={styles.cssTh}>Mark</th>
+                                <th className={styles.cssThProgress}>Average GPU Mark</th>
                             </tr>
                             </thead>
                             {gpuPopular.map((gpu, index) => (
                                 gpu.gpuId === parseInt(lastPart, 10) ? (
-                                    <thead>
+                                    <tbody>
                                     <tr>
                                         <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                        <td className={styles.pointMySpecGpu}>{gpu.gpuName}</td>
+                                        <td className={styles.pointMySpecGpu} onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {gpu.gpuName}
+                                        </td>
                                         <td className={styles.pointMySpecGpu}>{gpu.gpuRank}</td>
-                                        <td className={styles.pointMySpecGpu}>{convertPrice(gpu.gpuPrice)}</td>
+                                        <td className={styles.pointMySpecGpu}>{gpu.gpuMark}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
-                                    </thead>
+                                    </tbody>
                                 ) : (
-                                    <thead>
+                                    <tbody>
                                     <tr>
                                         <td className={styles.pointMySpecGpuTd}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                        <td>{gpu.gpuName}</td>
+                                        <td onClick={() => handlePageNavigation2(`/GpuSpec/${gpu.gpuId}`)} style={{ cursor: 'pointer' }}>
+                                            {gpu.gpuName}
+                                        </td>
                                         <td>{gpu.gpuRank}</td>
-                                        <td>{convertPrice(gpu.gpuPrice)}</td>
+                                        <td>{gpu.gpuMark}</td>
                                         <td>
-                                            {returnMarkProgressBar(percentagesPrice[index])}
+                                            {returnMarkProgressBar(percentagesMark2[index])}
                                         </td>
                                     </tr>
-                                    </thead>
+                                    </tbody>
                                 )
                             ))}
                         </Table>

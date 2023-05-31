@@ -38,7 +38,6 @@ function GpuCompare() {
                     label: gpus
                 }));
                 setGpuOption(gpus);
-                // setSelectedCpu("");
             })
             .catch(error => {
                 console.log(error);
@@ -52,9 +51,6 @@ function GpuCompare() {
     function handleGpuChange(selectedGpu) {
         setSelectedGpu(selectedGpu)
         setShowComponent(false);
-        // setSelectedCpu(selectedCpu);
-        // setRenderCount(renderCount + 1);
-        // setShowComponent(false);
     }
 
     useEffect(() => {
@@ -80,7 +76,6 @@ function GpuCompare() {
     }, []);
 
     function handleClick() {
-        //setRenderCount(renderCount + 1);
         setSelectedGpu(selectedGpu);
         setShowComponent(true);
     }
@@ -90,7 +85,6 @@ function GpuCompare() {
         <div className={styles.bigFrame}>
             <div className={styles.selectContainer}>
                 <label className={styles.selectSpecLabel}>{gpuInfo.gpuName}</label>
-                {/*<label className={styles.selectSpecLabel}>{"cpu 5600X"}</label>*/}
                 <form onSubmit={handleSubmit} className={styles.fromStyle} >
                     <div className={styles.formContainer}>
                         <label style={{paddingTop:'10px'}}>비교할 제품 선택 </label>&emsp;
@@ -128,25 +122,6 @@ function GpuCompare() {
                 </form>
             </div>
             <hr className={styles.hrStyle}/>
-
-            {/*<div className={styles.infoNameFrame}>*/}
-            {/*        <span>*/}
-            {/*            <div>*/}
-            {/*                cpu1*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.infoNameLabel}>*/}
-            {/*                {"cpuInfo.cpuName"}*/}
-            {/*            </div>*/}
-            {/*        </span>*/}
-            {/*    <span>*/}
-            {/*            <div>*/}
-            {/*                cpu2*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.infoNameLabel}>*/}
-            {/*                {"selectedCpuInfo.cpuName"}*/}
-            {/*            </div>*/}
-            {/*        </span>*/}
-            {/*</div>*/}
 
             {showComponent &&
                 <SubmitSelectedGpu selectedGpu={selectedGpu}

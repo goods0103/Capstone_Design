@@ -125,9 +125,9 @@ public class BottleNeckService {
     public static class bottleNeckInfo implements Comparable<bottleNeckInfo>{
         private String info;
         private int mark;
-        private int bottleNeckDiff;
+        private double bottleNeckDiff;
 
-        public bottleNeckInfo(String cpuName, int cpuMark, int diff) {
+        public bottleNeckInfo(String cpuName, int cpuMark, double diff) {
             this.info = cpuName;
             this.mark = cpuMark;
             this.bottleNeckDiff = diff;
@@ -153,7 +153,7 @@ public class BottleNeckService {
             String gpuName = bottleNeck.getGpuInfo();
             int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
             int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
-            int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
+            double diff = Math.abs((cpuBottleNeckValue - gpuBottleNeckValue) / 10.0);
             int gpuMark = gpuListRepository.findByGpuName(gpuName).getGpuMark();
             bottleNeckInfos.add(new bottleNeckInfo(gpuName, gpuMark, diff));
         }
@@ -174,7 +174,7 @@ public class BottleNeckService {
             //System.out.println(cpuName);
             int cpuBottleNeckValue = bottleNeck.getCpuBottleNeckValue();
             int gpuBottleNeckValue = bottleNeck.getGpuBottleNeckValue();
-            int diff = Math.abs(cpuBottleNeckValue-gpuBottleNeckValue);
+            double diff = Math.abs((cpuBottleNeckValue - gpuBottleNeckValue) / 10.0);
             int cpuMark = cpuListRepository.findByCpuName(cpuName).getCpuMark();
             //System.out.println(diff);
             //System.out.println(cpuMark);

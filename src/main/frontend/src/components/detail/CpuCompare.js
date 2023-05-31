@@ -4,11 +4,6 @@ import styles from "./detail.module.css";
 import Select from "react-select";
 import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import MyBottleNeck from "../myInfo/MyBottleNeck";
 import SubmitSelectedCpu from "./SubmitSelectedCpu";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCodeCompare, faRotate} from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +38,6 @@ function CpuCompare() {
                     label: cpus
                 }));
                 setCpuOption(cpus);
-                // setSelectedCpu("");
             })
             .catch(error => {
                 console.log(error);
@@ -57,9 +51,6 @@ function CpuCompare() {
     function handleCpuChange(selectedCpu) {
         setSelectedCpu(selectedCpu)
         setShowComponent(false);
-        // setSelectedCpu(selectedCpu);
-        // setRenderCount(renderCount + 1);
-        // setShowComponent(false);
     }
 
     useEffect(() => {
@@ -85,7 +76,6 @@ function CpuCompare() {
     }, []);
 
     function handleClick() {
-        //setRenderCount(renderCount + 1);
         setSelectedCpu(selectedCpu);
         setShowComponent(true);
     }
@@ -95,7 +85,6 @@ function CpuCompare() {
         <div className={styles.bigFrame}>
             <div className={styles.selectContainer}>
                 <label className={styles.selectSpecLabel}>{cpuInfo.cpuName}</label>
-                {/*<label className={styles.selectSpecLabel}>{"cpu 5600X"}</label>*/}
                 <form onSubmit={handleSubmit} className={styles.fromStyle} >
                     <div className={styles.formContainer}>
                         <label style={{paddingTop:'10px'}}>비교할 제품 선택 </label>&emsp;
@@ -113,7 +102,6 @@ function CpuCompare() {
                                 }),
                                 control: (provided, state) => ({
                                     ...provided,
-                                    // width: '800px', // 원하는 너비로 조정
                                     backgroundColor: '#3c3c3c',
                                     border: state.isFocused ? '3px solid white' : 'solid',
                                 }),
@@ -133,25 +121,6 @@ function CpuCompare() {
                 </form>
             </div>
             <hr className={styles.hrStyle}/>
-
-            {/*<div className={styles.infoNameFrame}>*/}
-            {/*        <span>*/}
-            {/*            <div>*/}
-            {/*                cpu1*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.infoNameLabel}>*/}
-            {/*                {"cpuInfo.cpuName"}*/}
-            {/*            </div>*/}
-            {/*        </span>*/}
-            {/*    <span>*/}
-            {/*            <div>*/}
-            {/*                cpu2*/}
-            {/*            </div>*/}
-            {/*            <div className={styles.infoNameLabel}>*/}
-            {/*                {"selectedCpuInfo.cpuName"}*/}
-            {/*            </div>*/}
-            {/*        </span>*/}
-            {/*</div>*/}
 
             {showComponent &&
                 <SubmitSelectedCpu selectedCpu={selectedCpu}

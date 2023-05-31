@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
-import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {Link} from "react-router-dom";
@@ -112,6 +111,14 @@ function CategoryGpu() {
             const newProduct = [...gpuList];
             newProduct.sort((a, b) => b.gpuValue - a.gpuValue);
             setGpuList(newProduct);
+        } else if (type === "nameHigh") {
+            const newProduct = [...gpuList];
+            newProduct.sort((a, b) => {
+                if (a.gpuName < b.gpuName) return -1;
+                if (a.gpuName > b.gpuName) return 1;
+                return 0;
+            });
+            setGpuList(newProduct);
         }
     };
 
@@ -154,6 +161,19 @@ function CategoryGpu() {
                     />
                 </form>
                 <div className={styles.filter}>
+                    <button
+                        className={
+                            selectedFilter === "nameHigh"
+                                ? `${styles.filterButton} ${styles.filterButtonSelected}`
+                                : styles.filterButton
+                        }
+                        onClick={() => {
+                            setSelectedFilter("nameHigh");
+                            sortProduct("nameHigh");
+                        }}
+                    >
+                        이름
+                    </button>
                     <button
                         className={
                             selectedFilter === "low"

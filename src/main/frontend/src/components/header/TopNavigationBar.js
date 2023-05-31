@@ -1,5 +1,5 @@
 import styles from "./topNavigationBar.module.css";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CategoryBar from "../category/CategoryBar";
 import CategoryBar2 from "../myInfo/CategoryBar2";
@@ -25,6 +25,14 @@ export const TopNavigationBar = ({ cart }) => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const handlePageNavigation2 = (path) => {
+    navigate(path);
+    window.location.reload();
+  };
+
+
 
 
 
@@ -40,20 +48,16 @@ export const TopNavigationBar = ({ cart }) => {
         {count === 1 && <CategoryBar className={styles.categoryBarCSS}></CategoryBar>}
         {count === 2 && <CategoryBar2 className={styles.categoryBarCSS}></CategoryBar2>}
         {count === 3 && <CategoryBar3 className={styles.categoryBarCSS}></CategoryBar3>}
-        {/*<div className={styles.input_wrap}>*/}
-        {/*  <input type="text" placeholder="상품을 검색해보세요!" />*/}
-        {/*  <img src="/images/icon-search.svg" alt="search" />*/}
-        {/*</div>*/}
       </div>
 
       {count===1 && <div className={styles.menu}>
-        <Link to={localData ? "/mySpec" : "/showMySpec"} style={{ textDecoration: 'none' }}>
+        <Link to={localData ? "/MySpec" : "/ShowMySpec"} style={{ textDecoration: 'none' }}>
           <div className={styles.mypage1} onClick={handleMySpecClick}>
             <span>MySpec</span>
           </div>
         </Link>
         &emsp;&emsp;
-        <Link to={"/insertSpec"} style={{ textDecoration: 'none' }}>
+        <Link to={"/InsertSpec"} style={{ textDecoration: 'none' }}>
           <div className={styles.mypage2} >
             <span>InsertSpec</span>
           </div>
@@ -69,7 +73,7 @@ export const TopNavigationBar = ({ cart }) => {
 
       {count===2 && <div className={styles.menu}>
         &emsp;&emsp;
-        <Link to={localData ? "/mySpec" : "/showMySpec"} style={{ textDecoration: 'none' }}>
+        <Link to={localData ? "/MySpec" : "/ShowMySpec"} style={{ textDecoration: 'none' }}>
           <div className={styles.mypage1}>
             <span>Spec</span>
           </div>
@@ -84,7 +88,7 @@ export const TopNavigationBar = ({ cart }) => {
       }
       {count===3 && <div className={styles.menu}>
         &emsp;&emsp;
-        <Link to={"/selectSpec"} style={{ textDecoration: 'none' }}>
+        <Link to={"/SelectSpec"} style={{ textDecoration: 'none' }}>
           <div className={styles.mypage1}>
             <span>Spec</span>
           </div>

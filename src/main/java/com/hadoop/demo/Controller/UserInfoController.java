@@ -26,6 +26,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
+
 @CrossOrigin
 @RestController
 public class UserInfoController {
@@ -57,26 +58,26 @@ public class UserInfoController {
         this.sink = Sinks.many().multicast().onBackpressureBuffer();
     }
 
-    @GetMapping("/ShowMySpec")
-    public ResponseEntity<Resource> downloadFile() throws IOException {
-        // 다운로드할 파일 경로
-        // 다운로드할 파일 경로
-        Resource resource = new ClassPathResource("Scoop.exe");
-
-        // InputStreamResource 생성
-        InputStreamResource inputStreamResource = new InputStreamResource(resource.getInputStream());
-
-        // Content-Disposition 헤더를 설정하여 파일 이름 지정
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=Scoop.exe");
-
-        // ResponseEntity에 InputStreamResource와 headers 설정
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(resource.contentLength())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(inputStreamResource);
-    }
+//    @GetMapping("/ShowMySpec")
+//    public ResponseEntity<Resource> downloadFile() throws IOException {
+//        // 다운로드할 파일 경로
+//        // 다운로드할 파일 경로
+//        Resource resource = new ClassPathResource("Scoop.exe");
+//
+//        // InputStreamResource 생성
+//        InputStreamResource inputStreamResource = new InputStreamResource(resource.getInputStream());
+//
+//        // Content-Disposition 헤더를 설정하여 파일 이름 지정
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "attachment; filename=Scoop.exe");
+//
+//        // ResponseEntity에 InputStreamResource와 headers 설정
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .contentLength(resource.contentLength())
+//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                .body(inputStreamResource);
+//    }
 
 
     @GetMapping("/api/spring")
@@ -84,7 +85,6 @@ public class UserInfoController {
         System.out.println("cpu 정보를 불러오는중");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     @Transactional
     @PostMapping("/api/spring")
@@ -128,6 +128,10 @@ public class UserInfoController {
                 System.out.println("find");
                 userInfoService.deleteByIpAddress(ipAddress);
             }
+            if(cpu == null)
+                cpu = "none";
+            if(rPartNum == null)
+                rPartNum = "none";
 
             UserInfo userInfo = UserInfo.builder()
                     .ipAddress(ipAddress)
@@ -142,14 +146,23 @@ public class UserInfoController {
                     .build();
             save(userInfo);
 
+
             // SSE에 데이터를 담아서 객체 만들고 sink에 저장
             ServerSentEvent<String> event = ServerSentEvent.builder(userInfo.getCpuInfo()).build();
             sink.tryEmitNext(event);
+
             gpu = null;
             return ResponseEntity.ok(data);
         }
         return null;
         //return ResponseEntity.ok(data);
+    }
+
+    // Scoop.exe 실행시 자동으로 알림 보내기
+    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> streamData(HttpServletRequest request) throws InterruptedException {
+        String ipAddress = request.getRemoteAddr();
+        return sink.asFlux();
     }
 
     public ResponseEntity<UserInfo> save(@RequestBody UserInfo data) {
@@ -159,12 +172,6 @@ public class UserInfoController {
     @GetMapping("/api/userInfoList")
     public ResponseEntity<List<UserInfo>> findAll() {
         return new ResponseEntity<>(userInfoService.findAll(), HttpStatus.OK);
-    }
-
-    // Scoop.exe 실행시 자동으로 알림 보내기
-    @GetMapping(value = "/stream-data", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> streamData() {
-        return sink.asFlux();
     }
 
     // 직접 기입해서 보낸 cpu gpu ram userinserinfo 테이블에 저장

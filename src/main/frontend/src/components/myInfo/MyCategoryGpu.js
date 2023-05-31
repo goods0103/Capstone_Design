@@ -10,11 +10,12 @@ import Table from 'react-bootstrap/Table';
 function MyCategoryGpu() {
 
     const [gpuList, setGpuList] = useState([]);
-    const [data2, setData2] = useState([]);
+    const [data2, setData2] = useState("");
 
 
     useEffect(() => {
         if (data2) {
+            console.log(data2);
             const encodedData = encodeURIComponent(data2);
             const fetchData = async () => {
                 try {
@@ -51,7 +52,9 @@ function MyCategoryGpu() {
     return (
         <>
             <div className={styles.bigFrame}>
-                <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                {data2 !== "none" &&
+                    <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
+                }
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -68,8 +71,11 @@ function MyCategoryGpu() {
                         {gpuList.map((gpu) => (
                             data2 === gpu.gpuName ? (
                                 <tr className={styles.mySpecInfoHover} data-gpu-name={gpu.gpuName}>
-                                    <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                    <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.myLink}>{gpu.gpuName}</Link></td>
+                                    <td className={styles.mySpecInfo}><img src={gpu.gpuUrl} alt="gpu_image"
+                                                                           className={styles.tableImgGpu}/></td>
+                                    <td className={styles.mySpecInfo}><Link to={`/GpuSpec/${gpu.gpuId}`}
+                                                                            className={styles.myLink}>{gpu.gpuName}</Link>
+                                    </td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuMark}</td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuRank}</td>
                                     <td className={styles.mySpecInfo}>{gpu.gpuValue}</td>
@@ -78,7 +84,8 @@ function MyCategoryGpu() {
                             ) : (
                                 <tr>
                                     <td><img src={gpu.gpuUrl} alt="gpu_image" className={styles.tableImgGpu}/></td>
-                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link></td>
+                                    <td><Link to={`/GpuSpec/${gpu.gpuId}`} className={styles.link}>{gpu.gpuName}</Link>
+                                    </td>
                                     <td>{gpu.gpuMark}</td>
                                     <td>{gpu.gpuRank}</td>
                                     <td>{gpu.gpuValue}</td>

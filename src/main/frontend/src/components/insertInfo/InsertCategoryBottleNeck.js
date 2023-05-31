@@ -44,12 +44,11 @@ function InsertCategoryBottleNeck() {
             .then(response => {
                 setBottleNeck(response.data);
                 const newData = [
-                    {type: 'GPU', name: response.data.gpuInfo, bottleneck: response.data.gpuBottleNeckValue},
-                    {type: 'CPU', name: response.data.cpuInfo, bottleneck: response.data.cpuBottleNeckValue},
+                    {type: 'GPU', name: response.data.gpuInfo, bottleneck: parseFloat((response.data.gpuBottleNeckValue/10).toFixed(2))},
+                    {type: 'CPU', name: response.data.cpuInfo, bottleneck: parseFloat((response.data.cpuBottleNeckValue/10).toFixed(2))},
                 ];
                 setData(newData);
                 if (response.data.cpuBottleNeckValue > response.data.gpuBottleNeckValue) {
-                    console.log("cpu 100");
                     setName(response.data.cpuInfo);
                     setOtherName(response.data.gpuInfo);
                     setFlag(2);
@@ -63,34 +62,30 @@ function InsertCategoryBottleNeck() {
 
                     axios.post("/bottleneck_info", response.data.gpuInfo)
                         .then(response => {
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                             setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                 } else if (response.data.cpuBottleNeckValue < response.data.gpuBottleNeckValue) {
-                    console.log("gpu 100");
                     setName(response.data.gpuInfo);
                     setOtherName(response.data.cpuInfo);
+                    setFlag(1);
                     axios.post("/recommendCpu", response.data.cpuInfo)
                         .then(response => {
-                            setBottleNeckGpu(response.data)
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
+                            setBottleNeckGpu(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                     axios.post("/bottleneck_info2", response.data.cpuInfo)
                         .then(response => {
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                             setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                 } else {
-                    console.log("same");
                     setFlag(3);
                 }
             })
@@ -99,35 +94,41 @@ function InsertCategoryBottleNeck() {
             });
     }, []);
 
+    useEffect(() => {
+        if (allBottleNeck.length === 0) {
+            setFlag(3);
+        }
+    },[allBottleNeck]);
+
     return (
         <>
             <div className={styles.bigFrame}>
                 <div className={styles.bottleNeckResult}>
                     <div className={styles.bottleNeckResultDiv}>
                         <p className={styles.bottleNeckTitle}>CALCULATOR RESULT</p>
-                        {bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue > 5 && (
-                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 {bottleNeck.gpuInfo}에 비해 <br/><strong
+                        {parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2)) - parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2)) > 5 && (
+                            <p> 작업을 실행할 때 {bottleNeck.cpuInfo}는 <br/>{bottleNeck.gpuInfo}에 비해 <strong
                                 style={{color: "red"}}>약합니다</strong>.</p>
                         )}
-                        {bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue > 5 && (
-                            <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 {bottleNeck.cpuInfo}에 비해 <br/><strong
+                        {parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2)) - parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2)) > 5 && (
+                            <p> 작업을 실행할 때 {bottleNeck.gpuInfo}는 <br/>{bottleNeck.cpuInfo}에 비해 <strong
                                 style={{color: "red"}}>약합니다</strong>.</p>
                         )}
-                        {Math.abs(bottleNeck.gpuBottleNeckValue - bottleNeck.cpuBottleNeckValue) <= 5 && (
+                        {Math.abs(parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2)) - parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2))) <= 5 && (
                             <p> 작업을 실행할 때 {bottleNeck.cpuInfo} 및 {bottleNeck.gpuInfo}는 <br/><strong
                                 style={{color: "#116B2A"}}>잘 작동합니다</strong>.</p>
                         )}
                         <p style={{marginBottom: 0}}>
                             이 구성에서는 <strong
-                                style={{color: "#116B2A"}}>{Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}%</strong>의 프로세스 병목
+                                style={{color: "#116B2A"}}>{Math.abs(parseFloat(((bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)/10).toFixed(2)))}%</strong>의 프로세스 병목
                             현상이 있습니다.</p>
                         <p>5% 미만의 병목 현상은 고려하지 않아도 됩니다.</p>
                     </div>
                     <div className={styles.circular}>
 
                         <CircularProgressbar
-                            value={Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}
-                            text={`${Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)}%`}
+                            value={Math.abs(parseFloat(((bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)/10).toFixed(2)))}
+                            text={`${Math.abs(parseFloat(((bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)/10).toFixed(2)))}%`}
                             circleRatio={0.5}
                             arcSweepAngle={180}
                             styles={buildStyles({
@@ -143,15 +144,16 @@ function InsertCategoryBottleNeck() {
                     <ChartBar data={data}/>
                     <p className={styles.chartResult}>작업을 실행할 때 <strong
                         style={{color: "red"}}>{bottleNeck.cpuInfo}</strong>는 <strong
-                        style={{color: "#116B2A"}}>{bottleNeck.cpuBottleNeckValue}%</strong>로
+                        style={{color: "#116B2A"}}>{parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2))}%</strong>로
                         활용되고 <strong
                             style={{color: "red"}}>{bottleNeck.gpuInfo}</strong>는 <strong
-                            style={{color: "#116B2A"}}>{bottleNeck.gpuBottleNeckValue}%</strong>로
+                            style={{color: "#116B2A"}}>{parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2))}%</strong>로
                         활용됩니다.</p>
                 </div>
 
 
-                    {bottleNeck.cpuBottleNeckValue < bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
+                    { flag!==3 && parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2)) < parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2))
+                        && Math.abs(parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2)) - parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2))) > 5 &&
                         <div className={styles.bottleNeckTable}>
                             <p className={styles.title}>Solution</p>
                             <p className={styles.semiTitle}>프로세서를 다운그레이드하거나 그래픽 카드를 업그레이드하여 이 문제를 해결할 수 있습니다.<br/>
@@ -174,7 +176,7 @@ function InsertCategoryBottleNeck() {
                                                 {gpu.gpuInfo}
                                             </td>
                                             <td className={styles.tableTd2}>
-                                                {Math.abs(gpu.cpuBottleNeckValue - gpu.gpuBottleNeckValue)}%
+                                                {Math.abs(parseFloat(((gpu.cpuBottleNeckValue - gpu.gpuBottleNeckValue)/10).toFixed(2)))}%
                                             </td>
                                         </tr>
                                     )))}
@@ -183,7 +185,8 @@ function InsertCategoryBottleNeck() {
                         </div>
                     }
 
-                    {bottleNeck.cpuBottleNeckValue > bottleNeck.gpuBottleNeckValue && Math.abs(bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue) > 5 &&
+                    { flag!==3 && parseFloat(((bottleNeck.cpuBottleNeckValue)/10).toFixed(2)) > parseFloat(((bottleNeck.gpuBottleNeckValue)/10).toFixed(2))
+                        && Math.abs(parseFloat(((bottleNeck.cpuBottleNeckValue - bottleNeck.gpuBottleNeckValue)/10).toFixed(2))) > 5 &&
                         <div className={styles.bottleNeckTable}>
                             <p className={styles.title}>Solution</p>
                             <p className={styles.semiTitle}>프로세서를 업그레이드하거나 그래픽 카드를 다운그레이드하여 이 문제를 해결할 수 있습니다.<br/>
@@ -206,7 +209,7 @@ function InsertCategoryBottleNeck() {
                                         {cpu.cpuInfo}
                                     </td>
                                     <td className={styles.tableTd2}>
-                                        {Math.abs(cpu.cpuBottleNeckValue - cpu.gpuBottleNeckValue)}%
+                                        {Math.abs(parseFloat(((cpu.cpuBottleNeckValue - cpu.gpuBottleNeckValue)/10).toFixed(2)))}%
                                     </td>
                                 </tr>
                             )))}

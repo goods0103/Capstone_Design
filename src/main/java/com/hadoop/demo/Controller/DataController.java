@@ -78,15 +78,14 @@ public class DataController {
         if(userInsertInfoService.findByIpAddress(ipAddress) != null)
             userInsertInfoService.deleteByIpAddress(ipAddress);
 
-        String ramList = compareService.getMatchingRam(ipAddress).getRamName();
-        if( ramList == null) {
-            ramList = "Samsung M471A1K43BB1-CTD";
-        }
-
+        String cpuList = compareService.getMatchingCpu(ipAddress);
+        String gpuList = compareService.getMatchingGpu(ipAddress);
+        String ramList = compareService.getMatchingRam(ipAddress);
+        System.out.println("mySPec"+ ramList);
         UserInsertInfo userInsertInfo = UserInsertInfo.builder()
                 .ipAddress(ipAddress)
-                .selectedCpu(compareService.getMatchingCpu(ipAddress).getCpuName())
-                .selectedGpu(compareService.getMatchingGpu(ipAddress).getGpuName())
+                .selectedCpu(cpuList)
+                .selectedGpu(gpuList)
                 .selectedRam(ramList)
                 .build();
 
@@ -97,8 +96,16 @@ public class DataController {
     // cpu gpu rank순으로 위아래 50개 보내기
     @PostMapping("/myCpuRanking")
     public List<CpuList> getMyCpuRank(@RequestBody String cpu) {
+        System.out.println(cpu);
         List<CpuList> cpuList = new ArrayList<>();
         String decodedCpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(decodedCpu);
+        if(decodedCpu.equals("none")) { // 없으면 100위까지만 보내주기
+            cpuList = cpuListService.orderByCpuRank();
+            cpuList.subList(100, cpuList.size()).clear();
+            return cpuList;
+        }
+
         int rank = cpuListService.findByName(decodedCpu).getCpuRank();
         if(rank <= 25)
             rank = 1;
@@ -114,8 +121,16 @@ public class DataController {
 
     @PostMapping("/myGpuRanking")
     public List<GpuList> getMyGpuRank(@RequestBody String gpu) {
+        System.out.println(gpu);
         List<GpuList> gpuList = new ArrayList<>();
         String decodedGpu = URLDecoder.decode(gpu, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(decodedGpu);
+        if(decodedGpu.equals("none")) { // 없으면 100위까지만 보내주기
+            gpuList = gpuListService.orderByGpuRank();
+            gpuList.subList(100, gpuList.size()).clear();
+            return gpuList;
+        }
+
         int rank = gpuListService.findByName(decodedGpu).getGpuRank();
         if(rank <= 25)
             rank = 1;
@@ -132,13 +147,21 @@ public class DataController {
     // ram latency기준으로 +-1값인 객체 전송
     @PostMapping("/myRamRanking")
     public List<RamList> getMyRamRank(@RequestBody String ram) {
+        System.out.println(ram);
         List<RamList> ramList = new ArrayList<>();
+        System.out.println(ram);
         ram = URLDecoder.decode(ram, StandardCharsets.UTF_8).replace("=","");
+        System.out.println(ram);
+        if(ram.equals("none")) { // 없으면 100위까지만 보내주기
+            ramList = ramListService.findAll();
+            ramList.subList(100, ramList.size()).clear();
+            return ramList;
+        }
+
         int latency = ramListService.findByName(ram).getRamLatency();
 
         for(int i = latency - 1; i <= latency + 1; i++)
             ramList.addAll(ramListService.findByRamLatency(i));
-
         return ramList;
     }
 
@@ -171,6 +194,7 @@ public class DataController {
         return bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu);
     }
 
+    // 5% 이하의 보틀넥 추천 cpu gpu 보내기
     @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
         cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
@@ -178,7 +202,7 @@ public class DataController {
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
             int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
-            if(value < 5)
+            if(value < 50)
                 recBottleNecks.add(bottleNeck1);
         }
         return recBottleNecks;
@@ -191,7 +215,7 @@ public class DataController {
         List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
             int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
-            if(value < 5)
+            if(value < 50)
                 recBottleNecks.add(bottleNeck1);
         }
         return recBottleNecks;

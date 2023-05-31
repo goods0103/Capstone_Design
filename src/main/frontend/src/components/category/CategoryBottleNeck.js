@@ -81,8 +81,6 @@ function CategoryBottleNeck() {
                             }),
                         }}
                     />
-                    {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
-                    {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
 
@@ -120,11 +118,14 @@ function CategoryBottleNeck() {
                             }),
                         }}
                     />
-                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
-                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
-                <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.btnSubmitHover}>Result</button></Link>
+                {
+                    selectedCpu && selectedGpu ? (
+                        <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button type="submit" className={styles.btnSubmitHover}>Result</button></Link>
+                    ) : (
+                        <Link to={`/InsertCategoryBottleNeck?gpu=${selectedGpu.value}&cpu=${selectedCpu.value}`}><button disabled type="submit" className={styles.btnSubmitHoverDisable2}>Result</button></Link>                    )
+                }
             </form>
         </>
     );

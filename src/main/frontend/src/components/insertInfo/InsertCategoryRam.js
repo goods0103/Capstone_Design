@@ -40,46 +40,6 @@ function InsertCategoryRam() {
         <>
             <div className={styles.bigFrame}>
             <button className={styles.move} onClick={() => scrollToMySpec(data2)}>내 스펙으로 이동</button>
-                {/*<table className={styles.cssTable}>*/}
-                {/*    <tr>*/}
-                {/*        <th className={styles.cssTh}>ram_image</th>*/}
-                {/*        <th className={styles.cssTh}>ram_name</th>*/}
-                {/*        <th className={styles.cssTh}>ram_size</th>*/}
-                {/*        <th className={styles.cssTh}>ram_latency</th>*/}
-                {/*        <th className={styles.cssTh}>ram_read</th>*/}
-                {/*        <th className={styles.cssTh}>ram_write</th>*/}
-                {/*    </tr>*/}
-                {/*    {ramList.map((ram) => (*/}
-                {/*        <tr  data-ram-name={ram.ramName}>*/}
-                {/*            <td className={styles.cssTd} style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderLeft: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*            <img src="" alt="ram_image" className={styles.tableImg}/></td>*/}
-                {/*            <td className={styles.cssTd} style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*                {ram.ramName}</td>*/}
-                {/*            <td className={styles.cssTd} style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*                {ram.ramSize}</td>*/}
-                {/*            <td className={styles.cssTd} style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*                {ram.ramLatency}</td>*/}
-                {/*            <td className={styles.cssTd} style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*                {ram.ramRead}</td>*/}
-                {/*            <td className={styles.cssTd}  style={{*/}
-                {/*                borderBottom: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderTop: data2 === ram.ramName ? "2px solid red" : "1px solid white",*/}
-                {/*                borderRight: data2 === ram.ramName ? "2px solid red" : "1px solid white"}}>*/}
-                {/*                {ram.ramWrite}</td>*/}
-                {/*        </tr>*/}
-                {/*    ))}*/}
-                {/*</table>*/}
                 <div className={styles.cssTable}>
                     <Table striped bordered hover variant="dark">
                         <thead>

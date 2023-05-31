@@ -291,6 +291,33 @@ input:focus {
     animation-duration: 3.0s;
     animation-fill-mode: both;
   }
+
+.btnSubmitHoverDisable2 {
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    font-family: Helvetica, sans-serif;
+
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0 1px 5px 0 rgba(49, 196, 190, 0.75);
+    background-image: linear-gradient(to right, #aae1, #2343, #6245, #9867);
+
+    /* 애니메이션 적용. 2개의 애니메이션 */
+    animation-name: slide-up;
+    animation-duration: 3.0s;
+    animation-fill-mode: backwards;
+}
+
   .btnSubmitHover:hover {
     background-position: 100% 0;
     -o-transition: all .4s ease-in-out;
@@ -318,7 +345,7 @@ input:focus {
     background-color: #151515;
     border: 2px solid #30D5C8;
 
-    margin-left: 60%;
+    margin-left: 40%;
 
     font-style: normal;
 
