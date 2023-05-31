@@ -47,11 +47,6 @@ export const MainPage = () => {
           alt="First slide"
         />
       </div>
-      
-      
-      {/* <div className={styles.frame}>
-      
-      </div> */}
     </div>
   );
 };

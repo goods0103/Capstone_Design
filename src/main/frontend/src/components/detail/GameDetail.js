@@ -33,16 +33,6 @@ function GameDetail() {
             });
     }, []);
 
-    // useEffect(() => {
-    //     axios.post("/category/game1/detail2", lastPart)
-    //         .then(response => {
-    //             setGameInfo(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, []);
-
     useEffect(() => {
         axios.post('/compare', {lastPart})
             .then(response => {
@@ -274,59 +264,6 @@ function GameDetail() {
 
                     </div>
                     <span>기본 정보</span>
-                    {/*<table>*/}
-                    {/*    <tr>*/}
-                    {/*        <td>제작</td>*/}
-                    {/*        <td>{gameOriginInfo.developer}</td>*/}
-                    {/*    </tr>*/}
-                    {/*    <tr>*/}
-                    {/*        <td>배급</td>*/}
-                    {/*        <td>{gameOriginInfo.publisher}</td>*/}
-                    {/*    </tr>*/}
-                    {/*    <tr>*/}
-                    {/*        <td>출시</td>*/}
-                    {/*        <td>{gameOriginInfo.releaseDate}</td>*/}
-                    {/*    </tr>*/}
-                    {/*    <tr>*/}
-                    {/*        <td>시스템</td>*/}
-                    {/*        <td><span onClick={() => minimum(flag)}>최소사양</span></td>*/}
-                    {/*        <td><span onClick={() => recommend(flag)}>권장사양</span></td>*/}
-                    {/*    </tr>*/}
-                    {/*</table>*/}
-                    {/*{flag===1 && (<div>*/}
-                    {/*        <table>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>CPU</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameCpu}</td>*/}
-                    {/*            </tr>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>그래픽</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameGpu}</td>*/}
-                    {/*            </tr>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>램</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.minimumGameRam}</td>*/}
-                    {/*            </tr>*/}
-                    {/*        </table>*/}
-                    {/*    </div>*/}
-                    {/*    )}*/}
-                    {/*{flag===2 && (<div>*/}
-                    {/*        <table className={styles.leftAlign}>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>CPU</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameCpu}</td>*/}
-                    {/*            </tr>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>그래픽</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameGpu}</td>*/}
-                    {/*            </tr>*/}
-                    {/*            <tr>*/}
-                    {/*                <td>램</td>*/}
-                    {/*                <td style={{ textAlign: 'left' }}>{gameOriginInfo.recommendedGameRam}</td>*/}
-                    {/*            </tr>*/}
-                    {/*        </table>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
                     <ul className={styles.ul}>
                         <li>제작 {gameOriginInfo.developer}</li>
                         <li>배급 {gameOriginInfo.publisher}</li>

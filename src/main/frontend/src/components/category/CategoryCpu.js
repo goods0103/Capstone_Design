@@ -13,7 +13,6 @@ import {
     faList,
     faMagnifyingGlass
 } from '@fortawesome/free-solid-svg-icons'
-import { faSquareCaretLeft, faSquareCaretRight } from '@fortawesome/free-solid-svg-icons';
 import Table from 'react-bootstrap/Table';
 
 function CategoryCpu() {

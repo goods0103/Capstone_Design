@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./category.module.css"
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import {Link} from "react-router-dom";
-import {ListGroup} from "react-bootstrap";
-import MyBottleNeck from "../myInfo/MyBottleNeck";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBarsStaggered, faCircleInfo, faDesktop, faFile, faFileCircleXmark} from "@fortawesome/free-solid-svg-icons";
 
@@ -18,24 +14,6 @@ export default function ShowInsertInfo({infoName, infoMark, infoRank, infoValue,
 
     return(
         <div className={`${styles.divChild} ${styles.divChildCpuAnimation}`}>
-            {/*<div className={styles.infoSpecTitle}>CPU</div>*/}
-            {/*<img*/}
-            {/*    className={styles.image}*/}
-            {/*    src={infoUrl}*/}
-            {/*    alt="cpu_image"*/}
-            {/*/><br/><br/>*/}
-            {/*<div className={styles.infoSpecTitle}>{infoName}</div>*/}
-            {/*    <div className={styles.urlLabel}><Link to={`/CpuSpec/${infoId}`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>*/}
-            {/*<hr className={styles.hrStyle}/>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Mark Rating</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoMark}</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Rank</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoRank}</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Value</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoValue}</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Price</div>*/}
-            {/*<div className={styles.infoSpecSub}>₩{infoPrice}</div>*/}
-            {/*<hr className={styles.hrStyle}/>*/}
             {infoName ? (
                 <div>
                     <div className={styles.infoSpecTitle}>CPU</div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
-import CategoryBar from "./CategoryBar";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {Link} from "react-router-dom";

@@ -14,20 +14,6 @@ function ShowMySpec() {
     const downloadFile = async () => {
         setFlag(true);
         setWaring("시스템 정보를 불러오기 위한 파일을 다운로드 중입니다.!!!");
-        // const response = await axios({
-        //     url: 'http://localhost:12000/ShowMySpec',
-        //     method: 'GET',
-        //     responseType: 'blob', // 파일 다운로드를 위한 설정
-        // });
-        //
-        // // 파일 다운로드를 위한 코드
-        // const url = window.URL.createObjectURL(new Blob([response.data]));
-        // const link = document.createElement('a');
-        // link.href = url;
-        // link.setAttribute('download', 'Scoop.exe');
-        // document.body.appendChild(link);
-        // link.click();
-        // link.parentNode.removeChild(link);
         const fetchData = async () => {
             try {
                 const response = await axios.get('/ShowMySpec', {

@@ -149,8 +149,6 @@ function GpuDetail() {
                     <br/><br/>
                     <h2>{gpuInfo.gpuName}</h2>
                     <p>{gpuInfo.gpuName}의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>
-                    {/*<h2>CPU 5600X</h2><br/>*/}
-                    {/*<p>CPU 5600X의 가격 및 세부 성능 정보는 아래에서 확인할 수 있습니다. 이것은 수천개의 PerformanceTest 벤치마크 결과를 사용하여 만들어지며 매일 업데이트 됩니다.</p>*/}
                     <ul className={styles.ulCss}>
                         <li>첫 번째 그래프는 PassMark GPU 마크 측면에서 10개의 다른 일반(단일) GPU와 비교한 GPU의 상대적 성능을 보여줍니다.</li>
                         <li>두 번째 그래프는 달러당 GPUMark 측면에서 비용 대비 가치를 보여줍니다.</li>
@@ -164,7 +162,6 @@ function GpuDetail() {
                         <thead>
                         <tr>
                             <th colSpan={2} className={styles.tableDetailTh}>{gpuInfo.gpuName}</th>
-                            {/*<th colSpan={2}>AMD Ryzen 5 5600X</th>*/}
                             <th style={{textAlign: 'center'}} className={styles.tableDetailTh2}>Average GPU Mark</th>
                         </tr>
                         </thead>
@@ -176,7 +173,6 @@ function GpuDetail() {
                                 <div>
                                     <img src={"https://www.cpubenchmark.net/images/speedicon.svg"} alt="cpu_image" className={styles.tableDetailImg}/>
                                     <div className={styles.detailMark}>{gpuInfo.gpuMark}</div><br/>
-                                    {/*<div>Single Thread Rating: {gpuInfoDetail.str}</div>*/}
                                     <Link to={`/gpuCompare/?id=${lastPart}`}>
                                         <button className={styles.buttonCompareDetail}>
                                             <FontAwesomeIcon icon={faPlus} shake size="xl" style={{color: "#ffffff",}} />&nbsp;COMPARE
@@ -193,9 +189,6 @@ function GpuDetail() {
                             <td className={styles.tableDetailTd}><strong>Typical TDP:</strong> {gpuInfoDetail.tdp}</td>
                             <td className={styles.tableDetailTd}></td>
                         </tr>
-                        {/*<tr>*/}
-                        {/*    <td colSpan={2} className={styles.tableDetailTd}>Cache Size: {gpuInfoDetail.cache}</td>*/}
-                        {/*</tr>*/}
                         <tr>
                             <td colSpan={2} style={{height: '2.5rem'}}></td>
                         </tr>

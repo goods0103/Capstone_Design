@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./category.module.css"
 import axios from 'axios';
-import CategoryBar from "./CategoryBar";
-import Select from "react-select";
 import {Link} from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import {
@@ -28,7 +26,6 @@ function CategoryGame() {
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(100);
     const [flag, setFlag] = useState(true);
-    const [game, setGame] = useState({});
     // 필터 선택여부를 위한 useState
     const [selectedFilter, setSelectedFilter] = useState("none");
     //검색을 위한 useState
@@ -45,7 +42,6 @@ function CategoryGame() {
                     label: cpus.gameName
                 }));
                 setGameOption(cpus);
-                // setGameList(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -53,32 +49,6 @@ function CategoryGame() {
 
         fetchData();
     }, []);
-
-
-
-    // useEffect(() => {
-    //     const fetchMinimumList = async () => {
-    //         try {
-    //             const response = await axios.get('/compare');
-    //             // setMinimumList(response.data);
-    //             setGameList(response.data);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //
-    //     fetchMinimumList();
-    // }, []);
-
-    // useEffect(() => {
-    //     axios.get('/compare2')
-    //         .then(response => {
-    //             setRecommendedList(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, []);
 
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
@@ -129,31 +99,6 @@ function CategoryGame() {
                     {/*<button className={styles.buttonTotalList} onClick={() => showTotalList()}>검색 초기화</button>*/}
                 </form>
                 {flag ? (
-                    // <div className={styles.cssTable}>
-                    //     <Table striped bordered hover variant="dark">
-                    //         <thead>
-                    //             <tr>
-                    //                 <th className={styles.cssTh}>game_image</th>
-                    //                 <th className={styles.cssTh}>game_name</th>
-                    //                 <th className={styles.cssTh}>game_min</th>
-                    //                 <th className={styles.cssTh}>game_rec</th>
-                    //             </tr>
-                    //         </thead>
-                    //         <tbody>
-                    //             {slicedData.map((game) => {
-                    //                 return (
-                    //                     <tr data-game-name={game.gameName}>
-                    //                         <td><img src={game.gameImg} alt="game_image" className={styles.tableImg}/></td>
-                    //                         <td><Link to={`/GameSpec/${game.gameName}`}>{game.gameName}</Link></td>
-                    //                         <td>{game.minState}</td>
-                    //                         <td>{game.recState}</td>
-                    //
-                    //                     </tr>
-                    //                 );
-                    //             })}
-                    //         </tbody>
-                    //     </Table>
-                    // </div>
                         <div className={styles.cssTableGame}>
                             {slicedData.map((game) => {
                                 return (

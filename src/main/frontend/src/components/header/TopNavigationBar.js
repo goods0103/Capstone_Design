@@ -48,10 +48,6 @@ export const TopNavigationBar = ({ cart }) => {
         {count === 1 && <CategoryBar className={styles.categoryBarCSS}></CategoryBar>}
         {count === 2 && <CategoryBar2 className={styles.categoryBarCSS}></CategoryBar2>}
         {count === 3 && <CategoryBar3 className={styles.categoryBarCSS}></CategoryBar3>}
-        {/*<div className={styles.input_wrap}>*/}
-        {/*  <input type="text" placeholder="상품을 검색해보세요!" />*/}
-        {/*  <img src="/images/icon-search.svg" alt="search" />*/}
-        {/*</div>*/}
       </div>
 
       {count===1 && <div className={styles.menu}>

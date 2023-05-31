@@ -10,24 +10,6 @@ import {faBarsStaggered, faFile, faFileCircleXmark} from "@fortawesome/free-soli
 export default function ShowInsertInfoRam({infoName, infoType, infoSize, infoLatency, infoRead, infoWrite, infoUrl, infoId}) {
     return(
         <div className={`${styles.divChild} ${styles.divChildRamAnimation}`}>
-            {/*<div className={styles.infoSpecTitle}>RAM</div>*/}
-            {/*<img*/}
-            {/*    className={styles.image}*/}
-            {/*    src={infoUrl}*/}
-            {/*    alt="gpu_image"*/}
-            {/*/> <br/><br/>*/}
-            {/*<div className={styles.infoSpecTitle}>{infoName}</div>*/}
-            {/*    <div className={styles.urlLabel}><Link to={`/InsertCategoryRam`} className={styles.linkUrl}><FontAwesomeIcon icon={faBarsStaggered} bounce /> Learn more</Link></div>*/}
-            {/*<hr className={styles.hrStyle}/>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Type & Size</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoType}&nbsp;{infoSize}</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>Latency (ns)</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoLatency}</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>읽기 속도</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoRead} (GB/s)</div>*/}
-            {/*<div className={styles.infoSpecSubTitle}>쓰기 속도</div>*/}
-            {/*<div className={styles.infoSpecSub}>{infoWrite} (GB/s)</div>*/}
-            {/*<hr className={styles.hrStyle}/>*/}
             {infoName ? (
                 <div>
                     <div className={styles.infoSpecTitle}>RAM</div>

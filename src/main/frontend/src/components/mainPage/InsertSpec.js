@@ -94,11 +94,6 @@ function InsertSpec() {
         dispatch({
             type:'3',
         });
-
-        // if(!(selectedCpu && selectedGpu && selectedRam)) {
-        //     ToastMessage();
-        // }
-
     }
     useEffect(() => {
         localStorage.setItem("state", JSON.stringify(count));
@@ -142,8 +137,6 @@ function InsertSpec() {
                             }),
                         }}
                     />
-                    {/*<label htmlFor="cpuSelect">Selected Cpu : &nbsp;</label>*/}
-                    {/*<input name = "cpuSelect" className={styles.selectTagShow} value={selectedCpu ? selectedCpu.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
 
@@ -177,8 +170,6 @@ function InsertSpec() {
                             }),
                         }}
                     />
-                    {/*<label htmlFor="gpuSelect">Selected Gpu : &nbsp;</label>*/}
-                    {/*<input name = "gpuSelect" className={styles.selectTagShow} value={selectedGpu ? selectedGpu.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
 
@@ -213,8 +204,6 @@ function InsertSpec() {
                             }),
                         }}
                     />
-                    {/*<label htmlFor="ramSelect">Selected Ram : &nbsp;</label>*/}
-                    {/*<input name = "ramSelect" className={styles.selectTagShow} value={selectedRam ? selectedRam.label : ''} />*/}
                 </div>
                 <br/><br/><br/>
                 {
@@ -224,7 +213,6 @@ function InsertSpec() {
                         <Link to={'/SelectSpec'}><button disabled type="submit" onClick={saveInsertSpec} className={styles.btnSubmitHoverDisable}>RESULT</button></Link>
                     )
                 }
-                {/*<Link to={'/SelectSpec'}><button type="submit" onClick={saveInsertSpec} className={styles.btnSubmitHover}>RESULT</button></Link>*/}
             </form>
         </>
     );
