@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import styles from "./mainPage.module.css";
+import styles from "./eventBanner.module.css";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {useStateValue} from "../reducer/StateProvider";
