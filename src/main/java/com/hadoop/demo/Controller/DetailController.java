@@ -123,6 +123,7 @@ public class DetailController {
         return gameListService.findByName(decodedString);
     }
 
+    // chart 를 위해서 각각 구간별 개수 객체 만들어서 보내기
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
