@@ -28,26 +28,27 @@ function ShowMySpec() {
         // document.body.appendChild(link);
         // link.click();
         // link.parentNode.removeChild(link);
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('/ShowMySpec', {
-                    responseType: 'blob',
-                });
-
-                // 파일 다운로드를 위한 코드
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'Scoop.exe');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        fetchData();
+        // const fetchData = async () => {
+        //     try {
+        //         const response = await axios.get('/ShowMySpec', {
+        //             responseType: 'blob',
+        //         });
+        //
+        //         // 파일 다운로드를 위한 코드
+        //         const url = window.URL.createObjectURL(new Blob([response.data]));
+        //         const link = document.createElement('a');
+        //         link.href = url;
+        //         link.setAttribute('download', 'Scoop.exe');
+        //         document.body.appendChild(link);
+        //         link.click();
+        //         document.body.removeChild(link);
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // };
+        //
+        // fetchData();
+        window.location.href = 'https://d2iayfgafbyy52.cloudfront.net/Scoop.exe';
     };
 
     useEffect(() => {
