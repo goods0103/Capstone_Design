@@ -58,17 +58,6 @@ function InsertInfoBottleNeck(props) {
         }
     },[postData] );
 
-    // useEffect(() => {
-    //     if (postData.cpuName && postData.gpuName) {
-    //         axios.post('/selectedBottleNeck', postData)
-    //             .then(response => {
-    //                 setBottleNeck(response.data);
-    //             })
-    //             .catch(error => {
-    //                 console.log(postData);
-    //                 console.log(error);
-    //             });
-    //     }}, [postData]);
 
     return (
         <>

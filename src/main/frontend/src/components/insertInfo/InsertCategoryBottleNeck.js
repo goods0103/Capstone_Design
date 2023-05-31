@@ -49,7 +49,6 @@ function InsertCategoryBottleNeck() {
                 ];
                 setData(newData);
                 if (response.data.cpuBottleNeckValue > response.data.gpuBottleNeckValue) {
-                    console.log("cpu 100");
                     setName(response.data.cpuInfo);
                     setOtherName(response.data.gpuInfo);
                     setFlag(2);
@@ -63,35 +62,30 @@ function InsertCategoryBottleNeck() {
 
                     axios.post("/bottleneck_info", response.data.gpuInfo)
                         .then(response => {
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                             setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                 } else if (response.data.cpuBottleNeckValue < response.data.gpuBottleNeckValue) {
-                    console.log("gpu 100");
                     setName(response.data.gpuInfo);
                     setOtherName(response.data.cpuInfo);
                     setFlag(1);
                     axios.post("/recommendCpu", response.data.cpuInfo)
                         .then(response => {
                             setBottleNeckGpu(response.data);
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                         })
                         .catch(error => {
                             console.log(error);
                         });
                     axios.post("/bottleneck_info2", response.data.cpuInfo)
                         .then(response => {
-                            console.log(response.data); // 서버로부터 받은 데이터를 콘솔에 출력한다.
                             setAllBottleNeck(response.data);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                 } else {
-                    console.log("same");
                     setFlag(3);
                 }
             })
