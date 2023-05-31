@@ -195,6 +195,7 @@ public class DataController {
         return bottleNeckService.searchByCpuInfoAndGpuInfo(selectedCpu, selectedGpu);
     }
 
+    // 5% 이하의 보틀넥 추천 cpu gpu 보내기
     @PostMapping("/recommendCpu")
     public List<BottleNeck> recommendCpu(@RequestBody String cpu){
         cpu = URLDecoder.decode(cpu, StandardCharsets.UTF_8).replace("=","");
@@ -202,7 +203,7 @@ public class DataController {
         List<BottleNeck> bottleNecks = bottleNeckService.findByCpuName(cpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
             int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
-            if(value < 5)
+            if(value < 50)
                 recBottleNecks.add(bottleNeck1);
         }
         return recBottleNecks;
@@ -215,7 +216,7 @@ public class DataController {
         List<BottleNeck> bottleNecks = bottleNeckService.findByGpuName(gpu);
         for(BottleNeck bottleNeck1 : bottleNecks){
             int value = Math.abs(bottleNeck1.getCpuBottleNeckValue() - bottleNeck1.getGpuBottleNeckValue());
-            if(value < 5)
+            if(value < 50)
                 recBottleNecks.add(bottleNeck1);
         }
         return recBottleNecks;
