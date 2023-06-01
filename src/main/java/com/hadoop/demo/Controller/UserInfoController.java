@@ -58,27 +58,6 @@ public class UserInfoController {
         this.sink = Sinks.many().multicast().onBackpressureBuffer();
     }
 
-//    @GetMapping("/ShowMySpec")
-//    public ResponseEntity<Resource> downloadFile() throws IOException {
-//        // 다운로드할 파일 경로
-//        // 다운로드할 파일 경로
-//        Resource resource = new ClassPathResource("Scoop.exe");
-//
-//        // InputStreamResource 생성
-//        InputStreamResource inputStreamResource = new InputStreamResource(resource.getInputStream());
-//
-//        // Content-Disposition 헤더를 설정하여 파일 이름 지정
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-Disposition", "attachment; filename=Scoop.exe");
-//
-//        // ResponseEntity에 InputStreamResource와 headers 설정
-//        return ResponseEntity.ok()
-//                .headers(headers)
-//                .contentLength(resource.contentLength())
-//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-//                .body(inputStreamResource);
-//    }
-
 
     @GetMapping("/api/spring")
     public ResponseEntity<Void> cpu(){
@@ -228,4 +207,25 @@ public class UserInfoController {
         return popularSpecListService.searchSelectGpuByPopular(gpuId.getLastPart());
     }
 
+    // local로 Scoop.exe 실행 시 사용
+    //    @GetMapping("/ShowMySpec")
+//    public ResponseEntity<Resource> downloadFile() throws IOException {
+//        // 다운로드할 파일 경로
+//        // 다운로드할 파일 경로
+//        Resource resource = new ClassPathResource("Scoop.exe");
+//
+//        // InputStreamResource 생성
+//        InputStreamResource inputStreamResource = new InputStreamResource(resource.getInputStream());
+//
+//        // Content-Disposition 헤더를 설정하여 파일 이름 지정
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Disposition", "attachment; filename=Scoop.exe");
+//
+//        // ResponseEntity에 InputStreamResource와 headers 설정
+//        return ResponseEntity.ok()
+//                .headers(headers)
+//                .contentLength(resource.contentLength())
+//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+//                .body(inputStreamResource);
+//    }
 }

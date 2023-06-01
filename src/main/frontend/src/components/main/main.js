@@ -6,6 +6,7 @@ import { getProducts } from "../../service/fetcher";
 import CategoryBar from "../category/CategoryBar";
 
 export const Main = ({ convertPrice, products, setProducts }) => {
+
   // const sortProduct = (type) => {
   //   if (type === "recent") {
   //     const newProduct = [...products];
